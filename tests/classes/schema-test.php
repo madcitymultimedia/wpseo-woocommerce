@@ -1033,6 +1033,8 @@ class Schema_Test extends TestCase {
 			],
 		];
 
+		Monkey\Filters\expectApplied( 'wpseo_schema_product' )->once();
+
 		$expected = [
 			'@type'            => 'Product',
 			'@id'              => $canonical . '#product',
