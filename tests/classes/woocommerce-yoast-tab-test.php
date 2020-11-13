@@ -19,9 +19,9 @@ class WooCommerce_Yoast_Tab_Test extends TestCase {
 	 */
 	public function test_construct() {
 		$instance = new WPSEO_WooCommerce_Yoast_Tab();
-		$this->assertTrue( \has_filter( 'woocommerce_product_data_tabs', [ $instance, 'yoast_seo_tab' ] ) );
-		$this->assertTrue( \has_action( 'woocommerce_product_data_panels', [ $instance, 'add_yoast_seo_fields' ] ) );
-		$this->assertTrue( \has_action( 'save_post', [ $instance, 'save_data' ] ) );
+		$this->assertSame( 10, \has_filter( 'woocommerce_product_data_tabs', [ $instance, 'yoast_seo_tab' ] ) );
+		$this->assertSame( 10, \has_action( 'woocommerce_product_data_panels', [ $instance, 'add_yoast_seo_fields' ] ) );
+		$this->assertSame( 10, \has_action( 'save_post', [ $instance, 'save_data' ] ) );
 	}
 
 	/**

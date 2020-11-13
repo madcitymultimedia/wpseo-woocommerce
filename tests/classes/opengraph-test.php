@@ -40,9 +40,9 @@ class OpenGraph_Test extends TestCase {
 	public function test_construct() {
 		$og = new WPSEO_WooCommerce_OpenGraph();
 
-		$this->assertTrue( \has_filter( 'language_attributes', [ $og, 'product_namespace' ] ) );
-		$this->assertTrue( \has_filter( 'wpseo_opengraph_type', [ $og, 'return_type_product' ] ) );
-		$this->assertTrue( \has_action( 'wpseo_add_opengraph_additional_images', [ $og, 'set_opengraph_image' ] ) );
+		$this->assertSame( 11, \has_filter( 'language_attributes', [ $og, 'product_namespace' ] ) );
+		$this->assertSame( 10, \has_filter( 'wpseo_opengraph_type', [ $og, 'return_type_product' ] ) );
+		$this->assertSame( 10, \has_action( 'wpseo_add_opengraph_additional_images', [ $og, 'set_opengraph_image' ] ) );
 	}
 
 	/**

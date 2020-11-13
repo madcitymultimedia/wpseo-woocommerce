@@ -43,8 +43,9 @@ class Schema_Test extends TestCase {
 	public function test_construct() {
 		$schema = new WPSEO_WooCommerce_Schema( '3.9' );
 
-		$this->assertTrue( \has_filter( 'woocommerce_structured_data_product', [ $schema, 'change_product' ] ) );
-		$this->assertTrue(
+		$this->assertSame( 10, \has_filter( 'woocommerce_structured_data_product', [ $schema, 'change_product' ] ) );
+		$this->assertSame(
+			10,
 			\has_filter(
 				'woocommerce_structured_data_type_for_page',
 				[
@@ -53,8 +54,8 @@ class Schema_Test extends TestCase {
 				]
 			)
 		);
-		$this->assertTrue( \has_filter( 'wpseo_schema_webpage', [ $schema, 'filter_webpage' ] ) );
-		$this->assertTrue( \has_action( 'wp_footer', [ $schema, 'output_schema_footer' ] ) );
+		$this->assertSame( 10, \has_filter( 'wpseo_schema_webpage', [ $schema, 'filter_webpage' ] ) );
+		$this->assertSame( 10, \has_action( 'wp_footer', [ $schema, 'output_schema_footer' ] ) );
 
 		$this->assertFalse(
 			\has_filter(
@@ -74,7 +75,7 @@ class Schema_Test extends TestCase {
 	 */
 	public function test_construct_old_wc() {
 		$schema = new WPSEO_WooCommerce_Schema( '3.8' );
-		$this->assertTrue( \has_filter( 'woocommerce_structured_data_review', [ $schema, 'change_reviewed_entity' ] ) );
+		$this->assertSame( 10, \has_filter( 'woocommerce_structured_data_review', [ $schema, 'change_reviewed_entity' ] ) );
 	}
 
 	/**
