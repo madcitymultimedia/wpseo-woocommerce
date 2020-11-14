@@ -17,9 +17,6 @@ abstract class TestCase extends YoastTestCase {
 	protected function set_up() {
 		parent::set_up();
 
-		$this->stubEscapeFunctions();
-		$this->stubTranslationFunctions();
-
 		Monkey\Functions\stubs(
 			[
 				// Using `null` makes that function return it's first argument.

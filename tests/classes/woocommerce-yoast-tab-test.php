@@ -50,14 +50,14 @@ class WooCommerce_Yoast_Tab_Test extends TestCase {
 		\ob_start();
 
 		\define( 'WPSEO_WOO_PLUGIN_FILE', './wpseo-woocommerce.php' );
+		$this->stubTranslationFunctions();
+		$this->stubEscapeFunctions();
+
 		Functions\stubs(
 			[
 				'get_the_ID'      => 123,
 				'get_post_meta'   => 'gtin8',
 				'plugin_dir_path' => './',
-				'_e'              => null,
-				'esc_attr'        => null,
-				'esc_html_e'      => null,
 				'wp_nonce_field'  => static function ( $action, $name ) {
 					return '<input type="hidden" id="" name="' . $name . '" value="' . $action . '" />';
 				},
@@ -191,12 +191,8 @@ class WooCommerce_Yoast_Tab_Test extends TestCase {
 	 * @covers WPSEO_WooCommerce_Yoast_Tab::input_field_for_identifier
 	 */
 	public function test_input_field_for_identifier() {
-		Functions\stubs(
-			[
-				'esc_attr' => null,
-				'esc_html' => null,
-			]
-		);
+
+		$this->stubEscapeFunctions();
 
 		\ob_start();
 		$instance = new Yoast_Tab_Double();

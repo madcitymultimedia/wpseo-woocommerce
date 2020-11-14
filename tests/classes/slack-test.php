@@ -73,6 +73,8 @@ class Slack_Test extends TestCase {
 
 		$presentation = $this->mock_presentation( $model );
 
+		$this->stubTranslationFunctions();
+
 		Monkey\Functions\expect( 'wc_get_product' )
 			->with( $model->object_id )
 			->andReturn( $product );
@@ -121,6 +123,8 @@ class Slack_Test extends TestCase {
 			->andReturn( true );
 
 		$presentation = $this->mock_presentation( $model );
+
+		$this->stubTranslationFunctions();
 
 		Monkey\Functions\expect( 'wc_get_product' )
 			->with( $model->object_id )
