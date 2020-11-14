@@ -9,3 +9,4 @@ phpcs.xml
 phpunit.xml
 yarn-error.log
 /js/dist/
+.phpunit.result.cache

@@ -79,12 +79,12 @@ before_install:
 
 install:
 - |
-  if [[ $TRAVIS_PHP_VERSION == "nightly" && "$PHPLINT" == "1" ]]; then
-    composer install --no-interaction --ignore-platform-reqs
+  if [[ $TRAVIS_PHP_VERSION == "nightly" ]]; then
+    travis_retry composer install --no-interaction --ignore-platform-reqs
   elif [[ "$PHPCS" == "1" || "$PHPUNIT" == "1" || "$PHPLINT" == "1" ]]; then
-    composer install --no-interaction
+    travis_retry composer install --no-interaction
   elif [[ "$TRAVIS_BUILD_STAGE_NAME" == "deploy" ]]; then
-    composer install --no-dev --no-interaction
+    travis_retry composer install --no-dev --no-interaction
   fi
 - if [[ "$CHECKJS" == "1" ]]; then yarn global add grunt-cli; yarn install; fi
 - if [[ "$SECURITY" == "1" ]]; then wget -P $SECURITYCHECK_DIR https://get.sensiolabs.org/security-checker.phar && chmod +x $SECURITYCHECK_DIR/security-checker.phar; fi
@@ -107,7 +107,7 @@ before_script:
   if [[ "$PHPUNIT" == "1" ]]; then
     git clone --depth=1 --branch="trunk" https://github.com/Yoast-dist/wordpress-seo.git $WP_DEVELOP_DIR/src/wp-content/plugins/wordpress-seo
     cd /tmp/wordpress/src/wp-content/plugins/wordpress-seo
-    composer install --no-dev --no-scripts --no-interaction --ignore-platform-reqs
+    travis_retry composer install --no-dev --no-scripts --no-interaction --ignore-platform-reqs
     cd -
   fi
 
@@ -151,6 +151,13 @@ script:
 - |
   if [[ "$PHPUNIT" == "1"  ]]; then
     travis_fold start "PHP.tests" && travis_time_start
+    composer test
+    travis_time_finish && travis_fold end "PHP.tests"
+  fi
+- |
+  if [[ $TRAVIS_PHP_VERSION == "nightly" ]]; then
+    travis_fold start "PHP.tests" && travis_time_start
+    travis_retry composer update yoast/wp-test-utils --with-dependencies --ignore-platform-reqs --no-interaction &&
     composer test
     travis_time_finish && travis_fold end "PHP.tests"
   fi
