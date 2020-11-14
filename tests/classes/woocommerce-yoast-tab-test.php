@@ -70,8 +70,8 @@ class WooCommerce_Yoast_Tab_Test extends TestCase {
 		$output = \ob_get_contents();
 		\ob_end_clean();
 
-		$this->assertContains( 'yoast_seo[gtin8]', $output );
-		$this->assertContains( '<div id="yoast_seo" class="panel woocommerce_options_panel">', $output );
+		$this->assertStringContainsString( 'yoast_seo[gtin8]', $output );
+		$this->assertStringContainsString( '<div id="yoast_seo" class="panel woocommerce_options_panel">', $output );
 	}
 
 	/**
@@ -179,9 +179,9 @@ class WooCommerce_Yoast_Tab_Test extends TestCase {
 		$output = \ob_get_contents();
 		\ob_end_clean();
 
-		$this->assertContains( 'gtin8', $output );
-		$this->assertContains( 'GTIN 8', $output );
-		$this->assertContains( '12345678', $output );
-		$this->assertContains( 'yoast_identifier_gtin8', $output );
+		$this->assertStringContainsString( 'gtin8', $output );
+		$this->assertStringContainsString( 'GTIN 8', $output );
+		$this->assertStringContainsString( '12345678', $output );
+		$this->assertStringContainsString( 'yoast_identifier_gtin8', $output );
 	}
 }

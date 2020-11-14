@@ -107,6 +107,6 @@ class Product_Price_Amount_Presenter_Test extends TestCase {
 		$actual = $this->instance->get();
 
 		$this->assertSame( '11', $actual );
-		$this->assertInternalType( 'string', $actual );
+		$this->assertIsString( $actual );
 	}
 }

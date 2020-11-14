@@ -91,6 +91,6 @@ class Product_Condition_Presenter_Test extends TestCase {
 		$actual = $this->instance->get();
 
 		$this->assertSame( '123', $actual );
-		$this->assertInternalType( 'string', $actual );
+		$this->assertIsString( $actual );
 	}
 }
