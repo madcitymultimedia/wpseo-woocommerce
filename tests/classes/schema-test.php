@@ -10,8 +10,6 @@ use Yoast\WP\Woocommerce\Tests\Doubles\Schema_Double;
 use Yoast\WP\Woocommerce\Tests\Mocks\Schema_IDs;
 use Yoast\WP\Woocommerce\Tests\TestCase;
 
-use function Brain\Monkey\Functions\expect;
-
 /**
  * Class WooCommerce_Schema_Test.
  *
@@ -995,7 +993,7 @@ class Schema_Test extends TestCase {
 			->with( $base_url . '/example_image.jpg' )
 			->andReturn( $image_data );
 
-		expect( 'wp_strip_all_tags' )->twice()->andReturn( 'TestProduct' );
+		Functions\expect( 'wp_strip_all_tags' )->twice()->andReturn( 'TestProduct' );
 
 		$data = [
 			'@type'       => 'Product',
@@ -1179,7 +1177,7 @@ class Schema_Test extends TestCase {
 			->with( $image_data['@id'], $image_data['url'] )
 			->andReturn( $image_data );
 
-		expect( 'wp_strip_all_tags' )->twice()->andReturn( 'TestProduct' );
+		Functions\expect( 'wp_strip_all_tags' )->twice()->andReturn( 'TestProduct' );
 
 		$data = [
 			'@type'       => 'Product',
@@ -1296,7 +1294,7 @@ class Schema_Test extends TestCase {
 		$base_url     = 'http://local.wordpress.test/';
 		$canonical    = $base_url . 'product/test/';
 
-		expect( 'wp_strip_all_tags' )->twice()->andReturn( 'TestProduct' );
+		Functions\expect( 'wp_strip_all_tags' )->twice()->andReturn( 'TestProduct' );
 
 		$product = Mockery::mock( 'WC_Product' );
 		$product->expects( 'get_id' )->times( 6 )->with()->andReturn( $product_id );
@@ -1464,8 +1462,8 @@ class Schema_Test extends TestCase {
 		$primary_term = Mockery::mock( 'overload:WPSEO_Primary_Term' );
 		$primary_term->expects( 'get_primary_term' )->once()->with()->andReturn( $id );
 
-		expect( 'get_term' )->once()->with( $id )->andReturn( $wp_term );
-		expect( 'get_the_terms' )->never()->withAnyArgs();
+		Functions\expect( 'get_term' )->once()->with( $id )->andReturn( $wp_term );
+		Functions\expect( 'get_the_terms' )->never()->withAnyArgs();
 
 		$instance = new Schema_Double();
 		$actual   = $instance->get_primary_term_or_first_term( $taxonomy_name, $id );
@@ -1486,11 +1484,11 @@ class Schema_Test extends TestCase {
 		$primary_term = Mockery::mock( 'overload:WPSEO_Primary_Term' );
 		$primary_term->expects( 'get_primary_term' )->once()->with()->andReturn( false );
 
-		expect( 'get_term' )
+		Functions\expect( 'get_term' )
 			->never()
 			->withAnyArgs();
 
-		expect( 'get_the_terms' )
+		Functions\expect( 'get_the_terms' )
 			->once()
 			->with( $id, $taxonomy_name )
 			->andReturn(
@@ -1518,8 +1516,8 @@ class Schema_Test extends TestCase {
 		$primary_term = Mockery::mock( 'overload:WPSEO_Primary_Term' );
 		$primary_term->expects( 'get_primary_term' )->once()->with()->andReturn( false );
 
-		expect( 'get_term' )->never()->withAnyArgs();
-		expect( 'get_the_terms' )->once()->with( $id, $taxonomy_name )->andReturn( [] );
+		Functions\expect( 'get_term' )->never()->withAnyArgs();
+		Functions\expect( 'get_the_terms' )->once()->with( $id, $taxonomy_name )->andReturn( [] );
 
 		$instance = new Schema_Double();
 		$actual   = $instance->get_primary_term_or_first_term( $taxonomy_name, $id );
@@ -1607,7 +1605,7 @@ class Schema_Test extends TestCase {
 			Mockery::mock( 'Yoast\WP\SEO\Presenters\Open_Graph\Article_Author_Presenter' ),
 		];
 
-		expect( 'is_product' )
+		Functions\expect( 'is_product' )
 			->once()
 			->andReturn( true );
 
@@ -1627,7 +1625,7 @@ class Schema_Test extends TestCase {
 			Mockery::mock( 'Yoast\WP\SEO\Presenters\Open_Graph\Article_Author_Presenter' ),
 		];
 
-		expect( 'is_product' )
+		Functions\expect( 'is_product' )
 			->once()
 			->andReturn( false );
 
@@ -1691,7 +1689,7 @@ class Schema_Test extends TestCase {
 			]
 		);
 
-		expect( 'get_option' )
+		Functions\expect( 'get_option' )
 			->with( 'woocommerce_tax_display_shop' )
 			->andReturn( 'incl' );
 
