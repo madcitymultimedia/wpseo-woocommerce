@@ -24,10 +24,10 @@ class Slack_Test extends TestCase {
 	/**
 	 * Sets up the tests.
 	 */
-	public function setUp() {
-		$this->instance = new WPSEO_WooCommerce_Slack();
+	public function set_up() {
+		parent::set_up();
 
-		parent::setUp();
+		$this->instance = new WPSEO_WooCommerce_Slack();
 	}
 
 	/**

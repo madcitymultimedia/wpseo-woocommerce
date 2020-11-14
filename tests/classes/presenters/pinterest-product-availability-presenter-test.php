@@ -25,8 +25,8 @@ class Pinterest_Product_Availability_Presenter_Test extends TestCase {
 	/**
 	 * Initializes the test setup.
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 
 		// Needs to exist as WPSEO_WooCommerce_Abstract_Product_Presenter depends on it.
 		Mockery::mock( 'overload:Yoast\WP\SEO\Presenters\Abstract_Indexable_Tag_Presenter' );
