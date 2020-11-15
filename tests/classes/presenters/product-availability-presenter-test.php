@@ -44,9 +44,9 @@ class Product_Availability_Presenter_Test extends TestCase {
 	public function test_construct() {
 		$instance = new WPSEO_WooCommerce_Product_Availability_Presenter( $this->product, false, true );
 
-		$this->assertAttributeEquals( $this->product, 'product', $instance );
-		$this->assertAttributeSame( false, 'is_on_backorder', $instance );
-		$this->assertAttributeSame( true, 'is_in_stock', $instance );
+		$this->assertEquals( $this->product, $this->getPropertyValue( $instance, 'product' ) );
+		$this->assertSame( false, $this->getPropertyValue( $instance, 'is_on_backorder' ) );
+		$this->assertSame( true, $this->getPropertyValue( $instance, 'is_in_stock' ) );
 	}
 
 	/**
@@ -57,7 +57,10 @@ class Product_Availability_Presenter_Test extends TestCase {
 	public function test_tag_format() {
 		$instance = new WPSEO_WooCommerce_Product_Availability_Presenter( $this->product, false );
 
-		$this->assertAttributeSame( '<meta property="product:availability" content="%s" />', 'tag_format', $instance );
+		$this->assertSame(
+			'<meta property="product:availability" content="%s" />',
+			$this->getPropertyValue( $instance, 'tag_format' )
+		);
 	}
 
 	/**

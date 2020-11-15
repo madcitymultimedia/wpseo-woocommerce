@@ -51,7 +51,7 @@ class Product_Price_Amount_Presenter_Test extends TestCase {
 	 * @covers ::__construct
 	 */
 	public function test_construct() {
-		$this->assertAttributeEquals( $this->product, 'product', $this->instance );
+		$this->assertEquals( $this->product, $this->getPropertyValue( $this->instance, 'product' ) );
 	}
 
 	/**
@@ -60,7 +60,10 @@ class Product_Price_Amount_Presenter_Test extends TestCase {
 	 * @coversNothing
 	 */
 	public function test_tag_format() {
-		$this->assertAttributeEquals( '<meta property="product:price:amount" content="%s" />', 'tag_format', $this->instance );
+		$this->assertSame(
+			'<meta property="product:price:amount" content="%s" />',
+			$this->getPropertyValue( $this->instance, 'tag_format' )
+		);
 	}
 
 	/**
