@@ -30,6 +30,10 @@ You can find the FAQ [online here](https://kb.yoast.com/kb/category/woocommerce-
 
 Changelog
 =========
+### 13.8: December 2nd, 2020
+Enhancements:
+ * Makes the Schema Product type filterable.
+
 ### 13.7: October 27th, 2020
 Enhancements:
 
