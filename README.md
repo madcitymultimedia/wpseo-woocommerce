@@ -32,6 +32,7 @@ Changelog
 =========
 ### 13.8: December 2nd, 2020
 Enhancements:
+
  * Makes the Schema Product type filterable.
 
 ### 13.7: October 27th, 2020
