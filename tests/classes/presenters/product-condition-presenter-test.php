@@ -33,8 +33,8 @@ class Product_Condition_Presenter_Test extends TestCase {
 	/**
 	 * Initializes the test setup.
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 
 		// Needs to exist as WPSEO_WooCommerce_Abstract_Product_Presenter depends on it.
 		Mockery::mock( 'overload:Yoast\WP\SEO\Presenters\Abstract_Indexable_Tag_Presenter' );
@@ -51,7 +51,7 @@ class Product_Condition_Presenter_Test extends TestCase {
 	 * @covers \WPSEO_WooCommerce_Abstract_Product_Presenter::__construct
 	 */
 	public function test_construct() {
-		$this->assertAttributeEquals( $this->product, 'product', $this->instance );
+		$this->assertEquals( $this->product, $this->getPropertyValue( $this->instance, 'product' ) );
 	}
 
 	/**
@@ -60,7 +60,10 @@ class Product_Condition_Presenter_Test extends TestCase {
 	 * @coversNothing
 	 */
 	public function test_tag_format() {
-		$this->assertAttributeSame( '<meta property="product:condition" content="%s" />', 'tag_format', $this->instance );
+		$this->assertSame(
+			'<meta property="product:condition" content="%s" />',
+			$this->getPropertyValue( $this->instance, 'tag_format' )
+		);
 	}
 
 	/**
@@ -91,6 +94,6 @@ class Product_Condition_Presenter_Test extends TestCase {
 		$actual = $this->instance->get();
 
 		$this->assertSame( '123', $actual );
-		$this->assertInternalType( 'string', $actual );
+		$this->assertIsString( $actual );
 	}
 }

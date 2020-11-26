@@ -102,6 +102,8 @@ class Yoast_WooCommerce_Dependencies_Test extends TestCase {
 	 * @covers Yoast_WooCommerce_Dependencies::woocommerce_missing_error
 	 */
 	public function test_woocommerce_missing_error() {
+		$this->stubTranslationFunctions();
+
 		$expected = '<div class="error"><p>Please <a href="plugin-install.php?tab=search&type=term&s=woocommerce&plugin-search-input=Search+Plugins">install &amp; activate WooCommerce</a> to allow the Yoast WooCommerce SEO module to work.</p></div>';
 
 		$this->error_message_test( 'woocommerce_missing_error', $expected );
@@ -113,6 +115,8 @@ class Yoast_WooCommerce_Dependencies_Test extends TestCase {
 	 * @covers Yoast_WooCommerce_Dependencies::yoast_seo_missing_error
 	 */
 	public function test_yoast_seo_missing_error() {
+		$this->stubTranslationFunctions();
+
 		$expected = '<div class="error"><p>Please <a href="plugin-install.php?tab=search&type=term&s=yoast+seo&plugin-search-input=Search+Plugins">install &amp; activate Yoast SEO</a> to allow the Yoast WooCommerce SEO module to work.</p></div>';
 
 		$this->error_message_test( 'yoast_seo_missing_error', $expected );
@@ -124,6 +128,8 @@ class Yoast_WooCommerce_Dependencies_Test extends TestCase {
 	 * @covers Yoast_WooCommerce_Dependencies::wordpress_upgrade_error
 	 */
 	public function test_wordpress_upgrade_error() {
+		$this->stubTranslationFunctions();
+
 		$expected = '<div class="error"><p>Please upgrade WordPress to the latest version to allow WordPress and the Yoast WooCommerce SEO module to work properly.</p></div>';
 
 		$this->error_message_test( 'wordpress_upgrade_error', $expected );
@@ -135,6 +141,8 @@ class Yoast_WooCommerce_Dependencies_Test extends TestCase {
 	 * @covers Yoast_WooCommerce_Dependencies::yoast_seo_upgrade_error
 	 */
 	public function test_yoast_seo_upgrade_error() {
+		$this->stubTranslationFunctions();
+
 		$expected = '<div class="error"><p>Please upgrade the Yoast SEO plugin to the latest version to allow the Yoast WooCommerce SEO module to work.</p></div>';
 
 		$this->error_message_test( 'yoast_seo_upgrade_error', $expected );

@@ -8,7 +8,7 @@ use Mockery;
 use WPSEO_WooCommerce_Schema;
 use Yoast\WP\Woocommerce\Tests\Doubles\Schema_Double;
 use Yoast\WP\Woocommerce\Tests\Mocks\Schema_IDs;
-use Yoast\WP\Woocommerce\Tests\TestCase;
+use Yoast\WPTestUtils\BrainMonkey\TestCase;
 
 /**
  * Class WooCommerce_Schema_Test.
@@ -21,12 +21,30 @@ class Schema_Test extends TestCase {
 
 	/**
 	 * Test setup.
+	 *
+	 * Note: this test class doesn't extend the `Yoast\WP\Woocommerce\Tests\TestCase` class
+	 * as the default stubs declared in the `Yoast\WPTestUtils\BrainMonkey\YoastTestCase` interfer
+	 * with some mockery expectations set in the tests in this class.
+	 *
+	 * So, this test has to st the `get_option` and `get_site_option` expectations explicitly in this
+	 * `set_up()` method as these are not inherited from the parent TestCase.
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
+
 		if ( ! \defined( 'WC_VERSION' ) ) {
 			\define( 'WC_VERSION', '3.8.1' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound
 		}
+
+		Monkey\Functions\expect( 'get_option' )
+			->zeroOrMoreTimes()
+			->with( Mockery::anyOf( 'wpseo', 'wpseo_titles', 'wpseo_taxonomy_meta', 'wpseo_social', 'wpseo_ms' ) )
+			->andReturn( [] );
+
+		Monkey\Functions\expect( 'get_site_option' )
+			->zeroOrMoreTimes()
+			->with( Mockery::anyOf( 'wpseo', 'wpseo_titles', 'wpseo_taxonomy_meta', 'wpseo_social', 'wpseo_ms' ) )
+			->andReturn( [] );
 
 		Mockery::mock( 'overload:Yoast\WP\SEO\Config\Schema_IDs', new Schema_IDs() );
 

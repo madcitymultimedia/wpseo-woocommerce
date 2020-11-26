@@ -34,8 +34,8 @@ class Product_Price_Currency_Presenter_Test extends TestCase {
 	/**
 	 * Initializes the test setup.
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 
 		// Needs to exist as WPSEO_WooCommerce_Abstract_Product_Presenter depends on it.
 		Mockery::mock( 'overload:Yoast\WP\SEO\Presenters\Abstract_Indexable_Tag_Presenter' );
@@ -51,7 +51,7 @@ class Product_Price_Currency_Presenter_Test extends TestCase {
 	 * @covers ::__construct
 	 */
 	public function test_construct() {
-		$this->assertAttributeEquals( $this->product, 'product', $this->instance );
+		$this->assertEquals( $this->product, $this->getPropertyValue( $this->instance, 'product' ) );
 	}
 
 	/**
@@ -60,7 +60,10 @@ class Product_Price_Currency_Presenter_Test extends TestCase {
 	 * @coversNothing
 	 */
 	public function test_tag_format() {
-		$this->assertAttributeSame( '<meta property="product:price:currency" content="%s" />', 'tag_format', $this->instance );
+		$this->assertSame(
+			'<meta property="product:price:currency" content="%s" />',
+			$this->getPropertyValue( $this->instance, 'tag_format' )
+		);
 	}
 
 	/**

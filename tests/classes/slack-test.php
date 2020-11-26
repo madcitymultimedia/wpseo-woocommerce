@@ -24,10 +24,10 @@ class Slack_Test extends TestCase {
 	/**
 	 * Sets up the tests.
 	 */
-	public function setUp() {
-		$this->instance = new WPSEO_WooCommerce_Slack();
+	public function set_up() {
+		parent::set_up();
 
-		parent::setUp();
+		$this->instance = new WPSEO_WooCommerce_Slack();
 	}
 
 	/**
@@ -72,6 +72,8 @@ class Slack_Test extends TestCase {
 			->andReturn( false );
 
 		$presentation = $this->mock_presentation( $model );
+
+		$this->stubTranslationFunctions();
 
 		Monkey\Functions\expect( 'wc_get_product' )
 			->with( $model->object_id )
@@ -121,6 +123,8 @@ class Slack_Test extends TestCase {
 			->andReturn( true );
 
 		$presentation = $this->mock_presentation( $model );
+
+		$this->stubTranslationFunctions();
 
 		Monkey\Functions\expect( 'wc_get_product' )
 			->with( $model->object_id )
