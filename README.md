@@ -1,8 +1,8 @@
 WooCommerce Yoast SEO
 =====================
 Requires at least: 5.4
-Tested up to: 5.5
-Stable tag: 13.8-RC1
+Tested up to: 5.6
+Stable tag: 13.8
 Requires PHP: 5.6.20
 Depends: Yoast SEO, WooCommerce
 
@@ -32,6 +32,7 @@ Changelog
 =========
 ### 13.8: December 2nd, 2020
 Enhancements:
+
  * Makes the Schema Product type filterable.
 
 ### 13.7: October 27th, 2020
