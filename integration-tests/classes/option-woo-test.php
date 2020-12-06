@@ -11,15 +11,6 @@
 class WPSEO_Option_Woo_Test extends WPSEO_WooCommerce_UnitTestCase {
 
 	/**
-	 * Requires the test double.
-	 */
-	public static function setUpBeforeClass() {
-		parent::setUpBeforeClass();
-
-		require_once './integration-tests/doubles/option-woo-double.php';
-	}
-
-	/**
 	 * Gets the data from the data provider.
 	 *
 	 * @dataProvider validate_option_values

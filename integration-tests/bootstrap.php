@@ -51,6 +51,3 @@ if ( ! defined( 'WP_PLUGIN_DIR' ) || file_exists( WP_PLUGIN_DIR . '/wpseo-woocom
 	echo PHP_EOL, 'ERROR: Please check whether the WP_PLUGIN_DIR environment variable is set and set to the correct value. The unit test suite won\'t be able to run without it.', PHP_EOL;
 	exit( 1 );
 }
-
-// Include unit test base class.
-require_once __DIR__ . '/framework/woocommerce-unittestcase.php';
