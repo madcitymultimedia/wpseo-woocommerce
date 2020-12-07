@@ -9,6 +9,7 @@
 		convertErrorsToExceptions="true"
 		convertNoticesToExceptions="true"
 		convertWarningsToExceptions="true"
+		forceCoversAnnotation="true"
 		processIsolation="false"
 		stopOnError="false"
 		stopOnFailure="false"
@@ -23,7 +24,7 @@
 	</testsuites>
 
 	<filter>
-		<whitelist>
+		<whitelist addUncoveredFilesFromWhitelist="true" processUncoveredFilesFromWhitelist="false">
 			<directory>./classes</directory>
 			<file>./wpseo-woocommerce.php</file>
 		</whitelist>
