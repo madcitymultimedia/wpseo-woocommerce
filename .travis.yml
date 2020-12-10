@@ -19,17 +19,19 @@ jobs:
   fast_finish: true
   include:
     - php: 7.3.24
-      env: WP_VERSION=5.5 WP_MULTISITE=1 PHPUNIT=1 PHPCS=1 CHECKJS=1 SECURITY=1 TRAVIS_NODE_VERSION=lts/*
+      env: WP_VERSION=5.6 WP_MULTISITE=1 PHPUNIT=1 PHPCS=1 CHECKJS=1 SECURITY=1 TRAVIS_NODE_VERSION=lts/*
     - php: 5.6
-      env: WP_VERSION=5.4 PHPLINT=1 PHPUNIT=1
-    - php: 7.4
       env: WP_VERSION=5.5 PHPLINT=1 PHPUNIT=1
+    - php: 7.4
+      env: WP_VERSION=5.6 PHPLINT=1 PHPUNIT=1
     - php: 7.0
       env: WP_VERSION=master WP_MULTISITE=1 PHPUNIT=1
+    - php: 8.0
+      env: WP_VERSION=5.6 PHPLINT=1 PHPUNIT=1
     - php: "nightly"
       env: PHPLINT=1
     - stage: deploy
-      env: WP_VERSION=5.5
+      env: WP_VERSION=5.6
       if: tag IS present
       before_install:
         - openssl aes-256-cbc -K $encrypted_2b922af4d08d_key -iv $encrypted_2b922af4d08d_iv -in ./deploy_keys/wpseo_woo_deploy.enc -out ./deploy_keys/wpseo_woo_deploy -d
@@ -79,7 +81,7 @@ before_install:
 
 install:
 - |
-  if [[ $TRAVIS_PHP_VERSION == "nightly" ]]; then
+  if [[ ${TRAVIS_PHP_VERSION:0:1} == "8" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
     travis_retry composer install --no-interaction --ignore-platform-reqs
   elif [[ "$PHPCS" == "1" || "$PHPUNIT" == "1" || "$PHPLINT" == "1" ]]; then
     travis_retry composer install --no-interaction
@@ -143,20 +145,28 @@ script:
   fi
 # PHP Tests
 - |
-  if [[ "$PHPUNIT" == "1" ]]; then
+  if [[ "$PHPUNIT" == "1" && ${TRAVIS_PHP_VERSION:0:1} != "8" && $TRAVIS_PHP_VERSION != "nightly" ]]; then
     travis_fold start "PHP.tests" && travis_time_start
     composer integration-test
     travis_time_finish && travis_fold end "PHP.tests"
   fi
 - |
-  if [[ "$PHPUNIT" == "1"  ]]; then
+  if [[ "$PHPUNIT" == "1" ]] && [[ ${TRAVIS_PHP_VERSION:0:1} == "8" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
+    travis_fold start "PHP.tests" && travis_time_start
+    travis_retry composer require --dev phpunit/phpunit:"^7.5" --update-with-dependencies --ignore-platform-reqs --no-interaction &&
+    composer integration-test
+    travis_time_finish && travis_fold end "PHP.tests"
+  fi
+- |
+  if [[ "$PHPUNIT" == "1" && ${TRAVIS_PHP_VERSION:0:1} != "8" && $TRAVIS_PHP_VERSION != "nightly" ]]; then
     travis_fold start "PHP.tests" && travis_time_start
     composer test
     travis_time_finish && travis_fold end "PHP.tests"
   fi
 - |
-  if [[ $TRAVIS_PHP_VERSION == "nightly" ]]; then
+  if [[ "$PHPUNIT" == "1" ]] && [[ ${TRAVIS_PHP_VERSION:0:1} == "8" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
     travis_fold start "PHP.tests" && travis_time_start
+    travis_retry composer remove --dev phpunit/phpunit --no-update &&
     travis_retry composer update yoast/wp-test-utils --with-dependencies --ignore-platform-reqs --no-interaction &&
     composer test
     travis_time_finish && travis_fold end "PHP.tests"

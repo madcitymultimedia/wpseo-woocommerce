@@ -38,7 +38,7 @@
         "yoast/yoastcs": "^2.1.0",
         "php-parallel-lint/php-parallel-lint": "^1.2",
         "php-parallel-lint/php-console-highlighter": "^0.5",
-        "yoast/wp-test-utils": "^0.1.1"
+        "yoast/wp-test-utils": "^0.2.1"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
