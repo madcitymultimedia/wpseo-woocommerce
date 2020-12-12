@@ -33,7 +33,8 @@ class Schema_Test extends TestCase {
 		parent::set_up();
 
 		if ( ! \defined( 'WC_VERSION' ) ) {
-			\define( 'WC_VERSION', '3.8.1' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound
+			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound
+			\define( 'WC_VERSION', '3.8.1' );
 		}
 
 		Monkey\Functions\expect( 'get_option' )
