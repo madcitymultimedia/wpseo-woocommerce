@@ -93,7 +93,7 @@ class Yoast_WooCommerce_Dependencies_Test extends TestCase {
 		$wpseo_version = '14.0';
 		\define( 'WPSEO_VERSION', $wpseo_version );
 
-		$this->assertEquals( $wpseo_version, $class->get_yoast_seo_version() );
+		$this->assertSame( $wpseo_version, $class->get_yoast_seo_version() );
 	}
 
 	/**

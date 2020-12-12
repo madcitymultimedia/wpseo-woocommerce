@@ -51,7 +51,7 @@ class Product_Price_Amount_Presenter_Test extends TestCase {
 	 * @covers ::__construct
 	 */
 	public function test_construct() {
-		$this->assertEquals( $this->product, $this->getPropertyValue( $this->instance, 'product' ) );
+		$this->assertSame( $this->product, $this->getPropertyValue( $this->instance, 'product' ) );
 	}
 
 	/**
