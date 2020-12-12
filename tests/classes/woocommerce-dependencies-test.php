@@ -155,19 +155,18 @@ class Yoast_WooCommerce_Dependencies_Test extends TestCase {
 	 * @param string $expected Expected output.
 	 */
 	private function error_message_test( $function, $expected ) {
-		\ob_start();
+		$this->stubEscapeFunctions();
+
 		$class = Mockery::mock( Yoast_WooCommerce_Dependencies_Double::class )->makePartial();
 
 		Functions\stubs(
 			[
-				'esc_url'   => null,
 				'admin_url' => null,
 			]
 		);
-		$class->$function();
-		$output = \ob_get_contents();
-		\ob_end_clean();
 
-		$this->assertEquals( $expected, $output, $function );
+		$this->expectOutputString( $expected );
+
+		$class->$function();
 	}
 }
