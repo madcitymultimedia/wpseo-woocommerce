@@ -44,7 +44,7 @@ class Pinterest_Product_Availability_Presenter_Test extends TestCase {
 	public function test_construct() {
 		$instance = new WPSEO_WooCommerce_Pinterest_Product_Availability_Presenter( $this->product, false, true );
 
-		$this->assertEquals( $this->product, $this->getPropertyValue( $instance, 'product' ) );
+		$this->assertSame( $this->product, $this->getPropertyValue( $instance, 'product' ) );
 		$this->assertSame( false, $this->getPropertyValue( $instance, 'is_on_backorder' ) );
 		$this->assertSame( true, $this->getPropertyValue( $instance, 'is_in_stock' ) );
 	}

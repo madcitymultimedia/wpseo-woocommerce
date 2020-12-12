@@ -44,12 +44,17 @@ class WooCommerce_Yoast_Tab_Test extends TestCase {
 	/**
 	 * Test loading our view.
 	 *
+	 * @dataProvider data_add_yoast_seo_fields
+	 *
 	 * @covers WPSEO_WooCommerce_Yoast_Tab::add_yoast_seo_fields
+	 *
+	 * @param string $expected_output Substring expected to be found in the actual output.
 	 */
-	public function test_add_yoast_seo_fields() {
-		\ob_start();
+	public function test_add_yoast_seo_fields( $expected_output ) {
+		if ( defined( 'WPSEO_WOO_PLUGIN_FILE' ) === false ) {
+			\define( 'WPSEO_WOO_PLUGIN_FILE', './wpseo-woocommerce.php' );
+		}
 
-		\define( 'WPSEO_WOO_PLUGIN_FILE', './wpseo-woocommerce.php' );
 		$this->stubTranslationFunctions();
 		$this->stubEscapeFunctions();
 
@@ -64,14 +69,22 @@ class WooCommerce_Yoast_Tab_Test extends TestCase {
 			]
 		);
 
+		$this->expectOutputContains( $expected_output );
+
 		$instance = new WPSEO_WooCommerce_Yoast_Tab();
 		$instance->add_yoast_seo_fields();
+	}
 
-		$output = \ob_get_contents();
-		\ob_end_clean();
-
-		$this->assertStringContainsString( 'yoast_seo[gtin8]', $output );
-		$this->assertStringContainsString( '<div id="yoast_seo" class="panel woocommerce_options_panel">', $output );
+	/**
+	 * Data provider for the `test_add_yoast_seo_fields()` test.
+	 *
+	 * @return array
+	 */
+	public function data_add_yoast_seo_fields() {
+		return [
+			[ 'yoast_seo[gtin8]' ],
+			[ '<div id="yoast_seo" class="panel woocommerce_options_panel">' ],
+		];
 	}
 
 	/**
@@ -167,21 +180,32 @@ class WooCommerce_Yoast_Tab_Test extends TestCase {
 	/**
 	 * Test our input fields are outputted correctly.
 	 *
+	 * @dataProvider data_input_field_for_identifier
+	 *
 	 * @covers WPSEO_WooCommerce_Yoast_Tab::input_field_for_identifier
+	 *
+	 * @param string $expected_output Substring expected to be found in the actual output.
 	 */
-	public function test_input_field_for_identifier() {
-
+	public function test_input_field_for_identifier( $expected_output ) {
 		$this->stubEscapeFunctions();
 
-		\ob_start();
+		$this->expectOutputContains( $expected_output );
+
 		$instance = new Yoast_Tab_Double();
 		$instance->input_field_for_identifier( 'gtin8', 'GTIN 8', '12345678' );
-		$output = \ob_get_contents();
-		\ob_end_clean();
+	}
 
-		$this->assertStringContainsString( 'gtin8', $output );
-		$this->assertStringContainsString( 'GTIN 8', $output );
-		$this->assertStringContainsString( '12345678', $output );
-		$this->assertStringContainsString( 'yoast_identifier_gtin8', $output );
+	/**
+	 * Data provider for the `test_input_field_for_identifier()` test.
+	 *
+	 * @return array
+	 */
+	public function data_input_field_for_identifier() {
+		return [
+			[ 'gtin8' ],
+			[ 'GTIN 8' ],
+			[ '12345678' ],
+			[ 'yoast_identifier_gtin8' ],
+		];
 	}
 }

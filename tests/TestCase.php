@@ -17,13 +17,6 @@ abstract class TestCase extends YoastTestCase {
 	protected function set_up() {
 		parent::set_up();
 
-		Monkey\Functions\stubs(
-			[
-				// Using `null` makes that function return it's first argument.
-				'is_admin'       => false,
-			]
-		);
-
 		Monkey\Functions\expect( 'get_option' )
 			->zeroOrMoreTimes()
 			->with( Mockery::anyOf( 'wpseo', 'wpseo_titles', 'wpseo_taxonomy_meta', 'wpseo_social', 'wpseo_ms' ) )

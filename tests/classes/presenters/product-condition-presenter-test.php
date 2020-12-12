@@ -51,7 +51,7 @@ class Product_Condition_Presenter_Test extends TestCase {
 	 * @covers \WPSEO_WooCommerce_Abstract_Product_Presenter::__construct
 	 */
 	public function test_construct() {
-		$this->assertEquals( $this->product, $this->getPropertyValue( $this->instance, 'product' ) );
+		$this->assertSame( $this->product, $this->getPropertyValue( $this->instance, 'product' ) );
 	}
 
 	/**
