@@ -48,10 +48,6 @@ module.exports = function( grunt ) {
 			js: [
 				"js/src/**/*.js",
 			],
-			sass: [
-				// Work-around to avoid grunt-watch misconfiguration.
-				"non-existing-file",
-			],
 		},
 		pkg: grunt.file.readJSON( "package.json" ),
 	};
