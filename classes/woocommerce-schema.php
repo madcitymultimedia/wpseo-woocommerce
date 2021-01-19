@@ -6,6 +6,8 @@
  */
 
 use Yoast\WP\SEO\Config\Schema_IDs;
+use Yoast\WP\SEO\Memoizers\Meta_Tags_Context_Memoizer;
+use Yoast\WP\SEO\Presenters\Schema_Presenter;
 
 /**
  * Class WPSEO_WooCommerce_Schema.
@@ -90,7 +92,19 @@ class WPSEO_WooCommerce_Schema {
 			return false;
 		}
 
-		WPSEO_Utils::schema_output( [ $this->data ], 'yoast-schema-graph yoast-schema-graph--woo yoast-schema-graph--footer' );
+		$presenter = new Schema_Presenter();
+
+		$presentation = new WPSEO_WooCommerce_Product_Presentation();
+
+		$context_memoizer      = YoastSEO()->classes->get( Meta_Tags_Context_Memoizer::class );
+		$presentation->context = $context_memoizer->for_current_page();
+
+		$presentation->set_schema_generator( new WPSEO_WooCommerce_Schema_Generator( $this->data ) );
+
+		$presenter->presentation = $presentation;
+
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- We need to output HTML. If we escape this we break it.
+		echo $presenter;
 
 		return true;
 	}
