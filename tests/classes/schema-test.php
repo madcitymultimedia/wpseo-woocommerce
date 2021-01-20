@@ -123,7 +123,7 @@ class Schema_Test extends TestCase {
 		$schema->data = $data;
 		$schema->output_schema_footer();
 
-		$this->expectOutputContains( '<script type="application/ld+json" class="yoast-schema-graph yoast-schema-graph--woo yoast-schema-graph--footer">{"@context":"https:\/\/schema.org","@graph":["test"]}</script>' );
+		$this->expectOutputContains( '<script type="application/ld+json" class="yoast-schema-graph yoast-schema-graph--woo yoast-schema-graph--footer">{"@context":"https:\/\/schema.org","@graph":["test"]}</script>' . PHP_EOL );
 	}
 
 	/**
