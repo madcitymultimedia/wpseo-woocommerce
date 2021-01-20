@@ -32,6 +32,8 @@ class Schema_Test extends TestCase {
 	public function set_up() {
 		parent::set_up();
 
+		$this->stubEscapeFunctions();
+
 		if ( ! \defined( 'WC_VERSION' ) ) {
 			// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedConstantFound
 			\define( 'WC_VERSION', '3.8.1' );
@@ -48,6 +50,7 @@ class Schema_Test extends TestCase {
 			->andReturn( [] );
 
 		Mockery::mock( 'overload:Yoast\WP\SEO\Config\Schema_IDs', new Schema_IDs() );
+		Mockery::mock( 'overload:Yoast\WP\SEO\Presenters\Abstract_Indexable_Presenter' );
 
 		$this->set_instance();
 	}
@@ -104,16 +107,27 @@ class Schema_Test extends TestCase {
 		$schema = new Schema_Double();
 
 		$schema->data = [];
-		$this->assertFalse( $schema->output_schema_footer() );
+		self::assertFalse( $schema->output_schema_footer() );
 
-		$data = [ 'test' ];
+		$data = [
+			'@type' => 'Product',
+			'@id'   => 'http://basic.wordpress.test/product/hippopotamus/#product',
+			'name'  => 'Hippopotamus',
+		];
 
 		$utils = Mockery::mock( 'alias:WPSEO_Utils' );
-		$utils->expects( 'schema_output' )->once()->andSet( 'output', $data );
+		$utils->expects( 'format_json_encode' )
+			->andReturnUsing(
+				function( $array ) {
+					// phpcs:ignore Yoast.Yoast.AlternativeFunctions.json_encode_json_encode -- Can't use it, since we are mocking it here.
+					return \json_encode( $array );
+				}
+			);
 
 		$schema->data = $data;
 		$schema->output_schema_footer();
-		$this->assertSame( $data, $utils->output );
+
+		$this->expectOutputContains( '<script type="application/ld+json" class="yoast-schema-graph yoast-schema-graph--woo yoast-schema-graph--footer">{"@context":"https:\/\/schema.org","@graph":[{"@type":"Product","@id":"http:\/\/basic.wordpress.test\/product\/hippopotamus\/#product","name":"Hippopotamus"}]}</script>' . PHP_EOL );
 	}
 
 	/**
