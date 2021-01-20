@@ -92,7 +92,7 @@ class WPSEO_WooCommerce_Schema {
 
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- We need to output HTML. If we escape this we break it.
 		echo new WPSEO_WooCommerce_Schema_Presenter(
-			$this->data,
+			[ $this->data ],
 			[
 				'yoast-schema-graph',
 				'yoast-schema-graph--woo',

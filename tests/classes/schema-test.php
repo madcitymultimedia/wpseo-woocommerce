@@ -109,7 +109,11 @@ class Schema_Test extends TestCase {
 		$schema->data = [];
 		self::assertFalse( $schema->output_schema_footer() );
 
-		$data = [ 'test' ];
+		$data = [
+			'@type' => 'Product',
+			'@id'   => 'http://basic.wordpress.test/product/hippopotamus/#product',
+			'name'  => 'Hippopotamus',
+		];
 
 		$utils = Mockery::mock( 'alias:WPSEO_Utils' );
 		$utils->expects( 'format_json_encode' )
@@ -123,7 +127,7 @@ class Schema_Test extends TestCase {
 		$schema->data = $data;
 		$schema->output_schema_footer();
 
-		$this->expectOutputContains( '<script type="application/ld+json" class="yoast-schema-graph yoast-schema-graph--woo yoast-schema-graph--footer">{"@context":"https:\/\/schema.org","@graph":["test"]}</script>' . PHP_EOL );
+		$this->expectOutputContains( '<script type="application/ld+json" class="yoast-schema-graph yoast-schema-graph--woo yoast-schema-graph--footer">{"@context":"https:\/\/schema.org","@graph":[{"@type":"Product","@id":"http:\/\/basic.wordpress.test\/product\/hippopotamus\/#product","name":"Hippopotamus"}]}</script>' . PHP_EOL );
 	}
 
 	/**
