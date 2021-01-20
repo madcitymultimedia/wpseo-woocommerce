@@ -30,15 +30,20 @@ You can find the FAQ [online here](https://kb.yoast.com/kb/category/woocommerce-
 
 Changelog
 =========
+### 13.9: January 26th, 2021
+Bugfixes:
+
+* Fixes a bug where a deprecation notice would be shown in the PHP debug log when visiting a product page.
+
 ### 13.8: December 2nd, 2020
 Enhancements:
 
- * Makes the Schema Product type filterable.
+* Makes the Schema Product type filterable.
 
 ### 13.7: October 27th, 2020
 Enhancements:
 
- * Shows the price and availability of a product in its snippet when sharing the product on Slack.
+* Shows the price and availability of a product in its snippet when sharing the product on Slack.
 
 ### 13.6: September 29th, 2020
 Bugfixes:
