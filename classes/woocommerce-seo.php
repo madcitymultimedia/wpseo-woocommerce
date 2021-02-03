@@ -106,7 +106,7 @@ class Yoast_WooCommerce_SEO {
 		// Adds recommended replacevars.
 		add_filter( 'wpseo_recommended_replace_vars', [ $this, 'add_recommended_replacevars' ] );
 
-		add_action( 'admin_init', [ $this, 'init_beacon' ] );
+		add_filter( 'wpseo_helpscout_beacon_settings', [ $this, 'filter_helpscout_beacon' ] );
 
 		add_filter( 'wpseo_sitemap_entry', [ $this, 'filter_hidden_product' ], 10, 3 );
 		add_filter( 'wpseo_exclude_from_sitemap_by_post_ids', [ $this, 'filter_woocommerce_pages' ] );
@@ -842,16 +842,17 @@ class Yoast_WooCommerce_SEO {
 	}
 
 	/**
-	 * Initializes the Yoast SEO WooCommerce HelpScout beacon.
+	 * Makes sure the News settings page has a HelpScout beacon.
+	 *
+	 * @param array $helpscout_settings The HelpScout settings.
+	 *
+	 * @return array $helpscout_settings The HelpScout settings with the News SEO beacon added.
 	 */
-	public function init_beacon() {
-		$helpscout = new WPSEO_HelpScout(
-			'8535d745-4e80-48b9-b211-087880aa857d',
-			[ 'wpseo_woo' ],
-			[ WPSEO_Addon_Manager::WOOCOMMERCE_SLUG ]
-		);
+	public function filter_helpscout_beacon( $helpscout_settings ) {
+		$helpscout_settings['pages_ids']['wpseo_woo'] = '8535d745-4e80-48b9-b211-087880aa857d';
+		$helpscout_settings['products'][]             = WPSEO_Addon_Manager::WOOCOMMERCE_SLUG;
 
-		$helpscout->register_hooks();
+		return $helpscout_settings;
 	}
 
 	/**
