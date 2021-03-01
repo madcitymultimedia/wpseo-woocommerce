@@ -29,6 +29,8 @@ class YoastWooCommercePlugin {
 		this.registerModifications();
 
 		this.bindEvents();
+
+		this.dispatchL10nData();
 	}
 
 	/**
@@ -65,6 +67,19 @@ class YoastWooCommercePlugin {
 		}
 
 		jQuery( ".add_product_images" ).find( "a" ).on( "click", this.bindLinkEvent.bind( this ) );
+	}
+
+	/**
+	 * Dispatches data from window.wpseoWooL10n to the Yoast SEO editor store.
+	 *
+	 * @returns {void}
+	 */
+	dispatchL10nData() {
+		const googlePreviewData = window.wpseoWooL10n.wooGooglePreviewData;
+		const dispatch = window.wp.data.dispatch( "yoast-seo/editor" );
+		if ( dispatch && googlePreviewData  ) {
+			dispatch.setShoppingData( googlePreviewData );
+		}
 	}
 
 	/**
