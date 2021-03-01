@@ -76,7 +76,6 @@ class Yoast_WooCommerce_SEO {
 		else {
 			// Initialize schema & OpenGraph.
 			add_action( 'init', [ $this, 'initialize_opengraph' ] );
-			add_action( 'init', [ $this, 'initialize_schema' ] );
 			add_action( 'init', [ $this, 'initialize_twitter' ] );
 			add_action( 'init', [ $this, 'initialize_slack' ] );
 			add_filter( 'wpseo_frontend_presenters', [ $this, 'add_frontend_presenter' ] );
@@ -1219,12 +1218,22 @@ class Yoast_WooCommerce_SEO {
 		$asset_manager = new WPSEO_Admin_Asset_Manager();
 		$version       = $asset_manager->flatten_version( self::VERSION );
 
+		$google_preview = [];
+		$product       = $this->get_product();
+		$google_preview['rating']       = floatval( $product->get_average_rating() );
+		$google_preview['review_count'] = $product->get_rating_count();
+		$google_preview['availability'] = $product->get_availability()[ 'class' ];
+		if ( $this->should_show_price() ) {
+			$google_preview['price'] = $this->get_product_var_price();
+		}
+
 		return [
-			'script_url'     => plugins_url( 'js/dist/yoastseo-woo-worker-' . $version . '.js', self::get_plugin_file() ),
-			'woo_desc_none'  => __( 'You should write a short description for this product.', 'yoast-woo-seo' ),
-			'woo_desc_short' => __( 'The short description for this product is too short.', 'yoast-woo-seo' ),
-			'woo_desc_good'  => __( 'Your short description has a good length.', 'yoast-woo-seo' ),
-			'woo_desc_long'  => __( 'The short description for this product is too long.', 'yoast-woo-seo' ),
+			'script_url'              => plugins_url( 'js/dist/yoastseo-woo-worker-' . $version . '.js', self::get_plugin_file() ),
+			'woo_desc_none'           => __( 'You should write a short description for this product.', 'yoast-woo-seo' ),
+			'woo_desc_short'          => __( 'The short description for this product is too short.', 'yoast-woo-seo' ),
+			'woo_desc_good'           => __( 'Your short description has a good length.', 'yoast-woo-seo' ),
+			'woo_desc_long'           => __( 'The short description for this product is too long.', 'yoast-woo-seo' ),
+			'woo_google_preview_data' => $google_preview,
 		];
 	}
 
