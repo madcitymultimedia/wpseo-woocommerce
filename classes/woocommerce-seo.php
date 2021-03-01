@@ -1221,7 +1221,7 @@ class Yoast_WooCommerce_SEO {
 		$google_preview = [];
 		$product       = $this->get_product();
 		$google_preview['rating']       = floatval( $product->get_average_rating() );
-		$google_preview['review_count'] = $product->get_rating_count();
+		$google_preview['reviewCount'] = $product->get_rating_count();
 		$google_preview['availability'] = $product->get_availability()[ 'class' ];
 		if ( $this->should_show_price() ) {
 			$google_preview['price'] = $this->get_product_var_price();
@@ -1233,7 +1233,7 @@ class Yoast_WooCommerce_SEO {
 			'woo_desc_short'          => __( 'The short description for this product is too short.', 'yoast-woo-seo' ),
 			'woo_desc_good'           => __( 'Your short description has a good length.', 'yoast-woo-seo' ),
 			'woo_desc_long'           => __( 'The short description for this product is too long.', 'yoast-woo-seo' ),
-			'woo_google_preview_data' => $google_preview,
+			'wooGooglePreviewData' => $google_preview,
 		];
 	}
 
