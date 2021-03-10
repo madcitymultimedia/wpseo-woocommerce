@@ -16,7 +16,7 @@
  * Domain Path: /languages/
  *
  * WC requires at least: 3.0
- * WC tested up to: 4.9
+ * WC tested up to: 5.1
  *
  * Copyright 2014-2019 Yoast BV (email: support@yoast.com)
  */
