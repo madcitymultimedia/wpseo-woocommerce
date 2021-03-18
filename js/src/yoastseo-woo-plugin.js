@@ -1,6 +1,7 @@
 /* global YoastSEO, wpseoWooL10n, tinyMCE */
 
 import { getExcerpt, addExcerptEventHandlers, isTinyMCEAvailable } from "./yoastseo-woo-handle-excerpt-editors";
+import { addFilter } from "@wordpress/hooks";
 
 const PLUGIN_NAME = "YoastWooCommerce";
 
@@ -11,6 +12,8 @@ const PLUGIN_NAME = "YoastWooCommerce";
  */
 var buttonEventCounter = 0;
 var deleteEventCounter = 0;
+let fallbackImage;
+
 
 /**
  * Represents the Yoast Woocommerce plugin.
@@ -29,6 +32,10 @@ class YoastWooCommercePlugin {
 		this.registerModifications();
 
 		this.bindEvents();
+
+		this.dispatchL10nData();
+
+		addFilter( "yoast.socials.imageFallback", "yoast/yoast-woocommerce-seo/image_fallback", this.addProductGalleryImageAsFallback );
 	}
 
 	/**
@@ -65,6 +72,19 @@ class YoastWooCommercePlugin {
 		}
 
 		jQuery( ".add_product_images" ).find( "a" ).on( "click", this.bindLinkEvent.bind( this ) );
+	}
+
+	/**
+	 * Dispatches data from window.wpseoWooL10n to the Yoast SEO editor store.
+	 *
+	 * @returns {void}
+	 */
+	dispatchL10nData() {
+		const googlePreviewData = window.wpseoWooL10n.wooGooglePreviewData;
+		const dispatch = window.wp.data.dispatch( "yoast-seo/editor" );
+		if ( dispatch && googlePreviewData  ) {
+			dispatch.setShoppingData( googlePreviewData );
+		}
 	}
 
 	/**
@@ -140,7 +160,26 @@ class YoastWooCommercePlugin {
 			data += images[ i ].outerHTML;
 		}
 
+		fallbackImage = images[ 0 ];
+
 		return data;
+	}
+
+	/**
+	 * Adds the first product gallery image as fallback for social previews.
+	 *
+	 * @param {Object[]} fallbacks Array with fallback images in order.
+	 *
+	 * @returns {Object[]} fallbacks.
+	 */
+	addProductGalleryImageAsFallback( fallbacks ) {
+		if ( fallbackImage ) {
+			const fallbackImageSrc = fallbackImage.src.replace( /(-150x150)/, "" );
+			const fallback = { productGalleryImage: fallbackImageSrc };
+			fallbacks.push( fallback );
+		}
+
+		return fallbacks;
 	}
 }
 
