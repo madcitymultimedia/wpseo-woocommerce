@@ -12,7 +12,7 @@ const PLUGIN_NAME = "YoastWooCommerce";
  */
 var buttonEventCounter = 0;
 var deleteEventCounter = 0;
-let fallbackImage;
+let productGalleryFallbackImage;
 
 
 /**
@@ -145,7 +145,7 @@ class YoastWooCommercePlugin {
 			data += images[ i ].outerHTML;
 		}
 
-		fallbackImage = images[ 0 ];
+		productGalleryFallbackImage = images[ 0 ].src.replace( /-\d+x\d+(\.[a-zA-Z0-9]+)$/, "$1" );
 
 		return data;
 	}
@@ -158,10 +158,8 @@ class YoastWooCommercePlugin {
 	 * @returns {Object[]} fallbacks.
 	 */
 	addProductGalleryImageAsFallback( fallbacks ) {
-		if ( fallbackImage ) {
-			const fallbackImageSrc = fallbackImage.src.replace( /(-150x150)/, "" );
-			const fallback = { productGalleryImage: fallbackImageSrc };
-			fallbacks.push( fallback );
+		if ( productGalleryFallbackImage ) {
+			fallbacks.push( { productGalleryImage: productGalleryFallbackImage } );
 		}
 
 		return fallbacks;
