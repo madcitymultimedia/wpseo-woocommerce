@@ -228,11 +228,11 @@ class Schema_Test extends TestCase {
 					'@type'              => 'Offer',
 					'price'              => '49.00',
 					'priceSpecification' => [
-						'price'         => '49.00',
-						'priceCurrency' => 'GBP',
+						'@type'                 => 'PriceSpecification',
+						'valueAddedTaxIncluded' => false,
 					],
 					'priceCurrency'      => 'GBP',
-					'availability'       => 'http://schema.org/InStock',
+					'availability'       => 'https://schema.org/InStock',
 					'url'                => 'https://example.com/product/customizable-responsive-toolset/',
 					'seller'             => [
 						'@type' => 'Organization',
@@ -297,11 +297,11 @@ class Schema_Test extends TestCase {
 					'@type'              => 'Offer',
 					'price'              => '49.00',
 					'priceSpecification' => [
-						'price'         => '49.00',
-						'priceCurrency' => 'GBP',
+						'@type'                 => 'PriceSpecification',
+						'valueAddedTaxIncluded' => false,
 					],
 					'priceCurrency'      => 'GBP',
-					'availability'       => 'http://schema.org/PreOrder',
+					'availability'       => 'https://schema.org/PreOrder',
 					'url'                => 'https://example.com/product/customizable-responsive-toolset/',
 					'seller'             => [
 						'@type' => 'Organization',
@@ -369,7 +369,7 @@ class Schema_Test extends TestCase {
 					'highPrice'     => '12.00',
 					'offerCount'    => 3,
 					'priceCurrency' => 'GBP',
-					'availability'  => 'http://schema.org/InStock',
+					'availability'  => 'https://schema.org/InStock',
 					'url'           => 'https://example.com/product/customizable-responsive-toolset/',
 					'seller'        => [
 						'@type' => 'Organization',
@@ -541,7 +541,7 @@ class Schema_Test extends TestCase {
 			'highPrice'     => '12.00',
 			'offerCount'    => 3,
 			'priceCurrency' => 'GBP',
-			'availability'  => 'http://schema.org/InStock',
+			'availability'  => 'https://schema.org/InStock',
 			'url'           => 'https://example.com/product/customizable-responsive-toolset/',
 			'seller'        => [
 				'@type' => 'Organization',
@@ -556,8 +556,8 @@ class Schema_Test extends TestCase {
 					'name'               => 'Customizable responsive toolset - l',
 					'price'              => 10,
 					'priceSpecification' => [
-						'price'         => 10,
-						'priceCurrency' => 'GBP',
+						'@type'                 => 'PriceSpecification',
+						'valueAddedTaxIncluded' => false,
 					],
 				],
 				[
@@ -566,8 +566,8 @@ class Schema_Test extends TestCase {
 					'name'               => 'Customizable responsive toolset - m',
 					'price'              => 8,
 					'priceSpecification' => [
-						'price'         => 8,
-						'priceCurrency' => 'GBP',
+						'@type'                 => 'PriceSpecification',
+						'valueAddedTaxIncluded' => false,
 					],
 				],
 				[
@@ -576,8 +576,8 @@ class Schema_Test extends TestCase {
 					'name'               => 'Customizable responsive toolset - xl',
 					'price'              => 12,
 					'priceSpecification' => [
-						'price'         => 12,
-						'priceCurrency' => 'GBP',
+						'@type'                 => 'PriceSpecification',
+						'valueAddedTaxIncluded' => false,
 					],
 				],
 			],
@@ -647,7 +647,7 @@ class Schema_Test extends TestCase {
 					'highPrice'     => '12.00',
 					'offerCount'    => 3,
 					'priceCurrency' => 'GBP',
-					'availability'  => 'http://schema.org/InStock',
+					'availability'  => 'https://schema.org/InStock',
 					'url'           => 'https://example.com/product/customizable-responsive-toolset/',
 					'seller'        => [
 						'@type' => 'Organization',
@@ -704,7 +704,7 @@ class Schema_Test extends TestCase {
 					'highPrice'     => '12.00',
 					'offerCount'    => 3,
 					'priceCurrency' => 'GBP',
-					'availability'  => 'http://schema.org/InStock',
+					'availability'  => 'https://schema.org/InStock',
 					'url'           => 'https://example.com/product/customizable-responsive-toolset/',
 					'seller'        => [
 						'@type' => 'Organization',
@@ -1079,13 +1079,14 @@ class Schema_Test extends TestCase {
 					'@type'              => 'Offer',
 					'price'              => '1.00',
 					'url'                => $canonical,
+					'priceCurrency'      => 'GBP',
 					'seller'             => [
 						'@id' => $base_url . '#organization',
 					],
 					'@id'                => $base_url . '#/schema/offer/1-0',
 					'priceSpecification' => [
-						'price'         => '1.00',
-						'priceCurrency' => 'GBP',
+						'@type'                 => 'PriceSpecification',
+						'valueAddedTaxIncluded' => false,
 					],
 				],
 			],
@@ -1256,18 +1257,19 @@ class Schema_Test extends TestCase {
 			'url'              => $canonical,
 			'description'      => '',
 			'sku'              => 'sku1234',
-			'offers'           => [
+			'offers' => [
 				[
 					'@type'              => 'Offer',
 					'price'              => '1.00',
+					'priceCurrency'      => 'GBP',
 					'url'                => $canonical,
 					'seller'             => [
 						'@id' => $base_url . '#organization',
 					],
 					'@id'                => $base_url . '#/schema/offer/1-0',
 					'priceSpecification' => [
-						'price'         => '1.00',
-						'priceCurrency' => 'GBP',
+						'@type'                 => 'PriceSpecification',
+						'valueAddedTaxIncluded' => false,
 					],
 				],
 			],
@@ -1428,18 +1430,19 @@ class Schema_Test extends TestCase {
 			'url'              => $canonical,
 			'description'      => '',
 			'sku'              => 'sku1234',
-			'offers'           => [
+			'offers' => [
 				[
 					'@type'              => 'Offer',
 					'price'              => '1.00',
+					'priceCurrency'      => 'GBP',
 					'url'                => $canonical,
 					'seller'             => [
 						'@id' => $base_url . '#organization',
 					],
 					'@id'                => $base_url . '#/schema/offer/1-0',
 					'priceSpecification' => [
-						'price'         => '1.00',
-						'priceCurrency' => 'GBP',
+						'@type'                 => 'PriceSpecification',
+						'valueAddedTaxIncluded' => false,
 					],
 				],
 			],
@@ -1580,11 +1583,11 @@ class Schema_Test extends TestCase {
 					'price'              => '49.00',
 					'priceValidUntil'    => '2020-03-24',
 					'priceSpecification' => [
-						'price'         => '49.00',
-						'priceCurrency' => 'GBP',
+						'@type'                 => 'PriceSpecification',
+						'valueAddedTaxIncluded' => false,
 					],
 					'priceCurrency'      => 'GBP',
-					'availability'       => 'http://schema.org/InStock',
+					'availability'       => 'https://schema.org/InStock',
 					'url'                => 'https://example.com/product/customizable-responsive-toolset/',
 					'seller'             => [
 						'@type' => 'Organization',
@@ -1689,11 +1692,11 @@ class Schema_Test extends TestCase {
 					'@type'              => 'Offer',
 					'price'              => '49.00',
 					'priceSpecification' => [
-						'price'         => '49.00',
-						'priceCurrency' => 'GBP',
+						'@type'                 => 'PriceSpecification',
+						'valueAddedTaxIncluded' => false,
 					],
 					'priceCurrency'      => 'GBP',
-					'availability'       => 'http://schema.org/InStock',
+					'availability'       => 'https://schema.org/InStock',
 					'url'                => 'https://example.com/product/customizable-responsive-toolset/',
 					'seller'             => [
 						'@type' => 'Organization',
@@ -1706,6 +1709,7 @@ class Schema_Test extends TestCase {
 
 		$expected_output                     = $input;
 		$expected_output['offers'][0]['@id'] = 'https://example.com/#/schema/offer/209643-0';
+		$expected_output['offers'][0]['priceSpecification']['@type'] = 'PriceSpecification';
 		$expected_output['offers'][0]['priceSpecification']['valueAddedTaxIncluded'] = true;
 
 		$base_url = 'http://example.com';

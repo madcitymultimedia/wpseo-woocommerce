@@ -221,7 +221,7 @@ class WPSEO_WooCommerce_Schema {
 
 			// Alter availability when product is "on backorder".
 			if ( $product->is_on_backorder() ) {
-				$data['offers'][ $key ]['availability'] = 'http://schema.org/PreOrder';
+				$data['offers'][ $key ]['availability'] = 'https://schema.org/PreOrder';
 			}
 		}
 
@@ -475,7 +475,7 @@ class WPSEO_WooCommerce_Schema {
 		$variations = $product->get_available_variations();
 
 		$currency           = get_woocommerce_currency();
-		$prices_include_tax = WPSEO_WooCommerce_Utils::prices_have_tax_included();
+		$prices_include_tax = ( wc_tax_enabled() && WPSEO_WooCommerce_Utils::prices_have_tax_included() );
 		$decimals           = wc_get_price_decimals();
 		$data               = [];
 		$product_id         = $product->get_id();
@@ -489,16 +489,12 @@ class WPSEO_WooCommerce_Schema {
 				'@id'                => YoastSEO()->meta->for_current_page()->site_url . '#/schema/offer/' . $product_id . '-' . $key,
 				'name'               => $product_name . ' - ' . $variation_name,
 				'price'              => wc_format_decimal( $variation['display_price'], $decimals ),
+				'priceCurrency'      => $currency,
 				'priceSpecification' => [
-					'price'         => wc_format_decimal( $variation['display_price'], $decimals ),
-					'priceCurrency' => $currency,
+					'@type'                 => 'PriceSpecification',
+					'valueAddedTaxIncluded' => $prices_include_tax
 				],
 			];
-
-			if ( wc_tax_enabled() ) {
-				// Only add this property if tax calculation has been enabled in WooCommerce.
-				$offer['priceSpecification']['valueAddedTaxIncluded'] = $prices_include_tax;
-			}
 
 			$data[] = $offer;
 		}
