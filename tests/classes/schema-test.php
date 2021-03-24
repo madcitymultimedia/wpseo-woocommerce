@@ -555,6 +555,7 @@ class Schema_Test extends TestCase {
 					'@id'                => 'https://example.com/#/schema/offer/209643-0',
 					'name'               => 'Customizable responsive toolset - l',
 					'price'              => 10,
+					'priceCurrency'      => 'GBP',
 					'priceSpecification' => [
 						'@type'                 => 'PriceSpecification',
 						'valueAddedTaxIncluded' => false,
@@ -565,6 +566,7 @@ class Schema_Test extends TestCase {
 					'@id'                => 'https://example.com/#/schema/offer/209643-1',
 					'name'               => 'Customizable responsive toolset - m',
 					'price'              => 8,
+					'priceCurrency'      => 'GBP',
 					'priceSpecification' => [
 						'@type'                 => 'PriceSpecification',
 						'valueAddedTaxIncluded' => false,
@@ -575,6 +577,7 @@ class Schema_Test extends TestCase {
 					'@id'                => 'https://example.com/#/schema/offer/209643-2',
 					'name'               => 'Customizable responsive toolset - xl',
 					'price'              => 12,
+					'priceCurrency'      => 'GBP',
 					'priceSpecification' => [
 						'@type'                 => 'PriceSpecification',
 						'valueAddedTaxIncluded' => false,
@@ -1046,6 +1049,10 @@ class Schema_Test extends TestCase {
 						'name'  => 'WP',
 						'url'   => $base_url,
 					],
+					'priceSpecification' => [
+						'@type'                 => 'PriceSpecification',
+						'valueAddedTaxIncluded' => false,
+					],
 				],
 			],
 			'review'      => [
@@ -1223,10 +1230,14 @@ class Schema_Test extends TestCase {
 			'sku'         => 'sku1234',
 			'offers'      => [
 				[
-					'@type'  => 'Offer',
-					'price'  => '1.00',
-					'url'    => $canonical,
-					'seller' => [
+					'@type'              => 'Offer',
+					'price'              => '1.00',
+					'url'                => $canonical,
+					'priceSpecification' => [
+						'@type'                 => 'PriceSpecification',
+						'valueAddedTaxIncluded' => false,
+					],
+					'seller'             => [
 						'@type' => 'Organization',
 						'name'  => 'WP',
 						'url'   => $base_url,
