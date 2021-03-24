@@ -492,7 +492,7 @@ class WPSEO_WooCommerce_Schema {
 				'priceCurrency'      => $currency,
 				'priceSpecification' => [
 					'@type'                 => 'PriceSpecification',
-					'valueAddedTaxIncluded' => $prices_include_tax
+					'valueAddedTaxIncluded' => $prices_include_tax,
 				],
 			];
 

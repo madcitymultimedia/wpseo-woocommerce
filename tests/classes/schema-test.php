@@ -1257,7 +1257,7 @@ class Schema_Test extends TestCase {
 			'url'              => $canonical,
 			'description'      => '',
 			'sku'              => 'sku1234',
-			'offers' => [
+			'offers'           => [
 				[
 					'@type'              => 'Offer',
 					'price'              => '1.00',
@@ -1430,7 +1430,7 @@ class Schema_Test extends TestCase {
 			'url'              => $canonical,
 			'description'      => '',
 			'sku'              => 'sku1234',
-			'offers' => [
+			'offers'           => [
 				[
 					'@type'              => 'Offer',
 					'price'              => '1.00',
@@ -1709,7 +1709,7 @@ class Schema_Test extends TestCase {
 
 		$expected_output                     = $input;
 		$expected_output['offers'][0]['@id'] = 'https://example.com/#/schema/offer/209643-0';
-		$expected_output['offers'][0]['priceSpecification']['@type'] = 'PriceSpecification';
+		$expected_output['offers'][0]['priceSpecification']['@type']                 = 'PriceSpecification';
 		$expected_output['offers'][0]['priceSpecification']['valueAddedTaxIncluded'] = true;
 
 		$base_url = 'http://example.com';
