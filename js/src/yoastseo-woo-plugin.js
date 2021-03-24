@@ -30,7 +30,7 @@ class YoastWooCommercePlugin {
 
 		this.bindEvents();
 
-		this.dispatchL10nData();
+		this.dispatchGooglePreviewData();
 	}
 
 	/**
@@ -70,11 +70,11 @@ class YoastWooCommercePlugin {
 	}
 
 	/**
-	 * Dispatches data from window.wpseoWooL10n to the Yoast SEO editor store.
+	 * Dispatches the product data from window.wpseoWooL10n to the Yoast SEO editor store.
 	 *
 	 * @returns {void}
 	 */
-	dispatchL10nData() {
+	dispatchGooglePreviewData() {
 		const googlePreviewData = window.wpseoWooL10n.wooGooglePreviewData;
 		const dispatch = window.wp.data.dispatch( "yoast-seo/editor" );
 		if ( dispatch && googlePreviewData  ) {
