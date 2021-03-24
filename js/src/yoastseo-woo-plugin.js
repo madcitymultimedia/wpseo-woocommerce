@@ -1,7 +1,6 @@
 /* global YoastSEO, wpseoWooL10n, tinyMCE */
 
 import { getExcerpt, addExcerptEventHandlers, isTinyMCEAvailable } from "./yoastseo-woo-handle-excerpt-editors";
-import { addFilter } from "@wordpress/hooks";
 import { dispatch } from "@wordpress/data";
 
 const PLUGIN_NAME = "YoastWooCommerce";
