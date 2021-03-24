@@ -11,8 +11,7 @@ const PLUGIN_NAME = "YoastWooCommerce";
  * @type {number}
  */
 var buttonEventCounter = 0;
-var deleteEventCounter = 0;
-let productGalleryFallbackImage;
+let productGalleryFallbackImage = "";
 
 
 /**
@@ -70,6 +69,7 @@ class YoastWooCommercePlugin {
 		}
 
 		jQuery( ".add_product_images" ).find( "a" ).on( "click", this.bindLinkEvent.bind( this ) );
+		this.bindDeleteEvent();
 	}
 
 	/**
@@ -98,7 +98,6 @@ class YoastWooCommercePlugin {
 	 */
 	buttonCallback() {
 		YoastSEO.app.analyzeTimer();
-		this.bindDeleteEvent();
 	}
 
 	/**
@@ -108,15 +107,7 @@ class YoastWooCommercePlugin {
 	 * @returns {void}
 	 */
 	bindDeleteEvent() {
-		if ( jQuery( "#product_images_container" ).find( ".delete" ).length === 0 ) {
-			deleteEventCounter++;
-			if ( deleteEventCounter < 10 ) {
-				setTimeout( this.bindDeleteEvent.bind( this ) );
-			}
-		} else {
-			deleteEventCounter = 0;
-			jQuery( "#product_images_container" ).find( ".delete" ).on( "click", YoastSEO.app.analyzeTimer.bind( YoastSEO.app ) );
-		}
+		jQuery( "#product_images_container" ).on( "click", ".delete", YoastSEO.app.analyzeTimer.bind( YoastSEO.app ) );
 	}
 
 	/**
@@ -138,6 +129,7 @@ class YoastWooCommercePlugin {
 	 * @returns {string} The data string parameter with the short description and the images outer html.
 	 */
 	addContent( data ) {
+		console.log( "yoast" );
 		data += "\n\n" + getExcerpt();
 
 		var images = jQuery( "#product_images_container" ).find( "img" );
@@ -145,9 +137,7 @@ class YoastWooCommercePlugin {
 			data += images[ i ].outerHTML;
 		}
 
-		if ( images[ 0 ] ) {
-			productGalleryFallbackImage = images[ 0 ].src.replace( /-\d+x\d+(\.[a-zA-Z0-9]+)$/, "$1" );
-		}
+		productGalleryFallbackImage = images[ 0 ] ? images[ 0 ].src.replace( /-\d+x\d+(\.[a-zA-Z0-9]+)$/, "$1" ) : "";
 
 		return data;
 	}
