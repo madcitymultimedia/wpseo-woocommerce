@@ -1,6 +1,7 @@
 const _defaultsDeep = require( "lodash.defaultsdeep" );
 const path = require( "path" );
 const pkg = require( "../../package.json" );
+const { camelCaseDash } = require( "@wordpress/dependency-extraction-webpack-plugin/lib/util" );
 const UnminifiedWebpackPlugin = require( "unminified-webpack-plugin" );
 const CaseSensitivePathsPlugin = require( "case-sensitive-paths-webpack-plugin" );
 const { flattenVersionForFile } = require( "../grunt/lib/version.js" );
@@ -9,6 +10,22 @@ const webpack = require( "webpack" );
 const externals = {
 	yoastseo: "yoast.analysis",
 };
+
+/**
+ * WordPress dependencies.
+ */
+const wordpressPackages = [
+	"@wordpress/hooks",
+	"@wordpress/data",
+];
+
+// WordPress packages.
+const wordpressExternals = wordpressPackages.reduce( ( memo, packageName ) => {
+	const name = camelCaseDash( packageName.replace( "@wordpress/", "" ) );
+
+	memo[ packageName ] = `window.wp.${ name }`;
+	return memo;
+}, {} );
 
 const pluginVersionSlug = flattenVersionForFile( pkg.yoast.pluginVersion );
 
@@ -24,7 +41,10 @@ const defaultConfig = {
 		path: path.join( __dirname, "../../", "js/dist" ),
 		filename: "[name]-" + pluginVersionSlug + ".js",
 	},
-	externals: externals,
+	externals: {
+		...externals,
+		...wordpressExternals,
+	},
 	optimization: {
 		minimize: true,
 	},
