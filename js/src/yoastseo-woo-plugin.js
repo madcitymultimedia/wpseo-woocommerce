@@ -145,7 +145,9 @@ class YoastWooCommercePlugin {
 			data += images[ i ].outerHTML;
 		}
 
-		productGalleryFallbackImage = images[ 0 ].src.replace( /-\d+x\d+(\.[a-zA-Z0-9]+)$/, "$1" );
+		if ( images[ 0 ] ) {
+			productGalleryFallbackImage = images[ 0 ].src.replace( /-\d+x\d+(\.[a-zA-Z0-9]+)$/, "$1" );
+		}
 
 		return data;
 	}
