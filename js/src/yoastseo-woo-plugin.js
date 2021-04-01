@@ -76,9 +76,8 @@ class YoastWooCommercePlugin {
 	 * @returns {void}
 	 */
 	dispatchGooglePreviewData() {
-		const googlePreviewData = window.wpseoWooL10n.wooGooglePreviewData;
-
-		if ( dispatch && googlePreviewData  ) {
+		if ( window.wpseoWooL10n.wooGooglePreviewData ) {
+			const googlePreviewData = window.wpseoWooL10n.wooGooglePreviewData;
 			dispatch( "yoast-seo/editor" ).setShoppingData( googlePreviewData );
 		}
 	}
