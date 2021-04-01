@@ -76,6 +76,7 @@ class Yoast_WooCommerce_SEO {
 		else {
 			// Initialize schema & OpenGraph.
 			add_action( 'init', [ $this, 'initialize_opengraph' ] );
+			add_action( 'init', [ $this, 'initialize_schema' ] );
 			add_action( 'init', [ $this, 'initialize_twitter' ] );
 			add_action( 'init', [ $this, 'initialize_slack' ] );
 			add_filter( 'wpseo_frontend_presenters', [ $this, 'add_frontend_presenter' ] );
