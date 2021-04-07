@@ -1041,10 +1041,10 @@ class Schema_Test extends TestCase {
 			'sku'         => 'sku1234',
 			'offers'      => [
 				[
-					'@type'  => 'Offer',
-					'price'  => '1.00',
-					'url'    => $canonical,
-					'seller' => [
+					'@type'              => 'Offer',
+					'price'              => '1.00',
+					'url'                => $canonical,
+					'seller'             => [
 						'@type' => 'Organization',
 						'name'  => 'WP',
 						'url'   => $base_url,
