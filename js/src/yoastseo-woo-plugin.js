@@ -76,10 +76,7 @@ class YoastWooCommercePlugin {
 	 * @returns {void}
 	 */
 	dispatchGooglePreviewData() {
-		if ( window.wpseoWooL10n.wooGooglePreviewData ) {
-			const googlePreviewData = window.wpseoWooL10n.wooGooglePreviewData;
-			dispatch( "yoast-seo/editor" ).setShoppingData( googlePreviewData );
-		}
+		dispatch( "yoast-seo/editor" ).setShoppingData( window.wpseoWooL10n.wooGooglePreviewData );
 	}
 
 	/**
