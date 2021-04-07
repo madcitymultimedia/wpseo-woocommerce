@@ -211,6 +211,8 @@ class WPSEO_WooCommerce_Schema {
 				$data['offers'][ $key ]['@id']   = YoastSEO()->meta->for_current_page()->site_url . '#/schema/offer/' . $product->get_id() . '-' . $key;
 				$data['offers'][ $key ]['price'] = $price;
 
+				$data['offers'][ $key ]['priceCurrency'] = get_woocommerce_currency();
+
 				$data['offers'][ $key ]['priceSpecification']['@type']                 = 'PriceSpecification';
 				$data['offers'][ $key ]['priceSpecification']['valueAddedTaxIncluded'] = ( wc_tax_enabled() && WPSEO_WooCommerce_Utils::prices_have_tax_included() );
 			}

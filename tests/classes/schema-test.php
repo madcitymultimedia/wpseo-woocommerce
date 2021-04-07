@@ -1137,7 +1137,7 @@ class Schema_Test extends TestCase {
 			);
 
 		$instance->change_product( $data, $product );
-		$this->assertSame( $expected, $instance->data );
+		$this->assertEquals( $expected, $instance->data );
 	}
 
 	/**
@@ -1320,7 +1320,7 @@ class Schema_Test extends TestCase {
 		];
 
 		$instance->change_product( $data, $product );
-		$this->assertSame( $expected, $instance->data );
+		$this->assertEquals( $expected, $instance->data );
 	}
 
 	/**
@@ -1493,7 +1493,7 @@ class Schema_Test extends TestCase {
 		];
 
 		$instance->change_product( $data, $product );
-		$this->assertSame( $expected, $instance->data );
+		$this->assertEquals( $expected, $instance->data );
 	}
 
 	/**
