@@ -215,6 +215,11 @@ class WPSEO_WooCommerce_Schema {
 
 				$data['offers'][ $key ]['priceSpecification']['@type']                 = 'PriceSpecification';
 				$data['offers'][ $key ]['priceSpecification']['valueAddedTaxIncluded'] = ( wc_tax_enabled() && WPSEO_WooCommerce_Utils::prices_have_tax_included() );
+
+				// Remove priceSpecification price property from Schema output by WooCommerce.
+				unset( $data['offers'][ $key ]['priceSpecification']['price'] );
+				// Remove priceSpecification priceCurrency property from Schema output by WooCommerce.
+				unset( $data['offers'][ $key ]['priceSpecification']['priceCurrency'] );
 			}
 			if ( $offer['@type'] === 'AggregateOffer' ) {
 				$data['offers'][ $key ]['@id']    = YoastSEO()->meta->for_current_page()->site_url . '#/schema/aggregate-offer/' . $product->get_id() . '-' . $key;
