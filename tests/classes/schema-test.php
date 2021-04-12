@@ -1086,15 +1086,15 @@ class Schema_Test extends TestCase {
 					'@type'              => 'Offer',
 					'price'              => '1.00',
 					'url'                => $canonical,
-					'priceCurrency'      => 'GBP',
 					'seller'             => [
 						'@id' => $base_url . '#organization',
 					],
-					'@id'                => $base_url . '#/schema/offer/1-0',
 					'priceSpecification' => [
 						'@type'                 => 'PriceSpecification',
 						'valueAddedTaxIncluded' => false,
 					],
+					'@id'                => $base_url . '#/schema/offer/1-0',
+					'priceCurrency'      => 'GBP',
 				],
 			],
 			'review'           => [
@@ -1137,7 +1137,7 @@ class Schema_Test extends TestCase {
 			);
 
 		$instance->change_product( $data, $product );
-		$this->assertEquals( $expected, $instance->data );
+		$this->assertSame( $expected, $instance->data );
 	}
 
 	/**
@@ -1272,16 +1272,16 @@ class Schema_Test extends TestCase {
 				[
 					'@type'              => 'Offer',
 					'price'              => '1.00',
-					'priceCurrency'      => 'GBP',
 					'url'                => $canonical,
-					'seller'             => [
-						'@id' => $base_url . '#organization',
-					],
-					'@id'                => $base_url . '#/schema/offer/1-0',
 					'priceSpecification' => [
 						'@type'                 => 'PriceSpecification',
 						'valueAddedTaxIncluded' => false,
 					],
+					'seller'             => [
+						'@id' => $base_url . '#organization',
+					],
+					'@id'                => $base_url . '#/schema/offer/1-0',
+					'priceCurrency'      => 'GBP',
 				],
 			],
 			'review'           => [
@@ -1320,7 +1320,7 @@ class Schema_Test extends TestCase {
 		];
 
 		$instance->change_product( $data, $product );
-		$this->assertEquals( $expected, $instance->data );
+		$this->assertSame( $expected, $instance->data );
 	}
 
 	/**
@@ -1445,12 +1445,12 @@ class Schema_Test extends TestCase {
 				[
 					'@type'              => 'Offer',
 					'price'              => '1.00',
-					'priceCurrency'      => 'GBP',
 					'url'                => $canonical,
 					'seller'             => [
 						'@id' => $base_url . '#organization',
 					],
 					'@id'                => $base_url . '#/schema/offer/1-0',
+					'priceCurrency'      => 'GBP',
 					'priceSpecification' => [
 						'@type'                 => 'PriceSpecification',
 						'valueAddedTaxIncluded' => false,
@@ -1493,7 +1493,7 @@ class Schema_Test extends TestCase {
 		];
 
 		$instance->change_product( $data, $product );
-		$this->assertEquals( $expected, $instance->data );
+		$this->assertSame( $expected, $instance->data );
 	}
 
 	/**
