@@ -1,6 +1,7 @@
 /* global YoastSEO, wpseoWooL10n, tinyMCE */
 
 import { getExcerpt, addExcerptEventHandlers, isTinyMCEAvailable } from "./yoastseo-woo-handle-excerpt-editors";
+import { dispatch } from "@wordpress/data";
 
 const PLUGIN_NAME = "YoastWooCommerce";
 
@@ -29,6 +30,8 @@ class YoastWooCommercePlugin {
 		this.registerModifications();
 
 		this.bindEvents();
+
+		this.dispatchGooglePreviewData();
 	}
 
 	/**
@@ -65,6 +68,15 @@ class YoastWooCommercePlugin {
 		}
 
 		jQuery( ".add_product_images" ).find( "a" ).on( "click", this.bindLinkEvent.bind( this ) );
+	}
+
+	/**
+	 * Dispatches the product data from window.wpseoWooL10n to the Yoast SEO editor store.
+	 *
+	 * @returns {void}
+	 */
+	dispatchGooglePreviewData() {
+		dispatch( "yoast-seo/editor" ).setShoppingData( window.wpseoWooL10n.wooGooglePreviewData );
 	}
 
 	/**
