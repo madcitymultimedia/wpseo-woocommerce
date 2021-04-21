@@ -1,6 +1,4 @@
-import { string, Assessment, AssessmentResult } from "yoastseo";
-
-const { stripHTMLTags } = string;
+import { languageProcessing, Assessment, AssessmentResult } from "yoastseo";
 
 /**
  * Represents the assessment for the product description.
@@ -40,7 +38,7 @@ export default class ProductDescriptionAssessment extends Assessment {
 	getResult() {
 		const productDescription = this._productDescription;
 
-		const strippedProductDescription = stripHTMLTags( productDescription );
+		const strippedProductDescription = languageProcessing.stripHTMLTags( productDescription );
 		const productDescriptionLength = strippedProductDescription.split( " " ).length;
 
 		const result = this.scoreProductDescription( productDescriptionLength );
