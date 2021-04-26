@@ -1,6 +1,7 @@
 /* global YoastSEO, wpseoWooL10n, tinyMCE */
 
 import { getExcerpt, addExcerptEventHandlers, isTinyMCEAvailable } from "./yoastseo-woo-handle-excerpt-editors";
+import { addFilter } from "@wordpress/hooks";
 import { dispatch } from "@wordpress/data";
 
 const PLUGIN_NAME = "YoastWooCommerce";
@@ -11,7 +12,8 @@ const PLUGIN_NAME = "YoastWooCommerce";
  * @type {number}
  */
 var buttonEventCounter = 0;
-var deleteEventCounter = 0;
+let productGalleryFallbackImage = "";
+
 
 /**
  * Represents the Yoast Woocommerce plugin.
@@ -32,6 +34,8 @@ class YoastWooCommercePlugin {
 		this.bindEvents();
 
 		this.dispatchGooglePreviewData();
+
+		addFilter( "yoast.socials.imageFallback", "yoast/yoast-woocommerce-seo/image_fallback", this.addProductGalleryImageAsFallback );
 	}
 
 	/**
@@ -68,6 +72,7 @@ class YoastWooCommercePlugin {
 		}
 
 		jQuery( ".add_product_images" ).find( "a" ).on( "click", this.bindLinkEvent.bind( this ) );
+		this.bindDeleteEvent();
 	}
 
 	/**
@@ -105,7 +110,6 @@ class YoastWooCommercePlugin {
 	 */
 	buttonCallback() {
 		YoastSEO.app.analyzeTimer();
-		this.bindDeleteEvent();
 	}
 
 	/**
@@ -115,15 +119,7 @@ class YoastWooCommercePlugin {
 	 * @returns {void}
 	 */
 	bindDeleteEvent() {
-		if ( jQuery( "#product_images_container" ).find( ".delete" ).length === 0 ) {
-			deleteEventCounter++;
-			if ( deleteEventCounter < 10 ) {
-				setTimeout( this.bindDeleteEvent.bind( this ) );
-			}
-		} else {
-			deleteEventCounter = 0;
-			jQuery( "#product_images_container" ).find( ".delete" ).on( "click", YoastSEO.app.analyzeTimer.bind( YoastSEO.app ) );
-		}
+		jQuery( "#product_images_container" ).on( "click", ".delete", YoastSEO.app.analyzeTimer.bind( YoastSEO.app ) );
 	}
 
 	/**
@@ -152,7 +148,24 @@ class YoastWooCommercePlugin {
 			data += images[ i ].outerHTML;
 		}
 
+		productGalleryFallbackImage = images[ 0 ] ? images[ 0 ].src.replace( /-\d+x\d+(\.[a-zA-Z0-9]+)$/, "$1" ) : "";
+
 		return data;
+	}
+
+	/**
+	 * Adds the first product gallery image as fallback for social previews.
+	 *
+	 * @param {Object[]} fallbacks Array with fallback images in order.
+	 *
+	 * @returns {Object[]} fallbacks.
+	 */
+	addProductGalleryImageAsFallback( fallbacks ) {
+		if ( productGalleryFallbackImage ) {
+			fallbacks.push( { productGalleryImage: productGalleryFallbackImage } );
+		}
+
+		return fallbacks;
 	}
 }
 
