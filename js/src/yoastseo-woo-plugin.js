@@ -129,7 +129,6 @@ class YoastWooCommercePlugin {
 	 * @returns {string} The data string parameter with the short description and the images outer html.
 	 */
 	addContent( data ) {
-		console.log( "yoast" );
 		data += "\n\n" + getExcerpt();
 
 		var images = jQuery( "#product_images_container" ).find( "img" );
