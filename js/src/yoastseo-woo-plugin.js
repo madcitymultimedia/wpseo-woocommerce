@@ -2,6 +2,7 @@
 
 import { getExcerpt, addExcerptEventHandlers, isTinyMCEAvailable } from "./yoastseo-woo-handle-excerpt-editors";
 import { addFilter } from "@wordpress/hooks";
+import { dispatch } from "@wordpress/data";
 
 const PLUGIN_NAME = "YoastWooCommerce";
 
@@ -31,6 +32,8 @@ class YoastWooCommercePlugin {
 		this.registerModifications();
 
 		this.bindEvents();
+
+		this.dispatchGooglePreviewData();
 
 		addFilter( "yoast.socials.imageFallback", "yoast/yoast-woocommerce-seo/image_fallback", this.addProductGalleryImageAsFallback );
 	}
@@ -70,6 +73,15 @@ class YoastWooCommercePlugin {
 
 		jQuery( ".add_product_images" ).find( "a" ).on( "click", this.bindLinkEvent.bind( this ) );
 		this.bindDeleteEvent();
+	}
+
+	/**
+	 * Dispatches the product data from window.wpseoWooL10n to the Yoast SEO editor store.
+	 *
+	 * @returns {void}
+	 */
+	dispatchGooglePreviewData() {
+		dispatch( "yoast-seo/editor" ).setShoppingData( window.wpseoWooL10n.wooGooglePreviewData );
 	}
 
 	/**
