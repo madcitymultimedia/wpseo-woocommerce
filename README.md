@@ -31,14 +31,14 @@ You can find the FAQ [online here](https://kb.yoast.com/kb/category/woocommerce-
 Changelog
 =========
 ### 14.0: 
-Bugfixes:
-
-* Fixes a bug where the Social Previews did not correctly reflect Product Gallery images being used as a fallback for social sharing.
-
 Enhancements:
 
-* Change the Schema output generated for product price specifications to prevent warnings from Google Search Console.
-* Adds the rating, number of reviews, price and availability to the Google Preview for products, to reflect the Google search results.
+* Improves the priceSpecification Schema output to prevent warnings from Google Search Console.
+* Add the rating, number of reviews, price and availability to the Google Preview for products to match Google's search results.
+
+Bugfixes:
+
+* Fixes a bug where the Social Previews would not use Product Gallery images as a fallback for social sharing.
 
 Other:
 
