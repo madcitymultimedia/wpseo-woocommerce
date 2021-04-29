@@ -1223,7 +1223,7 @@ class Yoast_WooCommerce_SEO {
 		$product                        = $this->get_product();
 		$google_preview['rating']       = floatval( $product->get_average_rating() );
 		$google_preview['reviewCount']  = $product->get_rating_count();
-		$google_preview['availability'] = str_replace("-", " ", $product->get_availability()['class'] );
+		$google_preview['availability'] = str_replace( '-', ' ', $product->get_availability()['class'] );
 
 		if ( $this->should_show_price() ) {
 			$google_preview['price'] = $this->get_product_var_price();
