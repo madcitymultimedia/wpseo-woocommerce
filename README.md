@@ -31,22 +31,18 @@ You can find the FAQ [online here](https://kb.yoast.com/kb/category/woocommerce-
 Changelog
 =========
 ### 14.0: 
+Bugfixes:
+
+* Fixes a bug where the Social Previews did not correctly reflect Product Gallery images being used as a fallback for social sharing.
+
 Enhancements:
 
 * Change the Schema output generated for product price specifications to prevent warnings from Google Search Console.
-* When used together with the latest version of Wordpress SEO or Wordpress SEO Premium, the Google Preview for products now shows the rating, number of reviews, price and availability like in Google.
-* Adds Product Gallery image as last fallback for the social previews.
+* Adds the rating, number of reviews, price and availability to the Google Preview for products, to reflect the Google search results.
 
 Other:
 
 * Sets the WordPress tested up to version to 5.7 and minimum supported WordPress version to 5.6.
-
-Non user facing:
-
-* Improve how we load HelpScout.
-* Updates the security checker to fix the build. 
-* Adds unit tests for the newly introduced `WPSEO_WooCommerce_Schema_Presenter`.
-
 
 ### 13.9: January 26th, 2021
 Bugfixes:
