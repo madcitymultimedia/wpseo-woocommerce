@@ -2,11 +2,10 @@
 
 namespace Yoast\WP\Woocommerce\Tests\Classes\Presenters;
 
+use Brain\Monkey\Functions;
 use Mockery;
 use WPSEO_WooCommerce_Product_Price_Amount_Presenter;
 use Yoast\WP\Woocommerce\Tests\TestCase;
-
-use function Brain\Monkey\Functions\expect;
 
 /**
  * Class Product_Price_Amount_Presenter_Test.
@@ -81,9 +80,9 @@ class Product_Price_Amount_Presenter_Test extends TestCase {
 			->once()
 			->andReturn( '1' );
 
-		expect( 'wc_get_price_decimals' )->once()->andReturn( 0 );
-		expect( 'wc_tax_enabled' )->once()->andReturn( false );
-		expect( 'wc_format_decimal' )->once()->with( '11', 0 )->andReturn( 11 );
+		Functions\expect( 'wc_get_price_decimals' )->once()->andReturn( 0 );
+		Functions\expect( 'wc_tax_enabled' )->once()->andReturn( false );
+		Functions\expect( 'wc_format_decimal' )->once()->with( '11', 0 )->andReturn( 11 );
 
 		$this->assertSame( '11', $this->instance->get() );
 	}
@@ -103,9 +102,9 @@ class Product_Price_Amount_Presenter_Test extends TestCase {
 			->once()
 			->andReturn( '1' );
 
-		expect( 'wc_get_price_decimals' )->once()->andReturn( 0 );
-		expect( 'wc_tax_enabled' )->once()->andReturn( false );
-		expect( 'wc_format_decimal' )->once()->with( '11', 0 )->andReturn( 11 );
+		Functions\expect( 'wc_get_price_decimals' )->once()->andReturn( 0 );
+		Functions\expect( 'wc_tax_enabled' )->once()->andReturn( false );
+		Functions\expect( 'wc_format_decimal' )->once()->with( '11', 0 )->andReturn( 11 );
 
 		$actual = $this->instance->get();
 
