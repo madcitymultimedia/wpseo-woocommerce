@@ -151,10 +151,10 @@ class Yoast_WooCommerce_Dependencies_Test extends TestCase {
 	/**
 	 * Test an error message's output.
 	 *
-	 * @param string $function Function to test.
-	 * @param string $expected Expected output.
+	 * @param string $function_under_test Function to test.
+	 * @param string $expected            Expected output.
 	 */
-	private function error_message_test( $function, $expected ) {
+	private function error_message_test( $function_under_test, $expected ) {
 		$this->stubEscapeFunctions();
 
 		$class = Mockery::mock( Yoast_WooCommerce_Dependencies_Double::class )->makePartial();
@@ -167,6 +167,6 @@ class Yoast_WooCommerce_Dependencies_Test extends TestCase {
 
 		$this->expectOutputString( $expected );
 
-		$class->$function();
+		$class->$function_under_test();
 	}
 }

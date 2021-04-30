@@ -81,9 +81,9 @@ class Schema_Presenter_Test extends TestCase {
 		$utils = Mockery::mock( 'alias:WPSEO_Utils' );
 		$utils->expects( 'format_json_encode' )
 			->andReturnUsing(
-				static function( $array ) {
+				static function( $data ) {
 					// phpcs:ignore Yoast.Yoast.AlternativeFunctions.json_encode_json_encode -- Can't use it, since we are mocking it here.
-					return \json_encode( $array );
+					return \json_encode( $data );
 				}
 			);
 
@@ -104,9 +104,9 @@ class Schema_Presenter_Test extends TestCase {
 		$utils = Mockery::mock( 'alias:WPSEO_Utils' );
 		$utils->expects( 'format_json_encode' )
 			->andReturnUsing(
-				static function( $array ) {
+				static function( $data ) {
 					// phpcs:ignore Yoast.Yoast.AlternativeFunctions.json_encode_json_encode -- Can't use it, since we are mocking it here.
-					return \json_encode( $array );
+					return \json_encode( $data );
 				}
 			);
 
