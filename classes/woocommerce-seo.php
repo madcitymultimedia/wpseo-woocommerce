@@ -1226,8 +1226,8 @@ class Yoast_WooCommerce_SEO {
 		$google_preview['availability'] = str_replace( '-', ' ', $product->get_availability()['class'] );
 
 		// Because the backorder availability value is not supported in the Google Product snippet, we output preorder in the schema, and thus the preview.
-		if ( $google_preview[ 'availability' ] === 'available on backorder' ) {
-			$google_preview[ 'availability' ] = 'preorder';
+		if ( $google_preview['availability'] === 'available on backorder' ) {
+			$google_preview['availability'] = 'preorder';
 		}
 
 		if ( $this->should_show_price() ) {
