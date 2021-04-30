@@ -162,7 +162,12 @@ class YoastWooCommercePlugin {
 	 */
 	addProductGalleryImageAsFallback( fallbacks ) {
 		if ( productGalleryFallbackImage ) {
-			fallbacks.push( { productGalleryImage: productGalleryFallbackImage } );
+			// We want to go last, i.e. before the site-wide default social image.
+			const insertAtIndex = fallbacks.findIndex( fallbackImageObject => {
+				return Object.keys( fallbackImageObject )[ 0 ] === "siteWideImage";
+			} );
+
+			fallbacks.splice( insertAtIndex, 0, { productGalleryImage: productGalleryFallbackImage } );
 		}
 
 		return fallbacks;
