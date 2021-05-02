@@ -90,7 +90,7 @@ class Schema_Presenter_Test extends TestCase {
 		$output = $this->instance->present();
 
 		self::assertSame(
-			'<script type="application/ld+json" class="yoast-schema-graph yoast-schema-graph--woo yoast-schema-graph--footer">{"@context":"https:\/\/schema.org","@graph":[{"@type":"Product","@id":"http:\/\/basic.wordpress.test\/product\/hippopotamus\/#product","name":"Hippopotamus"}]}</script>' . PHP_EOL,
+			'<script type="application/ld+json" class="yoast-schema-graph yoast-schema-graph--woo yoast-schema-graph--footer">{"@context":"https:\/\/schema.org","@graph":[{"@type":"Product","@id":"http:\/\/basic.wordpress.test\/product\/hippopotamus\/#product","name":"Hippopotamus"}]}</script>' . \PHP_EOL,
 			$output
 		);
 	}
@@ -113,7 +113,7 @@ class Schema_Presenter_Test extends TestCase {
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- We need to test if the correct HTML is output.
 		echo $this->instance;
 		$this->expectOutputContains(
-			'<script type="application/ld+json" class="yoast-schema-graph yoast-schema-graph--woo yoast-schema-graph--footer">{"@context":"https:\/\/schema.org","@graph":[{"@type":"Product","@id":"http:\/\/basic.wordpress.test\/product\/hippopotamus\/#product","name":"Hippopotamus"}]}</script>' . PHP_EOL
+			'<script type="application/ld+json" class="yoast-schema-graph yoast-schema-graph--woo yoast-schema-graph--footer">{"@context":"https:\/\/schema.org","@graph":[{"@type":"Product","@id":"http:\/\/basic.wordpress.test\/product\/hippopotamus\/#product","name":"Hippopotamus"}]}</script>' . \PHP_EOL
 		);
 	}
 }
