@@ -2,11 +2,10 @@
 
 namespace Yoast\WP\Woocommerce\Tests\Classes\Presenters;
 
+use Brain\Monkey\Functions;
 use Mockery;
 use WPSEO_WooCommerce_Product_Price_Currency_Presenter;
 use Yoast\WP\Woocommerce\Tests\TestCase;
-
-use function Brain\Monkey\Functions\expect;
 
 /**
  * Class Product_Price_Currency_Presenter_Test.
@@ -72,7 +71,7 @@ class Product_Price_Currency_Presenter_Test extends TestCase {
 	 * @covers ::get
 	 */
 	public function test_get() {
-		expect( 'get_woocommerce_currency' )->once()->andReturn( 'EUR' );
+		Functions\expect( 'get_woocommerce_currency' )->once()->andReturn( 'EUR' );
 
 		$this->assertSame( 'EUR', $this->instance->get() );
 	}
