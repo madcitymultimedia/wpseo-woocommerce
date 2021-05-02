@@ -846,7 +846,7 @@ class Yoast_WooCommerce_SEO {
 	 *
 	 * @param array $helpscout_settings The HelpScout settings.
 	 *
-	 * @return array $helpscout_settings The HelpScout settings with the News SEO beacon added.
+	 * @return array The HelpScout settings with the News SEO beacon added.
 	 */
 	public function filter_helpscout_beacon( $helpscout_settings ) {
 		$helpscout_settings['pages_ids']['wpseo_woo'] = '8535d745-4e80-48b9-b211-087880aa857d';
