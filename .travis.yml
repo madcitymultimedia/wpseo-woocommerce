@@ -55,7 +55,7 @@ jobs:
       deploy:
         skip_cleanup: true
         provider: script
-        script: bash scripts/deploy_to_dist.sh $TRAVIS_TAG wpseo-woocommerce
+        script: bash scripts/deploy_to_dist.sh ${TRAVIS_TAG:-$TRAVIS_BRANCH} wpseo-woocommerce
         on:
           repo: $TRAVIS_REPO_SLUG
           all_branches: true
