@@ -54,7 +54,6 @@ jobs:
         provider: script
         script: bash scripts/deploy_to_dist.sh $TRAVIS_TAG wpseo-woocommerce
         on:
-          tags: true
           repo: $TRAVIS_REPO_SLUG
           all_branches: true
   allow_failures:
@@ -70,116 +69,116 @@ cache:
     - $HOME/.composer/cache
 
 before_install:
-- phpenv config-rm xdebug.ini || echo 'No xdebug config.'
-- export SECURITYCHECK_DIR=/tmp/security-checker
-- |
-  if [[ "$CHECKJS" == "1" ]]; then
-    nvm install $TRAVIS_NODE_VERSION
-    curl -o- -L https://yarnpkg.com/install.sh | bash
-    export PATH=$HOME/.yarn/bin:$PATH
-  fi
+  - phpenv config-rm xdebug.ini || echo 'No xdebug config.'
+  - export SECURITYCHECK_DIR=/tmp/security-checker
+  - |
+    if [[ "$CHECKJS" == "1" ]]; then
+      nvm install $TRAVIS_NODE_VERSION
+      curl -o- -L https://yarnpkg.com/install.sh | bash
+      export PATH=$HOME/.yarn/bin:$PATH
+    fi
 
 install:
-- |
-  if [[ ${TRAVIS_PHP_VERSION:0:1} == "8" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
-    travis_retry composer install --no-interaction --ignore-platform-reqs
-  elif [[ "$PHPCS" == "1" || "$PHPUNIT" == "1" || "$PHPLINT" == "1" ]]; then
-    travis_retry composer install --no-interaction
-  elif [[ "$TRAVIS_BUILD_STAGE_NAME" == "deploy" ]]; then
-    travis_retry composer install --no-dev --no-interaction
-  fi
-- if [[ "$CHECKJS" == "1" ]]; then yarn global add grunt-cli; yarn install; fi
-- if [[ "$SECURITY" == "1" ]]; then wget -P $SECURITYCHECK_DIR https://github.com/fabpot/local-php-security-checker/releases/download/v1.0.0/local-php-security-checker_1.0.0_linux_amd64 && chmod +x $SECURITYCHECK_DIR/local-php-security-checker_1.0.0_linux_amd64;fi
+  - |
+    if [[ ${TRAVIS_PHP_VERSION:0:1} == "8" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
+      travis_retry composer install --no-interaction --ignore-platform-reqs
+    elif [[ "$PHPCS" == "1" || "$PHPUNIT" == "1" || "$PHPLINT" == "1" ]]; then
+      travis_retry composer install --no-interaction
+    elif [[ "$TRAVIS_BUILD_STAGE_NAME" == "deploy" ]]; then
+      travis_retry composer install --no-dev --no-interaction
+    fi
+  - if [[ "$CHECKJS" == "1" ]]; then yarn global add grunt-cli; yarn install; fi
+  - if [[ "$SECURITY" == "1" ]]; then wget -P $SECURITYCHECK_DIR https://github.com/fabpot/local-php-security-checker/releases/download/v1.0.0/local-php-security-checker_1.0.0_linux_amd64 && chmod +x $SECURITYCHECK_DIR/local-php-security-checker_1.0.0_linux_amd64;fi
 
 before_script:
-- PLUGIN_SLUG=$(basename $(pwd))
-- export WP_DEVELOP_DIR=/tmp/wordpress/
-- export -f travis_fold
-- export -f travis_time_start
-- export -f travis_time_finish
+  - PLUGIN_SLUG=$(basename $(pwd))
+  - export WP_DEVELOP_DIR=/tmp/wordpress/
+  - export -f travis_fold
+  - export -f travis_time_start
+  - export -f travis_time_finish
 
-# Clone WordPress
-- |
-  if [[ "$PHPUNIT" == "1" ]]; then
-    git clone --depth=1 --branch="$WP_VERSION" git://develop.git.wordpress.org/ /tmp/wordpress
-  fi
+  # Clone WordPress
+  - |
+    if [[ "$PHPUNIT" == "1" ]]; then
+      git clone --depth=1 --branch="$WP_VERSION" git://develop.git.wordpress.org/ /tmp/wordpress
+    fi
 
-# Clone WPSEO and its submodule
-- |
-  if [[ "$PHPUNIT" == "1" ]]; then
-    git clone --depth=1 --branch="trunk" https://github.com/Yoast-dist/wordpress-seo.git $WP_DEVELOP_DIR/src/wp-content/plugins/wordpress-seo
-    cd /tmp/wordpress/src/wp-content/plugins/wordpress-seo
-    travis_retry composer install --no-dev --no-scripts --no-interaction --ignore-platform-reqs
-    cd -
-  fi
+  # Clone WPSEO and its submodule
+  - |
+    if [[ "$PHPUNIT" == "1" ]]; then
+      git clone --depth=1 --branch="trunk" https://github.com/Yoast-dist/wordpress-seo.git $WP_DEVELOP_DIR/src/wp-content/plugins/wordpress-seo
+      cd /tmp/wordpress/src/wp-content/plugins/wordpress-seo
+      travis_retry composer install --no-dev --no-scripts --no-interaction --ignore-platform-reqs
+      cd -
+    fi
 
-# Copy WooCommerce SEO to the test directory
-- |
-  if [[ "$PHPUNIT" == "1" ]]; then
-    cd ..
-    cp -r "$PLUGIN_SLUG" "/tmp/wordpress/src/wp-content/plugins/$PLUGIN_SLUG"
-    cd /tmp/wordpress/
-    cp wp-tests-config-sample.php wp-tests-config.php
-    sed -i "s/youremptytestdbnamehere/wordpress_tests/" wp-tests-config.php
-    sed -i "s/yourusernamehere/travis/" wp-tests-config.php
-    sed -i "s/yourpasswordhere//" wp-tests-config.php
-    mysql -e "CREATE DATABASE wordpress_tests;" -uroot
-    cd "/tmp/wordpress/src/wp-content/plugins/$PLUGIN_SLUG"
-    phpenv rehash
-  fi
+  # Copy WooCommerce SEO to the test directory
+  - |
+    if [[ "$PHPUNIT" == "1" ]]; then
+      cd ..
+      cp -r "$PLUGIN_SLUG" "/tmp/wordpress/src/wp-content/plugins/$PLUGIN_SLUG"
+      cd /tmp/wordpress/
+      cp wp-tests-config-sample.php wp-tests-config.php
+      sed -i "s/youremptytestdbnamehere/wordpress_tests/" wp-tests-config.php
+      sed -i "s/yourusernamehere/travis/" wp-tests-config.php
+      sed -i "s/yourpasswordhere//" wp-tests-config.php
+      mysql -e "CREATE DATABASE wordpress_tests;" -uroot
+      cd "/tmp/wordpress/src/wp-content/plugins/$PLUGIN_SLUG"
+      phpenv rehash
+    fi
 
 script:
-# PHP Linting
-- |
-  if [[ "$PHPLINT" == "1" ]]; then
-    travis_fold start "PHP.check" && travis_time_start
-    composer lint
-    travis_time_finish && travis_fold end "PHP.check"
-  fi
-# PHP CS
-- |
-  if [[ "$PHPCS" == "1" ]]; then
-    travis_fold start "PHP.code-style" && travis_time_start
-    composer check-cs
-    travis_time_finish && travis_fold end "PHP.code-style"
-  fi
-# PHP Tests
-- |
-  if [[ "$PHPUNIT" == "1" && ${TRAVIS_PHP_VERSION:0:1} != "8" && $TRAVIS_PHP_VERSION != "nightly" ]]; then
-    travis_fold start "PHP.tests" && travis_time_start
-    composer integration-test
-    travis_time_finish && travis_fold end "PHP.tests"
-  fi
-- |
-  if [[ "$PHPUNIT" == "1" ]] && [[ ${TRAVIS_PHP_VERSION:0:1} == "8" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
-    travis_fold start "PHP.tests" && travis_time_start
-    travis_retry composer require --dev phpunit/phpunit:"^7.5" --update-with-dependencies --ignore-platform-reqs --no-interaction &&
-    composer integration-test
-    travis_time_finish && travis_fold end "PHP.tests"
-  fi
-- |
-  if [[ "$PHPUNIT" == "1" && ${TRAVIS_PHP_VERSION:0:1} != "8" && $TRAVIS_PHP_VERSION != "nightly" ]]; then
-    travis_fold start "PHP.tests" && travis_time_start
-    composer test
-    travis_time_finish && travis_fold end "PHP.tests"
-  fi
-- |
-  if [[ "$PHPUNIT" == "1" ]] && [[ ${TRAVIS_PHP_VERSION:0:1} == "8" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
-    travis_fold start "PHP.tests" && travis_time_start
-    travis_retry composer remove --dev phpunit/phpunit --no-update &&
-    travis_retry composer update yoast/wp-test-utils --with-dependencies --ignore-platform-reqs --no-interaction &&
-    composer test
-    travis_time_finish && travis_fold end "PHP.tests"
-  fi
-# JS Linting
-- |
-  if [[ "$CHECKJS" == "1" ]]; then
-    travis_fold start "JS.check" && travis_time_start
-    grunt eslint:plugin
-    travis_time_finish && travis_fold end "JS.check"
-  fi
-# Composer config validation.
-- if [[ $TRAVIS_PHP_VERSION == "7.3" ]]; then composer validate --no-check-all; fi
+  # PHP Linting
+  - |
+    if [[ "$PHPLINT" == "1" ]]; then
+      travis_fold start "PHP.check" && travis_time_start
+      composer lint
+      travis_time_finish && travis_fold end "PHP.check"
+    fi
+  # PHP CS
+  - |
+    if [[ "$PHPCS" == "1" ]]; then
+      travis_fold start "PHP.code-style" && travis_time_start
+      composer check-cs
+      travis_time_finish && travis_fold end "PHP.code-style"
+    fi
+  # PHP Tests
+  - |
+    if [[ "$PHPUNIT" == "1" && ${TRAVIS_PHP_VERSION:0:1} != "8" && $TRAVIS_PHP_VERSION != "nightly" ]]; then
+      travis_fold start "PHP.tests" && travis_time_start
+      composer integration-test
+      travis_time_finish && travis_fold end "PHP.tests"
+    fi
+  - |
+    if [[ "$PHPUNIT" == "1" ]] && [[ ${TRAVIS_PHP_VERSION:0:1} == "8" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
+      travis_fold start "PHP.tests" && travis_time_start
+      travis_retry composer require --dev phpunit/phpunit:"^7.5" --update-with-dependencies --ignore-platform-reqs --no-interaction &&
+      composer integration-test
+      travis_time_finish && travis_fold end "PHP.tests"
+    fi
+  - |
+    if [[ "$PHPUNIT" == "1" && ${TRAVIS_PHP_VERSION:0:1} != "8" && $TRAVIS_PHP_VERSION != "nightly" ]]; then
+      travis_fold start "PHP.tests" && travis_time_start
+      composer test
+      travis_time_finish && travis_fold end "PHP.tests"
+    fi
+  - |
+    if [[ "$PHPUNIT" == "1" ]] && [[ ${TRAVIS_PHP_VERSION:0:1} == "8" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
+      travis_fold start "PHP.tests" && travis_time_start
+      travis_retry composer remove --dev phpunit/phpunit --no-update &&
+      travis_retry composer update yoast/wp-test-utils --with-dependencies --ignore-platform-reqs --no-interaction &&
+      composer test
+      travis_time_finish && travis_fold end "PHP.tests"
+    fi
+  # JS Linting
+  - |
+    if [[ "$CHECKJS" == "1" ]]; then
+      travis_fold start "JS.check" && travis_time_start
+      grunt eslint:plugin
+      travis_time_finish && travis_fold end "JS.check"
+    fi
+  # Composer config validation.
+  - if [[ $TRAVIS_PHP_VERSION == "7.3" ]]; then composer validate --no-check-all; fi
 
-# Check for known security vulnerabilities in the currently locked-in dependencies.
-- if [[ "$SECURITY" == "1" ]]; then $SECURITYCHECK_DIR/local-php-security-checker_1.0.0_linux_amd64 --path=$(pwd)/composer.lock;fi
+  # Check for known security vulnerabilities in the currently locked-in dependencies.
+  - if [[ "$SECURITY" == "1" ]]; then $SECURITYCHECK_DIR/local-php-security-checker_1.0.0_linux_amd64 --path=$(pwd)/composer.lock;fi
