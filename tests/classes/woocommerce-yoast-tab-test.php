@@ -3,9 +3,9 @@
 namespace Yoast\WP\Woocommerce\Tests\Classes;
 
 use Brain\Monkey\Functions;
+use WPSEO_WooCommerce_Yoast_Tab;
 use Yoast\WP\Woocommerce\Tests\Doubles\Yoast_Tab_Double;
 use Yoast\WP\Woocommerce\Tests\TestCase;
-use WPSEO_WooCommerce_Yoast_Tab;
 
 /**
  * Class WooCommerce_Schema_Test.
@@ -51,7 +51,7 @@ class WooCommerce_Yoast_Tab_Test extends TestCase {
 	 * @param string $expected_output Substring expected to be found in the actual output.
 	 */
 	public function test_add_yoast_seo_fields( $expected_output ) {
-		if ( defined( 'WPSEO_WOO_PLUGIN_FILE' ) === false ) {
+		if ( \defined( 'WPSEO_WOO_PLUGIN_FILE' ) === false ) {
 			\define( 'WPSEO_WOO_PLUGIN_FILE', './wpseo-woocommerce.php' );
 		}
 
