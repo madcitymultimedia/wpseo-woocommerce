@@ -60,5 +60,5 @@ else
   git tag "${lastTag}" "$(git rev-parse HEAD)"
 fi
 
-# Push to master.
-git push -u origin master --tags -f -v
+# Push to remote.
+git push -u origin $branch --tags
