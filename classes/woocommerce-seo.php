@@ -1219,9 +1219,6 @@ class Yoast_WooCommerce_SEO {
 		$asset_manager = new WPSEO_Admin_Asset_Manager();
 		$version       = $asset_manager->flatten_version( self::VERSION );
 
-$reviews_enabled = wc_reviews_enabled();
-$rating_enabled  = wc_review_ratings_enabled();
-
 		$google_preview                 = [];
 		$product                        = $this->get_product();
 		$google_preview['availability'] = str_replace( '-', ' ', $product->get_availability()['class'] );
