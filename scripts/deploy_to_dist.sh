@@ -7,10 +7,8 @@
 ## arg 2: repo-name ##
 ######################
 
-# Exit on error and show executed
 set -ex
 
-# Check if correct arguments have been set.
 if [ -z "$1" ]; then
     echo 'The first argument should be the version you want to deploy to dist.'
     exit 1
@@ -28,7 +26,7 @@ REPO_URL="git@github.com:$USER/$REPO.git"
 
 # Get the latest tag.
 lastTag=$1
-branch="trunk"
+branch="master"
 mainDir=$(pwd)
 
 if [[ $lastTag =~ ^feature/* || $lastTag =~ ^release/* || $lastTag =~ ^hotfix/* || $lastTag == "trunk" ]]; then
@@ -36,9 +34,10 @@ if [[ $lastTag =~ ^feature/* || $lastTag =~ ^release/* || $lastTag =~ ^hotfix/* 
 fi
 
 # Clone the dist repo.
-git clone "${REPO_URL}" dist-repo --no-checkout
+rm -rf ./dist-repo
+git clone ${REPO_URL} dist-repo
 cd dist-repo
-git checkout "$branch" 2>/dev/null || git checkout -b "$branch"
+git checkout $branch 2>/dev/null || git checkout -b $branch
 cd ..
 
 # Copy the git folder with the entire history.
@@ -55,10 +54,10 @@ git add -A
 if [[ $lastTag =~ ^feature/* || $lastTag =~ ^release/* || $lastTag =~ ^hotfix/* || $lastTag == "trunk" ]]; then
   git commit --allow-empty -m "${TRAVIS_COMMIT_MESSAGE}"
 else
-  git commit -m "commit version tag ${lastTag}"
+  git commit -m "Release ${lastTag}"
    # Tag the commit.
-  git tag "${lastTag}" "$(git rev-parse HEAD)"
+  git tag ${lastTag}
 fi
 
-# Push to master.
-git push -u origin master --tags -f -v
+# Push to remote.
+git push -u origin $branch --tags
