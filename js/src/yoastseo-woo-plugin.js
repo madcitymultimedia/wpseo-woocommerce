@@ -164,7 +164,7 @@ class YoastWooCommercePlugin {
 		if ( productGalleryFallbackImage ) {
 			/*
 			 * We want to insert the image before the Global Social Template image,
-			 * otherise before the site-wide default social image.
+			 * otherwise before the site-wide default social image.
 			 */
 			const insertAtIndex = fallbacks.findIndex( fallbackImageObject => {
 				if ( Object.keys( fallbackImageObject )[ 0 ] === "socialImage" ) {
