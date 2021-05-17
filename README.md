@@ -33,8 +33,8 @@ Changelog
 ### 14.0: 
 Enhancements:
 
-* Improves the priceSpecification Schema output to prevent warnings from Google Search Console.
 * Add the rating, number of reviews, price and availability to the Google Preview for products to match Google's search results.
+* Improves the `priceSpecification` Schema output to prevent warnings from Google Search Console.
 
 Bugfixes:
 
