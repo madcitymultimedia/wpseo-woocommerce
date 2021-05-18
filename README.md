@@ -30,7 +30,7 @@ You can find the FAQ [online here](https://kb.yoast.com/kb/category/woocommerce-
 
 Changelog
 =========
-### 14.0: 
+### 14.0: May 18th, 2021
 Enhancements:
 
 * Add the rating, number of reviews, price and availability to the Google Preview for products to match Google's search results.
