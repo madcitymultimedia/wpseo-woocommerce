@@ -2,7 +2,7 @@ WooCommerce Yoast SEO
 =====================
 Requires at least: 5.6
 Tested up to: 5.7
-Stable tag: 14.0-RC2
+Stable tag: 14.0
 Requires PHP: 5.6.20
 Depends: Yoast SEO, WooCommerce
 
@@ -30,11 +30,11 @@ You can find the FAQ [online here](https://kb.yoast.com/kb/category/woocommerce-
 
 Changelog
 =========
-### 14.0: 
+### 14.0: May 18th, 2021
 Enhancements:
 
-* Improves the priceSpecification Schema output to prevent warnings from Google Search Console.
 * Add the rating, number of reviews, price and availability to the Google Preview for products to match Google's search results.
+* Improves the `priceSpecification` Schema output to prevent warnings from Google Search Console.
 
 Bugfixes:
 
@@ -43,6 +43,7 @@ Bugfixes:
 Other:
 
 * Sets the WordPress tested up to version to 5.7 and minimum supported WordPress version to 5.6.
+* Sets the minimum supported Yoast SEO version to 16.3.
 
 ### 13.9: January 26th, 2021
 Bugfixes:
