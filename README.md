@@ -30,6 +30,11 @@ You can find the FAQ [online here](https://kb.yoast.com/kb/category/woocommerce-
 
 Changelog
 =========
+### 14.1: June 1st, 2021
+Other:
+
+* Makes WooCommerce SEO compatible with the latest version of Yoast SEO.
+
 ### 14.0: May 18th, 2021
 Enhancements:
 
