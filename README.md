@@ -43,6 +43,7 @@ Bugfixes:
 Other:
 
 * Sets the WordPress tested up to version to 5.7 and minimum supported WordPress version to 5.6.
+* Sets the minimum supported Yoast SEO version to 16.3.
 
 ### 13.9: January 26th, 2021
 Bugfixes:
