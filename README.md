@@ -32,7 +32,7 @@ Changelog
 =========
 ### 14.1: June 1st, 2021
 test:
-
+* some test fields.
 
 Other:
 * Makes WooCommerce SEO compatible with the latest version of Yoast SEO.
