@@ -3,6 +3,7 @@ const { flattenVersionForFile } = require( "./config/grunt/lib/version.js" );
 const timeGrunt = require( "time-grunt" );
 const loadGruntConfig = require( "load-grunt-config" );
 const path = require( "path" );
+require( "dotenv" ).config();
 
 module.exports = function( grunt ) {
 	timeGrunt( grunt );
@@ -63,9 +64,22 @@ module.exports = function( grunt ) {
 			staticMappings: {
 				addtextdomain: "grunt-wp-i18n",
 				makepot: "grunt-wp-i18n",
+				gittag: "grunt-git",
+				gitfetch: "grunt-git",
+				gitadd: "grunt-git",
+				gitstatus: "grunt-git",
+				gitcommit: "grunt-git",
+				gitcheckout: "grunt-git",
+				gitpull: "grunt-git",
+				gitpush: "grunt-git",
 				glotpress_download: "grunt-glotpress",
 				"update-version": "./node_modules/@yoast/grunt-plugin-tasks/tasks/update-version.js",
 				"set-version": "./node_modules/@yoast/grunt-plugin-tasks/tasks/set-version.js",
+				"update-changelog-with-latest-pr-texts": "@yoast/grunt-plugin-tasks",
+				"get-latest-pr-texts": "@yoast/grunt-plugin-tasks",
+				"update-changelog": "@yoast/grunt-plugin-tasks",
+				"build-qa-changelog": "@yoast/grunt-plugin-tasks",
+				"download-qa-changelog": "@yoast/grunt-plugin-tasks",
 			},
 		},
 	} );
