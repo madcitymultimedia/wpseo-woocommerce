@@ -10,7 +10,7 @@ module.exports = {
 			// ### 15.9: February 23rd, 2021
 			readmeFile: "./README.md",
 			releaseInChangelog: /[#] \d+\.\d+(\.\d+)?\: /g,
-			matchChangelogHeader: /Changelog\n=========\n\n/ig,
+			matchChangelogHeader: /Changelog\n=========\n/ig,
 			newHeadertemplate: "Changelog\n=========\n\n" + "### " + "VERSIONNUMBER" + ": " + "DATESTRING"  + "\n",
 			matchCorrectLines: "### " + "VERSIONNUMBER" + "(.|\\n)*?(?=(### \\d+[\.\\d]+\: |$))",
 			matchCorrectHeader: "### " + "VERSIONNUMBER" + "(.|\\n)*?\\n(?=(\\w\+?:\\n|### \\d+[\.\\d]+\: |$))",
