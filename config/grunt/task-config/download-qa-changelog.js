@@ -1,6 +1,6 @@
 // Custom task
 module.exports = {
-	"wordpress-seo-premium": {
+	"wpseo-woocommerce": {
 		options: {
 
 		},
