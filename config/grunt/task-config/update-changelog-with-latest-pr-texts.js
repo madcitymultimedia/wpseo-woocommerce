@@ -20,7 +20,7 @@ module.exports = {
 			defaultChangelogEntries: "",
 			useANewLineAfterHeader: false,
 			useEditDistanceCompare: true,
-			commitChangelog: true,
+			commitChangelog: false,
 		},
 	},
 };
