@@ -34,6 +34,7 @@ Changelog
 Other:
 
 * Makes WooCommerce SEO compatible with the latest version of Yoast SEO.
+* Sets the minimum supported Yoast SEO version to 16.4.
 
 ### 14.0: May 18th, 2021
 Enhancements:
