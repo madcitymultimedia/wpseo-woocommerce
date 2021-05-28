@@ -72,6 +72,7 @@ module.exports = function( grunt ) {
 				gitcheckout: "grunt-git",
 				gitpull: "grunt-git",
 				gitpush: "grunt-git",
+				/* eslint-disable-next-line camelcase */
 				glotpress_download: "grunt-glotpress",
 				"update-version": "./node_modules/@yoast/grunt-plugin-tasks/tasks/update-version.js",
 				"set-version": "./node_modules/@yoast/grunt-plugin-tasks/tasks/set-version.js",
