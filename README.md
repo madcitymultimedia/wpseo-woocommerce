@@ -46,3 +46,5 @@ Other:
 * Sets the WordPress tested up to version to 5.7 and minimum supported WordPress version to 5.6.
 * Sets the minimum supported Yoast SEO version to 16.3.
 
+### Earlier versions
+For the changelog of earlier versions, please refer to [the changelog on yoast.com](https://yoa.st/woo-seo-changelog).
