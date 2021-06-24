@@ -18,7 +18,7 @@ class Yoast_WooCommerce_Dependencies {
 	 * @return bool True when the dependencies are okay.
 	 */
 	public function check_dependencies( $wp_version ) {
-		if ( ! version_compare( $wp_version, '5.3', '>=' ) ) {
+		if ( ! version_compare( $wp_version, '5.6', '>=' ) ) {
 			add_action( 'all_admin_notices', [ $this, 'wordpress_upgrade_error' ] );
 
 			return false;
@@ -39,8 +39,8 @@ class Yoast_WooCommerce_Dependencies {
 			return false;
 		}
 
-		// At least 16.3, in which we've implemented the enhanced Google preview for products.
-		if ( ! version_compare( $wordpress_seo_version, '16.3-RC0', '>=' ) ) {
+		// At least 16.4, in which we've implemented the enhanced Google preview for products.
+		if ( ! version_compare( $wordpress_seo_version, '16.4-RC0', '>=' ) ) {
 			add_action( 'all_admin_notices', [ $this, 'yoast_seo_upgrade_error' ] );
 
 			return false;
