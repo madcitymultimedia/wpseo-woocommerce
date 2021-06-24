@@ -2,7 +2,6 @@
 module.exports = {
 	"wpseo-woocommerce": {
 		options: {
-
 		},
 	},
 };
