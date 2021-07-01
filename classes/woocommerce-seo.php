@@ -682,8 +682,12 @@ class Yoast_WooCommerce_SEO {
 			}
 		}
 
-		if ( ! is_singular( 'product' ) ) {
-			return null;
+		// if ( ! is_singular( 'product' ) ) {
+		// 	return null;
+		// }
+		global $post;
+		if ( ! empty( $post ) ) {
+			return wc_get_product( $post );
 		}
 
 		return wc_get_product( get_queried_object_id() );
