@@ -676,9 +676,9 @@ class Yoast_WooCommerce_SEO {
 		}
 
 		if ( is_a( $context, Meta_Tags_Context::class ) ) {
-			if ( $context->indexable->object_sub_type === "post" ) {
+			if ( $context->indexable->object_type === "post" ) {
 				$the_post = \get_post( $context->indexable->object_id );
-				wc_get_product( $the_post );
+				return wc_get_product( $the_post );
 			}
 		}
 
