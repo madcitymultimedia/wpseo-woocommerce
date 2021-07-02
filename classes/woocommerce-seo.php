@@ -675,22 +675,25 @@ class Yoast_WooCommerce_SEO {
 			return wc_get_product( get_the_ID() );
 		}
 
-		if ( is_a( $context, Meta_Tags_Context::class ) ) {
-			if ( $context->indexable->object_type === "post" ) {
-				$the_post = \get_post( $context->indexable->object_id );
-				return wc_get_product( $the_post );
+		if ( ! defined( 'REST_REQUEST' ) || ! REST_REQUEST ) {
+			// This is a frontend request.
+			if ( is_a( $context, Meta_Tags_Context::class ) ) {
+				if ( $context->indexable->object_sub_type === "product" ) {
+					$the_post = \get_post( $context->indexable->object_id );
+					return wc_get_product( $the_post );
+				}
 			}
-		}
 
-		// if ( ! is_singular( 'product' ) ) {
-		// 	return null;
-		// }
+			return null;
+		} 
+
+		// This is a REST API request.
 		global $post;
-		if ( ! empty( $post ) ) {
+		if ( ! empty( $post ) && property_exists( $post, 'post_type' ) && $post->post_type === "product" ) {
 			return wc_get_product( $post );
 		}
 
-		return wc_get_product( get_queried_object_id() );
+		return null;
 	}
 
 	/**
