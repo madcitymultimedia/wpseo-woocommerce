@@ -6,6 +6,7 @@
  */
 
 use Yoast\WP\SEO\Context\Meta_Tags_Context;
+use Yoast\WP\SEO\Helpers\Request_Helper;
 
 /**
  * Class Yoast_WooCommerce_SEO
@@ -675,7 +676,9 @@ class Yoast_WooCommerce_SEO {
 			return wc_get_product( get_the_ID() );
 		}
 
-		if ( ! defined( 'REST_REQUEST' ) || ! REST_REQUEST ) {
+		$request_helper = new Request_Helper();
+
+		if ( ! $request_helper->is_rest_request() ) {
 			// This is a frontend request.
 			if ( is_a( $context, Meta_Tags_Context::class ) ) {
 				if ( $context->indexable->object_sub_type === "product" ) {
