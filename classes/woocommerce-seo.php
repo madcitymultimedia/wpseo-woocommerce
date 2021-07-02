@@ -161,6 +161,7 @@ class Yoast_WooCommerce_SEO {
 	 * Adds the WooCommerce OpenGraph presenter.
 	 *
 	 * @param \Yoast\WP\SEO\Presenters\Abstract_Indexable_Presenter[] $presenters The presenter instances.
+	 * @param \Yoast\WP\SEO\Context\Meta_Tags_Context                 $context The meta tags context.
 	 *
 	 * @return \Yoast\WP\SEO\Presenters\Abstract_Indexable_Presenter[] The extended presenters.
 	 */
@@ -665,6 +666,8 @@ class Yoast_WooCommerce_SEO {
 	 *
 	 * @since 4.3
 	 *
+	 * @param \Yoast\WP\SEO\Context\Meta_Tags_Context $context The meta tags context.
+	 *
 	 * @return WC_Product|null
 	 */
 	private function get_product( $context = null ) {
@@ -681,18 +684,18 @@ class Yoast_WooCommerce_SEO {
 		if ( ! $request_helper->is_rest_request() ) {
 			// This is a frontend request.
 			if ( is_a( $context, Meta_Tags_Context::class ) ) {
-				if ( $context->indexable->object_sub_type === "product" ) {
+				if ( $context->indexable->object_sub_type === 'product' ) {
 					$the_post = \get_post( $context->indexable->object_id );
 					return wc_get_product( $the_post );
 				}
 			}
 
 			return null;
-		} 
+		}
 
 		// This is a REST API request.
 		global $post;
-		if ( ! empty( $post ) && property_exists( $post, 'post_type' ) && $post->post_type === "product" ) {
+		if ( ! empty( $post ) && property_exists( $post, 'post_type' ) && $post->post_type === 'product' ) {
 			return wc_get_product( $post );
 		}
 
