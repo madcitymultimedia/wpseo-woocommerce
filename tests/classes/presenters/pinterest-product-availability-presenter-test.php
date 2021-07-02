@@ -29,7 +29,6 @@ class Pinterest_Product_Availability_Presenter_Test extends TestCase {
 	public function set_up() {
 		parent::set_up();
 
-		// Needs to exist as WPSEO_WooCommerce_Abstract_Product_Presenter depends on it.
 		$this->product = Mockery::mock( 'WC_Product' );
 	}
 

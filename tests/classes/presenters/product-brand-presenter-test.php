@@ -43,9 +43,6 @@ class Product_Brand_Presenter_Test extends TestCase {
 	public function set_up() {
 		parent::set_up();
 
-		// Needs to exist as WPSEO_WooCommerce_Product_Brand_Presenter depends on it.
-		Mockery::mock( 'overload:Yoast\WP\SEO\Presenters\Abstract_Indexable_Tag_Presenter' );
-
 		$this->product = Mockery::mock( 'WC_Product' );
 
 		$this->instance          = new WPSEO_WooCommerce_Product_Brand_Presenter( $this->product );
