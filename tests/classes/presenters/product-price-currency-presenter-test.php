@@ -6,6 +6,7 @@ use Brain\Monkey\Functions;
 use Mockery;
 use WPSEO_WooCommerce_Product_Price_Currency_Presenter;
 use Yoast\WP\Woocommerce\Tests\TestCase;
+use Yoast\WP\SEO\Presenters\Abstract_Indexable_Tag_Presenter;
 
 /**
  * Class Product_Price_Currency_Presenter_Test.
@@ -57,7 +58,7 @@ class Product_Price_Currency_Presenter_Test extends TestCase {
 	 */
 	public function test_tag_format() {
 		$this->assertSame(
-			'<meta property="product:price:currency" content="%s" />',
+			Abstract_Indexable_Tag_Presenter::META_PROPERTY_CONTENT,
 			$this->getPropertyValue( $this->instance, 'tag_format' )
 		);
 	}

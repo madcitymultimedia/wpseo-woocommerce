@@ -5,6 +5,7 @@ namespace Yoast\WP\Woocommerce\Tests\Classes\Presenters;
 use Mockery;
 use WPSEO_WooCommerce_Product_Retailer_Item_ID_Presenter;
 use Yoast\WP\Woocommerce\Tests\TestCase;
+use Yoast\WP\SEO\Presenters\Abstract_Indexable_Tag_Presenter;
 
 /**
  * Class Product_Retailer_Item_ID_Presenter_Test.
@@ -56,7 +57,7 @@ class Product_Retailer_Item_ID_Presenter_Test extends TestCase {
 	 */
 	public function test_tag_format() {
 		$this->assertSame(
-			'<meta property="product:retailer_item_id" content="%s" />',
+			Abstract_Indexable_Tag_Presenter::META_PROPERTY_CONTENT,
 			$this->getPropertyValue( $this->instance, 'tag_format' )
 		);
 	}

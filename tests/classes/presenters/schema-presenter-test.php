@@ -42,7 +42,6 @@ class Schema_Presenter_Test extends TestCase {
 	public function set_up() {
 		parent::set_up();
 		$this->stubEscapeFunctions();
-		Mockery::mock( 'overload:Yoast\WP\SEO\Presenters\Abstract_Indexable_Presenter' );
 
 		$this->graph = [
 			[
