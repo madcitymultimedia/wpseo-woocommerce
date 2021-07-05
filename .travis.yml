@@ -39,7 +39,7 @@ jobs:
         - eval $(ssh-agent -s)
         - ssh-add ./deploy_keys/wpseo_woo_deploy
         - ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-        -composer config --global github-oauth.github.com $GITHUB_OAUTH_TOKEN
+        - composer config --global github-oauth.github.com $GITHUB_OAUTH_TOKEN
       before_deploy:
         - nvm install node
         - curl -o- -L https://yarnpkg.com/install.sh | bash
