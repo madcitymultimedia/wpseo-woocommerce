@@ -39,7 +39,7 @@ class Yoast_WooCommerce_Dependencies {
 			return false;
 		}
 
-		// At least 16.7, in which we added the yoast_head and yoast_head_json functionality to the plugin.
+		// At least 16.7, in which we added the yoast_head_json functionality to the plugin.
 		if ( ! version_compare( $wordpress_seo_version, '16.7-RC0', '>=' ) ) {
 			add_action( 'all_admin_notices', [ $this, 'yoast_seo_upgrade_error' ] );
 
