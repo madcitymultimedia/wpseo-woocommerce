@@ -17,8 +17,8 @@ node( 'docker-agent' ) {
 			}
 			stage( 'Expose Artifact' ) {
 				def BRANCH_NAME = sh(returnStdout: true, script: "echo ${env.BRANCH_NAME} | sed -e s#/#-# | tr --delete '\n'")
-				sh "mv artifact.zip wordpress-seo-${BRANCH_NAME}.zip"
-				archiveArtifacts artifacts: "wordpress-seo-${BRANCH_NAME}.zip", fingerprint: true
+				sh "mv artifact.zip wordpress-seo-woocommerce-${BRANCH_NAME}.zip"
+				archiveArtifacts artifacts: "wordpress-seo-woocommerce-${BRANCH_NAME}.zip", fingerprint: true
 			}
 		}
 	}
