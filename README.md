@@ -37,11 +37,9 @@ Enhancements:
 * Bumps the minimum required version for Yoast SEO to 16.7.
 * If you delete your primary location without updating your primary location in the Local SEO settings, ánd you have only one location left, meta tags will fall back to use this location instead.
 
-No category:
-* Replaces an occurrence of the deprecated jQuery `.ready` syntax with more modern syntax. Props t
-
 Other:
 * Sets the minimum WordPress version to 5.6.
+* Replaces an occurrence of the deprecated jQuery `.ready` syntax with more modern syntax. Props to [kkmuffme](https://github.com/kkmuffme).
 
 ### 14.1: June 1st, 2021
 Other:
