@@ -6,6 +6,7 @@ use Brain\Monkey\Functions;
 use Mockery;
 use WPSEO_WooCommerce_Product_Brand_Presenter;
 use Yoast\WP\Woocommerce\Tests\TestCase;
+use Yoast\WP\SEO\Presenters\Abstract_Indexable_Tag_Presenter;
 
 /**
  * Class Product_Brand_Presenter_Test.
@@ -43,9 +44,6 @@ class Product_Brand_Presenter_Test extends TestCase {
 	public function set_up() {
 		parent::set_up();
 
-		// Needs to exist as WPSEO_WooCommerce_Product_Brand_Presenter depends on it.
-		Mockery::mock( 'overload:Yoast\WP\SEO\Presenters\Abstract_Indexable_Tag_Presenter' );
-
 		$this->product = Mockery::mock( 'WC_Product' );
 
 		$this->instance          = new WPSEO_WooCommerce_Product_Brand_Presenter( $this->product );
@@ -70,7 +68,7 @@ class Product_Brand_Presenter_Test extends TestCase {
 	 */
 	public function test_tag_format() {
 		$this->assertSame(
-			'<meta property="product:brand" content="%s" />',
+			Abstract_Indexable_Tag_Presenter::META_PROPERTY_CONTENT,
 			$this->getPropertyValue( $this->instance, 'tag_format' )
 		);
 	}

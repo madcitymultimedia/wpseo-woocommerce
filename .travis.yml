@@ -38,6 +38,8 @@ jobs:
         - chmod 600 ./deploy_keys/wpseo_woo_deploy
         - eval $(ssh-agent -s)
         - ssh-add ./deploy_keys/wpseo_woo_deploy
+        - ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
+        - composer config --global github-oauth.github.com $GITHUB_OAUTH_TOKEN
       before_deploy:
         - nvm install node
         - curl -o- -L https://yarnpkg.com/install.sh | bash
@@ -74,6 +76,7 @@ cache:
 before_install:
   - phpenv config-rm xdebug.ini || echo 'No xdebug config.'
   - export SECURITYCHECK_DIR=/tmp/security-checker
+  - composer config --global github-oauth.github.com $GITHUB_OAUTH_TOKEN
   - |
     if [[ "$CHECKJS" == "1" ]]; then
       nvm install $TRAVIS_NODE_VERSION

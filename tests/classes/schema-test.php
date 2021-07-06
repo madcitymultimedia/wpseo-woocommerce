@@ -50,7 +50,6 @@ class Schema_Test extends TestCase {
 			->andReturn( [] );
 
 		Mockery::mock( 'overload:Yoast\WP\SEO\Config\Schema_IDs', new Schema_IDs() );
-		Mockery::mock( 'overload:Yoast\WP\SEO\Presenters\Abstract_Indexable_Presenter' );
 
 		$this->set_instance();
 	}
