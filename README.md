@@ -33,11 +33,11 @@ Changelog
 
 ### 14.2: July 20th, 2021
 Enhancements:
-* Adds support for the headless functionality introduced in Yoast SEO 16.7.
+* Adds key/value pairs of all WooCommerce SEO meta tags to our REST API.
 
 Other:
 * Sets the minimum WordPress version to 5.6.
-* Bumps the minimum required version for Yoast SEO to 16.7.
+* Sets the minimum required Yoast SEO to 16.7.
 * Replaces an occurrence of the deprecated jQuery `.ready` syntax with more modern syntax. Props to [kkmuffme](https://github.com/kkmuffme).
 
 ### 14.1: June 1st, 2021
