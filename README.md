@@ -35,7 +35,6 @@ Changelog
 Enhancements:
 * Adds support for the headless functionality introduced in Yoast SEO 16.7.
 * Bumps the minimum required version for Yoast SEO to 16.7.
-* If you delete your primary location without updating your primary location in the Local SEO settings, ánd you have only one location left, meta tags will fall back to use this location instead.
 
 Other:
 * Sets the minimum WordPress version to 5.6.
