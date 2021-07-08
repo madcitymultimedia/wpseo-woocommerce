@@ -296,10 +296,10 @@
   resolved "https://registry.yarnpkg.com/@yoast/browserslist-config/-/browserslist-config-1.0.4.tgz#e6daa4b98073292dfcad1404b8644d22f21f3a53"
   integrity sha512-Z7rC9jdoMzPHiL3WZaZ2yfyYUoIcrLIAfLi+QL3CNMOIoHCEkjwA3cKxdFQqRjfWpFiGSoOgFVQsIUFEND1g9w==
 
-"@yoast/grunt-plugin-tasks@^2.1.1":
-  version "2.1.1"
-  resolved "https://registry.yarnpkg.com/@yoast/grunt-plugin-tasks/-/grunt-plugin-tasks-2.1.1.tgz#9528d8158b4f60f5d1bce773acad89807ef1302c"
-  integrity sha512-3ICPw2LP3tgk3LklPRmmRHfScbq8QR5vxlXo9DtQ7hca5bI2etWXUrOAxrYMdU5yppcg02zG5REcARQWdz4u2w==
+"@yoast/grunt-plugin-tasks@^2.1.2":
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/@yoast/grunt-plugin-tasks/-/grunt-plugin-tasks-2.1.2.tgz#2d2fc9d9125595ad966051b8934c3e0c4adffb33"
+  integrity sha512-NKfp2aNGbqFl6M7k6CdsdoDUgcFKU+kBYlAqhrS5tDcWNT5su/gj2x2Dn86CN3R1CpEHXsoOhjFQ5AVSmvFbEA==
   dependencies:
     "@yoast/browserslist-config" "^1.0.0"
     autoprefixer "^9.7.2"
