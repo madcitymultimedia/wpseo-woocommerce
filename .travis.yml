@@ -19,19 +19,19 @@ jobs:
   fast_finish: true
   include:
     - php: 7.3.24
-      env: WP_VERSION=5.7 WP_MULTISITE=1 PHPUNIT=1 PHPCS=1 CHECKJS=1 SECURITY=1 TRAVIS_NODE_VERSION=lts/*
+      env: WP_VERSION=5.8 WP_MULTISITE=1 PHPUNIT=1 PHPCS=1 CHECKJS=1 SECURITY=1 TRAVIS_NODE_VERSION=lts/*
     - php: 5.6
       env: WP_VERSION=5.6 PHPLINT=1 PHPUNIT=1
     - php: 7.4
-      env: WP_VERSION=5.7 PHPLINT=1 PHPUNIT=1
+      env: WP_VERSION=5.8 PHPLINT=1 PHPUNIT=1
     - php: 7.0
       env: WP_VERSION=master WP_MULTISITE=1 PHPUNIT=1
     - php: 8.0
-      env: WP_VERSION=5.7 PHPLINT=1 PHPUNIT=1
+      env: WP_VERSION=5.8 PHPLINT=1 PHPUNIT=1
     - php: "nightly"
       env: PHPLINT=1
     - stage: deploy
-      env: WP_VERSION=5.7
+      env: WP_VERSION=5.8
       if: ( tag IS present OR branch =~ /^feature\// OR branch =~ /^release\// OR branch =~ /^hotfix\// OR branch = trunk ) AND type != pull_request
       before_install:
         - openssl aes-256-cbc -K $encrypted_2b922af4d08d_key -iv $encrypted_2b922af4d08d_iv -in ./deploy_keys/wpseo_woo_deploy.enc -out ./deploy_keys/wpseo_woo_deploy -d
