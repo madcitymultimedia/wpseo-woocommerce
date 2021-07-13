@@ -31,7 +31,7 @@ You can find the FAQ [online here](https://kb.yoast.com/kb/category/woocommerce-
 Changelog
 =========
 
-### 14.2: July 20th, 2021
+### 14.2: July 13th, 2021
 Enhancements:
 * Adds key/value pairs of all WooCommerce SEO meta tags to our REST API.
 
