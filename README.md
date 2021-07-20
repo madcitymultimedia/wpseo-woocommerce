@@ -31,6 +31,12 @@ You can find the FAQ [online here](https://kb.yoast.com/kb/category/woocommerce-
 Changelog
 =========
 
+### 14.2.1: August 3rd, 2021
+Bugfixes:
+* Fixes a bug where a fatal error was thrown on the frontend of product pages when using the `%%wc_shortdesc%%` snippet variable while running PHP 8.0.
+* Fixes a bug where the `%%wc_price%%`, `%%wc_sku%%`, `%%wc_shortdesc%%` and `%%wc_brand%%` snippet variable values were not displayed on the frontend.
+
+
 ### 14.2: July 13th, 2021
 Enhancements:
 * Adds key/value pairs of all WooCommerce SEO meta tags to our REST API.
