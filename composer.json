@@ -16,7 +16,10 @@
         "source": "https://github.com/Yoast/wpseo-woocommerce"
     },
     "autoload": {
-        "classmap": [ "classes/" ]
+        "classmap": [ "classes/" ],
+        "exclude-from-classmap": [
+            "vendor/yoast/wordpress-seo"
+        ]
     },
     "autoload-dev": {
         "classmap": [
