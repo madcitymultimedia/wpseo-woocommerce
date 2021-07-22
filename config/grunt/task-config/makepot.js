@@ -14,7 +14,7 @@ module.exports = {
 			exclude: [
 				"<%= files.artifact %>",
 				".wordpress-svn",
-				"vendor",
+				"vendor/yoast/wordpress-seo",
 			],
 		},
 	},
