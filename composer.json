@@ -23,6 +23,9 @@
             "tests/",
             "integration-tests/",
             "config/"
+        ],
+        "exclude-from-classmap": [
+            "vendor/yoast/wordpress-seo"
         ]
     },
     "config": {
