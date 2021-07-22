@@ -78,6 +78,23 @@ before_install:
   - export SECURITYCHECK_DIR=/tmp/security-checker
   - composer config --global github-oauth.github.com $GITHUB_OAUTH_TOKEN
   - |
+    if [[ "$PHPUNIT" == "1" || "$COVERAGE" == "1" || "$TRAVIS_BUILD_STAGE_NAME" == "🚀 deployment" ]]; then
+      # Building Yoast SEO free requires PHP 7.1 minimum which we need to build our container.
+      # So we temporarily switch PHP versions, do a full install and then remove the package.
+      # Then switch back to the PHP version we want to test and delete the vendor directory.
+      phpenv local 7.1
+      travis_retry composer install --no-interaction --ignore-platform-reqs
+      if [[ ${TRAVIS_PHP_VERSION:0:1} == "5" || $TRAVIS_PHP_VERSION == "7.0" ]]; then
+        travis_retry composer remove phpunit/phpcov --dev --ignore-platform-reqs
+        cd vendor/yoast/wordpress-seo
+        travis_retry composer remove humbug/php-scoper --dev --ignore-platform-reqs
+        travis_retry composer remove atanamo/php-codeshift --dev --ignore-platform-reqs
+        rm -rf vendor
+        cd ../../..
+      fi
+      phpenv local --unset
+    fi
+  - |
     if [[ "$CHECKJS" == "1" ]]; then
       nvm install $TRAVIS_NODE_VERSION
       curl -o- -L https://yarnpkg.com/install.sh | bash
