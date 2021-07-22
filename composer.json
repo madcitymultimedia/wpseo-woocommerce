@@ -86,6 +86,9 @@
         ],
         "test": [
             "@php ./vendor/phpunit/phpunit/phpunit"
+        ],
+        "post-install-cmd": [
+            "cd vendor/yoast/wordpress-seo && composer install --ignore-platform-reqs && cd ../.."
         ]
     }
 }
