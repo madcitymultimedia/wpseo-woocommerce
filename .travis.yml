@@ -85,7 +85,6 @@ before_install:
       phpenv local 7.1
       travis_retry composer install --no-interaction --ignore-platform-reqs
       if [[ ${TRAVIS_PHP_VERSION:0:1} == "5" || $TRAVIS_PHP_VERSION == "7.0" ]]; then
-        travis_retry composer remove phpunit/phpcov --dev --ignore-platform-reqs
         cd vendor/yoast/wordpress-seo
         travis_retry composer remove humbug/php-scoper --dev --ignore-platform-reqs
         travis_retry composer remove atanamo/php-codeshift --dev --ignore-platform-reqs
