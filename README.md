@@ -35,5 +35,19 @@ Changelog
 Bugfixes:
 * Fixes a bug where the product identifier replacement variables `%%wc_gtin8%%`, `%%wc_gtin12%%`, `%%wc_gtin13%%`, `%%wc_gtin14%%`, `%%wc_isbn%%` and `%%wc_mpn%%` would not work in meta descriptions when retrieving posts using REST requests.
 
+### 14.2.1: July 21st, 2021
+Bugfixes:
+* Fixes a bug where a fatal error was thrown on the frontend of product pages when using the `%%wc_shortdesc%%` snippet variable while running PHP 8.0.
+* Fixes a bug where the `%%wc_price%%`, `%%wc_sku%%`, `%%wc_shortdesc%%` and `%%wc_brand%%` snippet variable values were not displayed on the frontend.
+
+### 14.2: July 13th, 2021
+Enhancements:
+* Adds key/value pairs of all WooCommerce SEO meta tags to our REST API.
+
+Other:
+* Sets the minimum WordPress version to 5.6.
+* Sets the minimum required Yoast SEO to 16.7.
+* Replaces an occurrence of the deprecated jQuery `.ready` syntax with more modern syntax. Props to [kkmuffme](https://github.com/kkmuffme).
 
 ### Earlier versions
+For the changelog of earlier versions, please refer to [the changelog on yoast.com](https://yoa.st/woo-seo-changelog).
