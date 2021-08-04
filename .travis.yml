@@ -39,7 +39,7 @@ jobs:
         - eval $(ssh-agent -s)
         - ssh-add ./deploy_keys/wpseo_woo_deploy
         - ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-        - composer config --global github-oauth.github.com $GITHUB_OAUTH_TOKEN
+        - composer config --global github-oauth.github.com ${GITHUB_OAUTH_TOKEN}
       before_deploy:
         - nvm install node
         - curl -o- -L https://yarnpkg.com/install.sh | bash
@@ -76,7 +76,7 @@ cache:
 before_install:
   - phpenv config-rm xdebug.ini || echo 'No xdebug config.'
   - export SECURITYCHECK_DIR=/tmp/security-checker
-  - composer config --global github-oauth.github.com $GITHUB_OAUTH_TOKEN
+  - composer config --global github-oauth.github.com ${GITHUB_OAUTH_TOKEN}
   - |
     if [[ "$PHPUNIT" == "1" || "$COVERAGE" == "1" || "$PHPCS" == "1" ]]; then
       # The prefix-dependencies task only works on PHP 7.1 and we need to prefix our dependencies to accurately test them.
