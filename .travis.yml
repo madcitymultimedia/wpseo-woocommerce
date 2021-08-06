@@ -108,7 +108,7 @@ install:
     if [[ ${TRAVIS_PHP_VERSION:0:1} == "8" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
       travis_retry composer install --no-interaction --ignore-platform-reqs
     elif [[ "$PHPCS" == "1" || "$PHPUNIT" == "1" || "$PHPLINT" == "1" ]]; then
-      travis_retry composer install --no-interaction
+      travis_retry composer install --no-interaction --no-scripts
     elif [[ "$TRAVIS_BUILD_STAGE_NAME" == "deploy" ]]; then
       travis_retry composer install --no-dev --no-interaction
     fi
