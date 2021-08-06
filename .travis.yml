@@ -91,6 +91,7 @@ before_install:
         # Dependency injection compilation only works on PHP 7+.
         # It makes use of reflection-based PHP code that only works on PHP 7+.
         travis_retry composer du
+        rm -rf vendor
         cd ../../..
       fi
       phpenv local --unset
