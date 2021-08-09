@@ -1,6 +1,7 @@
 /* global analysisWorker */
 
 import ProductDescriptionAssessment from "./assessments/ProductDescriptionAssessment";
+import initializeProductAssessors from "./initializers/product-assessor";
 
 const PLUGIN_NAME = "YoastWooCommerce";
 const ASSESSMENT_NAME = "productTitle";
@@ -58,3 +59,4 @@ class WooCommerceWorker {
 const wooCommerceWorker = new WooCommerceWorker();
 
 wooCommerceWorker.register();
+initializeProductAssessors();
