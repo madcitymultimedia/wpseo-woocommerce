@@ -85,12 +85,8 @@ before_install:
       phpenv local 7.1
       travis_retry composer install --no-interaction --ignore-platform-reqs
       if [[ ${TRAVIS_PHP_VERSION:0:1} == "5" ]]; then
+        # Generate WordPress SEO autoload files for unit tests.
         cd vendor/yoast/wordpress-seo
-        travis_retry composer remove humbug/php-scoper --dev --ignore-platform-reqs
-        travis_retry composer remove atanamo/php-codeshift --dev --ignore-platform-reqs
-        # Dependency injection compilation only works on PHP 7+.
-        # It makes use of reflection-based PHP code that only works on PHP 7+.
-        rm -rf vendor
         travis_retry composer du
         cd ../../..
       fi
@@ -107,10 +103,6 @@ install:
   - |
     if [[ ${TRAVIS_PHP_VERSION:0:1} == "8" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
       travis_retry composer install --no-interaction --ignore-platform-reqs
-      cd vendor/yoast/wordpress-seo
-      travis_retry composer require --dev phpunit/phpunit:"^9.0" --update-with-dependencies --ignore-platform-reqs --no-interaction
-      travis_retry composer update yoast/wp-test-utils --with-all-dependencies --ignore-platform-reqs --no-interaction
-      cd ../../..
     elif [[ "$PHPCS" == "1" || "$PHPUNIT" == "1" || "$PHPLINT" == "1" ]]; then
       travis_retry composer install --no-interaction --no-scripts
     elif [[ "$TRAVIS_BUILD_STAGE_NAME" == "deploy" ]]; then
@@ -194,7 +186,7 @@ script:
   - |
     if [[ "$PHPUNIT" == "1" ]] && [[ ${TRAVIS_PHP_VERSION:0:1} == "8" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
       travis_fold start "PHP.tests" && travis_time_start
-      travis_retry composer remove --dev phpunit/phpunit --no-update &&
+      travis_retry composer require --dev phpunit/phpunit:"^9.0" --update-with-dependencies --ignore-platform-reqs --no-interaction
       travis_retry composer update yoast/wp-test-utils --with-dependencies --ignore-platform-reqs --no-interaction &&
       composer test
       travis_time_finish && travis_fold end "PHP.tests"
