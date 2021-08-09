@@ -107,6 +107,10 @@ install:
   - |
     if [[ ${TRAVIS_PHP_VERSION:0:1} == "8" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
       travis_retry composer install --no-interaction --ignore-platform-reqs
+      cd vendor/yoast/wordpress-seo
+      travis_retry composer require --dev phpunit/phpunit:"^9.0" --update-with-dependencies --ignore-platform-reqs --no-interaction
+      travis_retry composer update yoast/wp-test-utils --with-all-dependencies --ignore-platform-reqs --no-interaction
+      cd ../../..
     elif [[ "$PHPCS" == "1" || "$PHPUNIT" == "1" || "$PHPLINT" == "1" ]]; then
       travis_retry composer install --no-interaction --no-scripts
     elif [[ "$TRAVIS_BUILD_STAGE_NAME" == "deploy" ]]; then
