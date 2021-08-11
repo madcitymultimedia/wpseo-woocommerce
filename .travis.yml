@@ -39,7 +39,7 @@ jobs:
         - eval $(ssh-agent -s)
         - ssh-add ./deploy_keys/wpseo_woo_deploy
         - ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
-        - composer config --global github-oauth.github.com $GITHUB_OAUTH_TOKEN
+        - composer config --global github-oauth.github.com ${GITHUB_OAUTH_TOKEN}
       before_deploy:
         - nvm install node
         - curl -o- -L https://yarnpkg.com/install.sh | bash
@@ -76,7 +76,7 @@ cache:
 before_install:
   - phpenv config-rm xdebug.ini || echo 'No xdebug config.'
   - export SECURITYCHECK_DIR=/tmp/security-checker
-  - composer config --global github-oauth.github.com $GITHUB_OAUTH_TOKEN
+  - composer config --global github-oauth.github.com ${GITHUB_OAUTH_TOKEN}
   - |
     if [[ "$CHECKJS" == "1" ]]; then
       nvm install $TRAVIS_NODE_VERSION
@@ -89,7 +89,9 @@ install:
     if [[ ${TRAVIS_PHP_VERSION:0:1} == "8" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
       travis_retry composer install --no-interaction --ignore-platform-reqs
     elif [[ "$PHPCS" == "1" || "$PHPUNIT" == "1" || "$PHPLINT" == "1" ]]; then
+      phpenv local 7.1
       travis_retry composer install --no-interaction
+      phpenv local --unset
     elif [[ "$TRAVIS_BUILD_STAGE_NAME" == "deploy" ]]; then
       travis_retry composer install --no-dev --no-interaction
     fi
@@ -171,7 +173,7 @@ script:
   - |
     if [[ "$PHPUNIT" == "1" ]] && [[ ${TRAVIS_PHP_VERSION:0:1} == "8" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
       travis_fold start "PHP.tests" && travis_time_start
-      travis_retry composer remove --dev phpunit/phpunit --no-update &&
+      travis_retry composer require --dev phpunit/phpunit:"^9.0" --update-with-dependencies --ignore-platform-reqs --no-interaction
       travis_retry composer update yoast/wp-test-utils --with-dependencies --ignore-platform-reqs --no-interaction &&
       composer test
       travis_time_finish && travis_fold end "PHP.tests"
