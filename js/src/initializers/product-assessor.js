@@ -1,7 +1,6 @@
 /* global analysisWorker */
 // Product page assessors.
 const productSEOAssessor = require( "yoastseo/src/scoring/productPages/seoAssessor" );
-console.log( productSEOAssessor )
 const productCornerstoneSEOAssessor = require( "yoastseo/src/scoring/productPages/cornerstone/seoAssessor" );
 const productContentAssessor = require( "yoastseo/src/scoring/productPages/contentAssessor" );
 const productCornerstoneContentAssessor = require( "yoastseo/src/scoring/productPages/cornerstone/contentAssessor" );
@@ -14,7 +13,7 @@ const productCornerstoneRelatedKeywordAssessor = require( "yoastseo/src/scoring/
  * @returns {void}
  */
 export default function initialize() {
-	console.log( analysisWorker, "analysis worker" )
+	console.log( analysisWorker, "analysis worker" );
 	console.log( analysisWorker._configuration, "config" );
 	analysisWorker._configuration.customAnalysisType = "productPage";
 	console.log( analysisWorker._configuration.customAnalysisType, "custom analysis type" );
