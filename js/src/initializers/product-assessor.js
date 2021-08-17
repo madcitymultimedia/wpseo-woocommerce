@@ -50,8 +50,8 @@ export default function initialize() {
 		imageCountCTAUrl: "https://yoa.st/4f5",
 		imageKeyphraseUrlTitle: "https://yoa.st/4f7",
 		imageKeyphraseCTAUrl: "https://yoa.st/4f6",
-		imageAltTagsUrlTitle: "https://yoast.com",
-		imageAltTagsCTAUrl: "https://yoast.com",
+		imageAltTagsUrlTitle: "https://yoa.st/33c",
+		imageAltTagsCTAUrl: "https://yoa.st/33d",
 		keyphraseDistributionUrlTitle: "https://yoa.st/33q",
 		keyphraseDistributionCTAUrl: "https://yoa.st/33u",
 	} );
@@ -86,8 +86,8 @@ export default function initialize() {
 		imageCountCTAUrl: "https://yoa.st/4f5",
 		imageKeyphraseUrlTitle: "https://yoa.st/4f7",
 		imageKeyphraseCTAUrl: "https://yoa.st/4f6",
-		imageAltTagsUrlTitle: "https://yoast.com",
-		imageAltTagsCTAUrl: "https://yoast.com",
+		imageAltTagsUrlTitle: "https://yoa.st/33c",
+		imageAltTagsCTAUrl: "https://yoa.st/33d",
 		keyphraseDistributionUrlTitle: "https://yoa.st/33q",
 		keyphraseDistributionCTAUrl: "https://yoa.st/33u",
 	} );
@@ -104,8 +104,8 @@ export default function initialize() {
 		passiveVoiceCTAUrl: "https://yoa.st/34u",
 		textPresenceUrlTitle: "https://yoa.st/35h",
 		textPresenceCTAUrl: "https://yoa.st/35i",
-		listsUrlTitle: "https://yoast.com",
-		listsCTAUrl: "https://yoast.com",
+		listsUrlTitle: "https://yoa.st/4fe",
+		listsCTAUrl: "https://yoa.st/4ff",
 	}  );
 	analysisWorker.setCustomCornerstoneContentAssessorClass( productCornerstoneContentAssessor.default, "productPage", {
 		subheadingUrlTitle: "https://yoa.st/34x",
@@ -120,8 +120,8 @@ export default function initialize() {
 		passiveVoiceCTAUrl: "https://yoa.st/34u",
 		textPresenceUrlTitle: "https://yoa.st/35h",
 		textPresenceCTAUrl: "https://yoa.st/35i",
-		listsUrlTitle: "https://yoast.com",
-		listsCTAUrl: "https://yoast.com",
+		listsUrlTitle: "https://yoa.st/4fe",
+		listsCTAUrl: "https://yoa.st/4ff",
 	}  );
 	analysisWorker.setCustomRelatedKeywordAssessorClass( productRelatedKeywordAssessor.default, "productPage", {
 		introductionKeyphraseUrlTitle: "https://yoa.st/33e",
