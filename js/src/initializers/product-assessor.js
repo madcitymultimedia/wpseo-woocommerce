@@ -13,10 +13,7 @@ const productCornerstoneRelatedKeywordAssessor = require( "yoastseo/src/scoring/
  * @returns {void}
  */
 export default function initialize() {
-	console.log( analysisWorker, "analysis worker" );
-	console.log( analysisWorker._configuration, "config" );
 	analysisWorker._configuration.customAnalysisType = "productPage";
-	console.log( analysisWorker._configuration.customAnalysisType, "custom analysis type" );
 	// Store product pages.
 	analysisWorker.setCustomSEOAssessorClass( productSEOAssessor.default, "productPage", {
 		introductionKeyphraseUrlTitle: "https://yoa.st/33e",
