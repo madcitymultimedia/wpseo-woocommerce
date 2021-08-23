@@ -17,9 +17,10 @@ build:
 
 # Create a zipped artifact from a fresh build
 'artifact':
-  - 'shell:composer-install-production'
+  - 'shell:composer-install'
   - 'update-version'
   - 'release'
+  - 'shell:composer-install-production'
   - 'clean:artifact'
   - 'copy:artifact'
   - 'compress:artifact'
