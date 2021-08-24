@@ -33,8 +33,8 @@ Changelog
 
 ### 14.4: September 7th, 2021
 Enhancements:
-* Changes, removes, or adds certain assessments available on product pages in order to make the analysis more suitable for product pages.
-
+* Adds two new assessments (i.e., Image alt tags assessment and List presence assessment) and removes assessments that are less relevant to product pages (i.e., Outbound links assessment and Internal links assessments).
+* Changes the parameters of some SEO and Readability assessments, e.g., Paragraph length assessment, Text length assessment, and Images assessment where videos are also included in the analysis etc.
 
 ### 14.3: July 27th, 2021
 Bugfixes:
