@@ -43,8 +43,8 @@ Enhancements:
 * Adds the following improvements to the readability analysis on product pages:
   * Adds the List presence assessment which checks if there is at least one list.
   * Makes the Subheading distribution assessment appear only when the text contains more than 300 words.
-  * Sets the recommended length of the Paragraph length assessment to 70 words.
-  * Sets the recommended maximum percentage of long sentences in the Sentence length assessment to 20% unless there is a language-specific percentage which overwrites this default value.
+  * Sets the recommended maximum length of the Paragraph length assessment to 70 words.
+  * Sets the recommended maximum percentage of long sentences in the Sentence length assessment to 20%, unless there is a language-specific percentage which overwrites this default value.
 
 Other:
 * Sets the minimum required Yoast SEO version to 17.1.
