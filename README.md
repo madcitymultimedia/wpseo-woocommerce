@@ -33,8 +33,15 @@ Changelog
 
 ### 14.4: September 7th, 2021
 Enhancements:
-* Adds two new assessments (i.e., Image alt tags assessment and List presence assessment) and removes assessments that are less relevant to product pages (i.e., Outbound links assessment and Internal links assessments).
-* Changes the parameters of some SEO and Readability assessments, e.g., Paragraph length assessment, Text length assessment, and Images assessment where videos are also included in the analysis etc.
+* Adds the new Image alt tags assessment and List presence assessment to product pages.
+* Removes the Outbound links assessment and Internal links assessments from product pages, as they are less relevant on those pages.
+* Makes Subheading distribution assessment appear only when the text contains more than 300 words.
+* Sets the recommended length of the Paragraph length assessment on product pages to 70 words.
+* Sets the recommended maximum percentage of sentences longer than 20 words in Sentence length assessment to 20%.
+* Sets the recommended length of the Keyphrase length assessment to 4 words.
+* Sets the recommended minimum length of the Text length assessment to 200 words.
+* Makes SEO title width assessment not penalize short title.
+* Includes videos in the Images assessments on product pages and sets the recommended number of images and/or videos to 4.
 
 ### 14.3: July 27th, 2021
 Bugfixes:
