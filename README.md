@@ -42,7 +42,6 @@ Enhancements:
 * Sets the recommended minimum length of the Text length assessment to 200 words.
 * Makes SEO title width assessment not penalize short title.
 * Includes videos in the Images assessments on product pages and sets the recommended number of images and/or videos to 4.
-* Includes videos in the Images assessments on product pages and sets the recommended number of images to 4.
 
 Other:
 * Sets the minimum required Yoast SEO version to 17.1.
