@@ -33,15 +33,18 @@ Changelog
 
 ### 14.4: September 7th, 2021
 Enhancements:
-* Adds the new Image alt tags assessment and List presence assessment to product pages.
-* Removes the Outbound links assessment and Internal links assessments from product pages, as they are less relevant on those pages.
-* Makes Subheading distribution assessment appear only when the text contains more than 300 words.
-* Sets the recommended length of the Paragraph length assessment on product pages to 70 words.
-* Sets the recommended maximum percentage of sentences longer than 20 words in Sentence length assessment to 20%.
-* Sets the recommended length of the Keyphrase length assessment to 4 words.
-* Sets the recommended minimum length of the Text length assessment to 200 words.
-* Makes SEO title width assessment not penalize short title.
-* Includes videos in the Images assessments on product pages and sets the recommended number of images and/or videos to 4.
+* Adds the following improvements to the SEO analysis on product pages:
+  * Adds the Image alt tags assessment which checks if all images have alt tags. 
+  * Removes the Outbound links assessment and Internal links assessments as they are less relevant on product pages.
+  * Sets the recommended minimum length of the Keyphrase length assessment to 4 words.
+  * Sets the recommended minimum length of the Text length assessment to 200 words.
+  * Makes the SEO title width assessment not penalize short titles.
+  * Includes videos in the Images assessments on product pages and sets the recommended number of images and/or videos to 4.
+* Adds the following improvements to the readability analysis on product pages:
+  * Adds the List presence assessment which checks if there is at least one list.
+  * Makes the Subheading distribution assessment appear only when the text contains more than 300 words.
+  * Sets the recommended length of the Paragraph length assessment to 70 words.
+  * Sets the recommended maximum percentage of long sentences in the Sentence length assessment to 20% unless there is a language-specific percentage which overwrites this default value.
 
 Other:
 * Sets the minimum required Yoast SEO version to 17.1.
