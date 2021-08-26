@@ -34,17 +34,18 @@ Changelog
 ### 14.4: September 7th, 2021
 Enhancements:
 * Adds the following improvements to the SEO analysis on product pages:
-  * Adds the Image alt tags assessment which checks if all images have alt tags. 
-  * Removes the Outbound links assessment and Internal links assessments as they are less relevant on product pages.
-  * Sets the recommended minimum length of the Keyphrase length assessment to 4 words.
-  * Sets the recommended minimum length of the Text length assessment to 200 words.
-  * Makes the SEO title width assessment not penalize short titles.
-  * Includes videos in the Images assessments on product pages and sets the recommended number of images and/or videos to 4.
+  * Adds the Image alt tags assessment, which checks if all images have alt tags. 
+  * Removes the Outbound links assessment and Internal links assessment, as they are less relevant on product pages.
+  * Sets the recommended minimum of the Keyphrase length assessment to 4 words.
+  * Sets the recommended minimum of the Text length assessment to 200 words.
+  * The SEO title width assessment no longer penalizes short titles.
+  * Includes videos in the Images assessments on product pages.
+  * Sets the recommended number of images and/or videos to 4.
 * Adds the following improvements to the readability analysis on product pages:
-  * Adds the List presence assessment which checks if there is at least one list.
+  * Adds the List presence assessment which recommends using lists on product pages.
   * Makes the Subheading distribution assessment appear only when the text contains more than 300 words.
   * Sets the recommended maximum length of the Paragraph length assessment to 70 words.
-  * Sets the recommended maximum percentage of long sentences in the Sentence length assessment to 20%, unless there is a language-specific percentage which overwrites this default value.
+  * Sets the recommended maximum percentage of long sentences in the Sentence length assessment to 20%. Language-specific percentages can override this default value.
 
 Other:
 * Sets the minimum required Yoast SEO version to 17.1.
