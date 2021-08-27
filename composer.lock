@@ -2539,12 +2539,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yoast/wordpress-seo.git",
-                "reference": "4bcebd7124c1bca8e77269cdfc84c3057e97b3cb"
+                "reference": "a3e688671b534ca1214a60db85c00e407e04ce2e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/4bcebd7124c1bca8e77269cdfc84c3057e97b3cb",
-                "reference": "4bcebd7124c1bca8e77269cdfc84c3057e97b3cb",
+                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/a3e688671b534ca1214a60db85c00e407e04ce2e",
+                "reference": "a3e688671b534ca1214a60db85c00e407e04ce2e",
                 "shasum": ""
             },
             "require": {
@@ -2606,7 +2606,7 @@
                     "Yoast\\WP\\SEO\\Composer\\Actions::check_coding_standards"
                 ],
                 "check-cs-thresholds": [
-                    "@putenv YOASTCS_THRESHOLD_ERRORS=273",
+                    "@putenv YOASTCS_THRESHOLD_ERRORS=271",
                     "@putenv YOASTCS_THRESHOLD_WARNINGS=222",
                     "Yoast\\WP\\SEO\\Composer\\Actions::check_cs_thresholds"
                 ],
@@ -2683,7 +2683,7 @@
                 "wiki": "https://github.com/Yoast/wordpress-seo/wiki",
                 "source": "https://github.com/Yoast/wordpress-seo"
             },
-            "time": "2021-08-03T07:15:07+00:00"
+            "time": "2021-08-26T09:32:33+00:00"
         },
         {
             "name": "yoast/wp-test-utils",
