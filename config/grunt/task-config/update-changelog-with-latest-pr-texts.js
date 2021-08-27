@@ -19,6 +19,7 @@ module.exports = {
 			useANewLineAfterHeader: false,
 			useEditDistanceCompare: true,
 			commitChangelog: true,
+			addTheseExtraFiles: [ ".next_changelog_items.md" ],
 		},
 	},
 };
