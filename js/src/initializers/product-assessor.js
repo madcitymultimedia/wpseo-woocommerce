@@ -16,6 +16,7 @@ export default function initialize() {
 	analysisWorker._configuration.customAnalysisType = "productPage";
 	// Store product pages.
 	analysisWorker.setCustomSEOAssessorClass( productSEOAssessor.default, "productPage", {
+		countVideos: false,
 		introductionKeyphraseUrlTitle: "https://yoa.st/33e",
 		introductionKeyphraseCTAUrl: "https://yoa.st/33f",
 		keyphraseLengthUrlTitle: "https://yoa.st/33i",
@@ -52,6 +53,7 @@ export default function initialize() {
 		keyphraseDistributionCTAUrl: "https://yoa.st/33u",
 	} );
 	analysisWorker.setCustomCornerstoneSEOAssessorClass( productCornerstoneSEOAssessor.default, "productPage", {
+		countVideos: false,
 		introductionKeyphraseUrlTitle: "https://yoa.st/33e",
 		introductionKeyphraseCTAUrl: "https://yoa.st/33f",
 		keyphraseLengthUrlTitle: "https://yoa.st/33i",
