@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Yoast SEO: WooCommerce package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Yoast SEO: WooCommerce 14.4-RC3\n"
+"Project-Id-Version: Yoast SEO: WooCommerce 14.4-RC4\n"
 "Report-Msgid-Bugs-To: https://github.com/yoast/wpseo-woocommerce/issues\n"
-"POT-Creation-Date: 2021-08-27 12:57:25+00:00\n"
+"POT-Creation-Date: 2021-08-31 13:34:17+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
