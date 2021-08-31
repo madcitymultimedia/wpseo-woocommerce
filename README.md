@@ -39,14 +39,13 @@ Enhancements:
   * Sets the recommended minimum of the Keyphrase length assessment to 4 words.
   * Sets the recommended minimum of the Text length assessment to 200 words.
   * The SEO title width assessment no longer penalizes short titles.
-  * Includes videos in the Images assessments on product pages.
+  * Adds recommended number of images and adds a criterion for orange bullet in the Images assessments on product pages.
   * Sets the recommended number of images and/or videos to 4.
 * Adds the following improvements to the readability analysis on product pages:
   * Adds the List presence assessment which recommends using lists on product pages.
   * Makes the Subheading distribution assessment appear only when the text contains more than 300 words.
   * Sets the recommended maximum length of the Paragraph length assessment to 70 words.
   * Sets the recommended maximum percentage of long sentences in the Sentence length assessment to 20%. Language-specific percentages can override this default value.
-* Adds the following improvements to the SEO analysis on product pages:
 
 Other:
 * Sets the minimum required Yoast SEO version to 17.1.
