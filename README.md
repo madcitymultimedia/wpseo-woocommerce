@@ -39,8 +39,8 @@ Enhancements:
   * Sets the recommended minimum of the Keyphrase length assessment to 4 words.
   * Sets the recommended minimum of the Text length assessment to 200 words.
   * The SEO title width assessment no longer penalizes short titles.
-  * Adds recommended number of images and adds a criterion for orange bullet in the Images assessments on product pages.
-  * Sets the recommended number of images and/or videos to 4.
+  * Adds a criterion for orange bullet in the Images assessments on product pages.
+  * Sets the recommended number of images to 4 in the Images assessments on product pages.
 * Adds the following improvements to the readability analysis on product pages:
   * Adds the List presence assessment which recommends using lists on product pages.
   * Makes the Subheading distribution assessment appear only when the text contains more than 300 words.
