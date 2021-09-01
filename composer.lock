@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "edcf6f6e01e7664d0ca272333f11ec8a",
+    "content-hash": "040deda99aa380ba5388165329501e04",
     "packages": [
         {
             "name": "yoast/i18n-module",
@@ -2535,16 +2535,16 @@
         },
         {
             "name": "yoast/wordpress-seo",
-            "version": "dev-trunk",
+            "version": "dev-release/17.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yoast/wordpress-seo.git",
-                "reference": "e6acc27aaa15ba8cebf4f4c778ff2c9aba1bfdf9"
+                "reference": "9c183a2b7b9669544d4811ba9fc9714cf8e6a05e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/e6acc27aaa15ba8cebf4f4c778ff2c9aba1bfdf9",
-                "reference": "e6acc27aaa15ba8cebf4f4c778ff2c9aba1bfdf9",
+                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/9c183a2b7b9669544d4811ba9fc9714cf8e6a05e",
+                "reference": "9c183a2b7b9669544d4811ba9fc9714cf8e6a05e",
                 "shasum": ""
             },
             "require": {
@@ -2566,7 +2566,6 @@
                 "yoast/wp-test-utils": "^0.2.1",
                 "yoast/yoastcs": "^2.1.0"
             },
-            "default-branch": true,
             "type": "wordpress-plugin",
             "autoload": {
                 "classmap": [
@@ -2683,7 +2682,7 @@
                 "wiki": "https://github.com/Yoast/wordpress-seo/wiki",
                 "source": "https://github.com/Yoast/wordpress-seo"
             },
-            "time": "2021-08-31T13:04:56+00:00"
+            "time": "2021-09-01T08:17:43+00:00"
         },
         {
             "name": "yoast/wp-test-utils",

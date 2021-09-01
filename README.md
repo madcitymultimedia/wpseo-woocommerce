@@ -46,7 +46,6 @@ Enhancements:
   * Makes the Subheading distribution assessment appear only when the text contains more than 300 words.
   * Sets the recommended maximum length of the Paragraph length assessment to 70 words.
   * Sets the recommended maximum percentage of long sentences in the Sentence length assessment to 20%. Language-specific percentages can override this default value.
-* Adds the following improvements to the SEO analysis on product pages:
 
 Other:
 * Sets the minimum required Yoast SEO version to 17.1.
