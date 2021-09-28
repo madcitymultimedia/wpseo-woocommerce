@@ -39,7 +39,7 @@ export default class ProductDescriptionAssessment extends Assessment {
 		const productDescription = this._productDescription;
 
 		const strippedProductDescription = languageProcessing.stripHTMLTags( productDescription );
-		const productDescriptionLength = strippedProductDescription.split( " " ).length;
+		const productDescriptionLength = languageProcessing.getWords( strippedProductDescription ).length;
 
 		const result = this.scoreProductDescription( productDescriptionLength );
 
