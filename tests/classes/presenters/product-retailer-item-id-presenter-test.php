@@ -3,9 +3,10 @@
 namespace Yoast\WP\Woocommerce\Tests\Classes\Presenters;
 
 use Mockery;
+use WC_Product;
 use WPSEO_WooCommerce_Product_Retailer_Item_ID_Presenter;
-use Yoast\WP\Woocommerce\Tests\TestCase;
 use Yoast\WP\SEO\Presenters\Abstract_Indexable_Tag_Presenter;
+use Yoast\WP\Woocommerce\Tests\TestCase;
 
 /**
  * Class Product_Retailer_Item_ID_Presenter_Test.
@@ -19,7 +20,7 @@ class Product_Retailer_Item_ID_Presenter_Test extends TestCase {
 	/**
 	 * Holds the product.
 	 *
-	 * @var \WC_Product|\Mockery\MockInterface
+	 * @var WC_Product|Mockery\MockInterface
 	 */
 	protected $product;
 

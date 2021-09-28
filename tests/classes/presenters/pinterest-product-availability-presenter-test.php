@@ -3,6 +3,7 @@
 namespace Yoast\WP\Woocommerce\Tests\Classes\Presenters;
 
 use Mockery;
+use WC_Product;
 use WPSEO_WooCommerce_Pinterest_Product_Availability_Presenter;
 use Yoast\WP\SEO\Presenters\Abstract_Indexable_Tag_Presenter;
 use Yoast\WP\Woocommerce\Tests\TestCase;
@@ -19,7 +20,7 @@ class Pinterest_Product_Availability_Presenter_Test extends TestCase {
 	/**
 	 * Holds the product.
 	 *
-	 * @var \WC_Product|\Mockery\MockInterface
+	 * @var WC_Product|Mockery\MockInterface
 	 */
 	protected $product;
 

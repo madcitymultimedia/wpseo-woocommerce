@@ -17,7 +17,7 @@ class Slack_Test extends TestCase {
 	/**
 	 * The Slack class under test.
 	 *
-	 * @var \WPSEO_WooCommerce_Slack
+	 * @var WPSEO_WooCommerce_Slack
 	 */
 	private $instance;
 

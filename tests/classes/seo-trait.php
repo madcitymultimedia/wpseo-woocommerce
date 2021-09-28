@@ -5,30 +5,35 @@ namespace Yoast\WP\Woocommerce\Tests\Classes;
 use Brain\Monkey\Functions;
 use Mockery;
 use stdClass;
+use Yoast\WP\SEO\Surfaces\Classes_Surface;
+use Yoast\WP\SEO\Surfaces\Helpers_Surface;
+use Yoast\WP\SEO\Surfaces\Meta_Surface;
 
 /**
  * Trait YoastSEO.
+ *
+ * @phpcs:disable Yoast.NamingConventions.ObjectNameDepth.MaxExceeded -- False positive due to acronym.
  */
 trait YoastSEO {
 
 	/**
 	 * Holds the classes surface.
 	 *
-	 * @var \Yoast\WP\SEO\Surfaces\Classes_Surface|Mockery\MockInterface
+	 * @var Classes_Surface|Mockery\MockInterface
 	 */
 	public $classes;
 
 	/**
 	 * Holds the meta surface.
 	 *
-	 * @var \Yoast\WP\SEO\Surfaces\Meta_Surface|Mockery\MockInterface
+	 * @var Meta_Surface|Mockery\MockInterface
 	 */
 	public $meta;
 
 	/**
 	 * Holds the helpers surface.
 	 *
-	 * @var \Yoast\WP\SEO\Surfaces\Helpers_Surface|stdClass
+	 * @var Helpers_Surface|stdClass
 	 */
 	public $helpers;
 

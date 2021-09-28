@@ -15,7 +15,7 @@ class OpenGraph_Test extends TestCase {
 	/**
 	 * Class instance to use for the test.
 	 *
-	 * @var \Mockery\MockInterface
+	 * @var Mockery\MockInterface
 	 */
 	protected $instance;
 
