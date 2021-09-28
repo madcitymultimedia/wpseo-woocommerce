@@ -28,8 +28,6 @@ jobs:
       env: WP_VERSION=master WP_MULTISITE=1 PHPUNIT=1
     - php: 8.0
       env: WP_VERSION=5.8 PHPLINT=1 PHPUNIT=1
-    - php: "nightly"
-      env: PHPLINT=1
     - stage: deploy
       env: WP_VERSION=5.8
       if: ( tag IS present OR branch =~ /^feature\// OR branch =~ /^release\// OR branch =~ /^hotfix\// OR branch = trunk ) AND type != pull_request
@@ -63,7 +61,6 @@ jobs:
           all_branches: true
   allow_failures:
     # Allow failures for unstable builds.
-    - php: "nightly"
     - php: 7.0
       env: WP_VERSION=master WP_MULTISITE=1 PHPUNIT=1
 
