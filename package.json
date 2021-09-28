@@ -35,10 +35,12 @@
     "moduleDirectories": [
       "node_modules"
     ],
+    "modulePathIgnorePatterns": [ "<rootDir>/vendor/" ],
     "moduleNameMapper": {
       "^lodash-es$": "lodash",
       "^lodash-es/(.*)$": "lodash/$1"
     },
+    "coveragePathIgnorePatterns": [ "<rootDir>/vendor/", "<rootDir>/node_modules/" ],
     "coverageThreshold": {
       "global": {
         "branches": 74,
