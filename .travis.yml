@@ -148,20 +148,28 @@ script:
       composer check-cs
       travis_time_finish && travis_fold end "PHP.code-style"
     fi
-  # PHP Tests
+  # PHP Integration Tests
   - |
-    if [[ "$PHPUNIT" == "1" && ${TRAVIS_PHP_VERSION:0:1} != "8" && $TRAVIS_PHP_VERSION != "nightly" ]]; then
+    if [[ "$PHPUNIT" == "1" && "$WP_VERSION" != "latest" ]] && [[ "$WP_VERSION" == "5.9" || "${WP_VERSION:0:1}" == "6" || "$WP_VERSION" == "master" ]]; then
+      travis_fold start "PHP.integration-tests" && travis_time_start
+      composer config --unset platform.php &&
+      travis_retry composer update yoast/wp-test-utils --with-all-dependencies --no-interaction &&
+      vendor/bin/phpunit -c phpunit-integration.xml.dist
+      travis_time_finish && travis_fold end "PHP.integration-tests"
+    elif [[ "$PHPUNIT" == "1" && ${TRAVIS_PHP_VERSION:0:1} != "8" && $TRAVIS_PHP_VERSION != "nightly" ]]; then
       travis_fold start "PHP.tests" && travis_time_start
       composer integration-test
       travis_time_finish && travis_fold end "PHP.tests"
-    fi
-  - |
-    if [[ "$PHPUNIT" == "1" ]] && [[ ${TRAVIS_PHP_VERSION:0:1} == "8" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
+    elif [[ "$PHPUNIT" == "1" ]] && [[ ${TRAVIS_PHP_VERSION:0:1} == "8" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
       travis_fold start "PHP.tests" && travis_time_start
       travis_retry composer require --dev phpunit/phpunit:"^7.5" --update-with-dependencies --ignore-platform-reqs --no-interaction &&
       composer integration-test
       travis_time_finish && travis_fold end "PHP.tests"
     fi
+  # Reset Composer dependencies between the different test setups.
+  - git checkout composer.lock composer.json
+  - travis_retry composer install --no-interaction
+  # PHP Unit Tests
   - |
     if [[ "$PHPUNIT" == "1" && ${TRAVIS_PHP_VERSION:0:1} != "8" && $TRAVIS_PHP_VERSION != "nightly" ]]; then
       travis_fold start "PHP.tests" && travis_time_start
