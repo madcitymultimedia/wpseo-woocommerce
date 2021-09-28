@@ -13,7 +13,7 @@ const devConfig = {
 				NODE_ENV: JSON.stringify( "development" ),
 			},
 		} ),
-	]
+	],
 };
 
 module.exports = defaults( devConfig );
