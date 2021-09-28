@@ -4,6 +4,7 @@ namespace Yoast\WP\Woocommerce\Tests\Classes\Presenters;
 
 use Brain\Monkey\Actions;
 use Mockery;
+use WC_Product;
 use WPSEO_WooCommerce_Product_OpenGraph_Deprecation_Presenter;
 use Yoast\WP\Woocommerce\Tests\TestCase;
 
@@ -19,7 +20,7 @@ class Product_OpenGraph_Deprecation_Presenter_Test extends TestCase {
 	/**
 	 * Holds the product.
 	 *
-	 * @var \WC_Product|\Mockery\MockInterface
+	 * @var WC_Product|Mockery\MockInterface
 	 */
 	protected $product;
 

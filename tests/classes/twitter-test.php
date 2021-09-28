@@ -17,7 +17,7 @@ class Twitter_Test extends TestCase {
 	/**
 	 * The Twitter class under test.
 	 *
-	 * @var \WPSEO_WooCommerce_Twitter
+	 * @var WPSEO_WooCommerce_Twitter
 	 */
 	private $instance;
 
