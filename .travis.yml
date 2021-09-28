@@ -94,7 +94,7 @@ install:
       travis_retry composer install --no-dev --no-interaction
     fi
   - if [[ "$CHECKJS" == "1" ]]; then yarn global add grunt-cli; yarn install; fi
-  - if [[ "$SECURITY" == "1" ]]; then wget -P $SECURITYCHECK_DIR https://github.com/fabpot/local-php-security-checker/releases/download/v1.0.0/local-php-security-checker_1.0.0_linux_amd64 && chmod +x $SECURITYCHECK_DIR/local-php-security-checker_1.0.0_linux_amd64;fi
+  - if [[ "$SECURITY" == "1" ]]; then wget -P $SECURITYCHECK_DIR https://github.com/fabpot/local-php-security-checker/releases/download/v1.2.0/local-php-security-checker_1.2.0_linux_amd64 && chmod +x $SECURITYCHECK_DIR/local-php-security-checker_1.2.0_linux_amd64;fi
 
 before_script:
   - PLUGIN_SLUG=$(basename $(pwd))
@@ -187,4 +187,4 @@ script:
   - if [[ $TRAVIS_PHP_VERSION == "7.3" ]]; then composer validate --no-check-all; fi
 
   # Check for known security vulnerabilities in the currently locked-in dependencies.
-  - if [[ "$SECURITY" == "1" ]]; then $SECURITYCHECK_DIR/local-php-security-checker_1.0.0_linux_amd64 --path=$(pwd)/composer.lock;fi
+  - if [[ "$SECURITY" == "1" ]]; then $SECURITYCHECK_DIR/local-php-security-checker_1.2.0_linux_amd64 --path=$(pwd)/composer.lock;fi
