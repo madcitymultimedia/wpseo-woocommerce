@@ -45,7 +45,7 @@
     },
     "require-dev": {
         "yoast/yoastcs": "^2.2.0",
-        "yoast/wp-test-utils": "^0.2.1",
+        "yoast/wp-test-utils": "^1.0.0",
         "yoast/wordpress-seo": "dev-trunk@dev"
     },
     "extra": {
@@ -65,7 +65,7 @@
             "Yoast\\WP\\Woocommerce\\Composer\\Actions::check_coding_standards"
         ],
         "check-cs": [
-            "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs --ignore=*/vendor/*"
+            "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs"
         ],
         "check-staged-cs": [
             "@check-cs --filter=GitStaged"
