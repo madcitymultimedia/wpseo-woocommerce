@@ -21,13 +21,13 @@ jobs:
     - php: 7.3.24
       env: WP_VERSION=5.8 WP_MULTISITE=1 PHPUNIT=1 CHECKJS=1 TRAVIS_NODE_VERSION=14
     - php: 5.6
-      env: WP_VERSION=5.6 PHPLINT=1 PHPUNIT=1
+      env: WP_VERSION=5.6 PHPUNIT=1
     - php: 7.4
-      env: WP_VERSION=5.8 PHPLINT=1 PHPUNIT=1
+      env: WP_VERSION=5.8 PHPUNIT=1
     - php: 7.0
       env: WP_VERSION=master WP_MULTISITE=1 PHPUNIT=1
     - php: 8.0
-      env: WP_VERSION=5.8 PHPLINT=1 PHPUNIT=1
+      env: WP_VERSION=5.8 PHPUNIT=1
     - stage: deploy
       env: WP_VERSION=5.8
       if: ( tag IS present OR branch =~ /^feature\// OR branch =~ /^release\// OR branch =~ /^hotfix\// OR branch = trunk ) AND type != pull_request
@@ -86,7 +86,7 @@ install:
   - |
     if [[ ${TRAVIS_PHP_VERSION:0:1} == "8" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
       travis_retry composer install --no-interaction --ignore-platform-reqs
-    elif [[ "$PHPUNIT" == "1" || "$PHPLINT" == "1" ]]; then
+    elif [[ "$PHPUNIT" == "1" ]]; then
       travis_retry composer install --no-interaction
     elif [[ "$TRAVIS_BUILD_STAGE_NAME" == "deploy" ]]; then
       travis_retry composer install --no-dev --no-interaction
@@ -131,13 +131,6 @@ before_script:
     fi
 
 script:
-  # PHP Linting
-  - |
-    if [[ "$PHPLINT" == "1" ]]; then
-      travis_fold start "PHP.check" && travis_time_start
-      composer lint
-      travis_time_finish && travis_fold end "PHP.check"
-    fi
   # PHP Integration Tests
   - |
     if [[ "$PHPUNIT" == "1" && "$WP_VERSION" != "latest" ]] && [[ "$WP_VERSION" == "5.9" || "${WP_VERSION:0:1}" == "6" || "$WP_VERSION" == "master" ]]; then
