@@ -2,6 +2,9 @@ extends: yoast
 
 parser: babel-eslint
 
+env:
+  jest: true # make sure describe, it, etc are known.
+
 rules:
   complexity: [1, 6]
   react/prop-types: 1
