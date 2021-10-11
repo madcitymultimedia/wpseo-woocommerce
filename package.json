@@ -30,7 +30,7 @@
     "transformIgnorePatterns": [
       "[/\\\\]node_modules[/\\\\](?!lodash-es|lodash|@yoast).+\\.js$"
     ],
-    "testRegex": "/spec/.*\\.(js)$",
+    "testRegex": "/tests/.*\\.(js)$",
     "testEnvironment": "node",
     "moduleDirectories": [
       "node_modules"
