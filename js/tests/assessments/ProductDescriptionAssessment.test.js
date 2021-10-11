@@ -4,13 +4,13 @@ const mockL10n = {};
 describe( "a test for product description length.", function() {
 	it( "returns score 1 when the product description is empty", function() {
 		const productDescription = "";
-		const paragraphTooLongAssessment = new ProductDescriptionAssessment( productDescription, mockL10n ).getResult();
-		expect( paragraphTooLongAssessment.getScore() ).toBe( 1 );
+		const result = new ProductDescriptionAssessment( productDescription, mockL10n ).getResult();
+		expect( result.getScore() ).toBe( 1 );
 	} );
 	it( "returns score 5 when the product description contains less than 20 words", function() {
 		const productDescription = "The cat (Felis catus) is a domestic species of small carnivorous mammal.";
-		const paragraphTooLongAssessment = new ProductDescriptionAssessment( productDescription, mockL10n ).getResult();
-		expect( paragraphTooLongAssessment.getScore() ).toBe( 5 );
+		const result = new ProductDescriptionAssessment( productDescription, mockL10n ).getResult();
+		expect( result.getScore() ).toBe( 5 );
 	} );
 	it( "returns score 5 when the product description contains more than 50 words", function() {
 		const productDescription = "The cat (Felis catus) is a domestic species of small carnivorous mammal." +
@@ -21,14 +21,14 @@ describe( "a test for product description length.", function() {
 			"it has a strong flexible body, quick reflexes, sharp teeth and retractable claws adapted to killing small prey. Its night vision " +
 			"and sense of smell are well developed. Cat communication includes vocalizations like meowing, " +
 			"purring, trilling, hissing, growling and grunting as well as cat-specific body language.";
-		const paragraphTooLongAssessment = new ProductDescriptionAssessment( productDescription, mockL10n ).getResult();
-		expect( paragraphTooLongAssessment.getScore() ).toBe( 5 );
+		const result = new ProductDescriptionAssessment( productDescription, mockL10n ).getResult();
+		expect( result.getScore() ).toBe( 5 );
 	} );
 	it( "returns score 9 when the product description contains between 20 to 50 words", function() {
 		const productDescription = "The cat (Felis catus) is a domestic species of small carnivorous mammal." +
 			"It is the only domesticated species in the family Felidae and is often referred to as the domestic cat to distinguish it " +
 			"from the wild members of the family.";
-		const paragraphTooLongAssessment = new ProductDescriptionAssessment( productDescription, mockL10n ).getResult();
-		expect( paragraphTooLongAssessment.getScore() ).toBe( 9 );
+		const result = new ProductDescriptionAssessment( productDescription, mockL10n ).getResult();
+		expect( result.getScore() ).toBe( 9 );
 	} );
 } );
