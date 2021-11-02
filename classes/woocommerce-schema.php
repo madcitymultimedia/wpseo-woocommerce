@@ -503,7 +503,7 @@ class WPSEO_WooCommerce_Schema {
 				],
 			];
 
-			$data[] = $offer;
+            		$data[] = apply_filters('wpseo_schema_offers', $offer, $variation);
 		}
 
 		return $data;
