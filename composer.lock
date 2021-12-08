@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "040deda99aa380ba5388165329501e04",
+    "content-hash": "5d4fba736c5dd69a570ba113642b11e6",
     "packages": [
         {
             "name": "yoast/i18n-module",
@@ -2535,36 +2535,34 @@
         },
         {
             "name": "yoast/wordpress-seo",
-            "version": "dev-release/17.1",
+            "version": "dev-release/17.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yoast/wordpress-seo.git",
-                "reference": "c2c08dce998c85b62d0e311b92aa7341b3eada9b"
+                "reference": "95cdf3615182b867c5b78aa22cc98a3d6a4b396e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/c2c08dce998c85b62d0e311b92aa7341b3eada9b",
-                "reference": "c2c08dce998c85b62d0e311b92aa7341b3eada9b",
+                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/95cdf3615182b867c5b78aa22cc98a3d6a4b396e",
+                "reference": "95cdf3615182b867c5b78aa22cc98a3d6a4b396e",
                 "shasum": ""
             },
             "require": {
                 "composer/installers": "^1.9.0",
-                "php": "^5.6.20||^7.0",
+                "php": "^5.6.20 || ^7.0 || ^8.0",
                 "yoast/i18n-module": "^3.1.1"
             },
             "require-dev": {
                 "humbug/php-scoper": "^0.13.4",
                 "league/oauth2-client": "2.4.1",
-                "php-parallel-lint/php-console-highlighter": "^0.5",
-                "php-parallel-lint/php-parallel-lint": "^1.3.0",
                 "phpunit/phpunit": "^5.7",
                 "psr/container": "1.0.0",
                 "psr/log": "^1.0",
                 "symfony/config": "^3.4",
                 "symfony/dependency-injection": "^3.4",
                 "yoast/php-development-environment": "^1.0",
-                "yoast/wp-test-utils": "^0.2.1",
-                "yoast/yoastcs": "^2.1.0"
+                "yoast/wp-test-utils": "^1.0.0",
+                "yoast/yoastcs": "^2.2.0"
             },
             "type": "wordpress-plugin",
             "autoload": {
@@ -2605,12 +2603,9 @@
                     "Yoast\\WP\\SEO\\Composer\\Actions::check_coding_standards"
                 ],
                 "check-cs-thresholds": [
-                    "@putenv YOASTCS_THRESHOLD_ERRORS=271",
-                    "@putenv YOASTCS_THRESHOLD_WARNINGS=222",
+                    "@putenv YOASTCS_THRESHOLD_ERRORS=251",
+                    "@putenv YOASTCS_THRESHOLD_WARNINGS=221",
                     "Yoast\\WP\\SEO\\Composer\\Actions::check_cs_thresholds"
-                ],
-                "check-cs-summary": [
-                    "@check-cs-warnings --report=summary"
                 ],
                 "check-cs": [
                     "@check-cs-warnings -n"
@@ -2682,7 +2677,7 @@
                 "wiki": "https://github.com/Yoast/wordpress-seo/wiki",
                 "source": "https://github.com/Yoast/wordpress-seo"
             },
-            "time": "2021-09-01T12:53:32+00:00"
+            "time": "2021-12-08T11:06:35+00:00"
         },
         {
             "name": "yoast/wp-test-utils",
@@ -2820,5 +2815,5 @@
     "platform-overrides": {
         "php": "5.6.40"
     },
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }
