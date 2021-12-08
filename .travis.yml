@@ -41,7 +41,7 @@ jobs:
         - ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
         - composer config --global github-oauth.github.com ${GITHUB_OAUTH_TOKEN}
       before_deploy:
-        - nvm install $TRAVIS_NODE_VERSION
+        - nvm install 14
         - curl -o- -L https://yarnpkg.com/install.sh | bash
         - export PATH=$HOME/.yarn/bin:$PATH
         - yarn global add grunt-cli
