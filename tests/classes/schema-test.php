@@ -803,7 +803,8 @@ class Schema_Test extends TestCase {
 		$product->expects( 'get_id' )->once()->andReturn( 123 );
 
 		$data = [
-			'gtin8' => '123',
+			'gtin8'  => '123',
+			'gtin12' => '',
 		];
 
 		Functions\stubs(
@@ -815,7 +816,7 @@ class Schema_Test extends TestCase {
 		$schema = new Schema_Double();
 		$schema->add_global_identifier( $product );
 
-		$this->assertSame( $data, $schema->data );
+		$this->assertSame( [ 'gtin8' => '123' ], $schema->data );
 	}
 
 	/**
