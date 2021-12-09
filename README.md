@@ -31,7 +31,7 @@ You can find the FAQ [online here](https://kb.yoast.com/kb/category/woocommerce-
 Changelog
 =========
 
-### 14.5: December 21st, 2021
+### 14.5: December 14th, 2021
 Other:
 * Ensure compatibility with Yoast SEO Free 17.8.
 * Sets the minimum required Yoast SEO version to 17.8.
