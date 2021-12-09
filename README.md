@@ -36,7 +36,6 @@ Other:
 * Ensure compatibility with Yoast SEO Free 17.8.
 * Sets the minimum required Yoast SEO version to 17.8.
 
-
 ### 14.4: September 7th, 2021
 Enhancements:
 * Adds the following improvements to the SEO analysis on product pages:
