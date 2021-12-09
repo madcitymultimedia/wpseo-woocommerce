@@ -31,6 +31,12 @@ You can find the FAQ [online here](https://kb.yoast.com/kb/category/woocommerce-
 Changelog
 =========
 
+### 14.5: December 21st, 2021
+Other:
+* Ensure compatibility with Yoast SEO Free 17.8.
+* Sets the minimum required Yoast SEO version to 17.8.
+
+
 ### 14.4: September 7th, 2021
 Enhancements:
 * Adds the following improvements to the SEO analysis on product pages:
@@ -49,10 +55,6 @@ Enhancements:
 
 Other:
 * Sets the minimum required Yoast SEO version to 17.1.
-
-### 14.3: July 27th, 2021
-Bugfixes:
-* Fixes a bug where the product identifier replacement variables `%%wc_gtin8%%`, `%%wc_gtin12%%`, `%%wc_gtin13%%`, `%%wc_gtin14%%`, `%%wc_isbn%%` and `%%wc_mpn%%` would not work in meta descriptions when retrieving posts using REST requests.
 
 ### Earlier versions
 For the changelog of earlier versions, please refer to [the changelog on yoast.com](https://yoa.st/woo-seo-changelog).
