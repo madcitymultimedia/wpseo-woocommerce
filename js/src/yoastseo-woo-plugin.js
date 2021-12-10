@@ -3,6 +3,7 @@
 import { getExcerpt, addExcerptEventHandlers, isTinyMCEAvailable } from "./yoastseo-woo-handle-excerpt-editors";
 import { addFilter } from "@wordpress/hooks";
 import { dispatch } from "@wordpress/data";
+import { setLocaleData } from "@wordpress/i18n";
 
 const PLUGIN_NAME = "YoastWooCommerce";
 
@@ -25,6 +26,8 @@ class YoastWooCommercePlugin {
 	 * @returns {void}
 	 */
 	constructor() {
+		setLocaleData( window.yoastseo.app.config.translations.locale_data[ "wordpress-seo" ], "wordpress-seo" );
+
 		this.loadWorkerScript();
 
 		YoastSEO.app.registerPlugin( "YoastWooCommercePlugin", { status: "ready" } );
