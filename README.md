@@ -32,6 +32,9 @@ Changelog
 =========
 
 ### 14.5: December 14th, 2021
+No category:
+* Fixes an unreleased bug where the content analysis was partially not translated for products.
+
 Other:
 * Ensure compatibility with Yoast SEO Free 17.8.
 * Sets the minimum required Yoast SEO version to 17.8.
