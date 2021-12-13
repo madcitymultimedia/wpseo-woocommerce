@@ -17,6 +17,7 @@ const externals = {
 const wordpressPackages = [
 	"@wordpress/hooks",
 	"@wordpress/data",
+	"@wordpress/i18n",
 ];
 
 // WordPress packages.
