@@ -26,8 +26,6 @@ class YoastWooCommercePlugin {
 	 * @returns {void}
 	 */
 	constructor() {
-		setLocaleData( window.yoastseo.app.config.translations.locale_data[ "wordpress-seo" ], "wordpress-seo" );
-
 		this.loadWorkerScript();
 
 		YoastSEO.app.registerPlugin( "YoastWooCommercePlugin", { status: "ready" } );
