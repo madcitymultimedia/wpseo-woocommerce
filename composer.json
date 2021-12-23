@@ -31,6 +31,10 @@
         },
         "preferred-install": {
             "yoast/wordpress-seo": "source"
+        },
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "composer/installers": true
         }
     },
     "repositories": {
