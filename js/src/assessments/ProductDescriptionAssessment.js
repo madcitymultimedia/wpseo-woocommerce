@@ -1,3 +1,4 @@
+import { merge } from "lodash-es";
 import { languageProcessing, Assessment, AssessmentResult } from "yoastseo";
 
 /**
@@ -7,8 +8,8 @@ export default class ProductDescriptionAssessment extends Assessment {
 	/**
 	 * Constructs a product description assessment.
 	 *
-	 * @param {string} productDescription The product description as it is when initializing
-	 * @param {Object} l10n The translations for this assessment.
+	 * @param {string} productDescription   The product description as it is when initializing.
+	 * @param {Object} l10n                 The translations for this assessment.
 	 *
 	 * @returns {void}
 	 */
@@ -17,6 +18,20 @@ export default class ProductDescriptionAssessment extends Assessment {
 
 		this._l10n = l10n;
 		this.updateProductDescription( productDescription );
+
+		this._config = {
+			parameters: {
+				recommendedMinimum: 20,
+				recommendedMaximum: 50,
+			},
+			scores: {
+				veryBad: 1,
+				bad: 5,
+				good: 9,
+			},
+		};
+
+		this.identifier = "productDescription";
 	}
 
 	/**
@@ -33,13 +48,24 @@ export default class ProductDescriptionAssessment extends Assessment {
 	/**
 	 * Tests the length of the product description.
 	 *
-	 * @returns {object} an assessment result with the score and formatted text.
+	 * @param {Paper}       paper       The paper to use for the assessment.
+	 * @param {Researcher}  researcher  The researcher used for calling research.
+	 *
+	 * @returns {AssessmentResult} an assessment result with the score and formatted text.
 	 */
-	getResult() {
+	getResult( paper, researcher ) {
 		const productDescription = this._productDescription;
 
+		const customConfig = researcher.getConfig( "productDescriptionLength" );
+		if ( customConfig ) {
+			this._config = merge( this._config, customConfig.productPages );
+		}
+
 		const strippedProductDescription = languageProcessing.stripHTMLTags( productDescription );
-		const productDescriptionLength = languageProcessing.getWords( strippedProductDescription ).length;
+		const customCountLength = researcher.getHelper( "customCountLength" );
+		const productDescriptionLength = customCountLength
+			? customCountLength( strippedProductDescription )
+			: languageProcessing.getWords( strippedProductDescription ).length;
 
 		const result = this.scoreProductDescription( productDescriptionLength );
 
@@ -59,28 +85,29 @@ export default class ProductDescriptionAssessment extends Assessment {
 	scoreProductDescription( length ) {
 		if ( length === 0 ) {
 			return {
-				score: 1,
+				score: this._config.scores.veryBad,
 				text: this._l10n.woo_desc_none,
 			};
 		}
 
-		if ( length > 0 && length < 20 ) {
+		if ( length > 0 && length < this._config.parameters.recommendedMinimum ) {
 			return {
-				score: 5,
+				score: this._config.scores.bad,
 				text: this._l10n.woo_desc_short,
 			};
 		}
 
-		if ( length >= 20 && length <= 50 ) {
+		if ( length >= this._config.parameters.recommendedMinimum &&
+			length <= this._config.parameters.recommendedMaximum ) {
 			return {
-				score: 9,
+				score: this._config.scores.good,
 				text: this._l10n.woo_desc_good,
 			};
 		}
 
-		if ( length > 50 ) {
+		if ( length > this._config.parameters.recommendedMaximum ) {
 			return {
-				score: 5,
+				score: this._config.scores.bad,
 				text: this._l10n.woo_desc_long,
 			};
 		}
