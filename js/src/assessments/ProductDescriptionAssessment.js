@@ -50,7 +50,7 @@ export default class ProductDescriptionAssessment extends Assessment {
 	 *
 	 * @param {Researcher}  researcher  The researcher used for calling research.
 	 *
-	 * @returns {object} The config to use.
+	 * @returns {Object} The config to use.
 	 */
 	getConfig( researcher ) {
 		let config = this._config;
@@ -96,7 +96,7 @@ export default class ProductDescriptionAssessment extends Assessment {
 	 * Returns the score based on the length of the product description.
 	 *
 	 * @param {number} length   The length of the product description.
-	 * @param {object} config   The configuration to use.
+	 * @param {Object} config   The configuration to use.
 	 *
 	 * @returns {{score: number, text: *}} The result object with score and text.
 	 */
