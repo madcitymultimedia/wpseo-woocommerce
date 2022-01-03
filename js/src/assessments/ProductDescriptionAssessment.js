@@ -1,3 +1,4 @@
+import { merge } from "lodash-es";
 import { languageProcessing, Assessment, AssessmentResult } from "yoastseo";
 
 /**
@@ -7,8 +8,8 @@ export default class ProductDescriptionAssessment extends Assessment {
 	/**
 	 * Constructs a product description assessment.
 	 *
-	 * @param {string} productDescription The product description as it is when initializing
-	 * @param {Object} l10n The translations for this assessment.
+	 * @param {string} productDescription   The product description as it is when initializing.
+	 * @param {Object} l10n                 The translations for this assessment.
 	 *
 	 * @returns {void}
 	 */
@@ -17,6 +18,20 @@ export default class ProductDescriptionAssessment extends Assessment {
 
 		this._l10n = l10n;
 		this.updateProductDescription( productDescription );
+
+		this._config = {
+			parameters: {
+				recommendedMinimum: 20,
+				recommendedMaximum: 50,
+			},
+			scores: {
+				veryBad: 1,
+				bad: 5,
+				good: 9,
+			},
+		};
+
+		this.identifier = "productDescription";
 	}
 
 	/**
@@ -31,17 +46,44 @@ export default class ProductDescriptionAssessment extends Assessment {
 	}
 
 	/**
+	 * Checks if there is language-specific config, and if so, overwrites the current config with it.
+	 *
+	 * @param {Researcher}  researcher  The researcher used for calling research.
+	 *
+	 * @returns {Object} The config to use.
+	 */
+	getConfig( researcher ) {
+		let config = this._config;
+		if ( researcher.getConfig( "language" ) === "ja" ) {
+			const japaneseConfig = {
+				parameters: {
+					recommendedMinimum: 40,
+					recommendedMaximum: 100,
+				} };
+			config = merge( config, japaneseConfig );
+		}
+		return config;
+	}
+
+	/**
 	 * Tests the length of the product description.
 	 *
-	 * @returns {object} an assessment result with the score and formatted text.
+	 * @param {Paper}       paper       The paper to use for the assessment.
+	 * @param {Researcher}  researcher  The researcher used for calling research.
+	 *
+	 * @returns {AssessmentResult} an assessment result with the score and formatted text.
 	 */
-	getResult() {
+	getResult( paper, researcher ) {
 		const productDescription = this._productDescription;
 
 		const strippedProductDescription = languageProcessing.stripHTMLTags( productDescription );
-		const productDescriptionLength = languageProcessing.getWords( strippedProductDescription ).length;
+		const customCountLength = researcher.getHelper( "customCountLength" );
+		const productDescriptionLength = customCountLength
+			? customCountLength( strippedProductDescription )
+			: languageProcessing.getWords( strippedProductDescription ).length;
 
-		const result = this.scoreProductDescription( productDescriptionLength );
+		const config = this.getConfig( researcher );
+		const result = this.scoreProductDescription( productDescriptionLength, config );
 
 		const assessmentResult = new AssessmentResult();
 		assessmentResult.setScore( result.score );
@@ -53,34 +95,37 @@ export default class ProductDescriptionAssessment extends Assessment {
 	/**
 	 * Returns the score based on the length of the product description.
 	 *
-	 * @param {number} length The length of the product description.
+	 * @param {number} length   The length of the product description.
+	 * @param {Object} config   The configuration to use.
+	 *
 	 * @returns {{score: number, text: *}} The result object with score and text.
 	 */
-	scoreProductDescription( length ) {
+	scoreProductDescription( length, config ) {
 		if ( length === 0 ) {
 			return {
-				score: 1,
+				score: config.scores.veryBad,
 				text: this._l10n.woo_desc_none,
 			};
 		}
 
-		if ( length > 0 && length < 20 ) {
+		if ( length > 0 && length < config.parameters.recommendedMinimum ) {
 			return {
-				score: 5,
+				score: config.scores.bad,
 				text: this._l10n.woo_desc_short,
 			};
 		}
 
-		if ( length >= 20 && length <= 50 ) {
+		if ( length >= config.parameters.recommendedMinimum &&
+			length <= config.parameters.recommendedMaximum ) {
 			return {
-				score: 9,
+				score: config.scores.good,
 				text: this._l10n.woo_desc_good,
 			};
 		}
 
-		if ( length > 50 ) {
+		if ( length > config.parameters.recommendedMaximum ) {
 			return {
-				score: 5,
+				score: config.scores.bad,
 				text: this._l10n.woo_desc_long,
 			};
 		}
