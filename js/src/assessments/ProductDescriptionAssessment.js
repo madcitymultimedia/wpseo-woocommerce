@@ -46,6 +46,26 @@ export default class ProductDescriptionAssessment extends Assessment {
 	}
 
 	/**
+	 * Checks if there is language-specific config, and if so, overwrites the current config with it.
+	 *
+	 * @param {Researcher}  researcher  The researcher used for calling research.
+	 *
+	 * @returns {object} The config to use.
+	 */
+	getConfig( researcher ) {
+		let config = this._config;
+		if ( researcher.getConfig( "language" ) === "ja" ) {
+			const japaneseConfig = {
+				parameters: {
+					recommendedMinimum: 40,
+					recommendedMaximum: 100,
+				} };
+			config = merge( config, japaneseConfig );
+		}
+		return config;
+	}
+
+	/**
 	 * Tests the length of the product description.
 	 *
 	 * @param {Paper}       paper       The paper to use for the assessment.
@@ -56,18 +76,14 @@ export default class ProductDescriptionAssessment extends Assessment {
 	getResult( paper, researcher ) {
 		const productDescription = this._productDescription;
 
-		const customConfig = researcher.getConfig( "productDescriptionLength" );
-		if ( customConfig ) {
-			this._config = merge( this._config, customConfig.productPages );
-		}
-
 		const strippedProductDescription = languageProcessing.stripHTMLTags( productDescription );
 		const customCountLength = researcher.getHelper( "customCountLength" );
 		const productDescriptionLength = customCountLength
 			? customCountLength( strippedProductDescription )
 			: languageProcessing.getWords( strippedProductDescription ).length;
 
-		const result = this.scoreProductDescription( productDescriptionLength );
+		const config = this.getConfig( researcher );
+		const result = this.scoreProductDescription( productDescriptionLength, config );
 
 		const assessmentResult = new AssessmentResult();
 		assessmentResult.setScore( result.score );
@@ -79,35 +95,37 @@ export default class ProductDescriptionAssessment extends Assessment {
 	/**
 	 * Returns the score based on the length of the product description.
 	 *
-	 * @param {number} length The length of the product description.
+	 * @param {number} length   The length of the product description.
+	 * @param {object} config   The configuration to use.
+	 *
 	 * @returns {{score: number, text: *}} The result object with score and text.
 	 */
-	scoreProductDescription( length ) {
+	scoreProductDescription( length, config ) {
 		if ( length === 0 ) {
 			return {
-				score: this._config.scores.veryBad,
+				score: config.scores.veryBad,
 				text: this._l10n.woo_desc_none,
 			};
 		}
 
-		if ( length > 0 && length < this._config.parameters.recommendedMinimum ) {
+		if ( length > 0 && length < config.parameters.recommendedMinimum ) {
 			return {
-				score: this._config.scores.bad,
+				score: config.scores.bad,
 				text: this._l10n.woo_desc_short,
 			};
 		}
 
-		if ( length >= this._config.parameters.recommendedMinimum &&
-			length <= this._config.parameters.recommendedMaximum ) {
+		if ( length >= config.parameters.recommendedMinimum &&
+			length <= config.parameters.recommendedMaximum ) {
 			return {
-				score: this._config.scores.good,
+				score: config.scores.good,
 				text: this._l10n.woo_desc_good,
 			};
 		}
 
-		if ( length > this._config.parameters.recommendedMaximum ) {
+		if ( length > config.parameters.recommendedMaximum ) {
 			return {
-				score: this._config.scores.bad,
+				score: config.scores.bad,
 				text: this._l10n.woo_desc_long,
 			};
 		}

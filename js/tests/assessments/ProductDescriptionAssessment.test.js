@@ -46,18 +46,18 @@ describe( "a test for product description length for Japanese.", function() {
 		const result = new ProductDescriptionAssessment( productDescription, mockL10n ).getResult( mockPaper, japaneseResearcher );
 		expect( result.getScore() ).toBe( 1 );
 	} );
-	it( "should return score 5 when the product description contains less than 10 characters", function() {
-		const productDescription = "猫".repeat( 9 );
+	it( "should return score 5 when the product description contains less than 40 characters", function() {
+		const productDescription = "猫".repeat( 39 );
 		const result = new ProductDescriptionAssessment( productDescription, mockL10n ).getResult( mockPaper, japaneseResearcher );
 		expect( result.getScore() ).toBe( 5 );
 	} );
-	it( "should return score 5 when the product description contains more than 25 characters", function() {
-		const productDescription = "猫".repeat( 26 );
+	it( "should return score 5 when the product description contains more than 100 characters", function() {
+		const productDescription = "猫".repeat( 102 );
 		const result = new ProductDescriptionAssessment( productDescription, mockL10n ).getResult( mockPaper, japaneseResearcher );
 		expect( result.getScore() ).toBe( 5 );
 	} );
-	it( "should return score 9 when the product description contains between 10 to 25 characters", function() {
-		const productDescription = "猫".repeat( 17 );
+	it( "should return score 9 when the product description contains between 40 to 100 characters", function() {
+		const productDescription = "猫".repeat( 50 );
 		const result = new ProductDescriptionAssessment( productDescription, mockL10n ).getResult( mockPaper, japaneseResearcher );
 		expect( result.getScore() ).toBe( 9 );
 	} );
