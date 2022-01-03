@@ -162,8 +162,7 @@ script:
       travis_time_finish && travis_fold end "PHP.tests"
     elif [[ "$PHPUNIT" == "1" ]] && [[ ${TRAVIS_PHP_VERSION:0:1} == "8" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
       travis_fold start "PHP.tests" && travis_time_start
-      travis_retry composer remove --dev yoast/wp-test-utils phpunit/phpunit --ignore-platform-reqs --no-interaction &&
-      travis_retry composer require --dev yoast/wp-test-utils phpunit/phpunit:"^7.5" --update-with-dependencies --ignore-platform-reqs --no-interaction &&
+      travis_retry composer require --dev phpunit/phpunit:"^7.5" --update-with-dependencies --ignore-platform-reqs --no-interaction &&
       composer integration-test
       travis_time_finish && travis_fold end "PHP.tests"
     fi
@@ -180,8 +179,8 @@ script:
   - |
     if [[ "$PHPUNIT" == "1" ]] && [[ ${TRAVIS_PHP_VERSION:0:1} == "8" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
       travis_fold start "PHP.tests" && travis_time_start
-      travis_retry composer remove --dev yoast/wp-test-utils phpunit/phpunit --ignore-platform-reqs --no-interaction &&
-      travis_retry composer require --dev yoast/wp-test-utils phpunit/phpunit:"^9.0" --update-with-dependencies --ignore-platform-reqs --no-interaction &&
+      travis_retry composer require --dev phpunit/phpunit:"^9.0" --update-with-dependencies --ignore-platform-reqs --no-interaction &&
+      travis_retry composer update yoast/wp-test-utils --with-dependencies --ignore-platform-reqs --no-interaction &&
       composer test
       travis_time_finish && travis_fold end "PHP.tests"
     fi
