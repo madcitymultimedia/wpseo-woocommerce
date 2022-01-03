@@ -1,17 +1,24 @@
 import { Paper } from "yoastseo";
 import EnglishResearcher from "yoastseo/src/languageProcessing/languages/en/Researcher.js";
 import JapaneseResearcher from "yoastseo/src/languageProcessing/languages/ja/Researcher.js";
+import DefaultResearcher from "yoastseo/src/languageProcessing/languages/_default/Researcher";
 import ProductDescriptionAssessment from "../../src/assessments/ProductDescriptionAssessment";
 
 const mockL10n = {};
 const mockPaper = new Paper( "" );
 const englishResearcher = new EnglishResearcher( mockPaper );
 const japaneseResearcher = new JapaneseResearcher( mockPaper );
+const defaultResearcher = new DefaultResearcher( mockPaper );
 
 describe( "a test for product description length.", function() {
 	it( "should return score 1 when the product description is empty", function() {
 		const productDescription = "";
 		const result = new ProductDescriptionAssessment( productDescription, mockL10n ).getResult( mockPaper, englishResearcher );
+		expect( result.getScore() ).toBe( 1 );
+	} );
+	it( "should still return score 1 when the product description is empty and the default Researcher is used", function() {
+		const productDescription = "";
+		const result = new ProductDescriptionAssessment( productDescription, mockL10n ).getResult( mockPaper, defaultResearcher );
 		expect( result.getScore() ).toBe( 1 );
 	} );
 	it( "should return score 5 when the product description contains less than 20 words", function() {
@@ -36,6 +43,13 @@ describe( "a test for product description length.", function() {
 			"It is the only domesticated species in the family Felidae and is often referred to as the domestic cat to distinguish it " +
 			"from the wild members of the family.";
 		const result = new ProductDescriptionAssessment( productDescription, mockL10n ).getResult( mockPaper, englishResearcher );
+		expect( result.getScore() ).toBe( 9 );
+	} );
+	it( "should still return score 9 when the product description contains between 20 to 50 words and the default Researcher is used", function() {
+		const productDescription = "The cat (Felis catus) is a domestic species of small carnivorous mammal." +
+			"It is the only domesticated species in the family Felidae and is often referred to as the domestic cat to distinguish it " +
+			"from the wild members of the family.";
+		const result = new ProductDescriptionAssessment( productDescription, mockL10n ).getResult( mockPaper, defaultResearcher );
 		expect( result.getScore() ).toBe( 9 );
 	} );
 } );
