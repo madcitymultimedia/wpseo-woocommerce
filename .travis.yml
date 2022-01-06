@@ -142,21 +142,3 @@ script:
       composer integration-test
       travis_time_finish && travis_fold end "PHP.tests"
     fi
-  # Reset Composer dependencies between the different test setups.
-  - git checkout composer.lock composer.json
-  - travis_retry composer install --no-interaction
-  # PHP Unit Tests
-  - |
-    if [[ "$PHPUNIT" == "1" && ${TRAVIS_PHP_VERSION:0:1} != "8" && $TRAVIS_PHP_VERSION != "nightly" ]]; then
-      travis_fold start "PHP.tests" && travis_time_start
-      composer test
-      travis_time_finish && travis_fold end "PHP.tests"
-    fi
-  - |
-    if [[ "$PHPUNIT" == "1" ]] && [[ ${TRAVIS_PHP_VERSION:0:1} == "8" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
-      travis_fold start "PHP.tests" && travis_time_start
-      travis_retry composer require --dev phpunit/phpunit:"^9.0" --update-with-dependencies --ignore-platform-reqs --no-interaction &&
-      travis_retry composer update yoast/wp-test-utils --with-dependencies --ignore-platform-reqs --no-interaction &&
-      composer test
-      travis_time_finish && travis_fold end "PHP.tests"
-    fi
