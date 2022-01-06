@@ -19,7 +19,7 @@ jobs:
   fast_finish: true
   include:
     - php: 7.3.24
-      env: WP_VERSION=5.8 WP_MULTISITE=1 PHPUNIT=1 CHECKJS=1 TRAVIS_NODE_VERSION=14
+      env: WP_VERSION=5.8 WP_MULTISITE=1 PHPUNIT=1
     - php: 5.6
       env: WP_VERSION=5.6 PHPUNIT=1
     - php: 7.4
@@ -75,12 +75,6 @@ cache:
 before_install:
   - phpenv config-rm xdebug.ini || echo 'No xdebug config.'
   - composer config --global github-oauth.github.com ${GITHUB_OAUTH_TOKEN}
-  - |
-    if [[ "$CHECKJS" == "1" ]]; then
-      nvm install $TRAVIS_NODE_VERSION
-      curl -o- -L https://yarnpkg.com/install.sh | bash
-      export PATH=$HOME/.yarn/bin:$PATH
-    fi
 
 install:
   - |
@@ -91,7 +85,6 @@ install:
     elif [[ "$TRAVIS_BUILD_STAGE_NAME" == "deploy" ]]; then
       travis_retry composer install --no-dev --no-interaction
     fi
-  - if [[ "$CHECKJS" == "1" ]]; then yarn global add grunt-cli; yarn install; fi
 
 before_script:
   - PLUGIN_SLUG=$(basename $(pwd))
@@ -166,11 +159,4 @@ script:
       travis_retry composer update yoast/wp-test-utils --with-dependencies --ignore-platform-reqs --no-interaction &&
       composer test
       travis_time_finish && travis_fold end "PHP.tests"
-    fi
-  # JS Linting
-  - |
-    if [[ "$CHECKJS" == "1" ]]; then
-      travis_fold start "JS.check" && travis_time_start
-      grunt eslint:plugin
-      travis_time_finish && travis_fold end "JS.check"
     fi
