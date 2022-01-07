@@ -2,9 +2,6 @@ os: linux
 dist: xenial
 language: php
 
-services:
-  - mysql
-
 branches:
   only:
     - master
@@ -18,16 +15,6 @@ branches:
 jobs:
   fast_finish: true
   include:
-    - php: 7.3.24
-      env: WP_VERSION=5.8 WP_MULTISITE=1 PHPUNIT=1
-    - php: 5.6
-      env: WP_VERSION=5.6 PHPUNIT=1
-    - php: 7.4
-      env: WP_VERSION=5.8 PHPUNIT=1
-    - php: 7.0
-      env: WP_VERSION=master WP_MULTISITE=1 PHPUNIT=1
-    - php: 8.0
-      env: WP_VERSION=5.8 PHPUNIT=1
     - stage: deploy
       env: WP_VERSION=5.8
       if: ( tag IS present OR branch =~ /^feature\// OR branch =~ /^release\// OR branch =~ /^hotfix\// OR branch = trunk ) AND type != pull_request
@@ -62,83 +49,12 @@ jobs:
         on:
           repo: $TRAVIS_REPO_SLUG
           all_branches: true
-  allow_failures:
-    # Allow failures for unstable builds.
-    - php: 7.0
-      env: WP_VERSION=master WP_MULTISITE=1 PHPUNIT=1
-
-cache:
-  directories:
-    - vendor
-    - $HOME/.composer/cache
 
 before_install:
-  - phpenv config-rm xdebug.ini || echo 'No xdebug config.'
   - composer config --global github-oauth.github.com ${GITHUB_OAUTH_TOKEN}
 
 install:
-  - |
-    if [[ ${TRAVIS_PHP_VERSION:0:1} == "8" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
-      travis_retry composer install --no-interaction --ignore-platform-reqs
-    elif [[ "$PHPUNIT" == "1" ]]; then
-      travis_retry composer install --no-interaction
-    elif [[ "$TRAVIS_BUILD_STAGE_NAME" == "deploy" ]]; then
-      travis_retry composer install --no-dev --no-interaction
-    fi
-
-before_script:
-  - PLUGIN_SLUG=$(basename $(pwd))
-  - export WP_DEVELOP_DIR=/tmp/wordpress/
-  - export -f travis_fold
-  - export -f travis_time_start
-  - export -f travis_time_finish
-
-  # Clone WordPress
-  - |
-    if [[ "$PHPUNIT" == "1" ]]; then
-      git clone --depth=1 --branch="$WP_VERSION" git://develop.git.wordpress.org/ /tmp/wordpress
-    fi
-
-  # Clone WPSEO and its submodule
-  - |
-    if [[ "$PHPUNIT" == "1" ]]; then
-      git clone --depth=1 --branch="trunk" https://github.com/Yoast-dist/wordpress-seo.git $WP_DEVELOP_DIR/src/wp-content/plugins/wordpress-seo
-      cd /tmp/wordpress/src/wp-content/plugins/wordpress-seo
-      travis_retry composer install --no-dev --no-scripts --no-interaction --ignore-platform-reqs
-      cd -
-    fi
-
-  # Copy WooCommerce SEO to the test directory
-  - |
-    if [[ "$PHPUNIT" == "1" ]]; then
-      cd ..
-      cp -r "$PLUGIN_SLUG" "/tmp/wordpress/src/wp-content/plugins/$PLUGIN_SLUG"
-      cd /tmp/wordpress/
-      cp wp-tests-config-sample.php wp-tests-config.php
-      sed -i "s/youremptytestdbnamehere/wordpress_tests/" wp-tests-config.php
-      sed -i "s/yourusernamehere/travis/" wp-tests-config.php
-      sed -i "s/yourpasswordhere//" wp-tests-config.php
-      mysql -e "CREATE DATABASE wordpress_tests;" -uroot
-      cd "/tmp/wordpress/src/wp-content/plugins/$PLUGIN_SLUG"
-      phpenv rehash
-    fi
+  - travis_retry composer install --no-dev --no-interaction
 
 script:
-  # PHP Integration Tests
-  - |
-    if [[ "$PHPUNIT" == "1" && "$WP_VERSION" != "latest" ]] && [[ "$WP_VERSION" == "5.9" || "${WP_VERSION:0:1}" == "6" || "$WP_VERSION" == "master" ]]; then
-      travis_fold start "PHP.integration-tests" && travis_time_start
-      composer config --unset platform.php &&
-      travis_retry composer update yoast/wp-test-utils --with-all-dependencies --no-interaction &&
-      vendor/bin/phpunit -c phpunit-integration.xml.dist
-      travis_time_finish && travis_fold end "PHP.integration-tests"
-    elif [[ "$PHPUNIT" == "1" && ${TRAVIS_PHP_VERSION:0:1} != "8" && $TRAVIS_PHP_VERSION != "nightly" ]]; then
-      travis_fold start "PHP.tests" && travis_time_start
-      composer integration-test
-      travis_time_finish && travis_fold end "PHP.tests"
-    elif [[ "$PHPUNIT" == "1" ]] && [[ ${TRAVIS_PHP_VERSION:0:1} == "8" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
-      travis_fold start "PHP.tests" && travis_time_start
-      travis_retry composer require --dev phpunit/phpunit:"^7.5" --update-with-dependencies --ignore-platform-reqs --no-interaction &&
-      composer integration-test
-      travis_time_finish && travis_fold end "PHP.tests"
-    fi
+  - git status
