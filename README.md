@@ -31,29 +31,21 @@ You can find the FAQ [online here](https://kb.yoast.com/kb/category/woocommerce-
 Changelog
 =========
 
+### 14.6: January 25th, 2022
+Enhancements:
+* Adapts Product description assessment for Japanese.
+
+Bugfixes:
+* Fixes a bug where an empty product identifier value could be output.
+
+Other:
+* Sets the minimum required Yoast SEO version to 17.9.
+
+
 ### 14.5: December 14th, 2021
 Other:
 * Ensure compatibility with Yoast SEO Free 17.8.
 * Sets the minimum required Yoast SEO version to 17.8.
-
-### 14.4: September 7th, 2021
-Enhancements:
-* Adds the following improvements to the SEO analysis on product pages:
-  * Adds the Image alt tags assessment, which checks if all images have alt tags. 
-  * Removes the Outbound links assessment and Internal links assessment, as they are less relevant on product pages.
-  * Sets the recommended minimum of the Keyphrase length assessment to 4 words.
-  * Sets the recommended minimum of the Text length assessment to 200 words.
-  * The SEO title width assessment no longer penalizes short titles.
-  * Adds a criterion for orange bullet in the Images assessments on product pages.
-  * Sets the recommended number of images to 4 in the Images assessments on product pages.
-* Adds the following improvements to the readability analysis on product pages:
-  * Adds the List presence assessment which recommends using lists on product pages.
-  * Makes the Subheading distribution assessment appear only when the text contains more than 300 words.
-  * Sets the recommended maximum length of the Paragraph length assessment to 70 words.
-  * Sets the recommended maximum percentage of long sentences in the Sentence length assessment to 20%. Language-specific percentages can override this default value.
-
-Other:
-* Sets the minimum required Yoast SEO version to 17.1.
 
 ### Earlier versions
 For the changelog of earlier versions, please refer to [the changelog on yoast.com](https://yoa.st/woo-seo-changelog).
