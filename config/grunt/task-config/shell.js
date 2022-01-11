@@ -2,7 +2,7 @@
 module.exports = function() {
 	return {
 		"composer-install": {
-			command: "composer install",
+			command: "composer install --no-interaction",
 		},
 
 		"php-lint": {
