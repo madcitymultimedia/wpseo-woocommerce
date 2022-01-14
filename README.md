@@ -39,7 +39,6 @@ Bugfixes:
 * Fixes a bug where an empty product identifier value could be output.
 
 Other:
-* Sets the minimum required Yoast SEO version to 17.9.
 * Sets the minimum required Yoast SEO version to 18.0.
 * Sets the WordPress tested up to version to 5.9.
 * Sets the WooCommerce tested up to version to 6.1.
