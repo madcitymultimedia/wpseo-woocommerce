@@ -40,7 +40,7 @@ Bugfixes:
 
 Other:
 * Sets the minimum required Yoast SEO version to 17.9.
-* Bumps the minimum required Free version to 18.0.
+* Sets the minimum required Yoast SEO version to 18.0.
 * Sets the WordPress tested up to version to 5.9.
 * Sets the WooCommerce tested up to version to 6.1.
 
