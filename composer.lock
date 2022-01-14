@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "00047ee66a3a7c91bde119d1467916d6",
+    "content-hash": "783ec31ef7a4e4ab4105d80c207d2104",
     "packages": [
         {
             "name": "yoast/i18n-module",
@@ -2534,16 +2534,16 @@
         },
         {
             "name": "yoast/wordpress-seo",
-            "version": "dev-release/18.0",
+            "version": "dev-trunk",
             "source": {
                 "type": "git",
-                "url": "git@github.com:yoast/wordpress-seo.git",
-                "reference": "0ffc6499b8446868c407d18f4229a84a8996be53"
+                "url": "https://github.com/Yoast/wordpress-seo.git",
+                "reference": "7976f1bd7ba4dd5851e13000d5a0c355bf3828e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yoast/wordpress-seo/zipball/0ffc6499b8446868c407d18f4229a84a8996be53",
-                "reference": "0ffc6499b8446868c407d18f4229a84a8996be53",
+                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/7976f1bd7ba4dd5851e13000d5a0c355bf3828e6",
+                "reference": "7976f1bd7ba4dd5851e13000d5a0c355bf3828e6",
                 "shasum": ""
             },
             "require": {
@@ -2563,6 +2563,7 @@
                 "yoast/wp-test-utils": "^1.0.0",
                 "yoast/yoastcs": "^2.2.0"
             },
+            "default-branch": true,
             "type": "wordpress-plugin",
             "autoload": {
                 "classmap": [
@@ -2603,7 +2604,7 @@
                 ],
                 "check-cs-thresholds": [
                     "@putenv YOASTCS_THRESHOLD_ERRORS=252",
-                    "@putenv YOASTCS_THRESHOLD_WARNINGS=219",
+                    "@putenv YOASTCS_THRESHOLD_WARNINGS=220",
                     "Yoast\\WP\\SEO\\Composer\\Actions::check_cs_thresholds"
                 ],
                 "check-cs": [
@@ -2676,7 +2677,7 @@
                 "wiki": "https://github.com/Yoast/wordpress-seo/wiki",
                 "source": "https://github.com/Yoast/wordpress-seo"
             },
-            "time": "2022-01-14T08:50:24+00:00"
+            "time": "2022-01-13T13:47:12+00:00"
         },
         {
             "name": "yoast/wp-test-utils",
@@ -2816,5 +2817,5 @@
     "platform-overrides": {
         "php": "5.6.40"
     },
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.0.0"
 }
