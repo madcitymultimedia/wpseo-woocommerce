@@ -7,6 +7,7 @@
  * @wordpress-plugin
  * Plugin Name: Yoast SEO: WooCommerce
  * Version:     14.6-RC2
+ * Update URI:  https://yoast.com/wordpress/plugins/yoast-woocommerce-seo/
  * Plugin URI:  https://yoa.st/4fu
  * Description: This extension to WooCommerce and Yoast SEO makes sure there's perfect communication between the two plugins.
  * Author:      Team Yoast
