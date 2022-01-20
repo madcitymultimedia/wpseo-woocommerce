@@ -14,6 +14,9 @@
 
 	<file>.</file>
 
+	<!-- Exclude YoastSEO when installed using the Composer installers. -->
+	<exclude-pattern>/wp-content/plugins/</exclude-pattern>
+
 	<!-- Only check PHP files. -->
 	<arg name="extensions" value="php"/>
 

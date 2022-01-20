@@ -1,0 +1,69 @@
+name: Unit Test
+
+on:
+  # Run on pushes to select branches and on all pull requests.
+  push:
+    branches:
+      - master
+      - trunk
+      - 'release/[0-9]+.[0-9]+*'
+      - 'hotfix/[0-9]+.[0-9]+*'
+      - 'feature/**'
+  pull_request:
+  # Allow manually triggering the workflow.
+  workflow_dispatch:
+
+# Cancels all previous workflow runs for the same branch that have not yet completed.
+concurrency:
+  # The concurrency group contains the workflow name and the branch name.
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        php_version: ['5.6', '7.0', '7.2', '7.4', '8.0', '8.1']
+
+    name: "Unit Test: PHP ${{ matrix.php_version }}"
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php_version }}
+          ini-values: zend.assertions=1, error_reporting=-1, display_errors=On
+          coverage: none
+
+      # Download/install YoastSEO via Packagist (YoastDist based) instead of cloning.
+      # YoastSEO isn't needed for this workflow anyway and this prevents randomly failing
+      # builds due to Git bug "BUG: refs/files-backend.c:2992: initial ref transaction called with existing refs".
+      - name: "Composer: use Packagist for YoastSEO and don't install in vendor"
+        run: |
+          composer config --unset preferred-install
+          composer config --unset repositories.wordpress-seo
+          composer config --unset extra.installer-paths
+
+      # The PHP platform requirement would prevent updating the test utilities to the appropriate versions.
+      # As long as the `composer update` is run selectively to only update the test utils, removing this is fine.
+      - name: "Composer: remove the PHP platform requirement"
+        run: composer config --unset platform.php
+
+      # Install dependencies and handle caching in one go.
+      # - Updates the test utilities to the most appropriate version for the PHP version on which the tests will be run.
+      # @link https://github.com/marketplace/actions/install-composer-dependencies
+      - name: Install Composer dependencies
+        uses: ramsey/composer-install@v2
+        with:
+          # Force a `composer update` run.
+          dependency-versions: "highest"
+          # But make it selective.
+          composer-options: "yoast/wp-test-utils --with-dependencies"
+
+      - name: Run unit tests
+        run: composer test
