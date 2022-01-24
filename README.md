@@ -33,7 +33,7 @@ Changelog
 
 ### 14.6: January 25th, 2022
 Enhancements:
-* Adapts Product description assessment for Japanese.
+* Adapts the Product description assessment for Japanese to use a character-based count, with a recommended length of 40-100 characters.
 
 Bugfixes:
 * Fixes a bug where an empty product identifier value could be output.
