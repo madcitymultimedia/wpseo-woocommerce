@@ -2,7 +2,7 @@ WooCommerce Yoast SEO
 =====================
 Requires at least: 5.6
 Tested up to: 5.9
-Stable tag: 14.6-RC2
+Stable tag: 14.6
 Requires PHP: 5.6.20
 Depends: Yoast SEO, WooCommerce
 
@@ -33,13 +33,12 @@ Changelog
 
 ### 14.6: January 25th, 2022
 Enhancements:
-* Adapts Product description assessment for Japanese.
+* Adapts the Product description assessment for Japanese to use a character-based count, with a recommended length of 40-100 characters.
 
 Bugfixes:
 * Fixes a bug where an empty product identifier value could be output.
 
 Other:
-* Sets the minimum required Yoast SEO version to 17.9.
 * Sets the minimum required Yoast SEO version to 18.0.
 * Sets the WordPress tested up to version to 5.9.
 * Sets the WooCommerce tested up to version to 6.1.
