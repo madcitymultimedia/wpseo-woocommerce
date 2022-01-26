@@ -49,7 +49,7 @@ jobs:
 
           # WP 5.9 is the earliest version which (sort of) supports PHP 8.1.
           - php_version: '8.1'
-            wp_version: '5.9-RC3'
+            wp_version: 'latest'
             multisite: true
 
     name: "Integration Test: PHP ${{ matrix.php_version }} | WP ${{ matrix.wp_version }}${{ matrix.multisite == true && ' (+ ms)' || '' }}"
