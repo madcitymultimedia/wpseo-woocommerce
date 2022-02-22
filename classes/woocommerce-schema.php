@@ -119,7 +119,7 @@ class WPSEO_WooCommerce_Schema {
 			// We normally add a `ReadAction` on pages, we're replacing with a `BuyAction` on product pages.
 			$webpage_data['potentialAction'] = [
 				'@type'  => 'BuyAction',
-				'target' => $webpage_data['url'],
+				'target' => YoastSEO()->meta->for_current_page()->canonical,
 			];
 		}
 		if ( is_checkout() || is_checkout_pay_page() ) {
