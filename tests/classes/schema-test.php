@@ -158,7 +158,7 @@ class Schema_Test extends TestCase {
 		);
 
 		$expected = [
-			'@type' => [ 'WebPage', 'CheckoutPage' ],
+			'@type' => 'CheckoutPage',
 		];
 		$schema   = new WPSEO_WooCommerce_Schema();
 		$this->assertSame( $expected, $schema->filter_webpage( $input ) );
