@@ -52,6 +52,10 @@ jobs:
             wp_version: 'latest'
             multisite: true
 
+          - php_version: '8.2'
+            wp_version: 'trunk'
+            multisite: true
+
     name: "Integration Test: PHP ${{ matrix.php_version }} | WP ${{ matrix.wp_version }}${{ matrix.multisite == true && ' (+ ms)' || '' }}"
 
     # Allow builds to fail on as-of-yet unreleased WordPress versions.
