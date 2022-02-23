@@ -28,7 +28,7 @@ on:
       - trunk
       - 'release/[0-9]+.[0-9]+*'
       - 'hotfix/[0-9]+.[0-9]+*'
-      - 'feature/**'
+#      - 'feature/**'
     # Trigger the workflow whenever a new tag is created.
     tags:
       - '**'
