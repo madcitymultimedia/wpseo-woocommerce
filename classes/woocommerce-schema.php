@@ -505,21 +505,15 @@ class WPSEO_WooCommerce_Schema {
 					'valueAddedTaxIncluded' => $prices_include_tax,
 				],
 			];
-			
-			/**
-			 * Allow extending schema for each offer.
-			 *
-			 *
-			 * @param type  $var Description.
-			 * @param array $offer {
-			 *     The offer array.
-			 *
-			 * }
-			 * @param WC_Product_Variation  $variation The WooCommerce product variation we're working with.
-			 * @param WC_Product  		$product The WooCommerce product we're working with.
-			 */
 
-            		$data[] = apply_filters( 'wpseo_schema_offer', $offer, $variation, $product );
+			/**
+			 * Filter: 'wpseo_schema_offer' - Allow changing the offer schema.
+			 *
+			 * @param array                $offer     The schema offer data.
+			 * @param WC_Product_Variation $variation The WooCommerce product variation we're working with.
+			 * @param WC_Product           $product   The WooCommerce product we're working with.
+			 */
+			$data[] = apply_filters( 'wpseo_schema_offer', $offer, $variation, $product );
 		}
 
 		return $data;
