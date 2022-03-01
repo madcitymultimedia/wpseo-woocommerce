@@ -158,7 +158,7 @@ class Schema_Test extends TestCase {
 		);
 
 		$expected = [
-			'@type' => [ 'WebPage', 'CheckoutPage' ],
+			'@type' => 'CheckoutPage',
 		];
 		$schema   = new WPSEO_WooCommerce_Schema();
 		$this->assertSame( $expected, $schema->filter_webpage( $input ) );
@@ -171,8 +171,21 @@ class Schema_Test extends TestCase {
 			]
 		);
 
+		$canonical = 'https://example.com/product/customizable-responsive-toolset/';
+		$this->meta
+			->expects( 'for_current_page' )
+			->andReturn(
+				(object) [
+					'canonical' => $canonical,
+				]
+			);
+
 		$expected = [
-			'@type' => [ 'WebPage', 'ItemPage' ],
+			'@type'           => [ 'WebPage', 'ItemPage' ],
+			'potentialAction' => [
+				'@type'  => 'BuyAction',
+				'target' => $canonical,
+			],
 		];
 		$schema   = new WPSEO_WooCommerce_Schema();
 		$this->assertSame( $expected, $schema->filter_webpage( $input ) );
