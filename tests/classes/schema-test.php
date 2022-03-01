@@ -171,7 +171,7 @@ class Schema_Test extends TestCase {
 			]
 		);
 
-		$canonical = "https://example.com/product/customizable-responsive-toolset/";
+		$canonical = 'https://example.com/product/customizable-responsive-toolset/';
 		$this->meta
 			->expects( 'for_current_page' )
 			->andReturn(
@@ -182,7 +182,7 @@ class Schema_Test extends TestCase {
 
 		$expected = [
 			'@type'           => [ 'WebPage', 'ItemPage' ],
-			'potentialAction' =>  [
+			'potentialAction' => [
 				'@type'  => 'BuyAction',
 				'target' => $canonical,
 			],
