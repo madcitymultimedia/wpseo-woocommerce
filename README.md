@@ -31,6 +31,17 @@ You can find the FAQ [online here](https://kb.yoast.com/kb/category/woocommerce-
 Changelog
 =========
 
+### 14.7: March 22nd, 2022
+Enhancements:
+* Improve the Schema on checkout pages by removing the default `ReadAction` we used to add there.
+* Improve the Schema on product pages by replacing the default `ReadAction` with a `BuyAction`. 
+* Adds a new filter `wpseo_schema_offer` filter that can be used to change the output of the offers attribute of the product schema. Props to [Dekadinious](https://github.com/Dekadinious).
+
+Other:
+* Sets the minimum required Yoast SEO version to 18.4.
+* Sets minimum required WordPress version to 5.8.
+
+
 ### 14.6: January 25th, 2022
 Enhancements:
 * Adapts the Product description assessment for Japanese to use a character-based count, with a recommended length of 40-100 characters.
@@ -42,11 +53,6 @@ Other:
 * Sets the minimum required Yoast SEO version to 18.0.
 * Sets the WordPress tested up to version to 5.9.
 * Sets the WooCommerce tested up to version to 6.1.
-
-### 14.5: December 14th, 2021
-Other:
-* Ensure compatibility with Yoast SEO Free 17.8.
-* Sets the minimum required Yoast SEO version to 17.8.
 
 ### Earlier versions
 For the changelog of earlier versions, please refer to [the changelog on yoast.com](https://yoa.st/woo-seo-changelog).
