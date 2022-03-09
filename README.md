@@ -33,13 +33,13 @@ Changelog
 
 ### 14.7: March 22nd, 2022
 Enhancements:
-* Improve the Schema on checkout pages by removing the default `ReadAction` we used to add there.
-* Improve the Schema on product pages by replacing the default `ReadAction` with a `BuyAction`. 
-* Adds a new filter `wpseo_schema_offer` filter that can be used to change the output of the offers attribute of the product schema. Props to [Dekadinious](https://github.com/Dekadinious).
+* Improves the Schema on checkout pages by removing the default `ReadAction` we used to add there.
+* Improves the Schema on product pages by replacing the default `ReadAction` with a `BuyAction`. 
 
 Other:
+* Adds a new `wpseo_schema_offer` filter that can be used to change the output of the offers attribute of the product schema. Props to [Dekadinious](https://github.com/Dekadinious).
 * Sets the minimum required Yoast SEO version to 18.4.
-* Sets minimum required WordPress version to 5.8.
+* Sets the minimum required WordPress version to 5.8.
 
 
 ### 14.6: January 25th, 2022
