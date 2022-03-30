@@ -407,9 +407,13 @@ class WPSEO_WooCommerce_Schema {
 		}
 
 		if ( has_post_thumbnail() ) {
-			$thumbnail_id        = get_post_thumbnail_id();
-			$image_schema_id     = YoastSEO()->meta->for_current_page()->canonical . Schema_IDs::PRIMARY_IMAGE_HASH;
-			$this->data['image'] = YoastSEO()->helpers->schema->image->generate_from_attachment_id( $image_schema_id, $thumbnail_id );
+			$thumbnail_id    = get_post_thumbnail_id();
+			$image_schema_id = YoastSEO()->meta->for_current_page()->canonical . Schema_IDs::PRIMARY_IMAGE_HASH;
+			$image_schema    = YoastSEO()->helpers->schema->image->generate_from_attachment_id( $image_schema_id, $thumbnail_id );
+
+			$this->data['image'] = [
+				'@id' => $image_schema['@id'],
+			];
 
 			return;
 		}
