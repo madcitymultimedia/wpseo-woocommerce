@@ -2425,57 +2425,6 @@
             "time": "2020-07-08T17:02:28+00:00"
         },
         {
-            "name": "wordproof/wordpress-sdk",
-            "version": "1.2.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/wordproof/wordpress-sdk.git",
-                "reference": "6a5ecd4956521eab77e455cb390a9acfb7ef6a09"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/wordproof/wordpress-sdk/zipball/6a5ecd4956521eab77e455cb390a9acfb7ef6a09",
-                "reference": "6a5ecd4956521eab77e455cb390a9acfb7ef6a09",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "php": "^5.6.20 || ^7.0 || ^8.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.5",
-                "phpunit/phpunit": "^9",
-                "spatie/ray": "^1.21",
-                "wpengine/wpengine-coding-standards": "dev-master"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "WordProof\\SDK\\": "app"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Yurii",
-                    "email": "yurii@wordproof.com"
-                },
-                {
-                    "name": "Marijn",
-                    "email": "marijn@wordproof.com"
-                }
-            ],
-            "description": "WordPress SDK",
-            "support": {
-                "issues": "https://github.com/wordproof/wordpress-sdk/issues",
-                "source": "https://github.com/wordproof/wordpress-sdk/tree/1.2.7"
-            },
-            "time": "2022-03-08T05:35:19+00:00"
-        },
-        {
             "name": "wp-coding-standards/wpcs",
             "version": "2.3.0",
             "source": {
@@ -2592,19 +2541,18 @@
             "version": "dev-trunk",
             "source": {
                 "type": "git",
-                "url": "git@github.com:yoast/wordpress-seo.git",
-                "reference": "702862fcf5142e74a36d729e6fedfd93fe740d9a"
+                "url": "https://github.com/Yoast/wordpress-seo.git",
+                "reference": "388ceba487bdd1c1a0c2ccb57745dcea2c521ee9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yoast/wordpress-seo/zipball/702862fcf5142e74a36d729e6fedfd93fe740d9a",
-                "reference": "702862fcf5142e74a36d729e6fedfd93fe740d9a",
+                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/388ceba487bdd1c1a0c2ccb57745dcea2c521ee9",
+                "reference": "388ceba487bdd1c1a0c2ccb57745dcea2c521ee9",
                 "shasum": ""
             },
             "require": {
                 "composer/installers": "^1.12.0",
                 "php": "^5.6.20 || ^7.0 || ^8.0",
-                "wordproof/wordpress-sdk": "^1.2",
                 "yoast/i18n-module": "^3.1.1"
             },
             "require-dev": {
@@ -2738,7 +2686,7 @@
                 "wiki": "https://github.com/Yoast/wordpress-seo/wiki",
                 "source": "https://github.com/Yoast/wordpress-seo"
             },
-            "time": "2022-03-31T08:15:07+00:00"
+            "time": "2022-03-31T08:36:27+00:00"
         },
         {
             "name": "yoast/wp-test-utils",
@@ -2878,5 +2826,5 @@
     "platform-overrides": {
         "php": "5.6.40"
     },
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }
