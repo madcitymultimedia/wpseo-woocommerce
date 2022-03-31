@@ -50,7 +50,7 @@
     "require-dev": {
         "yoast/yoastcs": "^2.2.0",
         "yoast/wp-test-utils": "^1.0.0",
-        "yoast/wordpress-seo": "dev-release/18.0@dev"
+        "yoast/wordpress-seo": "dev-release/18.5@dev"
     },
     "extra": {
         "installer-paths": {

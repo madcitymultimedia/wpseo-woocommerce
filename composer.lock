@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "00047ee66a3a7c91bde119d1467916d6",
+    "content-hash": "3aab0b8c2f236d9619219ae9d80bcca8",
     "packages": [
         {
             "name": "yoast/i18n-module",
@@ -2534,16 +2534,16 @@
         },
         {
             "name": "yoast/wordpress-seo",
-            "version": "dev-release/18.0",
+            "version": "dev-release/18.5",
             "source": {
                 "type": "git",
-                "url": "git@github.com:yoast/wordpress-seo.git",
-                "reference": "0ffc6499b8446868c407d18f4229a84a8996be53"
+                "url": "https://github.com/Yoast/wordpress-seo.git",
+                "reference": "702862fcf5142e74a36d729e6fedfd93fe740d9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yoast/wordpress-seo/zipball/0ffc6499b8446868c407d18f4229a84a8996be53",
-                "reference": "0ffc6499b8446868c407d18f4229a84a8996be53",
+                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/702862fcf5142e74a36d729e6fedfd93fe740d9a",
+                "reference": "702862fcf5142e74a36d729e6fedfd93fe740d9a",
                 "shasum": ""
             },
             "require": {
@@ -2552,6 +2552,7 @@
                 "yoast/i18n-module": "^3.1.1"
             },
             "require-dev": {
+                "chillerlan/php-qrcode": "^1.0.9",
                 "humbug/php-scoper": "^0.13.4",
                 "league/oauth2-client": "2.6.1",
                 "phpunit/phpunit": "^5.7",
@@ -2561,7 +2562,7 @@
                 "symfony/dependency-injection": "^3.4",
                 "yoast/php-development-environment": "^1.0",
                 "yoast/wp-test-utils": "^1.0.0",
-                "yoast/yoastcs": "^2.2.0"
+                "yoast/yoastcs": "^2.2.1"
             },
             "type": "wordpress-plugin",
             "autoload": {
@@ -2587,10 +2588,10 @@
                     "@php ./vendor/phpunit/phpunit/phpunit -c phpunit-integration.xml.dist"
                 ],
                 "lint": [
-                    "@php ./vendor/php-parallel-lint/php-parallel-lint/parallel-lint . -e php --exclude vendor --exclude vendor_prefixed --exclude node_modules --exclude .git"
+                    "@php ./vendor/php-parallel-lint/php-parallel-lint/parallel-lint . -e php --show-deprecated --exclude vendor --exclude node_modules --exclude .git"
                 ],
                 "lint-files": [
-                    "@php ./vendor/php-parallel-lint/php-parallel-lint/parallel-lint"
+                    "@php ./vendor/php-parallel-lint/php-parallel-lint/parallel-lint -e php --show-deprecated"
                 ],
                 "lint-branch": [
                     "Yoast\\WP\\SEO\\Composer\\Actions::lint_branch"
@@ -2602,7 +2603,7 @@
                     "Yoast\\WP\\SEO\\Composer\\Actions::check_coding_standards"
                 ],
                 "check-cs-thresholds": [
-                    "@putenv YOASTCS_THRESHOLD_ERRORS=252",
+                    "@putenv YOASTCS_THRESHOLD_ERRORS=248",
                     "@putenv YOASTCS_THRESHOLD_WARNINGS=219",
                     "Yoast\\WP\\SEO\\Composer\\Actions::check_cs_thresholds"
                 ],
@@ -2627,7 +2628,8 @@
                 ],
                 "prefix-dependencies": [
                     "composer prefix-oauth2-client",
-                    "composer prefix-symfony"
+                    "composer prefix-symfony",
+                    "composer prefix-php-qrcode"
                 ],
                 "prefix-oauth2-client": [
                     "@php ./vendor/humbug/php-scoper/bin/php-scoper add-prefix --prefix=YoastSEO_Vendor --output-dir=./vendor_prefixed/league/oauth2-client --config=config/php-scoper/oauth2-client.inc.php --force --quiet",
@@ -2636,6 +2638,9 @@
                 ],
                 "prefix-symfony": [
                     "@php ./vendor/humbug/php-scoper/bin/php-scoper add-prefix --prefix=YoastSEO_Vendor --output-dir=./vendor_prefixed/symfony/dependency-injection --config=config/php-scoper/dependency-injection.inc.php --force --quiet"
+                ],
+                "prefix-php-qrcode": [
+                    "@php ./vendor/humbug/php-scoper/bin/php-scoper add-prefix --prefix=YoastSEO_Vendor --output-dir=./vendor_prefixed/chillerlan/php-qrcode --config=config/php-scoper/php-qrcode.inc.php --force --quiet"
                 ],
                 "compile-di": [
                     "rm -f ./src/generated/container.php",
@@ -2676,7 +2681,7 @@
                 "wiki": "https://github.com/Yoast/wordpress-seo/wiki",
                 "source": "https://github.com/Yoast/wordpress-seo"
             },
-            "time": "2022-01-14T08:50:24+00:00"
+            "time": "2022-03-31T08:15:07+00:00"
         },
         {
             "name": "yoast/wp-test-utils",
