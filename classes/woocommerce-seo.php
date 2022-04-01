@@ -75,6 +75,7 @@ class Yoast_WooCommerce_SEO {
 			add_action( 'admin_footer', [ $this, 'footer_js' ] );
 
 			new WPSEO_WooCommerce_Yoast_Tab();
+			new WPSEO_WooCommerce_Yoast_Ids();
 		}
 		else {
 			// Initialize schema & OpenGraph.
