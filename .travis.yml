@@ -39,6 +39,7 @@ jobs:
         - ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
         - composer config --global github-oauth.github.com ${GITHUB_OAUTH_TOKEN}
       before_deploy:
+        # set composer to 2.2.10 this is need for autoloader to work correct.
         - composer self-update 2.2.10
         - nvm install 14
         # We need to do a composer install before yarn install because of the yoastseo:link:vendor/yoast/wordpress-seo/packages/yoastseo depdendency.
