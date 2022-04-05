@@ -1006,7 +1006,6 @@ class Schema_Test extends TestCase {
 		Functions\stubs(
 			[
 				'has_post_thumbnail'       => true,
-				'get_post_thumbnail_id'    => 123,
 				'home_url'                 => $base_url,
 				'get_site_url'             => $base_url,
 				'get_post_meta'            => false,
@@ -1028,13 +1027,19 @@ class Schema_Test extends TestCase {
 			->with( 'product_cat', 1 )
 			->andReturn( (object) [ 'name' => $product_name ] );
 
-		$image_data = [
-			'@id'    => $canonical . '#primaryimage',
+		$image_data   = [
+			'url'    => $base_url . '/example_image.jpg',
+			'width'  => 50,
+			'height' => 50,
 		];
-
-		$this->helpers->schema->image
-			->expects( 'generate_from_attachment_id' )
-			->with( $canonical . '#primaryimage', 123 )
+		$schema_image = Mockery::mock( 'overload:WPSEO_Schema_Image' );
+		$schema_image->expects( '__construct' )
+			->once()
+			->with( $canonical . '#woocommerceimageplaceholder' )
+			->andReturnSelf();
+		$schema_image->expects( 'generate_from_url' )
+			->once()
+			->with( $base_url . '/example_image.jpg' )
 			->andReturn( $image_data );
 
 		Functions\expect( 'wp_strip_all_tags' )->twice()->andReturn( 'TestProduct' );
@@ -1369,7 +1374,6 @@ class Schema_Test extends TestCase {
 		Functions\stubs(
 			[
 				'has_post_thumbnail'       => true,
-				'get_post_thumbnail_id'    => 123,
 				'get_post_meta'            => false,
 				'get_the_terms'            => [
 					(object) [ 'name' => 'green' ],
@@ -1402,14 +1406,9 @@ class Schema_Test extends TestCase {
 				]
 			);
 
-		$image_data = [
-			'@id'    => $canonical . '#primaryimage',
-		];
-
 		$this->helpers->schema->image
-			->expects( 'generate_from_attachment_id' )
-			->with( $canonical . '#primaryimage', 123 )
-			->andReturn( $image_data );
+			->expects( 'generate_from_url' )
+			->never();
 
 		$data = [
 			'@type'       => 'Product',
