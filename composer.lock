@@ -2541,13 +2541,13 @@
             "version": "dev-trunk",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Yoast/wordpress-seo.git",
-                "reference": "9d26a297240bb447a3b12c96a4346028b7122fbc"
+                "url": "git@github.com:yoast/wordpress-seo.git",
+                "reference": "626c2b1ef13ddc1619ba9280ab31ec69c88c4f6c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/9d26a297240bb447a3b12c96a4346028b7122fbc",
-                "reference": "9d26a297240bb447a3b12c96a4346028b7122fbc",
+                "url": "https://api.github.com/repos/yoast/wordpress-seo/zipball/626c2b1ef13ddc1619ba9280ab31ec69c88c4f6c",
+                "reference": "626c2b1ef13ddc1619ba9280ab31ec69c88c4f6c",
                 "shasum": ""
             },
             "require": {
@@ -2686,7 +2686,7 @@
                 "wiki": "https://github.com/Yoast/wordpress-seo/wiki",
                 "source": "https://github.com/Yoast/wordpress-seo"
             },
-            "time": "2022-04-05T09:14:23+00:00"
+            "time": "2022-04-05T12:50:19+00:00"
         },
         {
             "name": "yoast/wp-test-utils",
@@ -2826,5 +2826,5 @@
     "platform-overrides": {
         "php": "5.6.40"
     },
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.2.0"
 }
