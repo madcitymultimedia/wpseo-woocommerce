@@ -42,9 +42,16 @@ Other:
 * Sets the minimum required WordPress version to 5.8.
 
 ### 14.7: April 5th, 2022
+Enhancements:
+* Improves the Schema on checkout pages by removing the default `ReadAction` we used to add there.
+* Improves the Schema on product pages by replacing the default `ReadAction` with a `BuyAction`. 
+
 Other:
 * Sets the minimum required Yoast SEO version to 18.5.
 * Makes WooCommerce SEO compatible with the schema changes introduced in Yoast SEO 18.5.
+* Sets the minimal required version for Yoast SEO to 18.6.
+* Sets the minimum required WordPress version to 5.8.
+* Adds a new `wpseo_schema_offer` filter that can be used to change the output of the offers attribute of the product schema. Props to [Dekadinious](https://github.com/Dekadinious).
 
 ### Earlier versions
 For the changelog of earlier versions, please refer to [the changelog on yoast.com](https://yoa.st/woo-seo-changelog).
