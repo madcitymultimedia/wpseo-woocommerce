@@ -2252,12 +2252,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Symfony\\Polyfill\\Ctype\\": ""
-                },
                 "files": [
                     "bootstrap.php"
-                ]
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Ctype\\": ""
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -2542,12 +2542,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yoast/wordpress-seo.git",
-                "reference": "388ceba487bdd1c1a0c2ccb57745dcea2c521ee9"
+                "reference": "626c2b1ef13ddc1619ba9280ab31ec69c88c4f6c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/388ceba487bdd1c1a0c2ccb57745dcea2c521ee9",
-                "reference": "388ceba487bdd1c1a0c2ccb57745dcea2c521ee9",
+                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/626c2b1ef13ddc1619ba9280ab31ec69c88c4f6c",
+                "reference": "626c2b1ef13ddc1619ba9280ab31ec69c88c4f6c",
                 "shasum": ""
             },
             "require": {
@@ -2608,7 +2608,7 @@
                     "Yoast\\WP\\SEO\\Composer\\Actions::check_coding_standards"
                 ],
                 "check-cs-thresholds": [
-                    "@putenv YOASTCS_THRESHOLD_ERRORS=248",
+                    "@putenv YOASTCS_THRESHOLD_ERRORS=243",
                     "@putenv YOASTCS_THRESHOLD_WARNINGS=219",
                     "Yoast\\WP\\SEO\\Composer\\Actions::check_cs_thresholds"
                 ],
@@ -2686,7 +2686,7 @@
                 "wiki": "https://github.com/Yoast/wordpress-seo/wiki",
                 "source": "https://github.com/Yoast/wordpress-seo"
             },
-            "time": "2022-03-31T08:36:27+00:00"
+            "time": "2022-04-05T12:50:19+00:00"
         },
         {
             "name": "yoast/wp-test-utils",
@@ -2826,5 +2826,5 @@
     "platform-overrides": {
         "php": "5.6.40"
     },
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.0.0"
 }

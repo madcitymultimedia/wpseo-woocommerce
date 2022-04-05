@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Yoast SEO: WooCommerce package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Yoast SEO: WooCommerce 14.7-RC2\n"
+"Project-Id-Version: Yoast SEO: WooCommerce 14.7-RC3\n"
 "Report-Msgid-Bugs-To: https://github.com/yoast/wpseo-woocommerce/issues\n"
-"POT-Creation-Date: 2022-03-31 09:42:23+00:00\n"
+"POT-Creation-Date: 2022-04-05 13:20:32+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -159,57 +159,6 @@ msgstr ""
 msgid ""
 "If you have any of these unique identifiers for your products, please add "
 "them here. %1$s will use them in your Schema and OpenGraph output."
-msgstr ""
-
-#: vendor/wordproof/wordpress-sdk/app/Config/OptionsConfig.php:28
-msgid "View this content's Timestamp certificate"
-msgstr ""
-
-#: vendor/wordproof/wordpress-sdk/app/Controllers/PostEditorTimestampController.php:157
-msgid "WordProof Timestamp"
-msgstr ""
-
-#: vendor/wordproof/wordpress-sdk/app/Controllers/PostEditorTimestampController.php:175
-msgid "Timestamp this post"
-msgstr ""
-
-#: vendor/wordproof/wordpress-sdk/app/Translations/DefaultTranslations.php:10
-#. translators: %s expands to WordProof.
-msgid ""
-"You are out of timestamps. Please upgrade your account by opening the %s "
-"settings."
-msgstr ""
-
-#: vendor/wordproof/wordpress-sdk/app/Translations/DefaultTranslations.php:16
-#. translators: %s expands to WordProof.
-msgid "%s has successfully timestamped this page."
-msgstr ""
-
-#: vendor/wordproof/wordpress-sdk/app/Translations/DefaultTranslations.php:22
-#. translators: %s expands to WordProof.
-msgid ""
-"%1$s failed to timestamp this page. Please check if you're correctly "
-"authenticated with %1$s and try to save this page again."
-msgstr ""
-
-#: vendor/wordproof/wordpress-sdk/app/Translations/DefaultTranslations.php:28
-#. translators: %s expands to WordProof.
-msgid ""
-"The timestamp is not retrieved by your site. Please try again or contact "
-"%1$s support."
-msgstr ""
-
-#: vendor/wordproof/wordpress-sdk/app/Translations/DefaultTranslations.php:34
-#. translators: %s expands to WordProof.
-msgid "The timestamp is not created because you need to authenticate with %s first."
-msgstr ""
-
-#: vendor/wordproof/wordpress-sdk/app/Translations/DefaultTranslations.php:39
-msgid "Authenticate"
-msgstr ""
-
-#: vendor/wordproof/wordpress-sdk/app/Translations/DefaultTranslations.php:44
-msgid "Open settings"
 msgstr ""
 
 #: vendor/yoast/i18n-module/src/i18n-v3.php:233

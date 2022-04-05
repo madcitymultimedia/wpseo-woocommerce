@@ -21,18 +21,18 @@ class Yoast_WooCommerce_Dependencies_Test extends TestCase {
 	 */
 	public function test_check_dependencies() {
 		$valid_wp_version        = '5.8';
-		$valid_yoast_seo_version = '18.5';
+		$valid_yoast_seo_version = '18.6';
 
 		$class = Mockery::mock( Yoast_WooCommerce_Dependencies_Double::class )->makePartial();
 
 		// Invalid WordPress version.
-		$actual = $class->check_dependencies( '5.0' );
+		$actual = $class->check_dependencies( '5.6' );
 		$this->assertFalse( $actual );
 
 		// Valid WordPress version.
 		$class->expects( 'check_woocommerce_exists' )->once()->andReturn( true );
 		$class->expects( 'get_yoast_seo_version' )->once()->andReturn( $valid_yoast_seo_version );
-		$actual = $class->check_dependencies( '5.8' );
+		$actual = $class->check_dependencies( $valid_wp_version );
 		$this->assertTrue( $actual );
 
 		// WooCommerce in-active.
