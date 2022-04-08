@@ -49,7 +49,7 @@ class WPSEO_WooCommerce_Yoast_Ids {
 
 		wp_nonce_field( 'yoast_woo_seo_variation_identifiers', '_wpnonce_yoast_seo_woo' );
 
-		$variation_values = get_post_meta( $variation->ID, 'wpseo_variation_global_identifiers_values', true );
+		$variation_values = $this->get_variation_values( $variation );
 
 		foreach ( $this->global_identifier_types as $type => $label ) {
 			$value = isset( $variation_values[ $type ] ) ? $variation_values[ $type ] : '';
@@ -57,6 +57,27 @@ class WPSEO_WooCommerce_Yoast_Ids {
 		}
 		echo '</div>';
 		echo '</div>';
+	}
+
+	/**
+	 * Gets values of each global identifier specified for a variation.
+	 *
+	 * @param WP_Post $variation The variation.
+	 *
+	 * @return array The variation global identifiers.
+	 */
+	protected function get_variation_values( $variation ) {
+		$global_identifiers_product_values   = get_post_meta( $variation->post_parent, 'wpseo_global_identifier_values', true );
+		$global_identifiers_variation_values = get_post_meta( $variation->ID, 'wpseo_variation_global_identifiers_values', true );
+
+		foreach ( $global_identifiers_variation_values as $global_identifier_name => $global_identifier_value ) {
+			// If the variation global identifier is not set and the product global identifier is set, we revert use that for the variation too.
+			if ( empty( $global_identifier_value ) && ! ( empty( $global_identifiers_product_values[ $global_identifier_name ] ) ) ) {
+				$global_identifiers_variation_values[ $global_identifier_name ] = $global_identifiers_product_values[ $global_identifier_name ];
+			}
+		}
+
+		return $global_identifiers_variation_values;
 	}
 
 	/**
