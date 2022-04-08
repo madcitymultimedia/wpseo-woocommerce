@@ -510,6 +510,16 @@ class WPSEO_WooCommerce_Schema {
 				],
 			];
 
+			// Adds variation's global identifiers to the $offer array
+			$variation_global_ids = get_post_meta( $variation['variation_id'], 'wpseo_variation_global_identifiers_values', true );
+			if ( is_array ( $variation_global_ids ) ) {
+				foreach ( $variation_global_ids as $global_id_name => $global_id_value ) {
+					if ( ! empty( $global_id_value ) ) {
+						$offer[ $global_id_name ] = $global_id_value;
+					}
+				}
+			}
+			
 			/**
 			 * Filter: 'wpseo_schema_offer' - Allow changing the offer schema.
 			 *
