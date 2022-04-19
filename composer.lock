@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b156317f6f5eda2aefe46790a3ad88ca",
+    "content-hash": "0bb814fc25add1d8856dd213dfdc3590",
     "packages": [
         {
             "name": "composer/installers",
@@ -2538,16 +2538,16 @@
         },
         {
             "name": "yoast/wordpress-seo",
-            "version": "dev-trunk",
+            "version": "dev-feature/agnostic-analysis",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yoast/wordpress-seo.git",
-                "reference": "0d3356a5b50f287375ea9dafe3a5ce0f946df23a"
+                "reference": "5eee657fb8da58eef3bd0521e005487519a82b73"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/0d3356a5b50f287375ea9dafe3a5ce0f946df23a",
-                "reference": "0d3356a5b50f287375ea9dafe3a5ce0f946df23a",
+                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/5eee657fb8da58eef3bd0521e005487519a82b73",
+                "reference": "5eee657fb8da58eef3bd0521e005487519a82b73",
                 "shasum": ""
             },
             "require": {
@@ -2568,7 +2568,6 @@
                 "yoast/wp-test-utils": "^1.0.0",
                 "yoast/yoastcs": "^2.2.1"
             },
-            "default-branch": true,
             "type": "wordpress-plugin",
             "autoload": {
                 "classmap": [
@@ -2686,7 +2685,7 @@
                 "wiki": "https://github.com/Yoast/wordpress-seo/wiki",
                 "source": "https://github.com/Yoast/wordpress-seo"
             },
-            "time": "2022-04-05T13:51:29+00:00"
+            "time": "2022-04-19T10:04:37+00:00"
         },
         {
             "name": "yoast/wp-test-utils",
@@ -2826,5 +2825,5 @@
     "platform-overrides": {
         "php": "5.6.40"
     },
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }
