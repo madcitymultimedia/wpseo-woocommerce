@@ -74,7 +74,7 @@
     "yoastseo": "link:vendor/yoast/wordpress-seo/packages/yoastseo"
   },
   "yoast": {
-    "pluginVersion": "14.7-RC3"
+    "pluginVersion": "14.7"
   },
   "dependencies": {
     "@wordpress/dependency-extraction-webpack-plugin": "^3.1.0",
