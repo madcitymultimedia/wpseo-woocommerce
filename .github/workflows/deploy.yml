@@ -115,6 +115,9 @@ jobs:
       - name: "Grunt: create artifact"
         run: grunt artifact
 
+       - name: "copy composer.json"
+        run: cp composer.json ./artifact
+
       - name: "Debug info: show contents of artifacts directory"
         run: tree -aC ./artifact
 
@@ -186,7 +189,7 @@ jobs:
           # Enable extended pattern matching.
           shopt -s extglob
           # Remove everything, except the ".git" directory and the `composer.json` file.
-          rm -vrf !(.git/*|composer.json)
+          rm -vrf !(.git/*)
           # Disable extended pattern matching.
           shopt -u extglob
 
