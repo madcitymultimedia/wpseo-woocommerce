@@ -45,12 +45,13 @@
     },
     "require": {
         "php": ">=5.6",
+        "composer/installers": "^1.12.0",
         "yoast/i18n-module": "^3.1.1"
     },
     "require-dev": {
-        "yoast/yoastcs": "^2.2.0",
+        "yoast/yoastcs": "^2.2.1",
         "yoast/wp-test-utils": "^1.0.0",
-        "yoast/wordpress-seo": "dev-release/18.0@dev"
+        "yoast/wordpress-seo": "dev-trunk@dev"
     },
     "extra": {
         "installer-paths": {
@@ -63,7 +64,7 @@
     "prefer-stable": true,
     "scripts": {
         "lint": [
-            "@php ./vendor/php-parallel-lint/php-parallel-lint/parallel-lint . -e php --exclude vendor --exclude node_modules --exclude .git"
+            "@php ./vendor/php-parallel-lint/php-parallel-lint/parallel-lint . -e php --show-deprecated --exclude vendor --exclude node_modules --exclude .git --exclude wp-content"
         ],
         "cs": [
             "Yoast\\WP\\Woocommerce\\Composer\\Actions::check_coding_standards"
