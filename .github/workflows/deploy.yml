@@ -115,7 +115,7 @@ jobs:
       - name: "Grunt: create artifact"
         run: grunt artifact
 
-       - name: "Copy composer.json"
+      - name: "Copy composer.json"
         run: cp composer.json ./artifact
 
       - name: "Debug info: show contents of artifacts directory"
