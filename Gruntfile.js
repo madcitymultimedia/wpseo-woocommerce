@@ -81,6 +81,7 @@ module.exports = function( grunt ) {
 				"update-changelog": "@yoast/grunt-plugin-tasks",
 				"build-qa-changelog": "@yoast/grunt-plugin-tasks",
 				"download-qa-changelog": "@yoast/grunt-plugin-tasks",
+				"update-changelog-to-latest": "@yoast/grunt-plugin-tasks",
 			},
 		},
 	} );
