@@ -2,7 +2,7 @@ WooCommerce Yoast SEO
 =====================
 Requires at least: 5.8
 Tested up to: 5.9
-Stable tag: 14.7-RC3
+Stable tag: 14.8
 Requires PHP: 5.6.20
 Depends: Yoast SEO, WooCommerce
 
@@ -30,6 +30,17 @@ You can find the FAQ [online here](https://kb.yoast.com/kb/category/woocommerce-
 
 Changelog
 =========
+
+### 14.8: May 6th, 2022
+
+Enhancements:
+
+* Removes XML sitemap image properties `title` and `caption` following deprecation by Google.
+
+Other:
+
+* Sets the minimum required Yoast SEO version to 18.8.
+
 
 ### 14.7: April 19th, 2022
 Enhancements:
