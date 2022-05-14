@@ -42,20 +42,19 @@ class WPSEO_WooCommerce_Yoast_Ids {
 	 * @return void
 	 */
 	public function add_variations_global_ids( $loop, $variation_data, $variation ) {
-		echo '<div id="yoast_seo_variation" class="panel woocommerce_options_panel">';
-		echo '<div class="options_group">';
 		echo '<h1>' . esc_html__( 'Yoast SEO options', 'yoast-woo-seo' ) . '</h1>';
 		echo '<p>' . esc_html__( 'If this product variation has unique identifiers, you can enter them here', 'yoast-woo-seo' ) . '</p>';
-
-		wp_nonce_field( 'yoast_woo_seo_variation_identifiers', '_wpnonce_yoast_seo_woo' );
-
+		
 		$variation_values = $this->get_variation_values( $variation );
-
+		
+		echo '<div>';
+		$is_left = true;
 		foreach ( $this->global_identifier_types as $type => $label ) {
 			$value = isset( $variation_values[ $type ] ) ? $variation_values[ $type ] : '';
-			$this->input_field_for_identifier( $variation->ID, $type, $label, $value );
+			$this->input_field_for_identifier( $variation->ID, $type, $label, $value, $is_left );
+			$is_left = ! $is_left; 
 		}
-		echo '</div>';
+		wp_nonce_field( 'yoast_woo_seo_variation_identifiers', '_wpnonce_yoast_seo_woo' );
 		echo '</div>';
 	}
 
@@ -145,15 +144,29 @@ class WPSEO_WooCommerce_Yoast_Ids {
 	 * @param string $type          Type of identifier, used for input name.
 	 * @param string $label         Label for the identifier input.
 	 * @param string $value         Current value of the identifier.
+	 * @param bool   $is_left        Wether the field is on the left or not.
+
 	 *
 	 * @return void
 	 */
-	protected function input_field_for_identifier( $variation_id, $type, $label, $value ) {
-		echo '<p class="form-field">';
-		echo '<label for="yoast_variation_identifier[', esc_attr( $variation_id ), '][', esc_attr( $type ), ']">', esc_html( $label ), ':</label>';
-		echo '<span class="wrap">';
-		echo '<input class="input-text" type="text" id="yoast_variation_identfier[', esc_attr( $variation_id ), '][', esc_attr( $type ), ']" name="yoast_seo_variation[',esc_attr( $variation_id ), '][', esc_attr( $type ), ']" value="', esc_attr( $value ), '"/>';
-		echo '</span>';
+	protected function input_field_for_identifier( $variation_id, $type, $label, $value, $is_left ) {
+		/*
+		woocommerce_wp_text_input(
+			array(
+				'id'                => 'yoast_variation_identfier[' . esc_attr( $variation_id ) . '][' . esc_attr( $type ) . ']',
+				'name'              => 'yoast_seo_variation[' . esc_attr( $variation_id ) . '][' . esc_attr( $type ) . ']',
+				'value'             => esc_attr( $value ),
+				'label'             => $label,
+				'wrapper_class'     => $wrapper,
+				)
+			);*/
+			
+		$style = $is_left ? 'style="display: inline-block; width: 48%; float: left;"' : 'style="display: inline-block; width: 48%; float: right;"';
+		//$margin = $is_odd ? 
+		echo '<p ', $style, '">';
+		echo '<label for="yoast_variation_identifier[', esc_attr( $variation_id ), '][', esc_attr( $type ), ']" style="display: block;">', esc_html( $label ), '</label>';
+		echo '<input class="short" type="text" style="line-height: 2.75; width: 100%;" id="yoast_variation_identfier[', esc_attr( $variation_id ), '][', esc_attr( $type ), ']" name="yoast_seo_variation[',esc_attr( $variation_id ), '][', esc_attr( $type ), ']" value="', esc_attr( $value ), '"/>';
 		echo '</p>';
-	}
+}
+
 }
