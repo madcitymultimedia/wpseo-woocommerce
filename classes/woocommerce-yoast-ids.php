@@ -44,17 +44,17 @@ class WPSEO_WooCommerce_Yoast_Ids {
 	public function add_variations_global_ids( $loop, $variation_data, $variation ) {
 		echo '<h1>' . esc_html__( 'Yoast SEO options', 'yoast-woo-seo' ) . '</h1>';
 		echo '<p>' . esc_html__( 'If this product variation has unique identifiers, you can enter them here', 'yoast-woo-seo' ) . '</p>';
-		
+
 		$variation_values = $this->get_variation_values( $variation );
-		
+
 		echo '<div>';
 		$is_left = true;
 		foreach ( $this->global_identifier_types as $type => $label ) {
 			$value = isset( $variation_values[ $type ] ) ? $variation_values[ $type ] : '';
 			$this->input_field_for_identifier( $variation->ID, $type, $label, $value, $is_left );
-			$is_left = ! $is_left; 
+			$is_left = ! $is_left;
 		}
-		wp_nonce_field( 'yoast_woo_seo_variation_identifiers', '_wpnonce_yoast_seo_woo' );
+		wp_nonce_field( 'yoast_woo_seo_variation_identifiers', '_wpnonce_yoast_seo_woo_gids' );
 		echo '</div>';
 	}
 
@@ -69,10 +69,10 @@ class WPSEO_WooCommerce_Yoast_Ids {
 		$global_identifiers_product_values   = get_post_meta( $variation->post_parent, 'wpseo_global_identifier_values', true );
 		$global_identifiers_variation_values = get_post_meta( $variation->ID, 'wpseo_variation_global_identifiers_values', true );
 
-		foreach ( $global_identifiers_variation_values as $global_identifier_name => $global_identifier_value ) {
-			// If the variation global identifier is not set and the product global identifier is set, we revert use that for the variation too.
-			if ( empty( $global_identifier_value ) && ! ( empty( $global_identifiers_product_values[ $global_identifier_name ] ) ) ) {
-				$global_identifiers_variation_values[ $global_identifier_name ] = $global_identifiers_product_values[ $global_identifier_name ];
+		// If a variation does not have a global ids, the product's value is used.
+		foreach ( $this->global_identifier_types as $type => $label ) {
+			if ( empty( $global_identifiers_variation_values[ $type ] ) && ! ( empty( $global_identifiers_product_values[ $type ] ) ) ) {
+				$global_identifiers_variation_values[ $type ] = $global_identifiers_product_values[ $type ];
 			}
 		}
 
@@ -89,10 +89,10 @@ class WPSEO_WooCommerce_Yoast_Ids {
 	protected function save_variation_data( $variation_id ) {
 		$values = [];
 		foreach ( $this->global_identifier_types as $key => $label ) {
-			// Ignoring nonce verification as we do that elsewhere, sanitization as we do that below.
+			// Ignoring nonce verification as we do that in save_data function, sanitization as we do that below.
 			// phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
-			$value = isset( $_POST['yoast_seo_variation'][ $variation_id ][ $key ] ) ? wp_unslash( $_POST['yoast_seo_variation'][ $variation_id ][ $key ] ) : '';
-			if ( $this->validate_data( $value ) ) {
+			$value = isset( $_POST['yoast_seo_variation'][ $variation_id ][ $key ] ) ? \sanitize_text_field( \wp_unslash( $_POST['yoast_seo_variation'][ $variation_id ][ $key ] ) ) : '';
+			if ( ! empty( $value ) ) {
 				$values[ $key ] = $value;
 			}
 		}
@@ -108,8 +108,11 @@ class WPSEO_WooCommerce_Yoast_Ids {
 	 * @return bool Whether or not we saved data.
 	 */
 	public function save_data( $variation_id ) {
-		$nonce = filter_input( INPUT_POST, '_wpnonce_yoast_seo_woo' );
-		if ( ! wp_verify_nonce( $nonce, 'yoast_woo_seo_variation_identifiers' ) ) {
+		if ( ! isset( $_POST['_wpnonce_yoast_seo_woo_gids'] ) ) {
+			return false;
+		}
+		$nonce = \sanitize_text_field( \wp_unslash( $_POST['_wpnonce_yoast_seo_woo_gids'] ) );
+		if ( ! \wp_verify_nonce( $nonce, 'yoast_woo_seo_variation_identifiers' ) ) {
 			return false;
 		}
 
@@ -123,21 +126,6 @@ class WPSEO_WooCommerce_Yoast_Ids {
 	}
 
 	/**
-	 * Make sure the data is safe to save.
-	 *
-	 * @param string $value The value we're testing.
-	 *
-	 * @return bool True when safe and not empty, false when it's not.
-	 */
-	protected function validate_data( $value ) {
-		if ( wp_strip_all_tags( $value ) !== $value ) {
-			return false;
-		}
-
-		return true;
-	}
-
-	/**
 	 * Displays an input field for an identifier.
 	 *
 	 * @param string $variation_id  The id of the variation.
@@ -145,28 +133,16 @@ class WPSEO_WooCommerce_Yoast_Ids {
 	 * @param string $label         Label for the identifier input.
 	 * @param string $value         Current value of the identifier.
 	 * @param bool   $is_left        Wether the field is on the left or not.
-
 	 *
 	 * @return void
 	 */
 	protected function input_field_for_identifier( $variation_id, $type, $label, $value, $is_left ) {
-		/*
-		woocommerce_wp_text_input(
-			array(
-				'id'                => 'yoast_variation_identfier[' . esc_attr( $variation_id ) . '][' . esc_attr( $type ) . ']',
-				'name'              => 'yoast_seo_variation[' . esc_attr( $variation_id ) . '][' . esc_attr( $type ) . ']',
-				'value'             => esc_attr( $value ),
-				'label'             => $label,
-				'wrapper_class'     => $wrapper,
-				)
-			);*/
-			
-		$style = $is_left ? 'style="display: inline-block; width: 48%; float: left;"' : 'style="display: inline-block; width: 48%; float: right;"';
-		//$margin = $is_odd ? 
+		$style = ( $is_left ) ? 'style="display: inline-block; width: 48%; float: left;"' : 'style="display: inline-block; width: 48%; float: right;"';
+		// Ignoring escaping because it would mangle the double quotes.
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo '<p ', $style, '">';
 		echo '<label for="yoast_variation_identifier[', esc_attr( $variation_id ), '][', esc_attr( $type ), ']" style="display: block;">', esc_html( $label ), '</label>';
 		echo '<input class="short" type="text" style="line-height: 2.75; width: 100%;" id="yoast_variation_identfier[', esc_attr( $variation_id ), '][', esc_attr( $type ), ']" name="yoast_seo_variation[',esc_attr( $variation_id ), '][', esc_attr( $type ), ']" value="', esc_attr( $value ), '"/>';
 		echo '</p>';
-}
-
+	}
 }
