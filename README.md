@@ -2,7 +2,7 @@ WooCommerce Yoast SEO
 =====================
 Requires at least: 5.8
 Tested up to: 5.9
-Stable tag: 14.7-RC1
+Stable tag: 14.8
 Requires PHP: 5.6.20
 Depends: Yoast SEO, WooCommerce
 
@@ -31,28 +31,26 @@ You can find the FAQ [online here](https://kb.yoast.com/kb/category/woocommerce-
 Changelog
 =========
 
-### 14.7: March 22nd, 2022
+### 14.8: May 6th, 2022
+
 Enhancements:
-* Improve the Schema on checkout pages by removing the default `ReadAction` we used to add there.
-* Improve the Schema on product pages by replacing the default `ReadAction` with a `BuyAction`. 
-* Adds a new filter `wpseo_schema_offer` filter that can be used to change the output of the offers attribute of the product schema. Props to [Dekadinious](https://github.com/Dekadinious).
+
+* Removes XML sitemap image properties `title` and `caption` following deprecation by Google.
 
 Other:
-* Sets the minimum required Yoast SEO version to 18.4.
-* Sets minimum required WordPress version to 5.8.
+
+* Sets the minimum required Yoast SEO version to 18.8.
 
 
-### 14.6: January 25th, 2022
+### 14.7: April 19th, 2022
 Enhancements:
-* Adapts the Product description assessment for Japanese to use a character-based count, with a recommended length of 40-100 characters.
-
-Bugfixes:
-* Fixes a bug where an empty product identifier value could be output.
+* Improves the Schema on checkout pages by removing the default `ReadAction` we used to add there.
+* Improves the Schema on product pages by replacing the default `ReadAction` with a `BuyAction`. 
 
 Other:
-* Sets the minimum required Yoast SEO version to 18.0.
-* Sets the WordPress tested up to version to 5.9.
-* Sets the WooCommerce tested up to version to 6.1.
+* Sets the minimal required version for Yoast SEO to 18.6.
+* Sets the minimum required WordPress version to 5.8.
+* Adds a new `wpseo_schema_offer` filter that can be used to change the output of the offers attribute of the product schema. Props to [Dekadinious](https://github.com/Dekadinious).
 
 ### Earlier versions
 For the changelog of earlier versions, please refer to [the changelog on yoast.com](https://yoa.st/woo-seo-changelog).

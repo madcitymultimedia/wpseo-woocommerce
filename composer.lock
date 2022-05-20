@@ -2252,12 +2252,12 @@
                 }
             },
             "autoload": {
-                "psr-4": {
-                    "Symfony\\Polyfill\\Ctype\\": ""
-                },
                 "files": [
                     "bootstrap.php"
-                ]
+                ],
+                "psr-4": {
+                    "Symfony\\Polyfill\\Ctype\\": ""
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -2425,57 +2425,6 @@
             "time": "2020-07-08T17:02:28+00:00"
         },
         {
-            "name": "wordproof/wordpress-sdk",
-            "version": "1.2.7",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/wordproof/wordpress-sdk.git",
-                "reference": "6a5ecd4956521eab77e455cb390a9acfb7ef6a09"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/wordproof/wordpress-sdk/zipball/6a5ecd4956521eab77e455cb390a9acfb7ef6a09",
-                "reference": "6a5ecd4956521eab77e455cb390a9acfb7ef6a09",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "php": "^5.6.20 || ^7.0 || ^8.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "^3.5",
-                "phpunit/phpunit": "^9",
-                "spatie/ray": "^1.21",
-                "wpengine/wpengine-coding-standards": "dev-master"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "WordProof\\SDK\\": "app"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Yurii",
-                    "email": "yurii@wordproof.com"
-                },
-                {
-                    "name": "Marijn",
-                    "email": "marijn@wordproof.com"
-                }
-            ],
-            "description": "WordPress SDK",
-            "support": {
-                "issues": "https://github.com/wordproof/wordpress-sdk/issues",
-                "source": "https://github.com/wordproof/wordpress-sdk/tree/1.2.7"
-            },
-            "time": "2022-03-08T05:35:19+00:00"
-        },
-        {
             "name": "wp-coding-standards/wpcs",
             "version": "2.3.0",
             "source": {
@@ -2593,18 +2542,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yoast/wordpress-seo.git",
-                "reference": "1361f4145703ad380196a65b58947f98e5c3edde"
+                "reference": "5e5446d59f5250396ceb45deeb3509c70a191344"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/1361f4145703ad380196a65b58947f98e5c3edde",
-                "reference": "1361f4145703ad380196a65b58947f98e5c3edde",
+                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/5e5446d59f5250396ceb45deeb3509c70a191344",
+                "reference": "5e5446d59f5250396ceb45deeb3509c70a191344",
                 "shasum": ""
             },
             "require": {
                 "composer/installers": "^1.12.0",
                 "php": "^5.6.20 || ^7.0 || ^8.0",
-                "wordproof/wordpress-sdk": "^1.2",
                 "yoast/i18n-module": "^3.1.1"
             },
             "require-dev": {
@@ -2660,7 +2608,7 @@
                     "Yoast\\WP\\SEO\\Composer\\Actions::check_coding_standards"
                 ],
                 "check-cs-thresholds": [
-                    "@putenv YOASTCS_THRESHOLD_ERRORS=249",
+                    "@putenv YOASTCS_THRESHOLD_ERRORS=243",
                     "@putenv YOASTCS_THRESHOLD_WARNINGS=219",
                     "Yoast\\WP\\SEO\\Composer\\Actions::check_cs_thresholds"
                 ],
@@ -2738,7 +2686,7 @@
                 "wiki": "https://github.com/Yoast/wordpress-seo/wiki",
                 "source": "https://github.com/Yoast/wordpress-seo"
             },
-            "time": "2022-03-08T12:01:02+00:00"
+            "time": "2022-05-05T14:02:34+00:00"
         },
         {
             "name": "yoast/wp-test-utils",
