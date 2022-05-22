@@ -294,9 +294,9 @@ class WooCommerce_Yoast_Ids_Test extends TestCase {
 		$this->stubTranslationFunctions();
 		$this->stubEscapeFunctions();
 
-		$mock_variation          = Mockery::mock( '\WP_Post' )->makePartial();
+		$mock_variation              = Mockery::mock( '\WP_Post' )->makePartial();
 		$mock_variation->post_parent = $post_id;
-		$mock_variation->ID      = $variation_id;
+		$mock_variation->ID          = $variation_id;
 
 		$mock = Mockery::mock( 'Yoast\WP\Woocommerce\Tests\Doubles\Yoast_Ids_Double' )->makePartial();
 		$mock->shouldReceive( 'get_variation_values' )
