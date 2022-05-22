@@ -82,13 +82,13 @@ class WPSEO_WooCommerce_Yoast_Ids {
 	}
 
 	/**
-	 * Saves the variation global identifiers upon sanitizing them.
+	 * Validate the variation global identifiers upon sanitizing them.
 	 *
-	 * @param int $variation_id The id of the variation to be saved.
+	 * @param int $variation_id The id of the variation to be validated.
 	 *
-	 * @return array variation global identifiers to be saved.
+	 * @return array Validated variation global identifiers.
 	 */
-	protected function save_variation_data( $variation_id ) {
+	protected function validate_variation_data( $variation_id ) {
 		$values = [];
 		foreach ( $this->global_identifier_types as $key => $label ) {
 			// Ignoring nonce verification as we do that in save_data function, sanitization as we do that below.
@@ -115,7 +115,7 @@ class WPSEO_WooCommerce_Yoast_Ids {
 			return false;
 		}
 
-		$values = $this->save_variation_data( $variation_id );
+		$values = $this->validate_variation_data( $variation_id );
 		if ( $values !== [] ) {
 			return update_post_meta( $variation_id, 'wpseo_variation_global_identifiers_values', $values );
 		}
