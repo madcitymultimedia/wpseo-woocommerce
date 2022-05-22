@@ -82,11 +82,11 @@ class WPSEO_WooCommerce_Yoast_Ids {
 	}
 
 	/**
-	 * Grab the values from the $_POST data and validate them.
+	 * Saves the variation global identifiers upon sanitizing them.
 	 *
 	 * @param int $variation_id The id of the variation to be saved.
 	 *
-	 * @return array Valid save data.
+	 * @return array variation global identifiers to be saved.
 	 */
 	protected function save_variation_data( $variation_id ) {
 		$values = [];
@@ -100,7 +100,7 @@ class WPSEO_WooCommerce_Yoast_Ids {
 	}
 
 	/**
-	 * Save the $_POST values from the variation's ids div.
+	 * Save the $_POST values from the variation global identifiers input fiends.
 	 *
 	 * @param int $variation_id The variation ID.
 	 *
@@ -138,7 +138,7 @@ class WPSEO_WooCommerce_Yoast_Ids {
 		$style = ( $is_left ) ? 'style="display: inline-block; margin-bottom: 0em; width: 48%; float: left;"' : 'style="display: inline-block; margin-bottom: 0em; width: 48%; float: right;"';
 		// Ignoring escaping because it would mangle the double quotes.
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo '<p ', $style, '">';
+		echo '<p ', $style, '>';
 		echo '<label for="yoast_variation_identifier[', esc_attr( $variation_id ), '][', esc_attr( $type ), ']" style="display: block;">', esc_html( $label ), '</label>';
 		echo '<input class="short" type="text" style="margin: 2px 0 0; line-height: 2.75; width: 100%;" id="yoast_variation_identfier[', esc_attr( $variation_id ), '][', esc_attr( $type ), ']" name="yoast_seo_variation[',esc_attr( $variation_id ), '][', esc_attr( $type ), ']" value="', esc_attr( $value ), '"/>';
 		echo '</p>';
