@@ -606,6 +606,7 @@ class Schema_Test extends TestCase {
 				'wc_get_price_decimals'    => 2,
 				'wc_format_decimal'        => null,
 				'wc_tax_enabled'           => false,
+				'get_post_meta'            => null,
 			]
 		);
 
