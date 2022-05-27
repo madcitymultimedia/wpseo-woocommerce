@@ -68,7 +68,7 @@ class WPSEO_WooCommerce_Yoast_Ids {
 	protected function validate_variation_data( $variation_id ) {
 		$values = [];
 		foreach ( $this->global_identifier_types as $key => $label ) {
-			// Ignoring nonce verification as we do that in save_data function, sanitization as we do that below.
+			// Ignoring nonce verification as we do that in save_data function.
 			// phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$values[ $key ] = isset( $_POST['yoast_seo_variation'][ $variation_id ][ $key ] ) ? \sanitize_text_field( \wp_unslash( $_POST['yoast_seo_variation'][ $variation_id ][ $key ] ) ) : '';
 		}
