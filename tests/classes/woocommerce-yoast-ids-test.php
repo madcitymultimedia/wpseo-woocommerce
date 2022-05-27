@@ -41,129 +41,6 @@ class WooCommerce_Yoast_Ids_Test extends TestCase {
 	}
 
 	/**
-	 * Test fetching product variation global identifiers.
-	 *
-	 * @dataProvider data_get_variation_values
-	 *
-	 * @covers WPSEO_WooCommerce_Yoast_Ids::get_variation_values
-	 *
-	 * @param int      $post_id        The id of the variation's parent post.
-	 * @param int      $variation_id   The id of the variation.
-	 * @param string[] $post_gids      The array of variation's parent post global identifiers.
-	 * @param string[] $variation_gids The array of the variation's identifiers.
-	 * @param string[] $expected       The array of expected results.
-	 */
-	public function test_get_variation_values( $post_id, $variation_id, $post_gids, $variation_gids, $expected ) {
-		$data = [];
-
-		Functions\expect( 'get_post_meta' )
-			->once()
-			->with( $post_id, 'wpseo_global_identifier_values', true )
-			->andReturn( $post_gids );
-
-		Functions\expect( 'get_post_meta' )
-			->once()
-			->with( $variation_id, 'wpseo_variation_global_identifiers_values', true )
-			->andReturn( $variation_gids );
-
-		$this->assertSame( $this->instance->get_variation_values( $post_id, $variation_id ), $expected );
-	}
-
-	/**
-	 * Data provider for the `test_get_variation_values()` test.
-	 *
-	 * @return array
-	 */
-	public function data_get_variation_values() {
-		return [
-			'some_variation_gids_missing' => [
-				1,
-				1337,
-				[
-					'gtin8'   => '1',
-					'gtin12'  => '2',
-					'gtin13'  => '3',
-					'gtin14'  => '4',
-					'isbn'    => '5',
-					'mpn'     => '12',
-				],
-				[
-					'gtin8'   => '7',
-					'gtin12'  => '8',
-					'gtin13'  => '9',
-					'gtin14'  => '10',
-					'isbn'    => '11',
-					'mpn'     => '',
-				],
-				[
-					'gtin8'   => '7',
-					'gtin12'  => '8',
-					'gtin13'  => '9',
-					'gtin14'  => '10',
-					'isbn'    => '11',
-					'mpn'     => '12',
-				],
-			],
-			'all_variation_gids_missing' => [
-				1,
-				1337,
-				[
-					'gtin8'   => '1',
-					'gtin12'  => '2',
-					'gtin13'  => '3',
-					'gtin14'  => '4',
-					'isbn'    => '5',
-					'mpn'     => '6',
-				],
-				[
-					'gtin8'   => '',
-					'gtin12'  => '',
-					'gtin13'  => '',
-					'gtin14'  => '',
-					'isbn'    => '',
-					'mpn'     => '',
-				],
-				[
-					'gtin8'   => '1',
-					'gtin12'  => '2',
-					'gtin13'  => '3',
-					'gtin14'  => '4',
-					'isbn'    => '5',
-					'mpn'     => '6',
-				],
-			],
-			'no_variation_gids_missing' => [
-				1,
-				1337,
-				[
-					'gtin8'   => '1',
-					'gtin12'  => '2',
-					'gtin13'  => '3',
-					'gtin14'  => '4',
-					'isbn'    => '5',
-					'mpn'     => '6',
-				],
-				[
-					'gtin8'   => '7',
-					'gtin12'  => '8',
-					'gtin13'  => '9',
-					'gtin14'  => '10',
-					'isbn'    => '11',
-					'mpn'     => '12',
-				],
-				[
-					'gtin8'   => '7',
-					'gtin12'  => '8',
-					'gtin13'  => '9',
-					'gtin14'  => '10',
-					'isbn'    => '11',
-					'mpn'     => '12',
-				],
-			],
-		];
-	}
-
-	/**
 	 * Test the function saving data.
 	 *
 	 * @dataProvider data_save_data
@@ -298,10 +175,9 @@ class WooCommerce_Yoast_Ids_Test extends TestCase {
 		$mock_variation->post_parent = $post_id;
 		$mock_variation->ID          = $variation_id;
 
-		$mock = Mockery::mock( 'Yoast\WP\Woocommerce\Tests\Doubles\Yoast_Ids_Double' )->makePartial();
-		$mock->shouldReceive( 'get_variation_values' )
+		Functions\expect( 'get_post_meta' )
 			->once()
-			->with( $mock_variation->post_parent, $mock_variation->ID )
+			->with( $mock_variation->ID, 'wpseo_variation_global_identifiers_values', true )
 			->andReturn( $post_gids );
 
 		Functions\expect( 'wp_nonce_field' )
@@ -310,7 +186,7 @@ class WooCommerce_Yoast_Ids_Test extends TestCase {
 			->andReturn( 'nonce' );
 
 		$this->expectOutputContains( $expected );
-		$mock->add_variations_global_ids( null, null, $mock_variation );
+		$this->instance->add_variations_global_ids( null, null, $mock_variation );
 	}
 
 	/**
