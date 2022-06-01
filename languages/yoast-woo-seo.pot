@@ -2,9 +2,9 @@
 # This file is distributed under the same license as the Yoast SEO: WooCommerce package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Yoast SEO: WooCommerce 14.8\n"
+"Project-Id-Version: Yoast SEO: WooCommerce 14.9-RC1\n"
 "Report-Msgid-Bugs-To: https://github.com/yoast/wpseo-woocommerce/issues\n"
-"POT-Creation-Date: 2022-05-21 08:17:52+00:00\n"
+"POT-Creation-Date: 2022-06-01 13:15:21+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -150,11 +150,11 @@ msgstr ""
 msgid "Availability"
 msgstr ""
 
-#: classes/woocommerce-yoast-ids.php:45
+#: classes/woocommerce-yoast-ids.php:44
 msgid "Yoast SEO options"
 msgstr ""
 
-#: classes/woocommerce-yoast-ids.php:46
+#: classes/woocommerce-yoast-ids.php:45
 msgid "If this product variation has unique identifiers, you can enter them here"
 msgstr ""
 
