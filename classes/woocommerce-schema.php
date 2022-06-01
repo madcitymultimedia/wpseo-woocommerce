@@ -512,16 +512,21 @@ class WPSEO_WooCommerce_Schema {
 			];
 
 			// Adds variation's global identifiers to the $offer array.
-			$variation_global_ids = get_post_meta( $variation['variation_id'], 'wpseo_variation_global_identifiers_values', true );
+			$variation_global_ids    = get_post_meta( $variation['variation_id'], 'wpseo_variation_global_identifiers_values', true );
+			$global_identifier_types = [
+				'gtin8',
+				'gtin12',
+				'gtin13',
+				'gtin14',
+				'mpn',
+			];
 
-			if ( is_array( $variation_global_ids ) ) {
-				foreach ( $variation_global_ids as $global_id_name => $global_id_value ) {
-					if ( ! empty( $global_id_value ) ) {
-						$offer[ $global_id_name ] = $global_id_value;
-					}
-					elseif ( isset( $product_global_ids[ $global_id_name ] ) && ! empty( $product_global_ids[ $global_id_name ] ) ) {
-						$offer[ $global_id_name ] = $product_global_ids[ $global_id_name ];
-					}
+			foreach ( $global_identifier_types as $global_identifier_type ) {
+				if ( isset( $variation_global_ids[ $global_identifier_type ] ) && ! empty( $variation_global_ids[ $global_identifier_type ] ) ) {
+					$offer[ $global_identifier_type ] = $variation_global_ids[ $global_identifier_type ];
+				}
+				elseif ( isset( $product_global_ids[ $global_identifier_type ] ) && ! empty( $product_global_ids[ $global_identifier_type ] ) ) {
+					$offer[ $global_identifier_type ] = $product_global_ids[ $global_identifier_type ];
 				}
 			}
 
