@@ -488,12 +488,13 @@ class WPSEO_WooCommerce_Schema {
 	protected function add_individual_offers( $product ) {
 		$variations = $product->get_available_variations();
 
-		$currency           = get_woocommerce_currency();
-		$prices_include_tax = ( wc_tax_enabled() && WPSEO_WooCommerce_Utils::prices_have_tax_included() );
-		$decimals           = wc_get_price_decimals();
-		$data               = [];
-		$product_id         = $product->get_id();
-		$product_name       = $product->get_name();
+		$currency             = get_woocommerce_currency();
+		$prices_include_tax   = ( wc_tax_enabled() && WPSEO_WooCommerce_Utils::prices_have_tax_included() );
+		$decimals             = wc_get_price_decimals();
+		$data                 = [];
+		$product_id           = $product->get_id();
+		$product_name         = $product->get_name();
+		$product_global_ids   = get_post_meta( $product_id, 'wpseo_global_identifier_values', true );
 
 		foreach ( $variations as $key => $variation ) {
 			$variation_name = implode( ' / ', $variation['attributes'] );
@@ -512,7 +513,6 @@ class WPSEO_WooCommerce_Schema {
 
 			// Adds variation's global identifiers to the $offer array.
 			$variation_global_ids = get_post_meta( $variation['variation_id'], 'wpseo_variation_global_identifiers_values', true );
-			$product_global_ids   = get_post_meta( $product_id, 'wpseo_global_identifier_values', true );
 
 			if ( is_array( $variation_global_ids ) ) {
 				foreach ( $variation_global_ids as $global_id_name => $global_id_value ) {
