@@ -494,6 +494,7 @@ class WPSEO_WooCommerce_Schema {
 		$data               = [];
 		$product_id         = $product->get_id();
 		$product_name       = $product->get_name();
+		$product_global_ids = get_post_meta( $product_id, 'wpseo_global_identifier_values', true );
 
 		foreach ( $variations as $key => $variation ) {
 			$variation_name = implode( ' / ', $variation['attributes'] );
@@ -509,6 +510,25 @@ class WPSEO_WooCommerce_Schema {
 					'valueAddedTaxIncluded' => $prices_include_tax,
 				],
 			];
+
+			// Adds variation's global identifiers to the $offer array.
+			$variation_global_ids    = get_post_meta( $variation['variation_id'], 'wpseo_variation_global_identifiers_values', true );
+			$global_identifier_types = [
+				'gtin8',
+				'gtin12',
+				'gtin13',
+				'gtin14',
+				'mpn',
+			];
+
+			foreach ( $global_identifier_types as $global_identifier_type ) {
+				if ( isset( $variation_global_ids[ $global_identifier_type ] ) && ! empty( $variation_global_ids[ $global_identifier_type ] ) ) {
+					$offer[ $global_identifier_type ] = $variation_global_ids[ $global_identifier_type ];
+				}
+				elseif ( isset( $product_global_ids[ $global_identifier_type ] ) && ! empty( $product_global_ids[ $global_identifier_type ] ) ) {
+					$offer[ $global_identifier_type ] = $product_global_ids[ $global_identifier_type ];
+				}
+			}
 
 			/**
 			 * Filter: 'wpseo_schema_offer' - Allow changing the offer schema.
