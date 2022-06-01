@@ -20,7 +20,6 @@ class WPSEO_WooCommerce_Yoast_Ids {
 		'gtin12' => 'GTIN12 / UPC',
 		'gtin13' => 'GTIN13 / EAN',
 		'gtin14' => 'GTIN14 / ITF-14',
-		'isbn'   => 'ISBN',
 		'mpn'    => 'MPN',
 	];
 
