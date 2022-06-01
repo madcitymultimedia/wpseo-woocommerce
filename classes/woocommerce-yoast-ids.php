@@ -45,7 +45,7 @@ class WPSEO_WooCommerce_Yoast_Ids {
 		echo '<h1>' . esc_html__( 'Yoast SEO options', 'yoast-woo-seo' ) . '</h1>';
 		echo '<p>' . esc_html__( 'If this product variation has unique identifiers, you can enter them here', 'yoast-woo-seo' ) . '</p>';
 
-		$variation_values = $this->get_variation_values( $variation->post_parent, $variation->ID );
+		$variation_values = get_post_meta( $variation->ID, 'wpseo_variation_global_identifiers_values', true );
 
 		echo '<div>';
 		$is_left = true;
@@ -59,29 +59,6 @@ class WPSEO_WooCommerce_Yoast_Ids {
 	}
 
 	/**
-	 * Gets values of each global identifier specified for a variation.
-	 *
-	 * @param int $post_id The product id.
-	 *
-	 * @param int $variation_id The variation id.
-	 *
-	 * @return array The variation global identifiers.
-	 */
-	protected function get_variation_values( $post_id, $variation_id ) {
-		$global_identifiers_product_values   = get_post_meta( $post_id, 'wpseo_global_identifier_values', true );
-		$global_identifiers_variation_values = get_post_meta( $variation_id, 'wpseo_variation_global_identifiers_values', true );
-
-		// If a variation does not have a global ids, the product's value is used.
-		foreach ( $this->global_identifier_types as $type => $label ) {
-			if ( empty( $global_identifiers_variation_values[ $type ] ) && ! ( empty( $global_identifiers_product_values[ $type ] ) ) ) {
-				$global_identifiers_variation_values[ $type ] = $global_identifiers_product_values[ $type ];
-			}
-		}
-
-		return $global_identifiers_variation_values;
-	}
-
-	/**
 	 * Validate the variation global identifiers upon sanitizing them.
 	 *
 	 * @param int $variation_id The id of the variation to be validated.
@@ -91,8 +68,8 @@ class WPSEO_WooCommerce_Yoast_Ids {
 	protected function validate_variation_data( $variation_id ) {
 		$values = [];
 		foreach ( $this->global_identifier_types as $key => $label ) {
-			// Ignoring nonce verification as we do that in save_data function, sanitization as we do that below.
-			// phpcs:ignore WordPress.Security.NonceVerification.Missing, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+			// Ignoring nonce verification as we do that in save_data function.
+			// phpcs:ignore WordPress.Security.NonceVerification.Missing
 			$values[ $key ] = isset( $_POST['yoast_seo_variation'][ $variation_id ][ $key ] ) ? \sanitize_text_field( \wp_unslash( $_POST['yoast_seo_variation'][ $variation_id ][ $key ] ) ) : '';
 		}
 
