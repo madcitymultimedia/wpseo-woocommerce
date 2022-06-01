@@ -519,7 +519,7 @@ class WPSEO_WooCommerce_Schema {
 					if ( ! empty( $global_id_value ) ) {
 						$offer[ $global_id_name ] = $global_id_value;
 					}
-					elseif ( ! empty( $product_global_ids[ $global_id_name ] ) ) {
+					elseif ( isset( $product_global_ids[ $global_id_name ] ) && ! empty( $product_global_ids[ $global_id_name ] ) ) {
 						$offer[ $global_id_name ] = $product_global_ids[ $global_id_name ];
 					}
 				}
