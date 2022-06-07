@@ -33,16 +33,17 @@ Changelog
 
 ### 14.9: June 14th, 2022
 
+
 Enhancements:
 
 * Adds a feature to include global identifiers of product variations to a product's schema
 * Adds global identifiers (e.g., GTIN12, ISBN, etc.) to product variations.
+* Adds variations' SKU and URL to a product's schema. Props to @jaredforth.
 
 Other:
 
 * Sets minimum WordPress version to 5.9 and tested up to 6.0.
 * Sets the minimum required Yoast SEO version to 19.1.
-
 
 ### 14.8: May 6th, 2022
 
