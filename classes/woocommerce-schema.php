@@ -505,11 +505,16 @@ class WPSEO_WooCommerce_Schema {
 				'name'               => $product_name . ' - ' . $variation_name,
 				'price'              => wc_format_decimal( $variation['display_price'], $decimals ),
 				'priceCurrency'      => $currency,
+				'url'                => get_permalink( $variation['variation_id'] ),
 				'priceSpecification' => [
 					'@type'                 => 'PriceSpecification',
 					'valueAddedTaxIncluded' => $prices_include_tax,
 				],
 			];
+
+			if ( ! empty( $variation['sku'] ) ) {
+				$offer['sku'] = $variation['sku'];
+			}
 
 			// Adds variation's global identifiers to the $offer array.
 			$variation_global_ids    = get_post_meta( $variation['variation_id'], 'wpseo_variation_global_identifiers_values', true );

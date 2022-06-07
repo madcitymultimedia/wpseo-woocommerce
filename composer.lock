@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "97c9357f880408fc01d01d702581f291",
+    "content-hash": "b156317f6f5eda2aefe46790a3ad88ca",
     "packages": [
         {
             "name": "composer/installers",
@@ -2538,7 +2538,7 @@
         },
         {
             "name": "yoast/wordpress-seo",
-            "version": "dev-release/19.1",
+            "version": "dev-trunk",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yoast/wordpress-seo.git",
@@ -2573,6 +2573,7 @@
                 "yoast/wp-test-utils": "^1.0.0",
                 "yoast/yoastcs": "^2.2.1"
             },
+            "default-branch": true,
             "type": "wordpress-plugin",
             "autoload": {
                 "classmap": [
@@ -2830,5 +2831,5 @@
     "platform-overrides": {
         "php": "5.6.40"
     },
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.1.0"
 }

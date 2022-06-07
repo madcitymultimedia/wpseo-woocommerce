@@ -392,7 +392,7 @@ class Schema_Test extends TestCase {
 			],
 		];
 
-		$variants        = [
+		$variants = [
 			[
 				'attributes'            => [
 					'attribute_pa_size' => 'l',
@@ -487,7 +487,7 @@ class Schema_Test extends TestCase {
 				'max_qty'               => '',
 				'min_qty'               => 1,
 				'price_html'            => '<span class=\'price\'><span class=\'woocommerce-Price-amount amount\'><span class=\'woocommerce-Price-currencySymbol\'>&pound;</span>8.00</span></span>',
-				'sku'                   => '209643',
+				'sku'                   => '209644',
 				'variation_description' => '',
 				'variation_id'          => 331,
 				'variation_is_active'   => true,
@@ -538,7 +538,7 @@ class Schema_Test extends TestCase {
 				'max_qty'               => '',
 				'min_qty'               => 1,
 				'price_html'            => '<span class=\'price\'><span class=\'woocommerce-Price-amount amount\'><span class=\'woocommerce-Price-currencySymbol\'>&pound;</span>12.00</span></span>',
-				'sku'                   => '209643',
+				'sku'                   => '209645',
 				'variation_description' => '',
 				'variation_id'          => 332,
 				'variation_is_active'   => true,
@@ -547,6 +547,43 @@ class Schema_Test extends TestCase {
 				'weight_html'           => 'N/A',
 			],
 		];
+
+		$variations_global_ids = [
+			[
+				'gtin8'  => '01234567',
+				'gtin12' => '',
+				'gtin13' => '',
+				'gtin14' => '',
+				'isbn'   => '',
+				'mpn'    => '',
+			],
+			[
+				'gtin8'  => '',
+				'gtin12' => '012345678910',
+				'gtin13' => '',
+				'gtin14' => '',
+				'isbn'   => '',
+				'mpn'    => '',
+			],
+			[
+				'gtin8'  => '',
+				'gtin12' => '',
+				'gtin13' => '',
+				'gtin14' => '0123456789101112',
+				'isbn'   => '',
+				'mpn'    => '',
+			],
+		];
+
+		$product_global_ids = [
+			'gtin8'  => '11112222',
+			'gtin12' => '',
+			'gtin13' => '',
+			'gtin14' => '',
+			'isbn'   => '',
+			'mpn'    => '',
+		];
+
 		$expected_output = [
 			'@type'         => 'AggregateOffer',
 			'lowPrice'      => '8.00',
@@ -568,10 +605,13 @@ class Schema_Test extends TestCase {
 					'name'               => 'Customizable responsive toolset - l',
 					'price'              => 10,
 					'priceCurrency'      => 'GBP',
+					'url'                => 'https://example.com/product/customizable-responsive-toolset/?attribute_pa_size=l',
 					'priceSpecification' => [
 						'@type'                 => 'PriceSpecification',
 						'valueAddedTaxIncluded' => false,
 					],
+					'sku'                => '209643',
+					'gtin8'              => '01234567',
 				],
 				[
 					'@type'              => 'Offer',
@@ -579,10 +619,14 @@ class Schema_Test extends TestCase {
 					'name'               => 'Customizable responsive toolset - m',
 					'price'              => 8,
 					'priceCurrency'      => 'GBP',
+					'url'                => 'https://example.com/product/customizable-responsive-toolset/?attribute_pa_size=m',
 					'priceSpecification' => [
 						'@type'                 => 'PriceSpecification',
 						'valueAddedTaxIncluded' => false,
 					],
+					'sku'                => '209644',
+					'gtin8'              => '11112222',
+					'gtin12'             => '012345678910',
 				],
 				[
 					'@type'              => 'Offer',
@@ -590,10 +634,14 @@ class Schema_Test extends TestCase {
 					'name'               => 'Customizable responsive toolset - xl',
 					'price'              => 12,
 					'priceCurrency'      => 'GBP',
+					'url'                => 'https://example.com/product/customizable-responsive-toolset/?attribute_pa_size=xl',
 					'priceSpecification' => [
 						'@type'                 => 'PriceSpecification',
 						'valueAddedTaxIncluded' => false,
 					],
+					'sku'                => '209645',
+					'gtin8'              => '11112222',
+					'gtin14'             => '0123456789101112',
 				],
 			],
 		];
@@ -606,7 +654,6 @@ class Schema_Test extends TestCase {
 				'wc_get_price_decimals'    => 2,
 				'wc_format_decimal'        => null,
 				'wc_tax_enabled'           => false,
-				'get_post_meta'            => null,
 			]
 		);
 
@@ -616,6 +663,21 @@ class Schema_Test extends TestCase {
 		$product->expects( 'get_name' )->once()->andReturn( 'Customizable responsive toolset' );
 		$product->expects( 'is_on_sale' )->once()->andReturn( false );
 		$product->expects( 'is_on_backorder' )->once()->andReturn( false );
+
+		Functions\expect( 'get_permalink' )
+			->andReturn(
+				$input['url'] . '?attribute_pa_size=' . $variants[0]['attributes']['attribute_pa_size'],
+				$input['url'] . '?attribute_pa_size=' . $variants[1]['attributes']['attribute_pa_size'],
+				$input['url'] . '?attribute_pa_size=' . $variants[2]['attributes']['attribute_pa_size']
+			);
+
+		Functions\expect( 'get_post_meta' )
+			->andReturn(
+				$product_global_ids,
+				$variations_global_ids[0],
+				$variations_global_ids[1],
+				$variations_global_ids[2]
+			);
 
 		$this->meta
 			->expects( 'for_current_page' )
