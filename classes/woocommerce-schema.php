@@ -121,6 +121,7 @@ class WPSEO_WooCommerce_Schema {
 				'@type'  => 'BuyAction',
 				'target' => YoastSEO()->meta->for_current_page()->canonical,
 			];
+			unset( $webpage_data['datePublished'], $webpage_data['dateModified'] );
 		}
 		if ( is_checkout() || is_checkout_pay_page() ) {
 			$webpage_data['@type'] = 'CheckoutPage';
