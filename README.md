@@ -34,11 +34,13 @@ Changelog
 ### 14.9: June 14th, 2022
 
 
+
 Enhancements:
 
 * Adds a feature to include global identifiers of product variations to a product's schema
 * Adds global identifiers (e.g., GTIN12, ISBN, etc.) to product variations.
 * Adds variations' SKU and URL to a product's schema. Props to @jaredforth.
+* Removes the `datePublished` and `dateModified` attributes on the `ItemPage` Schema markup for a Product.
 
 Other:
 
