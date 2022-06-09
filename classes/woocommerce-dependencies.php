@@ -18,7 +18,7 @@ class Yoast_WooCommerce_Dependencies {
 	 * @return bool True when the dependencies are okay.
 	 */
 	public function check_dependencies( $wp_version ) {
-		if ( ! version_compare( $wp_version, '5.9', '>=' ) ) {
+		if ( ! version_compare( $wp_version, '5.8', '>=' ) ) {
 			add_action( 'all_admin_notices', [ $this, 'wordpress_upgrade_error' ] );
 
 			return false;
