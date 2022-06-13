@@ -21,12 +21,12 @@ class Yoast_WooCommerce_Dependencies_Test extends TestCase {
 	 */
 	public function test_check_dependencies() {
 		$valid_wp_version        = '5.8';
-		$valid_yoast_seo_version = '18.8';
+		$valid_yoast_seo_version = '19.1';
 
 		$class = Mockery::mock( Yoast_WooCommerce_Dependencies_Double::class )->makePartial();
 
 		// Invalid WordPress version.
-		$actual = $class->check_dependencies( '5.6' );
+		$actual = $class->check_dependencies( '5.7' );
 		$this->assertFalse( $actual );
 
 		// Valid WordPress version.

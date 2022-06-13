@@ -1,8 +1,8 @@
 WooCommerce Yoast SEO
 =====================
 Requires at least: 5.8
-Tested up to: 5.9
-Stable tag: 14.8
+Tested up to: 6.0
+Stable tag: 14.9-RC4
 Requires PHP: 5.6.20
 Depends: Yoast SEO, WooCommerce
 
@@ -31,6 +31,21 @@ You can find the FAQ [online here](https://kb.yoast.com/kb/category/woocommerce-
 Changelog
 =========
 
+### 14.9: June 14th, 2022
+
+
+Enhancements:
+
+* Adds a feature allowing users to add global identifiers (e.g., GTIN12, ISBN, etc.) to Product variations.
+* Adds a feature to include global identifiers of Product variations to a Product's Schema.
+* Adds variations' SKU and URL to a Product's Schema. Props to @jaredforth.
+* Removes the `datePublished` and `dateModified` attributes on the `ItemPage` Schema markup for a Product.
+
+Other:
+
+* Sets tested up WordPress version to 6.0.
+* Sets the minimum required Yoast SEO version to 19.1.
+
 ### 14.8: May 6th, 2022
 
 Enhancements:
@@ -41,16 +56,6 @@ Other:
 
 * Sets the minimum required Yoast SEO version to 18.8.
 
-
-### 14.7: April 19th, 2022
-Enhancements:
-* Improves the Schema on checkout pages by removing the default `ReadAction` we used to add there.
-* Improves the Schema on product pages by replacing the default `ReadAction` with a `BuyAction`. 
-
-Other:
-* Sets the minimal required version for Yoast SEO to 18.6.
-* Sets the minimum required WordPress version to 5.8.
-* Adds a new `wpseo_schema_offer` filter that can be used to change the output of the offers attribute of the product schema. Props to [Dekadinious](https://github.com/Dekadinious).
 
 ### Earlier versions
 For the changelog of earlier versions, please refer to [the changelog on yoast.com](https://yoa.st/woo-seo-changelog).

@@ -121,6 +121,7 @@ class WPSEO_WooCommerce_Schema {
 				'@type'  => 'BuyAction',
 				'target' => YoastSEO()->meta->for_current_page()->canonical,
 			];
+			unset( $webpage_data['datePublished'], $webpage_data['dateModified'] );
 		}
 		if ( is_checkout() || is_checkout_pay_page() ) {
 			$webpage_data['@type'] = 'CheckoutPage';
@@ -494,6 +495,7 @@ class WPSEO_WooCommerce_Schema {
 		$data               = [];
 		$product_id         = $product->get_id();
 		$product_name       = $product->get_name();
+		$product_global_ids = get_post_meta( $product_id, 'wpseo_global_identifier_values', true );
 
 		foreach ( $variations as $key => $variation ) {
 			$variation_name = implode( ' / ', $variation['attributes'] );
@@ -504,11 +506,35 @@ class WPSEO_WooCommerce_Schema {
 				'name'               => $product_name . ' - ' . $variation_name,
 				'price'              => wc_format_decimal( $variation['display_price'], $decimals ),
 				'priceCurrency'      => $currency,
+				'url'                => get_permalink( $variation['variation_id'] ),
 				'priceSpecification' => [
 					'@type'                 => 'PriceSpecification',
 					'valueAddedTaxIncluded' => $prices_include_tax,
 				],
 			];
+
+			if ( ! empty( $variation['sku'] ) ) {
+				$offer['sku'] = $variation['sku'];
+			}
+
+			// Adds variation's global identifiers to the $offer array.
+			$variation_global_ids    = get_post_meta( $variation['variation_id'], 'wpseo_variation_global_identifiers_values', true );
+			$global_identifier_types = [
+				'gtin8',
+				'gtin12',
+				'gtin13',
+				'gtin14',
+				'mpn',
+			];
+
+			foreach ( $global_identifier_types as $global_identifier_type ) {
+				if ( isset( $variation_global_ids[ $global_identifier_type ] ) && ! empty( $variation_global_ids[ $global_identifier_type ] ) ) {
+					$offer[ $global_identifier_type ] = $variation_global_ids[ $global_identifier_type ];
+				}
+				elseif ( isset( $product_global_ids[ $global_identifier_type ] ) && ! empty( $product_global_ids[ $global_identifier_type ] ) ) {
+					$offer[ $global_identifier_type ] = $product_global_ids[ $global_identifier_type ];
+				}
+			}
 
 			/**
 			 * Filter: 'wpseo_schema_offer' - Allow changing the offer schema.

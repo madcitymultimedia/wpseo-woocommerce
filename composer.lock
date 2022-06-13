@@ -2542,12 +2542,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yoast/wordpress-seo.git",
-                "reference": "5e5446d59f5250396ceb45deeb3509c70a191344"
+                "reference": "6a63b2b2395732f7f9fb777d4bce0f2b5803beb4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/5e5446d59f5250396ceb45deeb3509c70a191344",
-                "reference": "5e5446d59f5250396ceb45deeb3509c70a191344",
+                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/6a63b2b2395732f7f9fb777d4bce0f2b5803beb4",
+                "reference": "6a63b2b2395732f7f9fb777d4bce0f2b5803beb4",
                 "shasum": ""
             },
             "require": {
@@ -2557,6 +2557,7 @@
             },
             "require-dev": {
                 "chillerlan/php-qrcode": "^1.0.9",
+                "guzzlehttp/guzzle": "6.5.6",
                 "humbug/php-scoper": "^0.13.4",
                 "league/oauth2-client": "2.6.1",
                 "phpunit/phpunit": "^5.7",
@@ -2564,6 +2565,10 @@
                 "psr/log": "^1.0",
                 "symfony/config": "^3.4",
                 "symfony/dependency-injection": "^3.4",
+                "symfony/polyfill-intl-idn": "1.19.0",
+                "symfony/polyfill-intl-normalizer": "1.19.0",
+                "symfony/polyfill-php70": "1.19.0",
+                "symfony/polyfill-php72": "1.19.0",
                 "yoast/php-development-environment": "^1.0",
                 "yoast/wp-test-utils": "^1.0.0",
                 "yoast/yoastcs": "^2.2.1"
@@ -2607,8 +2612,8 @@
                     "Yoast\\WP\\SEO\\Composer\\Actions::check_coding_standards"
                 ],
                 "check-cs-thresholds": [
-                    "@putenv YOASTCS_THRESHOLD_ERRORS=243",
-                    "@putenv YOASTCS_THRESHOLD_WARNINGS=219",
+                    "@putenv YOASTCS_THRESHOLD_ERRORS=241",
+                    "@putenv YOASTCS_THRESHOLD_WARNINGS=217",
                     "Yoast\\WP\\SEO\\Composer\\Actions::check_cs_thresholds"
                 ],
                 "check-cs": [
@@ -2685,7 +2690,7 @@
                 "wiki": "https://github.com/Yoast/wordpress-seo/wiki",
                 "source": "https://github.com/Yoast/wordpress-seo"
             },
-            "time": "2022-05-05T14:02:34+00:00"
+            "time": "2022-06-09T08:02:04+00:00"
         },
         {
             "name": "yoast/wp-test-utils",
