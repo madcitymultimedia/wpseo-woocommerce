@@ -33,7 +33,6 @@ Changelog
 
 ### 14.9: June 14th, 2022
 
-
 Enhancements:
 
 * Adds a feature allowing users to add global identifiers (e.g., GTIN12, ISBN, etc.) to Product variations.
