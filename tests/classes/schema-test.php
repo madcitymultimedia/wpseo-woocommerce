@@ -1206,9 +1206,9 @@ class Schema_Test extends TestCase {
 			->times( 5 )
 			->andReturn(
 				(object) [
-					'site_url'  => $base_url,
-					'canonical' => $canonical,
-					'permalink' => $canonical,
+					'site_url'       => $base_url,
+					'canonical'      => $canonical,
+					'main_schema_id' => $canonical,
 				]
 			);
 
@@ -1284,9 +1284,9 @@ class Schema_Test extends TestCase {
 			->times( 5 )
 			->andReturn(
 				(object) [
-					'site_url'  => $base_url,
-					'canonical' => $canonical,
-					'permalink' => $canonical,
+					'site_url'       => $base_url,
+					'canonical'      => $canonical,
+					'main_schema_id' => $canonical,
 				]
 			);
 
@@ -1465,9 +1465,9 @@ class Schema_Test extends TestCase {
 			->times( 5 )
 			->andReturn(
 				(object) [
-					'site_url'  => $base_url,
-					'canonical' => $canonical,
-					'permalink' => $canonical,
+					'site_url'       => $base_url,
+					'canonical'      => $canonical,
+					'main_schema_id' => $canonical,
 				]
 			);
 
