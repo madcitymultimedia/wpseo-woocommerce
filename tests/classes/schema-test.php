@@ -745,7 +745,6 @@ class Schema_Test extends TestCase {
 			[
 				'WPSEO_Schema_IDs' => [
 					'ORGANIZATION_HASH'  => '#organization',
-					'WEBPAGE_HASH'       => '#webpage',
 					'PRIMARY_IMAGE_HASH' => '#primaryimage',
 				],
 			]
@@ -1190,7 +1189,7 @@ class Schema_Test extends TestCase {
 					'name'          => $product_name,
 				],
 			],
-			'mainEntityOfPage' => [ '@id' => $canonical . '#webpage' ],
+			'mainEntityOfPage' => [ '@id' => $canonical ],
 			'image'            => [ '@id' => $canonical . '#primaryimage' ],
 			'brand'            => [
 				'@type' => 'Organization',
@@ -1207,8 +1206,9 @@ class Schema_Test extends TestCase {
 			->times( 5 )
 			->andReturn(
 				(object) [
-					'site_url'  => $base_url,
-					'canonical' => $canonical,
+					'site_url'       => $base_url,
+					'canonical'      => $canonical,
+					'main_schema_id' => $canonical,
 				]
 			);
 
@@ -1284,8 +1284,9 @@ class Schema_Test extends TestCase {
 			->times( 5 )
 			->andReturn(
 				(object) [
-					'site_url'  => $base_url,
-					'canonical' => $canonical,
+					'site_url'       => $base_url,
+					'canonical'      => $canonical,
+					'main_schema_id' => $canonical,
 				]
 			);
 
@@ -1377,7 +1378,7 @@ class Schema_Test extends TestCase {
 					'name'          => $product_name,
 				],
 			],
-			'mainEntityOfPage' => [ '@id' => $canonical . '#webpage' ],
+			'mainEntityOfPage' => [ '@id' => $canonical ],
 			'image'            => [
 				'@type'  => 'ImageObject',
 				'@id'    => $canonical . '#woocommerceimageplaceholder',
@@ -1464,8 +1465,9 @@ class Schema_Test extends TestCase {
 			->times( 5 )
 			->andReturn(
 				(object) [
-					'site_url'  => $base_url,
-					'canonical' => $canonical,
+					'site_url'       => $base_url,
+					'canonical'      => $canonical,
+					'main_schema_id' => $canonical,
 				]
 			);
 
@@ -1550,7 +1552,7 @@ class Schema_Test extends TestCase {
 					'name'          => $product_name,
 				],
 			],
-			'mainEntityOfPage' => [ '@id' => $canonical . '#webpage' ],
+			'mainEntityOfPage' => [ '@id' => $canonical ],
 			'image'            => [ '@id' => $canonical . '#primaryimage' ],
 			'brand'            => [
 				'@type' => 'Organization',
