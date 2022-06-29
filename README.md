@@ -33,6 +33,7 @@ Changelog
 
 ### 15.0: July 12th, 2022
 
+
 Enhancements:
 
 * Improves the readability analysis for English by adding a word complexity assessment for Product pages.
@@ -41,8 +42,7 @@ Enhancements:
 Other:
 
 * Edits typo in id name for product variants identifiers.
-* Sets the minimum required Yoast SEO version to 19.2.
-
+* Sets the minimum required Yoast SEO version to 19.3.
 
 ### 14.9: June 14th, 2022
 
