@@ -151,7 +151,7 @@ class WooCommerce_Yoast_Ids_Test extends TestCase {
 			[ 'gtin8' ],
 			[ 'GTIN 8' ],
 			[ '12345678' ],
-			[ 'yoast_variation_identfier[123][gtin8]' ],
+			[ 'yoast_variation_identifier[123][gtin8]' ],
 		];
 	}
 
@@ -206,7 +206,7 @@ class WooCommerce_Yoast_Ids_Test extends TestCase {
 					'gtin14'  => '4',
 					'mpn'     => '12',
 				],
-				'id="yoast_variation_identfier[1][gtin12]" name="yoast_seo_variation[1][gtin12]" value="2"',
+				'id="yoast_variation_identifier[1][gtin12]" name="yoast_seo_variation[1][gtin12]" value="2"',
 			],
 			[
 				1337,
@@ -218,7 +218,7 @@ class WooCommerce_Yoast_Ids_Test extends TestCase {
 					'gtin14'  => '4',
 					'mpn'     => '12',
 				],
-				'id="yoast_variation_identfier[2][mpn]" name="yoast_seo_variation[2][mpn]" value="12"',
+				'id="yoast_variation_identifier[2][mpn]" name="yoast_seo_variation[2][mpn]" value="12"',
 			],
 		];
 	}

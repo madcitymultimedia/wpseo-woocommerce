@@ -2542,12 +2542,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yoast/wordpress-seo.git",
-                "reference": "6a63b2b2395732f7f9fb777d4bce0f2b5803beb4"
+                "reference": "03ad41cea2dda11e8b21cc3dc225c275e6d3ea01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/6a63b2b2395732f7f9fb777d4bce0f2b5803beb4",
-                "reference": "6a63b2b2395732f7f9fb777d4bce0f2b5803beb4",
+                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/03ad41cea2dda11e8b21cc3dc225c275e6d3ea01",
+                "reference": "03ad41cea2dda11e8b21cc3dc225c275e6d3ea01",
                 "shasum": ""
             },
             "require": {
@@ -2557,7 +2557,7 @@
             },
             "require-dev": {
                 "chillerlan/php-qrcode": "^1.0.9",
-                "guzzlehttp/guzzle": "6.5.6",
+                "guzzlehttp/guzzle": "6.5.8",
                 "humbug/php-scoper": "^0.13.4",
                 "league/oauth2-client": "2.6.1",
                 "phpunit/phpunit": "^5.7",
@@ -2569,6 +2569,7 @@
                 "symfony/polyfill-intl-normalizer": "1.19.0",
                 "symfony/polyfill-php70": "1.19.0",
                 "symfony/polyfill-php72": "1.19.0",
+                "wordproof/wordpress-sdk": "1.3.2",
                 "yoast/php-development-environment": "^1.0",
                 "yoast/wp-test-utils": "^1.0.0",
                 "yoast/yoastcs": "^2.2.1"
@@ -2613,7 +2614,7 @@
                     "Yoast\\WP\\SEO\\Composer\\Actions::check_coding_standards"
                 ],
                 "check-cs-thresholds": [
-                    "@putenv YOASTCS_THRESHOLD_ERRORS=241",
+                    "@putenv YOASTCS_THRESHOLD_ERRORS=173",
                     "@putenv YOASTCS_THRESHOLD_WARNINGS=217",
                     "Yoast\\WP\\SEO\\Composer\\Actions::check_cs_thresholds"
                 ],
@@ -2639,7 +2640,8 @@
                 "prefix-dependencies": [
                     "composer prefix-oauth2-client",
                     "composer prefix-symfony",
-                    "composer prefix-php-qrcode"
+                    "composer prefix-php-qrcode",
+                    "composer prefix-wordproof"
                 ],
                 "prefix-oauth2-client": [
                     "@php ./vendor/humbug/php-scoper/bin/php-scoper add-prefix --prefix=YoastSEO_Vendor --output-dir=./vendor_prefixed/league/oauth2-client --config=config/php-scoper/oauth2-client.inc.php --force --quiet",
@@ -2651,6 +2653,9 @@
                 ],
                 "prefix-php-qrcode": [
                     "@php ./vendor/humbug/php-scoper/bin/php-scoper add-prefix --prefix=YoastSEO_Vendor --output-dir=./vendor_prefixed/chillerlan/php-qrcode --config=config/php-scoper/php-qrcode.inc.php --force --quiet"
+                ],
+                "prefix-wordproof": [
+                    "@php ./vendor/humbug/php-scoper/bin/php-scoper add-prefix --prefix=YoastSEO_Vendor --output-dir=./vendor_prefixed/wordproof/wordpress-sdk --config=config/php-scoper/wordproof.inc.php --force --quiet"
                 ],
                 "compile-di": [
                     "rm -f ./src/generated/container.php",
@@ -2691,7 +2696,7 @@
                 "wiki": "https://github.com/Yoast/wordpress-seo/wiki",
                 "source": "https://github.com/Yoast/wordpress-seo"
             },
-            "time": "2022-06-09T08:02:04+00:00"
+            "time": "2022-06-28T13:33:44+00:00"
         },
         {
             "name": "yoast/wp-test-utils",
@@ -2831,5 +2836,5 @@
     "platform-overrides": {
         "php": "5.6.40"
     },
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.3.0"
 }
