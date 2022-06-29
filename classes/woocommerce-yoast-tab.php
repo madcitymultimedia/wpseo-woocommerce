@@ -150,7 +150,7 @@ class WPSEO_WooCommerce_Yoast_Tab {
 		echo '<p class="form-field">';
 		echo '<label for="yoast_identifier_', esc_attr( $type ), '">', esc_html( $label ), ':</label>';
 		echo '<span class="wrap">';
-		echo '<input class="input-text" type="text" id="yoast_identfier_', esc_attr( $type ), '" name="yoast_seo[', esc_attr( $type ), ']" value="', esc_attr( $value ), '"/>';
+		echo '<input class="input-text" type="text" id="yoast_identifier_', esc_attr( $type ), '" name="yoast_seo[', esc_attr( $type ), ']" value="', esc_attr( $value ), '"/>';
 		echo '</span>';
 		echo '</p>';
 	}
