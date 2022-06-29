@@ -1,5 +1,6 @@
 /* global YoastSEO, wpseoWooL10n, tinyMCE */
 
+import getPaperData from "./helpers/getPaperData";
 import { getExcerpt, addExcerptEventHandlers, isTinyMCEAvailable } from "./yoastseo-woo-handle-excerpt-editors";
 import { addFilter } from "@wordpress/hooks";
 import { dispatch } from "@wordpress/data";
@@ -49,10 +50,12 @@ class YoastWooCommercePlugin {
 		}
 
 		const worker = YoastSEO.analysis.worker;
+
 		const productDescription = getExcerpt();
 
 		worker.loadScript( wpseoWooL10n.script_url )
 			.then( () => worker.sendMessage( "initialize", { l10n: wpseoWooL10n, productDescription }, PLUGIN_NAME ) )
+			.then( () => worker.analyze( getPaperData() ) )
 			.then( YoastSEO.app.refresh );
 
 		addExcerptEventHandlers( worker );
