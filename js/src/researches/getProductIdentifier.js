@@ -37,7 +37,7 @@ function hasGlobalIdentifier() {
 function hasVariants() {
 	const variantsMetabox = document.querySelector( "#variable_product_options_inner" );
 	const variants = variantsMetabox.querySelector( ".woocommerce_variations" );
-	const numberOfVariants = variants.getAttribute( "data-total" );
+	const numberOfVariants = variants && variants.getAttribute( "data-total" );
 
 	// eslint-disable-next-line no-undefined
 	return numberOfVariants !== undefined && numberOfVariants !== "0";
