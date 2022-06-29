@@ -31,6 +31,19 @@ You can find the FAQ [online here](https://kb.yoast.com/kb/category/woocommerce-
 Changelog
 =========
 
+### 15.0: July 12th, 2022
+
+Enhancements:
+
+* Improves the readability analysis for English by adding a word complexity assessment for Product pages.
+* Updates the Schema manipulation to follow the new best-practice for the `@id` of the `WebPage` piece introduced by Yoast SEO 19.3.
+
+Other:
+
+* Edits typo in id name for product variants identifiers.
+* Sets the minimum required Yoast SEO version to 19.2.
+
+
 ### 14.9: June 14th, 2022
 
 Enhancements:
@@ -44,17 +57,6 @@ Other:
 
 * Sets tested up WordPress version to 6.0.
 * Sets the minimum required Yoast SEO version to 19.1.
-
-### 14.8: May 6th, 2022
-
-Enhancements:
-
-* Removes XML sitemap image properties `title` and `caption` following deprecation by Google.
-
-Other:
-
-* Sets the minimum required Yoast SEO version to 18.8.
-
 
 ### Earlier versions
 For the changelog of earlier versions, please refer to [the changelog on yoast.com](https://yoa.st/woo-seo-changelog).
