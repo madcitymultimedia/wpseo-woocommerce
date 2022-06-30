@@ -47,7 +47,7 @@ class WPSEO_WooCommerce_Slack {
 			}
 
 			if ( $show_price ) {
-				$price = \wp_strip_all_tags( $product->get_price_html() );
+				$price = \wp_strip_all_tags( \wc_price( \wc_get_price_to_display( $product ) ) . $product->get_price_suffix() );
 
 				$data[ __( 'Price', 'yoast-woo-seo' ) ] = $price;
 			}
