@@ -38,9 +38,10 @@ function hasVariants() {
 	const variantsMetabox = document.querySelector( "#variable_product_options_inner" );
 	const variants = variantsMetabox.querySelector( ".woocommerce_variations" );
 	const numberOfVariants = variants && variants.getAttribute( "data-total" );
+	console.log( numberOfVariants, "number of variants" );
 
 	// eslint-disable-next-line no-undefined
-	return numberOfVariants !== undefined && numberOfVariants !== "0";
+	return numberOfVariants !== undefined && numberOfVariants !== null && numberOfVariants !== "0";
 }
 
 /**
