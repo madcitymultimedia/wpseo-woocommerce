@@ -50,6 +50,8 @@ function hasVariants() {
  * @returns {boolean} Whether all variants of a product have an identifier.
  */
 function doAllVariantsHaveIdentifier() {
+	// THE BELOW CODE WILL NOT WORK: THE ELEMENTS ARE ONLY AVAILABLE IN THE DOM WHEN YOU CLICK ON THE VARIANTS TAB
+	// IN THE WOOCOMMERCE METABOX. ANOTHER WAY OF GETTING THIS DATA WILL NEED TO BE USED.
 	const allVariants = document.querySelectorAll( ".woocommerce_variation" );
 
 	for ( let i = 0; i < allVariants.length; i++ ) {
