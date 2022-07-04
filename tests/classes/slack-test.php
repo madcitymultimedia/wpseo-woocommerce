@@ -68,6 +68,10 @@ class Slack_Test extends TestCase {
 			->andReturn( false );
 
 		$product
+			->expects( 'get_price' )
+			->andReturn( 'not empty' );
+
+		$product
 			->expects( 'get_price_suffix' )
 			->andReturn( '' );
 
@@ -123,6 +127,10 @@ class Slack_Test extends TestCase {
 		$product
 			->expects( 'is_on_backorder' )
 			->andReturn( true );
+
+		$product
+			->expects( 'get_price' )
+			->andReturn( 'not empty' );
 
 		$product
 			->expects( 'get_price_suffix' )
