@@ -33,9 +33,6 @@ Changelog
 
 ### 15.0: July 12th, 2022
 
-
-
-
 Enhancements:
 
 * Improves the readability analysis for English by adding a word complexity assessment for Product pages.
