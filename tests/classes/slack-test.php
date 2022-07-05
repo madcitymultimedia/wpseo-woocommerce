@@ -60,16 +60,20 @@ class Slack_Test extends TestCase {
 		$price   = '&euro;25.00';
 
 		$product
-			->expects( 'get_price_html' )
-			->andReturn( $price );
-
-		$product
 			->expects( 'is_in_stock' )
 			->andReturn( true );
 
 		$product
 			->expects( 'is_on_backorder' )
 			->andReturn( false );
+
+		$product
+			->expects( 'get_price' )
+			->andReturn( 'not empty' );
+
+		$product
+			->expects( 'get_price_suffix' )
+			->andReturn( '' );
 
 		$presentation = $this->mock_presentation( $model );
 
@@ -78,6 +82,12 @@ class Slack_Test extends TestCase {
 		Monkey\Functions\expect( 'wc_get_product' )
 			->with( $model->object_id )
 			->andReturn( $product );
+		Monkey\Functions\expect( 'wc_get_price_to_display' )
+			->with( $product )
+			->andReturn( $price );
+		Monkey\Functions\expect( 'wc_price' )
+			->with( $price )
+			->andReturn( $price );
 		Monkey\Functions\expect( 'wp_strip_all_tags' )
 			->with( $price )
 			->andReturn( $price );
@@ -111,16 +121,20 @@ class Slack_Test extends TestCase {
 		$price   = '&euro;25.00';
 
 		$product
-			->expects( 'get_price_html' )
-			->andReturn( $price );
-
-		$product
 			->expects( 'is_in_stock' )
 			->andReturn( true );
 
 		$product
 			->expects( 'is_on_backorder' )
 			->andReturn( true );
+
+		$product
+			->expects( 'get_price' )
+			->andReturn( 'not empty' );
+
+		$product
+			->expects( 'get_price_suffix' )
+			->andReturn( '' );
 
 		$presentation = $this->mock_presentation( $model );
 
@@ -129,6 +143,12 @@ class Slack_Test extends TestCase {
 		Monkey\Functions\expect( 'wc_get_product' )
 			->with( $model->object_id )
 			->andReturn( $product );
+		Monkey\Functions\expect( 'wc_get_price_to_display' )
+			->with( $product )
+			->andReturn( $price );
+		Monkey\Functions\expect( 'wc_price' )
+			->with( $price )
+			->andReturn( $price );
 		Monkey\Functions\expect( 'wp_strip_all_tags' )
 			->with( $price )
 			->andReturn( $price );
