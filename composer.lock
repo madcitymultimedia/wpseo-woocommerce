@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b156317f6f5eda2aefe46790a3ad88ca",
+    "content-hash": "1d777db77bb304ec0967f5fca2a3b615",
     "packages": [
         {
             "name": "composer/installers",
@@ -2538,16 +2538,16 @@
         },
         {
             "name": "yoast/wordpress-seo",
-            "version": "dev-trunk",
+            "version": "dev-release/19.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yoast/wordpress-seo.git",
-                "reference": "bcb781eee50f2b1c35865d4db8c4a15ce0e450eb"
+                "reference": "a60f514ea98d164a72bd901d4a7fc9ea672e6bf0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/bcb781eee50f2b1c35865d4db8c4a15ce0e450eb",
-                "reference": "bcb781eee50f2b1c35865d4db8c4a15ce0e450eb",
+                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/a60f514ea98d164a72bd901d4a7fc9ea672e6bf0",
+                "reference": "a60f514ea98d164a72bd901d4a7fc9ea672e6bf0",
                 "shasum": ""
             },
             "require": {
@@ -2574,7 +2574,6 @@
                 "yoast/wp-test-utils": "^1.0.0",
                 "yoast/yoastcs": "^2.2.1"
             },
-            "default-branch": true,
             "type": "wordpress-plugin",
             "autoload": {
                 "classmap": [
@@ -2696,7 +2695,7 @@
                 "wiki": "https://github.com/Yoast/wordpress-seo/wiki",
                 "source": "https://github.com/Yoast/wordpress-seo"
             },
-            "time": "2022-06-29T09:43:19+00:00"
+            "time": "2022-07-05T14:48:57+00:00"
         },
         {
             "name": "yoast/wp-test-utils",
@@ -2836,5 +2835,5 @@
     "platform-overrides": {
         "php": "5.6.40"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.2.0"
 }
