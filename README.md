@@ -33,10 +33,15 @@ Changelog
 
 ### 15.0: July 12th, 2022
 
+
 Enhancements:
 
 * Improves the readability analysis for English by adding a word complexity assessment for Product pages.
 * Updates the Schema manipulation to follow the new best-practice for the `@id` of the `WebPage` piece introduced by Yoast SEO 19.3.
+
+Bugfixes:
+
+* Fixes a bug where the keyphrase distribution assessments error, or fails to mark the found keyphrases in the text, when using keyphrases that include some regular expression control characters, for example brackets.
 
 Other:
 
