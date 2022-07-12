@@ -1314,6 +1314,7 @@ class Yoast_WooCommerce_SEO {
 		$product_id  = $product->get_id();
 		$identifiers = [
 			'global_identifier_values' => get_post_meta( $product_id, 'wpseo_global_identifier_values', true ),
+			'variations'               => [],
 		];
 
 		if ( WPSEO_WooCommerce_Utils::get_product_type( $product ) === "variable" ) {
