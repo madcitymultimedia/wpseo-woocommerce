@@ -114,19 +114,19 @@ msgstr ""
 msgid "Move %1$s up"
 msgstr ""
 
-#: classes/woocommerce-seo.php:1297
+#: classes/woocommerce-seo.php:1299
 msgid "You should write a short description for this product."
 msgstr ""
 
-#: classes/woocommerce-seo.php:1298
+#: classes/woocommerce-seo.php:1300
 msgid "The short description for this product is too short."
 msgstr ""
 
-#: classes/woocommerce-seo.php:1299
+#: classes/woocommerce-seo.php:1301
 msgid "Your short description has a good length."
 msgstr ""
 
-#: classes/woocommerce-seo.php:1300
+#: classes/woocommerce-seo.php:1302
 msgid "The short description for this product is too long."
 msgstr ""
 
