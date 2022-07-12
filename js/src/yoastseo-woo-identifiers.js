@@ -1,5 +1,5 @@
-/* global jQuery, wp, YoastSEO, wpseoWooIdentifiers */
-import { addFilter, removeFilter } from "@wordpress/hooks";
+/* global jQuery, YoastSEO, wpseoWooIdentifiers */
+import { addFilter } from "@wordpress/hooks";
 
 const identifierKeys = [
 	"gtin8",
@@ -21,12 +21,25 @@ function hasGlobalIdentifier() {
 	return Object.values( identifiersStore.global_identifier_values ).some( identifier => identifier !== "" );
 }
 
+/**
+ * A function to calculate whether there are any variants.
+ *
+ * @returns {Boolean} Whether or not all variants have at least one identifier set.
+ */
 function hasVariants() {
-	const hasVariants = Object.keys( identifiersStore.variations ).length > 0;
-	return hasVariants;
-};
+	return Object.keys( identifiersStore.variations ).length > 0;
+}
 
+/**
+ * A function to calculate whether or not all variants have at least one identifier set.
+ *
+ * @returns {Boolean} Whether or not all variants have at least one identifier set.
+ */
 function doAllVariantsHaveIdentifier() {
+	if ( ! hasVariants() ) {
+		return false;
+	}
+
 	// Gather all identifier objects for each variation. Make sure each has at least one non-empty identifier.
 	const allVariantsHaveIdentifier = Object.values( identifiersStore.variations ).every(
 		variation => {
@@ -35,24 +48,24 @@ function doAllVariantsHaveIdentifier() {
 		}
 	);
 	return allVariantsHaveIdentifier;
-};
+}
 
 /**
- * @returns {void}
+ * Callback function for the "yoast.analysis.data" filter. Adds data required for the product identifiers assessment.
+ *
+ * @param {Object} data The data passed to the analysis.
+ *
+ * @returns {Object} The data enriched with data on identifiers.
  */
-function sendAssessmentData() {
-	const composedData = {
+function enrichDataWithIdentifiers( data ) {
+	const newData = { ...data };
+	newData.customData = {
 		hasGlobalIdentifier: hasGlobalIdentifier(),
 		hasVariants: hasVariants(),
 		doAllVariantsHaveIdentifier: doAllVariantsHaveIdentifier(),
 	};
 
-	removeFilter( "yoast.analysis.data", "wpseo-woocommerce-identifier-data" );
-	addFilter( "yoast.analysis.data", "wpseo-woocommerce-identifier-data", data => {
-		const newData = { ...data };
-		newData.customData = composedData;
-		return newData;
-	} );
+	return newData;
 }
 
 /**
@@ -65,6 +78,10 @@ function registerEventListeners() {
 	if ( wpseoWooIdentifiers.variations ) {
 		variationIds = Object.keys( wpseoWooIdentifiers.variations );
 	}
+
+	/*
+	Still to do: Add event to add variations if they receive a price or something, anything that could make them be output by product->get_available_variations...
+	*/
 
 	jQuery( "#woocommerce-product-data" ).on( "woocommerce_variations_loaded", () => {
 		identifierKeys.forEach( key => {
@@ -81,7 +98,7 @@ function registerEventListeners() {
 							},
 						} } );
 
-						sendAssessmentData();
+						// Refresh the app so the analysis runs.
 						YoastSEO.app.refresh();
 					} );
 				}
@@ -93,19 +110,20 @@ function registerEventListeners() {
 		const globalIdentifierInput = document.getElementById( `yoast_identfier_${ key }` );
 		globalIdentifierInput.addEventListener( "change", ( event ) => {
 			const newValue = event.target.value;
+			/* eslint-disable-next-line camelcase */
 			identifiersStore = Object.assign( {}, identifiersStore, { global_identifier_values: {
 				...identifiersStore.global_identifier_values,
 				[ key ]: newValue,
 			} } );
 
-			sendAssessmentData();
+			// Refresh the app so the analysis runs.
 			YoastSEO.app.refresh();
 		} );
 	} );
 
 	/*
-	todo:
-	calculate initial custom data for the paper from the window object wpseoWooIdentifiers,
+	Still to do:
+	Calculate initial custom data for the paper from the window object wpseoWooIdentifiers,
 	add the custom data to the filter,
 	trigger refresh???? Or perhaps tie in to the initialize if that exists somehow.
 	*/
@@ -117,8 +135,9 @@ function registerEventListeners() {
  * @returns {void}
  */
 function initializeGlobalIdentifierScripts() {
-	// When YoastSEO is available, just instantiate the plugin.
+	// When YoastSEO is available, just instantiate the scripts.
 	if ( typeof YoastSEO !== "undefined" && typeof YoastSEO.app !== "undefined" ) {
+		addFilter( "yoast.analysis.data", "wpseo-woocommerce-identifier-data", enrichDataWithIdentifiers );
 		registerEventListeners();
 		return;
 	}
@@ -127,6 +146,7 @@ function initializeGlobalIdentifierScripts() {
 	jQuery( window ).on(
 		"YoastSEO:ready",
 		function() {
+			addFilter( "yoast.analysis.data", "wpseo-woocommerce-identifier-data", enrichDataWithIdentifiers );
 			registerEventListeners();
 		}
 	);
