@@ -1,4 +1,5 @@
 /* global jQuery, wp, YoastSEO, wpseoWooIdentifiers */
+import { addFilter, removeFilter } from "@wordpress/hooks";
 
 const identifierKeys = [
 	"gtin8",
@@ -9,27 +10,7 @@ const identifierKeys = [
 	"mpn",
 ];
 
-/**
- * Returns whether the product (or product variant) has at least one product identifier filled in.
- *
- * @param {[string]}  identifierIDs		The IDs of the identifiers to check.
- *
- * @returns {boolean} Whether the product/variant has at least one identifier.
- */
-const hasAtLeastOneIdentifier = function( identifierIDs ) {
-	for ( let i = 0; i < identifierIDs.length; i++ ) {
-		const identifierID = identifierIDs[ i ];
-		const identifierValue = document.querySelector( "#" + identifierID ).value;
-		// eslint-disable-next-line no-undefined
-		if ( identifierValue !== undefined && identifierValue !== "" ) {
-			return true;
-		}
-	}
-	return false;
-};
-
-
-const identifiersStore = wpseoWooIdentifiers || {};
+let identifiersStore = wpseoWooIdentifiers || {};
 
 /**
  * Checks whether the product has a global identifier
@@ -37,27 +18,41 @@ const identifiersStore = wpseoWooIdentifiers || {};
  * @returns {boolean} Whether the product has a global identifier.
  */
 function hasGlobalIdentifier() {
-	console.log( "doing calculations on this thing: ", identifiersStore );
-	console.log( "has global identifier: ", Object.values( identifiersStore.global_identifier_values ).some( identifier => identifier !== "" ) );
-	return Object.keys( identifiersStore.global_identifier_values ).some( identifier => identifier !== "" );
+	return Object.values( identifiersStore.global_identifier_values ).some( identifier => identifier !== "" );
 }
+
+function hasVariants() {
+	const hasVariants = Object.keys( identifiersStore.variations ).length > 0;
+	return hasVariants;
+};
+
+function doAllVariantsHaveIdentifier() {
+	// Gather all identifier objects for each variation. Make sure each has at least one non-empty identifier.
+	const allVariantsHaveIdentifier = Object.values( identifiersStore.variations ).every(
+		variation => {
+			// Return true if at least one identifier is set.
+			return Object.values( variation ).some( variationIdentifier => variationIdentifier !== "" );
+		}
+	);
+	return allVariantsHaveIdentifier;
+};
 
 /**
  * @returns {void}
  */
 function sendAssessmentData() {
-	if ( wp && wp.hooks ) {
-		wp.hooks.addFilter( "yoast.analysis.data", "wpseo-woocommerce-identifier-data", data => {
-			data.customData = {};
-			Object.assign( data.customData, {
-				hasGlobalIdentifier: hasGlobalIdentifier(),
-				hasVariants: false,
-			} );
-			console.log( "data: ", data );
-			return data;
-		} );
-	}
-	console.log( "common sense check: ", hasGlobalIdentifier() );
+	const composedData = {
+		hasGlobalIdentifier: hasGlobalIdentifier(),
+		hasVariants: hasVariants(),
+		doAllVariantsHaveIdentifier: doAllVariantsHaveIdentifier(),
+	};
+
+	removeFilter( "yoast.analysis.data", "wpseo-woocommerce-identifier-data" );
+	addFilter( "yoast.analysis.data", "wpseo-woocommerce-identifier-data", data => {
+		const newData = { ...data };
+		newData.customData = composedData;
+		return newData;
+	} );
 }
 
 /**
@@ -70,32 +65,24 @@ function registerEventListeners() {
 	if ( wpseoWooIdentifiers.variations ) {
 		variationIds = Object.keys( wpseoWooIdentifiers.variations );
 	}
-	console.log( variationIds );
-
-	// $( document ).on( "woocommerce_loaded", () => {
-	// 	console.log( document.getElementById( "woocommerce-product-data" ) );
-	// 	console.log( "nothing??" );
-	// } );
 
 	jQuery( "#woocommerce-product-data" ).on( "woocommerce_variations_loaded", () => {
-		console.log( "NOW!" );
 		identifierKeys.forEach( key => {
-			console.log( key );
 			variationIds.forEach( ( variationId ) => {
-				console.log( variationId );
 				const variationInput = document.getElementById( `yoast_variation_identifier[${ variationId }][${ key }]` );
 				if ( variationInput ) {
-					variationInput.addEventListener( "change", () => {
-						console.log( `Variation ${ variationId } ${ key } changed!` );
+					variationInput.addEventListener( "change", ( event ) => {
+						const newValue = event.target.value;
+						identifiersStore = Object.assign( {}, identifiersStore, { variations: {
+							...identifiersStore.variations,
+							[ variationId ]: {
+								...identifiersStore.variations[ variationId ],
+								[ key ]: newValue,
+							},
+						} } );
 
-
-						/*
-						todo:
-						recalculate custom data for the paper,
-						add the new custom data to the filter,
-						trigger refresh (luxury: only if changed)
-						*/
-
+						sendAssessmentData();
+						YoastSEO.app.refresh();
 					} );
 				}
 			} );
@@ -105,22 +92,14 @@ function registerEventListeners() {
 	identifierKeys.forEach( key => {
 		const globalIdentifierInput = document.getElementById( `yoast_identfier_${ key }` );
 		globalIdentifierInput.addEventListener( "change", ( event ) => {
-			console.log( `Global ${ key } changed!` );
-
 			const newValue = event.target.value;
-			identifiersStore.global_identifier_values[ key ] = newValue;
-			console.log( "just updated the store: ", identifiersStore );
+			identifiersStore = Object.assign( {}, identifiersStore, { global_identifier_values: {
+				...identifiersStore.global_identifier_values,
+				[ key ]: newValue,
+			} } );
 
 			sendAssessmentData();
 			YoastSEO.app.refresh();
-			console.log( "refresh over" );
-
-			/*
-			todo:
-			recalculate custom data for the paper,
-			add the new custom data to the filter,
-			trigger refresh (luxury: only if changed)
-			*/
 		} );
 	} );
 
@@ -138,7 +117,6 @@ function registerEventListeners() {
  * @returns {void}
  */
 function initializeGlobalIdentifierScripts() {
-	console.log( "test" );
 	// When YoastSEO is available, just instantiate the plugin.
 	if ( typeof YoastSEO !== "undefined" && typeof YoastSEO.app !== "undefined" ) {
 		registerEventListeners();
