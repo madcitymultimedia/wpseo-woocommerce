@@ -2,7 +2,7 @@ WooCommerce Yoast SEO
 =====================
 Requires at least: 5.8
 Tested up to: 6.0
-Stable tag: 15.0-RC6
+Stable tag: 15.0
 Requires PHP: 5.6.20
 Depends: Yoast SEO, WooCommerce
 
@@ -40,7 +40,7 @@ Enhancements:
 
 Bugfixes:
 
-* Fixes a bug where the keyphrase distribution assessments error, or fails to mark the found keyphrases in the text, when using keyphrases that include some regular expression control characters, for example brackets.
+* Fixes a bug where the keyphrase distribution assessments would error, or fail to mark the found keyphrases in the text, when using keyphrases that include some regular expression control characters, for example brackets.
 
 Other:
 
