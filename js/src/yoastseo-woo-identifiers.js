@@ -1,4 +1,4 @@
-/* global jQuery, tinyMCE, YoastSEO, wpseoWooIdentifiers */
+/* global jQuery, wp, YoastSEO, wpseoWooIdentifiers */
 
 const identifierKeys = [
 	"gtin8",
@@ -8,6 +8,57 @@ const identifierKeys = [
 	"isbn",
 	"mpn",
 ];
+
+/**
+ * Returns whether the product (or product variant) has at least one product identifier filled in.
+ *
+ * @param {[string]}  identifierIDs		The IDs of the identifiers to check.
+ *
+ * @returns {boolean} Whether the product/variant has at least one identifier.
+ */
+const hasAtLeastOneIdentifier = function( identifierIDs ) {
+	for ( let i = 0; i < identifierIDs.length; i++ ) {
+		const identifierID = identifierIDs[ i ];
+		const identifierValue = document.querySelector( "#" + identifierID ).value;
+		// eslint-disable-next-line no-undefined
+		if ( identifierValue !== undefined && identifierValue !== "" ) {
+			return true;
+		}
+	}
+	return false;
+};
+
+
+const identifiersStore = wpseoWooIdentifiers || {};
+
+/**
+ * Checks whether the product has a global identifier
+ *
+ * @returns {boolean} Whether the product has a global identifier.
+ */
+function hasGlobalIdentifier() {
+	console.log( "doing calculations on this thing: ", identifiersStore );
+	console.log( "has global identifier: ", Object.values( identifiersStore.global_identifier_values ).some( identifier => identifier !== "" ) );
+	return Object.keys( identifiersStore.global_identifier_values ).some( identifier => identifier !== "" );
+}
+
+/**
+ * @returns {void}
+ */
+function sendAssessmentData() {
+	if ( wp && wp.hooks ) {
+		wp.hooks.addFilter( "yoast.analysis.data", "wpseo-woocommerce-identifier-data", data => {
+			data.customData = {};
+			Object.assign( data.customData, {
+				hasGlobalIdentifier: hasGlobalIdentifier(),
+				hasVariants: false,
+			} );
+			console.log( "data: ", data );
+			return data;
+		} );
+	}
+	console.log( "common sense check: ", hasGlobalIdentifier() );
+}
 
 /**
  * A function that registers event listeners.
@@ -26,9 +77,6 @@ function registerEventListeners() {
 	// 	console.log( "nothing??" );
 	// } );
 
-	// Register listeners for variations when the variation loaded call is done
-	console.log( jQuery( "#woocommerce-product-data" ) );
-	console.log( "was daar iets?" );
 	jQuery( "#woocommerce-product-data" ).on( "woocommerce_variations_loaded", () => {
 		console.log( "NOW!" );
 		identifierKeys.forEach( key => {
@@ -55,9 +103,18 @@ function registerEventListeners() {
 	} );
 
 	identifierKeys.forEach( key => {
-		console.log( "ADDING!" );
-		document.getElementById( `yoast_identfier_${ key }` ).addEventListener( "change", () => {
+		const globalIdentifierInput = document.getElementById( `yoast_identfier_${ key }` );
+		globalIdentifierInput.addEventListener( "change", ( event ) => {
 			console.log( `Global ${ key } changed!` );
+
+			const newValue = event.target.value;
+			identifiersStore.global_identifier_values[ key ] = newValue;
+			console.log( "just updated the store: ", identifiersStore );
+
+			sendAssessmentData();
+			YoastSEO.app.refresh();
+			console.log( "refresh over" );
+
 			/*
 			todo:
 			recalculate custom data for the paper,
