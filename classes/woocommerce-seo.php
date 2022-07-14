@@ -1314,7 +1314,7 @@ class Yoast_WooCommerce_SEO {
 		$product_id  = $product->get_id();
 		$identifiers = [
 			'global_identifier_values' => get_post_meta( $product_id, 'wpseo_global_identifier_values', true ),
-			'variations'               => [],
+			'variations'               => new stdClass,
 		];
 
 		if ( WPSEO_WooCommerce_Utils::get_product_type( $product ) === "variable" ) {
@@ -1322,7 +1322,7 @@ class Yoast_WooCommerce_SEO {
 			if ( ! empty( $variations ) ) {
 				$variation_ids = wp_list_pluck( $variations, 'variation_id' );
 				foreach ( $variation_ids as $variation_id ) {
-					$identifiers[ 'variations' ][ $variation_id ] = get_post_meta( $variation_id, 'wpseo_variation_global_identifiers_values', true );
+					$identifiers[ 'variations' ]->$variation_id = get_post_meta( $variation_id, 'wpseo_variation_global_identifiers_values', true );
 				}
 			}
 		}
