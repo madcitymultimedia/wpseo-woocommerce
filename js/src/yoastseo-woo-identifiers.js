@@ -1,7 +1,7 @@
 /* global jQuery, YoastSEO, wpseoWooIdentifiers */
 import apiFetch from "@wordpress/api-fetch";
 import { addFilter } from "@wordpress/hooks";
-import { set, omit } from "lodash-es";
+import { set, setWith, omit, merge } from "lodash-es";
 
 const identifierKeys = [
 	"gtin8",
@@ -21,20 +21,20 @@ const emptyVariationIdentifiers = identifierKeys.reduce( ( emptyObject, identifi
 	return emptyObject;
 }, {} );
 
-let identifiersStore = wpseoWooIdentifiers || {};
+let identifiersStore = merge( {}, wpseoWooIdentifiers || {} );
 
-/**
- * Fetches a list of all variations.
- *
- * @returns {Promise|bool} A promise, or false if the call fails.
- */
-async function getVariationsRequest( productId ) {
-	const response = await apiFetch( {
-		path: `/wp-json/wc/v3/products/${ productId }/variations`,
-		method: "GET",
-	} );
-	return await response.json;
-}
+// /**
+//  * Fetches a list of all variations.
+//  *
+//  * @returns {Promise|bool} A promise, or false if the call fails.
+//  */
+// async function getVariationsRequest( productId ) {
+// 	const response = await apiFetch( {
+// 		path: `/wp-json/wc/v3/products/${ productId }/variations`,
+// 		method: "GET",
+// 	} );
+// 	return await response.json;
+// }
 
 /**
  * Checks whether the product has a global identifier
@@ -75,6 +75,61 @@ function doAllVariantsHaveIdentifier() {
 }
 
 /**
+ * Manipulates the store accordingly when there is a price change.
+ *
+ * @param {Event} event A change event.
+ *
+ * @returns {void}
+ */
+function handlePriceChange( event ) {
+	// Get the id of the changed variation
+	const idElement = jQuery( event.target ).parents( ".woocommerce_variations .woocommerce_variation" ).find( "h3 strong" )[ 0 ];
+	const changedId = parseInt( idElement.innerText.substring( 1 ), 10 );
+	const newValue = event.target.value;
+
+	if ( newValue === "" ) {
+		const newVariations = omit( identifiersStore.variations, changedId );
+		identifiersStore.variations = newVariations;
+		return;
+	}
+
+	// If a price has been set, add a new empty variant unless it has stuff set already.
+	const newVariantIdentifiers = emptyVariationIdentifiers;
+	Object.keys( emptyVariationIdentifiers ).forEach( key => {
+		const variationInput = document.getElementById( `yoast_variation_identifier[${ changedId }][${ key }]` );
+		if ( variationInput ) {
+			Object.assign( newVariantIdentifiers, {
+				[ key ]: variationInput.value,
+			} );
+		}
+	} );
+	identifiersStore.variations[ changedId ] = newVariantIdentifiers;
+	console.log( "new store variations: ", identifiersStore.variations );
+
+	// Refresh the app so the analysis runs.
+	YoastSEO.app.refresh();
+}
+
+/**
+ * Handles changes to the variation identifier fields that are in the dom after "variations loaded".
+ *
+ * @param {Event} event Change event
+ *
+ * @returns {void}
+ */
+function handleVariationIdentifierChange( event ) {
+	const inputId = event.target.id;
+	const [ variantIdString, identifierKey ] = inputId.match( /(?<=\[)(.*?)(?=\])/g );
+	const variantId = parseInt( variantIdString, 10 );
+
+	setWith( identifiersStore.variations, `[${ variantId }][${ identifierKey }]`, event.target.value, Object );
+	console.log( "new identifiersstore variations: ", identifiersStore.variations );
+
+	// Refresh the app so the analysis runs.
+	YoastSEO.app.refresh();
+}
+
+/**
  * Callback function for the "yoast.analysis.data" filter. Adds data required for the product identifiers assessment.
  *
  * @param {Object} data The data passed to the analysis.
@@ -106,65 +161,32 @@ function registerEventListeners() {
 		variationIds = Object.keys( identifiersStore.variations );
 	}
 
-	// Detect price changes in the Variations metabox.
-	jQuery( document.body ).on( "change", "#variable_product_options .woocommerce_variations :input[id^=variable_regular_price]", event => {
-		// Get the id of the changed variation
-		jQuery( event.target ).parents( ".woocommerce_variations .woocommerce_variation" ).find( "h3 strong" ).each( ( _, el ) => {
-			const changedId = parseInt( el.innerText.substring( 1 ), 10 );
-			const newValue = event.target.value;
+	jQuery( "#woocommerce-product-data" ).on( "woocommerce_variations_loaded", () => {
+		// Detect price changes in the Variations metabox and handle them.
+		jQuery( document.body ).on( "change", "#variable_product_options .woocommerce_variations :input[id^=variable_regular_price]", handlePriceChange );
+	
+		// Detect changes in the variation identifiers and handle them.
+		jQuery( document.body ).on( "change", "#variable_product_options .woocommerce_variations :input[id^=yoast_variation_identifier]", handleVariationIdentifierChange );
 
-			console.log( `variation id ${ changedId } changed to ${ event.target.value }` );
-			if ( newValue === "" ) {
-				const newVariations = omit( identifiersStore.variations, changedId );
-				identifiersStore.variations = newVariations;
-				return;
-			}
+		// // old stuff
+		// if ( identifiersStore.variations ) {
+		// 	variationIds = Object.keys( identifiersStore.variations );
+		// }
+		// console.log( "adding listeners for these variations: ", variationIds );
+		// identifierKeys.forEach( key => {
+		// 	variationIds.forEach( ( variationId ) => {
+		// 		const variationInput = document.getElementById( `yoast_variation_identifier[${ variationId }][${ key }]` );
+		// 		if ( variationInput ) {
+		// 			variationInput.addEventListener( "change", ( event ) => {
+		// 				const newValue = event.target.value;
+		// 				set( identifiersStore, `variations[${variationId}][${key}]`, newValue );
 
-			// If a price has been set, add a new empty variant unless it has stuff set already.
-			const newVariantIdentifiers = emptyVariationIdentifiers;
-			Object.keys( emptyVariationIdentifiers ).forEach( key => {
-				const variationInput = document.getElementById( `yoast_variation_identifier[${ changedId }][${ key }]` );
-				console.log( `Found ${ key } for ${ changedId } with value ${ variationInput.value }` );
-				if ( variationInput ) {
-					Object.assign( newVariantIdentifiers, {
-						[ key ]: variationInput.value,
-					} );
-				}
-			} );
-			identifiersStore.variations[ changedId ] = newVariantIdentifiers;
-			console.log( "new store variations: ", identifiersStore.variations );
-		} );
-	} );
-
-	jQuery( "#woocommerce-product-data" ).on( "woocommerce_variations_loaded", ( { ...args } ) => {
-		console.log( args );
-		console.log( "hello!" );
-		if ( identifiersStore.variations ) {
-			variationIds = Object.keys( identifiersStore.variations );
-		}
-		console.log( "adding listeners for these variations: ", variationIds );
-		identifierKeys.forEach( key => {
-			variationIds.forEach( ( variationId ) => {
-				const variationInput = document.getElementById( `yoast_variation_identifier[${ variationId }][${ key }]` );
-				if ( variationInput ) {
-					variationInput.addEventListener( "change", ( event ) => {
-						const newValue = event.target.value;
-						set( identifiersStore, `variations[${variationId}][${key}]`, newValue );
-						console.log( "new identifiers store: ", identifiersStore );
-						// IdentifiersStore = Object.assign( {}, identifiersStore, { variations: {
-						// 	...identifiersStore.variations,
-						// 	[ variationId ]: {
-						// 		...identifiersStore.variations[ variationId ],
-						// 		[ key ]: newValue,
-						// 	},
-						// } } );
-
-						// Refresh the app so the analysis runs.
-						YoastSEO.app.refresh();
-					} );
-				}
-			} );
-		} );
+		// 				// Refresh the app so the analysis runs.
+		// 				YoastSEO.app.refresh();
+		// 			} );
+		// 		}
+		// 	} );
+		// } );
 	} );
 
 	identifierKeys.forEach( key => {
@@ -231,16 +253,16 @@ initializeGlobalIdentifierScripts();
 // 	console.log( "INPUT CHANGED: ", inputThingy );
 // } );
 
-// jQuery( "#woocommerce-product-data" ).on( "woocommerce_variations_loaded", () => {
-// 	// I'VE PUT SOME USEFUL BEGINNING DOM QUERIES HERE
-// 	// WE COULD ALSO LOOK FOR THE NEEDS-UPDATE CLASS, WHICH GET'S ADDED IF SOMETHING UPDATES, BUT THIS WON'T CATCH ANY UPDATES DONE VIA THE BULK DROPDOWN.
-// 	jQuery( ".woocommerce_variations .woocommerce_variation" ).find( "h3 strong" ).each( ( _, el ) => {
-// 		console.log( el.innerText );
-// 	} );
-// 	jQuery( ".woocommerce_variations .woocommerce_variation" ).find( ':input[id^="variable_regular_price_"]' ).each( ( _, el ) => {
-// 		console.log( el.value );
-// 	} );
-// } );
+jQuery( "#woocommerce-product-data" ).on( "woocommerce_variations_loaded", () => {
+	// I'VE PUT SOME USEFUL BEGINNING DOM QUERIES HERE
+	// WE COULD ALSO LOOK FOR THE NEEDS-UPDATE CLASS, WHICH GET'S ADDED IF SOMETHING UPDATES, BUT THIS WON'T CATCH ANY UPDATES DONE VIA THE BULK DROPDOWN.
+	jQuery( ".woocommerce_variations .woocommerce_variation" ).find( "h3 strong" ).each( ( _, el ) => {
+		console.log( el.innerText );
+	} );
+	jQuery( ".woocommerce_variations .woocommerce_variation" ).find( ':input[id^="variable_regular_price_"]' ).each( ( _, el ) => {
+		console.log( el.value );
+	} );
+} );
 
 /*
 Page load is just fine. Will have all variations that have prices (and are enabled????) and their identifiers.
