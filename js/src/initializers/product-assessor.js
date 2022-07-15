@@ -16,6 +16,7 @@ export default function initialize() {
 	analysisWorker._configuration.customAnalysisType = "productPage";
 	// Store product pages.
 	analysisWorker.setCustomSEOAssessorClass( productSEOAssessor.default, "productPage", {
+		assessVariants: true,
 		countVideos: false,
 		introductionKeyphraseUrlTitle: "https://yoa.st/33e",
 		introductionKeyphraseCTAUrl: "https://yoa.st/33f",
@@ -51,8 +52,11 @@ export default function initialize() {
 		imageAltTagsCTAUrl: "https://yoa.st/33d",
 		keyphraseDistributionUrlTitle: "https://yoa.st/33q",
 		keyphraseDistributionCTAUrl: "https://yoa.st/33u",
+		productIdentifierUrlTitle: "https://yoa.st/4ly",
+		productIdentifierCTAUrl: "https://yoa.st/4lz",
 	} );
 	analysisWorker.setCustomCornerstoneSEOAssessorClass( productCornerstoneSEOAssessor.default, "productPage", {
+		assessVariants: true,
 		countVideos: false,
 		introductionKeyphraseUrlTitle: "https://yoa.st/33e",
 		introductionKeyphraseCTAUrl: "https://yoa.st/33f",
@@ -88,6 +92,8 @@ export default function initialize() {
 		imageAltTagsCTAUrl: "https://yoa.st/33d",
 		keyphraseDistributionUrlTitle: "https://yoa.st/33q",
 		keyphraseDistributionCTAUrl: "https://yoa.st/33u",
+		productIdentifierUrlTitle: "https://yoa.st/4ly",
+		productIdentifierCTAUrl: "https://yoa.st/4lz",
 	} );
 	analysisWorker.setCustomContentAssessorClass( productContentAssessor.default, "productPage", {
 		subheadingUrlTitle: "https://yoa.st/34x",
