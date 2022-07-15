@@ -1,7 +1,6 @@
 /* global jQuery, YoastSEO, wpseoWooIdentifiers */
-import apiFetch from "@wordpress/api-fetch";
 import { addFilter } from "@wordpress/hooks";
-import { set, setWith, omit, merge } from "lodash-es";
+import { setWith, merge } from "lodash-es";
 
 const identifierKeys = [
 	"gtin8",
@@ -23,18 +22,8 @@ const emptyVariationIdentifiers = identifierKeys.reduce( ( emptyObject, identifi
 
 let identifiersStore = merge( {}, wpseoWooIdentifiers || {} );
 
-// /**
-//  * Fetches a list of all variations.
-//  *
-//  * @returns {Promise|bool} A promise, or false if the call fails.
-//  */
-// async function getVariationsRequest( productId ) {
-// 	const response = await apiFetch( {
-// 		path: `/wp-json/wc/v3/products/${ productId }/variations`,
-// 		method: "GET",
-// 	} );
-// 	return await response.json;
-// }
+// Store to keep track of the deletion process for a single variation.
+let candidateForDeletion = "";
 
 /**
  * Checks whether the product has a global identifier
@@ -88,26 +77,27 @@ function handlePriceChange( event ) {
 	const changedId = parseInt( idElement.innerText.substring( 1 ), 10 );
 	const newValue = event.target.value;
 
+	// If an id was changed that we don't know about, add it to the variations store.
+	if ( ! Object.keys( identifiersStore.variations ).includes( `${ changedId }` ) ) {
+		identifiersStore.variations[ changedId ] = {};
+	}
+
 	if ( newValue === "" ) {
-		const newVariations = omit( identifiersStore.variations, changedId );
-		identifiersStore.variations = newVariations;
+		const newAvailableVariations = identifiersStore.available_variations.filter( id => changedId !== id );
+		/* eslint-disable-next-line camelcase */
+		identifiersStore.available_variations = newAvailableVariations;
+		console.log( "new store before refresh: ", identifiersStore );
+		YoastSEO.app.refresh();
 		return;
 	}
 
-	// If a price has been set, add a new empty variant unless it has stuff set already.
-	const newVariantIdentifiers = emptyVariationIdentifiers;
-	Object.keys( emptyVariationIdentifiers ).forEach( key => {
-		const variationInput = document.getElementById( `yoast_variation_identifier[${ changedId }][${ key }]` );
-		if ( variationInput ) {
-			Object.assign( newVariantIdentifiers, {
-				[ key ]: variationInput.value,
-			} );
-		}
-	} );
-	identifiersStore.variations[ changedId ] = newVariantIdentifiers;
-	console.log( "new store variations: ", identifiersStore.variations );
+	// If it's a new id that receives a price, add it to available variations.
+	if ( ! identifiersStore.available_variations.includes( changedId ) ) {
+		identifiersStore.available_variations.push( changedId );
+	}
 
 	// Refresh the app so the analysis runs.
+	console.log( "new store before refresh: ", identifiersStore );
 	YoastSEO.app.refresh();
 }
 
@@ -127,6 +117,7 @@ function handleVariationIdentifierChange( event ) {
 	console.log( "new identifiersstore variations: ", identifiersStore.variations );
 
 	// Refresh the app so the analysis runs.
+	console.log( "new store before refresh: ", identifiersStore );
 	YoastSEO.app.refresh();
 }
 
@@ -157,39 +148,36 @@ function enrichDataWithIdentifiers( data ) {
  * @returns {void}.
  */
 function registerEventListeners() {
-	let variationIds = [];
-	if ( identifiersStore.variations ) {
-		variationIds = Object.keys( identifiersStore.variations );
-	}
-
-	jQuery( "#woocommerce-product-data" ).on( "woocommerce_variations_loaded", () => {
-		// Detect price changes in the Variations metabox and handle them.
-		jQuery( document.body ).on( "change", "#variable_product_options .woocommerce_variations :input[id^=variable_regular_price]", handlePriceChange );
-	
-		// Detect changes in the variation identifiers and handle them.
-		jQuery( document.body ).on( "change", "#variable_product_options .woocommerce_variations :input[id^=yoast_variation_identifier]", handleVariationIdentifierChange );
-
-		// // old stuff
-		// if ( identifiersStore.variations ) {
-		// 	variationIds = Object.keys( identifiersStore.variations );
-		// }
-		// console.log( "adding listeners for these variations: ", variationIds );
-		// identifierKeys.forEach( key => {
-		// 	variationIds.forEach( ( variationId ) => {
-		// 		const variationInput = document.getElementById( `yoast_variation_identifier[${ variationId }][${ key }]` );
-		// 		if ( variationInput ) {
-		// 			variationInput.addEventListener( "change", ( event ) => {
-		// 				const newValue = event.target.value;
-		// 				set( identifiersStore, `variations[${variationId}][${key}]`, newValue );
-
-		// 				// Refresh the app so the analysis runs.
-		// 				YoastSEO.app.refresh();
-		// 			} );
-		// 		}
-		// 	} );
-		// } );
+	jQuery( "#variable_product_options" ).on( "click", ".remove_variation", ( event ) => {
+		if ( event.target && event.target.rel ) {
+			candidateForDeletion = event.target.rel;
+		}
 	} );
 
+	jQuery( "#woocommerce-product-data" ).on( "woocommerce_variations_removed", () => {
+		if ( candidateForDeletion === "" ) {
+			return;
+		}
+
+		// Remove the variation that was the candidate to release.
+		const newAvailableVariations = identifiersStore.available_variations.filter( id => parseInt( candidateForDeletion, 10 ) !== id );
+		/* eslint-disable-next-line camelcase */
+		identifiersStore.available_variations = newAvailableVariations;
+		candidateForDeletion = "";
+
+		console.log( "new store before refresh: ", identifiersStore );
+		YoastSEO.app.refresh();
+	} );
+
+	jQuery( document.body ).on( "change", "#variable_product_options .woocommerce_variations :input[id^=variable_regular_price]", handlePriceChange );
+
+	// Detect changes in the variation identifiers and handle them.
+	jQuery( document.body ).on(
+		"change", "#variable_product_options .woocommerce_variations :input[id^=yoast_variation_identifier]",
+		handleVariationIdentifierChange
+	);
+
+	// Register event listeners for the global identifier inputs (non-variation);
 	identifierKeys.forEach( key => {
 		const globalIdentifierInput = document.getElementById( `yoast_identfier_${ key }` );
 		globalIdentifierInput.addEventListener( "change", ( event ) => {
@@ -201,6 +189,7 @@ function registerEventListeners() {
 			} } );
 
 			// Refresh the app so the analysis runs.
+			console.log( "new store before refresh: ", identifiersStore );
 			YoastSEO.app.refresh();
 		} );
 	} );
@@ -238,41 +227,20 @@ function initializeGlobalIdentifierScripts() {
 
 initializeGlobalIdentifierScripts();
 
-// jQuery( "#woocommerce-product-data" ).on( "woocommerce_variations_loaded", ( { ...args } ) => {
-// 	const fullList = getVariationsRequest( 362 );
-// 	console.log( "fullList: ", fullList );
-// } );
-
-// /*
-// Still to do: Add event to add variations if they receive a price or something, anything that could make them be output by product->get_available_variations...
-// */
-// jQuery( document.body ).on( "woocommerce_variations_added", ( { ...args } ) => {
-// 	console.log( "variations added!: ", args );
-// } );
-
-// jQuery( "#variable_product_options" ).on( "woocommerce_variations_input_changed", ( inputThingy ) => {
-// 	console.log( "INPUT CHANGED: ", inputThingy );
-// } );
-
-jQuery( "#woocommerce-product-data" ).on( "woocommerce_variations_loaded", () => {
-	// I'VE PUT SOME USEFUL BEGINNING DOM QUERIES HERE
-	// WE COULD ALSO LOOK FOR THE NEEDS-UPDATE CLASS, WHICH GET'S ADDED IF SOMETHING UPDATES, BUT THIS WON'T CATCH ANY UPDATES DONE VIA THE BULK DROPDOWN.
-	jQuery( ".woocommerce_variations .woocommerce_variation" ).find( "h3 strong" ).each( ( _, el ) => {
-		console.log( el.innerText );
-	} );
-	jQuery( ".woocommerce_variations .woocommerce_variation" ).find( ':input[id^="variable_regular_price_"]' ).each( ( _, el ) => {
-		console.log( el.value );
-	} );
-} );
-
 /*
 Page load is just fine. Will have all variations that have prices (and are enabled????) and their identifiers.
 
 Scenarios:
-A person adds a variation
-A person removes a variation
-A person adds price to variation
-A person removes price from a variation
+A person adds a variation COVERED
+A person removes a variation DONE but bug with modal
+A person adds price to variation DONE
+A person removes price from a variation DONE
+A person edits variation identifiers. DONE
 
-A person edits variation identifiers.
+A person adds prices with bulk -> plan made -> move all ids to available_ids if the price is not null :scream:
+A person deletes all variations
+A person creates variations from all attributes
+
+
+if all else fails, we just monitor the bulk events and put the score on gray until they reload the page. This is lingo realm.
 */
