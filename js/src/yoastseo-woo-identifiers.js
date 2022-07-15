@@ -48,10 +48,10 @@ function hasGlobalIdentifier() {
 /**
  * A function to calculate whether there are any variants.
  *
- * @returns {Boolean} Whether or not all variants have at least one identifier set.
+ * @returns {Boolean} Whether there are available variants.
  */
 function hasVariants() {
-	return Object.keys( identifiersStore.variations ).length > 0;
+	return identifiersStore.available_variations.length > 0;
 }
 
 /**
@@ -65,8 +65,9 @@ function doAllVariantsHaveIdentifier() {
 	}
 
 	// Gather all identifier objects for each variation. Make sure each has at least one non-empty identifier.
-	const allVariantsHaveIdentifier = Object.values( identifiersStore.variations ).every(
-		variation => {
+	const allVariantsHaveIdentifier = identifiersStore.available_variations.every(
+		availableVariationId => {
+			const variation = identifiersStore.variations[ availableVariationId ];
 			// Return true if at least one identifier is set.
 			return Object.values( variation ).some( variationIdentifier => variationIdentifier !== "" );
 		}
