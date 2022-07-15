@@ -77,7 +77,6 @@
     "pluginVersion": "15.2-RC3"
   },
   "dependencies": {
-    "@wordpress/api-fetch": "^6.10.0",
     "@wordpress/dependency-extraction-webpack-plugin": "^3.1.0",
     "@yoast/feature-flag": "^0.5.2",
     "error-polyfill": "^0.1.2",
