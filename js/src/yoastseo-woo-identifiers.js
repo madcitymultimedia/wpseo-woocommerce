@@ -242,21 +242,3 @@ function initializeGlobalIdentifierScripts() {
 }
 
 initializeGlobalIdentifierScripts();
-
-/*
-Page load is just fine. Will have all variations that have prices (and are enabled????) and their identifiers.
-
-Scenarios:
-A person adds a variation COVERED
-A person removes a variation DONE but bug with modal
-A person adds price to variation DONE
-A person removes price from a variation DONE
-A person edits variation identifiers. DONE
-
-A person adds prices with bulk -> plan made -> move all ids to available_ids if the price is not null :scream:
-A person deletes all variations
-A person creates variations from all attributes
-
-
-if all else fails, we just monitor the bulk events and put the score on gray until they reload the page. This is lingo realm.
-*/
