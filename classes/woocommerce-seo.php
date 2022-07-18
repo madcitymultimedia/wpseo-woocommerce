@@ -1310,19 +1310,20 @@ class Yoast_WooCommerce_SEO {
 	 * @return array
 	 */
 	private function localize_woo_identifiers() {
-		$product     = $this->get_product();
-		$product_id  = $product->get_id();
+		$product              = $this->get_product();
+		$product_id           = $product->get_id();
 		$available_variations = [];
-		$identifiers = [
+		$identifiers          = [
 			'global_identifier_values' => get_post_meta( $product_id, 'wpseo_global_identifier_values', true ),
-			'variations'               => new stdClass,
+			'variations'               => new stdClass(),
 			'available_variations'     => $available_variations,
 		];
 
-		if ( WPSEO_WooCommerce_Utils::get_product_type( $product ) === "variable" ) {
+		if ( WPSEO_WooCommerce_Utils::get_product_type( $product ) === 'variable' ) {
 			add_filter( 'woocommerce_hide_invisible_variations', [ $this, 'hide_invisible_variations' ] );
 			$variations = $product->get_available_variations();
 			remove_filter( 'woocommerce_hide_invisible_variations', [ $this, 'hide_invisible_variations' ] );
+
 			if ( ! empty( $variations ) ) {
 				$variation_ids    = wp_list_pluck( $variations, 'variation_id' );
 				$variation_prices = wp_list_pluck( $variations, 'display_price' );
@@ -1331,12 +1332,14 @@ class Yoast_WooCommerce_SEO {
 						$available_variations[] = $variation_ids[ $key ];
 					}
 				}
+				$identifiers['available_variations'] = $available_variations;
 
+				$identifiers_variations = [];
 				foreach ( $variation_ids as $variation_id ) {
-					$variation_identifier = get_post_meta( $variation_id, 'wpseo_variation_global_identifiers_values', true );
-					$identifiers[ 'variations' ]->$variation_id = ! empty( $variation_identifier ) ? $variation_identifier : new stdClass;
-					$identifiers[ 'available_variations' ] = $available_variations;
+					$variation_identifier                    = get_post_meta( $variation_id, 'wpseo_variation_global_identifiers_values', true );
+					$identifiers_variations[ $variation_id ] = ! empty( $variation_identifier ) ? $variation_identifier : new stdClass();
 				}
+				$identifiers['variations'] = (object) $identifiers_variations;
 			}
 		}
 
