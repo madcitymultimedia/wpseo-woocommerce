@@ -911,9 +911,11 @@ class Yoast_WooCommerce_SEO {
 
 		wp_enqueue_script( 'wp-seo-woo', plugins_url( 'js/dist/yoastseo-woo-plugin-' . $version . '.js', WPSEO_WOO_PLUGIN_FILE ), [], WPSEO_VERSION, true );
 		wp_enqueue_script( 'wp-seo-woo-replacevars', plugins_url( 'js/dist/yoastseo-woo-replacevars-' . $version . '.js', WPSEO_WOO_PLUGIN_FILE ), [], WPSEO_VERSION, true );
+		wp_enqueue_script( 'wp-seo-woo-identifiers', plugins_url( 'js/dist/yoastseo-woo-identifiers-' . $version . '.js', WPSEO_WOO_PLUGIN_FILE ), [], WPSEO_VERSION, true );
 
 		wp_localize_script( 'wp-seo-woo', 'wpseoWooL10n', $this->localize_woo_script() );
 		wp_localize_script( 'wp-seo-woo-replacevars', 'wpseoWooReplaceVarsL10n', $this->localize_woo_replacevars_script() );
+		wp_localize_script( 'wp-seo-woo-identifiers', 'wpseoWooIdentifiers', $this->localize_woo_identifiers() );
 	}
 
 	/**
@@ -1300,6 +1302,57 @@ class Yoast_WooCommerce_SEO {
 			'woo_desc_long'           => __( 'The short description for this product is too long.', 'yoast-woo-seo' ),
 			'wooGooglePreviewData'    => $google_preview,
 		];
+	}
+
+	/**
+	 * Localizes identifiers for the wooplugin.
+	 *
+	 * @return array
+	 */
+	private function localize_woo_identifiers() {
+		$product              = $this->get_product();
+		$product_id           = $product->get_id();
+		$available_variations = [];
+		$identifiers          = [
+			'global_identifier_values' => get_post_meta( $product_id, 'wpseo_global_identifier_values', true ),
+			'variations'               => new stdClass(),
+			'available_variations'     => $available_variations,
+		];
+
+		if ( WPSEO_WooCommerce_Utils::get_product_type( $product ) === 'variable' ) {
+			add_filter( 'woocommerce_hide_invisible_variations', [ $this, 'hide_invisible_variations' ] );
+			$variations = $product->get_available_variations();
+			remove_filter( 'woocommerce_hide_invisible_variations', [ $this, 'hide_invisible_variations' ] );
+
+			if ( ! empty( $variations ) ) {
+				$variation_ids    = wp_list_pluck( $variations, 'variation_id' );
+				$variation_prices = wp_list_pluck( $variations, 'display_price' );
+				foreach ( $variation_prices as $key => $variation_price ) {
+					if ( ! empty( $variation_price ) ) {
+						$available_variations[] = $variation_ids[ $key ];
+					}
+				}
+				$identifiers['available_variations'] = $available_variations;
+
+				$identifiers_variations = [];
+				foreach ( $variation_ids as $variation_id ) {
+					$variation_identifier                    = get_post_meta( $variation_id, 'wpseo_variation_global_identifiers_values', true );
+					$identifiers_variations[ $variation_id ] = ! empty( $variation_identifier ) ? $variation_identifier : new stdClass();
+				}
+				$identifiers['variations'] = (object) $identifiers_variations;
+			}
+		}
+
+		return $identifiers;
+	}
+
+	/**
+	 * To be used in a filter, halting hiding invisible variations.
+	 *
+	 * @return bool False.
+	 */
+	public function hide_invisible_variations() {
+		return false;
 	}
 
 	/**
