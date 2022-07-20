@@ -36,6 +36,7 @@ const defaultConfig = {
 	entry: {
 		"yoastseo-woo-plugin": path.join( __dirname, "../../", "js/src/yoastseo-woo-plugin.js" ),
 		"yoastseo-woo-identifiers": path.join( __dirname, "../../", "js/src/yoastseo-woo-identifiers.js" ),
+		"yoastseo-woo-skus": path.join( __dirname, "../../", "js/src/yoastseo-woo-skus.js" ),
 		"yoastseo-woo-replacevars": path.join( __dirname, "../../", "js/src/yoastseo-woo-replacevars.js" ),
 		"yoastseo-woo-worker": path.join( __dirname, "../../", "js/src/yoastseo-woo-worker.js" ),
 	},
