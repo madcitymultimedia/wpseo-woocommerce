@@ -605,6 +605,41 @@ class Yoast_WooCommerce_SEO {
 	}
 
 	/**
+	 * Gets the variants with the right key as an option.
+	 *
+	 * @param array  $variations           All testable variations.
+	 * @param string $variation_key        The key to search for.
+	 * @param array  $available_variations List of already defined available variations.
+	 *
+	 * @return array
+	 */
+	private function get_applicable_variations( $variations, $variation_key, array $available_variations ) {
+		$variation_ids     = wp_list_pluck( $variations, 'variation_id' );
+		$variation_options = wp_list_pluck( $variations, $variation_key );
+		foreach ( $variation_options as $key => $variation_option ) {
+			if ( ! empty( $variation_option ) ) {
+				$available_variations[] = $variation_ids[ $key ];
+			}
+		}
+
+		return $available_variations;
+	}
+
+	/**
+	 * Gets the variant identifier from the post meta.
+	 *
+	 * @param int    $variation_id   The post ID for the specific variation.
+	 * @param string $identifier_key The meta key that defines the needed identifier.
+	 *
+	 * @return string|\stdClass
+	 */
+	private function get_variant_identifier( $variation_id, $identifier_key ) {
+		$variation_identifier = get_post_meta( $variation_id, $identifier_key, true );
+
+		return ! empty( $variation_identifier ) ? $variation_identifier : new \stdClass();
+	}
+
+	/**
 	 * Filter the Yoast columns from the user hidden columns.
 	 *
 	 * @param string $column The user hidden column identifier.
@@ -912,10 +947,12 @@ class Yoast_WooCommerce_SEO {
 		wp_enqueue_script( 'wp-seo-woo', plugins_url( 'js/dist/yoastseo-woo-plugin-' . $version . '.js', WPSEO_WOO_PLUGIN_FILE ), [], WPSEO_VERSION, true );
 		wp_enqueue_script( 'wp-seo-woo-replacevars', plugins_url( 'js/dist/yoastseo-woo-replacevars-' . $version . '.js', WPSEO_WOO_PLUGIN_FILE ), [], WPSEO_VERSION, true );
 		wp_enqueue_script( 'wp-seo-woo-identifiers', plugins_url( 'js/dist/yoastseo-woo-identifiers-' . $version . '.js', WPSEO_WOO_PLUGIN_FILE ), [], WPSEO_VERSION, true );
+		wp_enqueue_script( 'wp-seo-woo-skus', plugins_url( 'js/dist/yoastseo-woo-skus-' . $version . '.js', WPSEO_WOO_PLUGIN_FILE ), [], WPSEO_VERSION, true );
 
 		wp_localize_script( 'wp-seo-woo', 'wpseoWooL10n', $this->localize_woo_script() );
 		wp_localize_script( 'wp-seo-woo-replacevars', 'wpseoWooReplaceVarsL10n', $this->localize_woo_replacevars_script() );
 		wp_localize_script( 'wp-seo-woo-identifiers', 'wpseoWooIdentifiers', $this->localize_woo_identifiers() );
+		wp_localize_script( 'wp-seo-woo-skus', 'wpseoWooSKU', $this->localize_woo_skus() );
 	}
 
 	/**
@@ -1325,19 +1362,47 @@ class Yoast_WooCommerce_SEO {
 			remove_filter( 'woocommerce_hide_invisible_variations', [ $this, 'hide_invisible_variations' ] );
 
 			if ( ! empty( $variations ) ) {
-				$variation_ids    = wp_list_pluck( $variations, 'variation_id' );
-				$variation_prices = wp_list_pluck( $variations, 'display_price' );
-				foreach ( $variation_prices as $key => $variation_price ) {
-					if ( ! empty( $variation_price ) ) {
-						$available_variations[] = $variation_ids[ $key ];
-					}
-				}
-				$identifiers['available_variations'] = $available_variations;
+				$variation_ids                       = wp_list_pluck( $variations, 'variation_id' );
+				$identifiers['available_variations'] = $this->get_applicable_variations( $variations, 'display_price', $available_variations );
 
 				$identifiers_variations = [];
 				foreach ( $variation_ids as $variation_id ) {
-					$variation_identifier                    = get_post_meta( $variation_id, 'wpseo_variation_global_identifiers_values', true );
-					$identifiers_variations[ $variation_id ] = ! empty( $variation_identifier ) ? $variation_identifier : new stdClass();
+					$identifiers_variations[ $variation_id ] = $this->get_variant_identifier( $variation_id, 'wpseo_variation_global_identifiers_values' );
+				}
+				$identifiers['variations'] = (object) $identifiers_variations;
+			}
+		}
+
+		return $identifiers;
+	}
+
+	/**
+	 * Localizes skus for the wooplugin.
+	 *
+	 * @return array
+	 */
+	private function localize_woo_skus() {
+		$product              = $this->get_product();
+		$product_id           = $product->get_id();
+		$available_variations = [];
+		$identifiers          = [
+			'global_sku'           => get_post_meta( $product_id, '_sku', true ),
+			'variations'           => new stdClass(),
+			'available_variations' => $available_variations,
+		];
+
+		if ( WPSEO_WooCommerce_Utils::get_product_type( $product ) === 'variable' ) {
+			add_filter( 'woocommerce_hide_invisible_variations', [ $this, 'hide_invisible_variations' ] );
+			$variations = $product->get_available_variations();
+			remove_filter( 'woocommerce_hide_invisible_variations', [ $this, 'hide_invisible_variations' ] );
+
+			if ( ! empty( $variations ) ) {
+				$variation_ids                       = wp_list_pluck( $variations, 'variation_id' );
+				$identifiers['available_variations'] = $this->get_applicable_variations( $variations, 'sku', $available_variations );
+
+				$identifiers_variations = [];
+				foreach ( $variation_ids as $variation_id ) {
+					$identifiers_variations[ $variation_id ] = $this->get_variant_identifier( $variation_id, '_sku' );
 				}
 				$identifiers['variations'] = (object) $identifiers_variations;
 			}
