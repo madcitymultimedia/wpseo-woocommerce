@@ -54,6 +54,8 @@ export default function initialize() {
 		keyphraseDistributionCTAUrl: "https://yoa.st/33u",
 		productIdentifierUrlTitle: "https://yoa.st/4ly",
 		productIdentifierCTAUrl: "https://yoa.st/4lz",
+		productSKUUrlTitle: "https://yoa.st/4lw",
+		productSKUCTAUrl: "https://yoa.st/4lx",
 	} );
 	analysisWorker.setCustomCornerstoneSEOAssessorClass( productCornerstoneSEOAssessor.default, "productPage", {
 		assessVariants: true,
@@ -94,6 +96,8 @@ export default function initialize() {
 		keyphraseDistributionCTAUrl: "https://yoa.st/33u",
 		productIdentifierUrlTitle: "https://yoa.st/4ly",
 		productIdentifierCTAUrl: "https://yoa.st/4lz",
+		productSKUUrlTitle: "https://yoa.st/4lw",
+		productSKUCTAUrl: "https://yoa.st/4lx",
 	} );
 	analysisWorker.setCustomContentAssessorClass( productContentAssessor.default, "productPage", {
 		subheadingUrlTitle: "https://yoa.st/34x",
