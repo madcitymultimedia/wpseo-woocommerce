@@ -947,12 +947,11 @@ class Yoast_WooCommerce_SEO {
 		wp_enqueue_script( 'wp-seo-woo', plugins_url( 'js/dist/yoastseo-woo-plugin-' . $version . '.js', WPSEO_WOO_PLUGIN_FILE ), [], WPSEO_VERSION, true );
 		wp_enqueue_script( 'wp-seo-woo-replacevars', plugins_url( 'js/dist/yoastseo-woo-replacevars-' . $version . '.js', WPSEO_WOO_PLUGIN_FILE ), [], WPSEO_VERSION, true );
 		wp_enqueue_script( 'wp-seo-woo-identifiers', plugins_url( 'js/dist/yoastseo-woo-identifiers-' . $version . '.js', WPSEO_WOO_PLUGIN_FILE ), [], WPSEO_VERSION, true );
-		wp_enqueue_script( 'wp-seo-woo-skus', plugins_url( 'js/dist/yoastseo-woo-skus-' . $version . '.js', WPSEO_WOO_PLUGIN_FILE ), [], WPSEO_VERSION, true );
 
 		wp_localize_script( 'wp-seo-woo', 'wpseoWooL10n', $this->localize_woo_script() );
 		wp_localize_script( 'wp-seo-woo-replacevars', 'wpseoWooReplaceVarsL10n', $this->localize_woo_replacevars_script() );
 		wp_localize_script( 'wp-seo-woo-identifiers', 'wpseoWooIdentifiers', $this->localize_woo_identifiers() );
-		wp_localize_script( 'wp-seo-woo-skus', 'wpseoWooSKU', $this->localize_woo_skus() );
+		wp_localize_script( 'wp-seo-woo-identifiers', 'wpseoWooSKU', $this->localize_woo_skus() );
 	}
 
 	/**
@@ -1397,8 +1396,8 @@ class Yoast_WooCommerce_SEO {
 			remove_filter( 'woocommerce_hide_invisible_variations', [ $this, 'hide_invisible_variations' ] );
 
 			if ( ! empty( $variations ) ) {
-				$variation_ids                       = wp_list_pluck( $variations, 'variation_id' );
-				$identifiers['available_variations'] = $this->get_applicable_variations( $variations, 'sku', $available_variations );
+				$variation_ids = wp_list_pluck( $variations, 'variation_id' );
+				$identifiers['available_variations'] = $this->get_applicable_variations( $variations, 'display_price', $available_variations );
 
 				$identifiers_variations = [];
 				foreach ( $variation_ids as $variation_id ) {
