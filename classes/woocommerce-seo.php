@@ -1396,7 +1396,7 @@ class Yoast_WooCommerce_SEO {
 			remove_filter( 'woocommerce_hide_invisible_variations', [ $this, 'hide_invisible_variations' ] );
 
 			if ( ! empty( $variations ) ) {
-				$variation_ids = wp_list_pluck( $variations, 'variation_id' );
+				$variation_ids                       = wp_list_pluck( $variations, 'variation_id' );
 				$identifiers['available_variations'] = $this->get_applicable_variations( $variations, 'display_price', $available_variations );
 
 				$identifiers_variations = [];
