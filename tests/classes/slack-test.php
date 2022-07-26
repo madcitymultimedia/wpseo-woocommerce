@@ -4,6 +4,7 @@ namespace Yoast\WP\Woocommerce\Tests\Classes;
 
 use Brain\Monkey;
 use Mockery;
+use stdClass;
 use WPSEO_WooCommerce_Slack;
 use Yoast\WP\Woocommerce\Tests\TestCase;
 
@@ -170,7 +171,7 @@ class Slack_Test extends TestCase {
 	 * @return Mockery\MockInterface The mock presentation.
 	 */
 	private function mock_presentation( $model ) {
-		$presentation = Mockery::mock();
+		$presentation = Mockery::mock( stdClass::class );
 
 		$presentation->model = $model;
 

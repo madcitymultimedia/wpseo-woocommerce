@@ -4,6 +4,7 @@ namespace Yoast\WP\Woocommerce\Tests\Classes;
 
 use Brain\Monkey;
 use Mockery;
+use stdClass;
 use WPSEO_WooCommerce_Twitter;
 use Yoast\WP\Woocommerce\Tests\TestCase;
 
@@ -140,7 +141,7 @@ class Twitter_Test extends TestCase {
 	 * @return Mockery\MockInterface The mock presentation
 	 */
 	private function mock_presentation( $context, $model ) {
-		$presentation = Mockery::mock();
+		$presentation = Mockery::mock( stdClass::class );
 
 		$presentation->context = $context;
 		$presentation->model   = $model;
