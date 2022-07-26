@@ -27,7 +27,7 @@
     },
     "config": {
         "platform": {
-            "php": "5.6.40"
+
         },
         "preferred-install": {
             "yoast/wordpress-seo": "source"
@@ -52,7 +52,6 @@
         "yoast/yoastcs": "^2.2.1",
         "yoast/wp-test-utils": "^1.0.0",
         "yoast/wordpress-seo": "dev-trunk@dev"
-
     },
     "extra": {
         "installer-paths": {
