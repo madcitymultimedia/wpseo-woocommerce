@@ -12,8 +12,8 @@ class Yoast_Ids_Double extends WPSEO_WooCommerce_Yoast_Ids {
 	/**
 	 * Get the variation global identifiers from the options
 	 *
-	 * @param int $post_id  Id of the variation parent post.
-	 * @param int $variation_id  Id of the variation.
+	 * @param int $post_id      Id of the variation parent post.
+	 * @param int $variation_id Id of the variation.
 	 *
 	 * @return array The variation global identifiers.
 	 */
@@ -35,11 +35,11 @@ class Yoast_Ids_Double extends WPSEO_WooCommerce_Yoast_Ids {
 	/**
 	 * Display an input field for an identifier.
 	 *
-	 * @param int    $variation_id  Id of the variation.
-	 * @param string $type          Type of identifier, used for input name.
-	 * @param string $label         Label for the identifier input.
-	 * @param string $value         Current value of the identifier.
-	 * @param bool   $is_left       Wether the input text should float to the left of the container div.
+	 * @param int    $variation_id Id of the variation.
+	 * @param string $type         Type of identifier, used for input name.
+	 * @param string $label        Label for the identifier input.
+	 * @param string $value        Current value of the identifier.
+	 * @param bool   $is_left      Wether the input text should float to the left of the container div.
 	 *
 	 * @return void
 	 */

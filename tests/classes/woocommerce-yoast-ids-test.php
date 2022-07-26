@@ -2,11 +2,9 @@
 
 namespace Yoast\WP\Woocommerce\Tests\Classes;
 
-use WP_Post;
-use Mockery;
 use Brain\Monkey\Functions;
-use WPSEO_WooCommerce_Yoast_Ids;
-
+use Mockery;
+use WP_Post;
 use Yoast\WP\Woocommerce\Tests\Doubles\Yoast_Ids_Double;
 use Yoast\WP\Woocommerce\Tests\TestCase;
 
@@ -162,16 +160,16 @@ class WooCommerce_Yoast_Ids_Test extends TestCase {
 	 *
 	 * @covers WPSEO_WooCommerce_Yoast_Ids::add_variations_global_ids
 	 *
-	 * @param int      $post_id        The id of the variation's parent post.
-	 * @param int      $variation_id   The id of the variation.
-	 * @param string[] $post_gids      The array of variation's parent post global identifiers.
-	 * @param string[] $expected       The array of expected results.
+	 * @param int      $post_id      The id of the variation's parent post.
+	 * @param int      $variation_id The id of the variation.
+	 * @param string[] $post_gids    The array of variation's parent post global identifiers.
+	 * @param string[] $expected     The array of expected results.
 	 */
 	public function test_add_variations_global_ids( $post_id, $variation_id, $post_gids, $expected ) {
 		$this->stubTranslationFunctions();
 		$this->stubEscapeFunctions();
 
-		$mock_variation              = Mockery::mock( '\WP_Post' )->makePartial();
+		$mock_variation              = Mockery::mock( WP_Post::class )->makePartial();
 		$mock_variation->post_parent = $post_id;
 		$mock_variation->ID          = $variation_id;
 

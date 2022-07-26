@@ -34,9 +34,9 @@ class WPSEO_WooCommerce_Yoast_Ids {
 	/**
 	 * Add global identifiers text fields to a variation description.
 	 *
-	 * @param int     $loop The iteration number.
+	 * @param int     $loop           The iteration number.
 	 * @param array   $variation_data Data related to the variation.
-	 * @param WP_Post $variation The variation object.
+	 * @param WP_Post $variation      The variation object.
 	 *
 	 * @return void
 	 */
@@ -102,11 +102,11 @@ class WPSEO_WooCommerce_Yoast_Ids {
 	/**
 	 * Displays an input field for an identifier.
 	 *
-	 * @param string $variation_id  The id of the variation.
-	 * @param string $type          Type of identifier, used for input name.
-	 * @param string $label         Label for the identifier input.
-	 * @param string $value         Current value of the identifier.
-	 * @param bool   $is_left        Wether the field is on the left or not.
+	 * @param string $variation_id The id of the variation.
+	 * @param string $type         Type of identifier, used for input name.
+	 * @param string $label        Label for the identifier input.
+	 * @param string $value        Current value of the identifier.
+	 * @param bool   $is_left      Wether the field is on the left or not.
 	 *
 	 * @return void
 	 */
