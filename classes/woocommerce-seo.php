@@ -1364,7 +1364,7 @@ class Yoast_WooCommerce_SEO {
 
 				$identifiers_variations = [];
 				foreach ( $variation_ids as $variation_id ) {
-					$variation_identifiers = $this->get_variant_identifier( $variation_id, 'wpseo_variation_global_identifiers_values' );
+					$variation_identifiers                   = $this->get_variant_identifier( $variation_id, 'wpseo_variation_global_identifiers_values' );
 					$identifiers_variations[ $variation_id ] = ! empty( $variation_identifiers ) ? $variation_identifiers : new stdClass();
 				}
 				$identifiers['variations'] = (object) $identifiers_variations;
