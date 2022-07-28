@@ -29,7 +29,7 @@ let variantIdentifierDataIsValid = true;
  * @returns {boolean} Whether the product has a global identifier.
  */
 function hasGlobalSKU() {
-	return Object.values( skuStore.global_sku ).some( identifier => identifier !== "" );
+	return skuStore.global_sku !== "";
 }
 
 /**
@@ -81,13 +81,9 @@ function doAllVariantsHaveSkus() {
 		return false;
 	}
 
-	// Gather all identifier objects for each variation. Make sure each has at least one non-empty identifier.
+	// Gather all available variations, make sure their sku is a non-zero string.
 	return skuStore.available_variations.every(
-		availableVariationId => {
-			const variation = skuStore.variations[ availableVariationId ];
-			// Return true if at least one identifier is set.
-			return Object.values( variation ).some( variationIdentifier => variationIdentifier !== "" );
-		}
+		availableVariationId => skuStore.variations[ availableVariationId ].length > 0
 	);
 }
 
