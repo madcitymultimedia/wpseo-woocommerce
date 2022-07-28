@@ -631,12 +631,10 @@ class Yoast_WooCommerce_SEO {
 	 * @param int    $variation_id   The post ID for the specific variation.
 	 * @param string $identifier_key The meta key that defines the needed identifier.
 	 *
-	 * @return string|\stdClass
+	 * @return mixed
 	 */
 	private function get_variant_identifier( $variation_id, $identifier_key ) {
-		$variation_identifier = get_post_meta( $variation_id, $identifier_key, true );
-
-		return ! empty( $variation_identifier ) ? $variation_identifier : new \stdClass();
+		return get_post_meta( $variation_id, $identifier_key, true );
 	}
 
 	/**
@@ -1366,7 +1364,8 @@ class Yoast_WooCommerce_SEO {
 
 				$identifiers_variations = [];
 				foreach ( $variation_ids as $variation_id ) {
-					$identifiers_variations[ $variation_id ] = $this->get_variant_identifier( $variation_id, 'wpseo_variation_global_identifiers_values' );
+					$variation_identifiers = $this->get_variant_identifier( $variation_id, 'wpseo_variation_global_identifiers_values' );
+					$identifiers_variations[ $variation_id ] = ! empty( $variation_identifiers ) ? $variation_identifiers : new stdClass();
 				}
 				$identifiers['variations'] = (object) $identifiers_variations;
 			}
