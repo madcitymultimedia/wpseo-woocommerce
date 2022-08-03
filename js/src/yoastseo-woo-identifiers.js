@@ -11,7 +11,6 @@ const identifierKeys = [
 	"mpn",
 ];
 
-const SKUIdentifier = "sku";
 const SKUWooIdentifier = "_sku";
 
 let identifiersStore = merge( {}, wpseoWooIdentifiers || {} );
@@ -20,80 +19,133 @@ let skuStore = merge( {}, wpseoWooSKU || {} );
 // Store to keep track of the deletion process for a single variation.
 let candidateForDeletion = "";
 
-// Store to keep track of whether identifiersStore can be trusted or should be reloaded.
-let variantIdentifierDataIsValid = true;
-
 /**
  * Checks whether the product has a global identifier
  *
  * @returns {boolean} Whether the product has a global identifier.
  */
-function hasGlobalSKU() {
-	return skuStore.global_sku !== "";
+function hasGlobalSKU( product ) {
+	return product.sku && product.sku !== "";
 }
 
 /**
- * Checks whether the product has a global identifier
+ * Checks whether the product has an identifier
  *
- * @returns {boolean} Whether the product has a global identifier.
+ * @param {Object} product The product to check.
+ *
+ * @returns {boolean} Whether the product has an identifier.
  */
-function hasGlobalIdentifier() {
-	return Object.values( identifiersStore.global_identifier_values ).some( identifier => identifier !== "" );
+function hasGlobalIdentifier( product ) {
+	return !! (
+		product.productIdentifiers.gtin8 ||
+		product.productIdentifiers.gtin12 ||
+		product.productIdentifiers.gtin13 ||
+		product.productIdentifiers.gtin14 ||
+		product.productIdentifiers.mpn
+	);
 }
 
 /**
  * A function to calculate whether there are any variants.
  *
+ * @param {Object[]} productVariants The product variants.
+ *
  * @returns {Boolean} Whether there are available variants.
  */
-function hasVariants() {
-	return identifiersStore.available_variations.length > 0;
+function hasVariants( productVariants ) {
+	return productVariants.length >= 1;
 }
 
 /**
  * A function to calculate whether or not all variants have at least one identifier set.
  *
+ * @param {Object[]} productVariants The product variants.
+ *
  * @returns {Boolean} Whether or not all variants have at least one identifier set.
  */
-function doAllVariantsHaveIdentifier() {
-	if ( ! hasVariants() ) {
-		return false;
+function doAllVariantsHaveIdentifier( productVariants ) {
+	return productVariants.every( hasGlobalIdentifier );
+}
+
+/**
+ * A function to calculate whether or not all variants have at least one identifier set.
+ *
+ * @param {Object[]} productVariants The product variants.
+ *
+ * @returns {Boolean} Whether or not all variants have at least one identifier set.
+ */
+function doAllVariantsHaveSkus( productVariants ) {
+	return productVariants.every( variant => variant.sku );
+}
+
+function getInitialProductVariant( id ) {
+	return {
+		id,
+		// We do not inject the price info from the server, so add a fake price.
+		price: wpseoWooIdentifiers.available_variations.includes( id ) ? id : "",
+		sku: wpseoWooSKU.variations[ id ],
+		productIdentifiers: wpseoWooIdentifiers.variations[ id ],
+	};
+}
+
+function getProductVariants() {
+	const variationElements = [ ...document.querySelectorAll( ".woocommerce_variation" ) ];
+
+	if ( variationElements.length === 0 ) {
+		// WooCommerce variations are not loaded yet, so use the initial data.
+		return Object.keys( wpseoWooIdentifiers.variations ).map( getInitialProductVariant );
 	}
 
-	// Gather all identifier objects for each variation. Make sure each has at least one non-empty identifier.
-	const allVariantsHaveIdentifier = identifiersStore.available_variations.every(
-		availableVariationId => {
-			const variation = identifiersStore.variations[ availableVariationId ];
-			// Return true if at least one identifier is set.
-			return Object.values( variation ).some( variationIdentifier => variationIdentifier !== "" );
+	return variationElements.map(
+		element => {
+			const id = element.querySelector( "input.variable_post_id" ).value;
+			const price = element.querySelector( "input.wc_input_price" ).value;
+			const sku = element.querySelector( "input[id^=variable_sku]" ).value;
+
+			const gtin8 = element.querySelector( `#yoast_variation_identifier\\[${id}\\]\\[gtin8\\]` ).value;
+			const gtin12 = element.querySelector( `#yoast_variation_identifier\\[${id}\\]\\[gtin12\\]` ).value;
+			const gtin13 = element.querySelector( `#yoast_variation_identifier\\[${id}\\]\\[gtin13\\]` ).value;
+			const gtin14 = element.querySelector( `#yoast_variation_identifier\\[${id}\\]\\[gtin14\\]` ).value;
+			const mpn = element.querySelector( `#yoast_variation_identifier\\[${id}\\]\\[mpn\\]` ).value;
+
+			return {
+				id,
+				price,
+				sku,
+				productIdentifiers: { gtin8, gtin12, gtin13, gtin14, mpn },
+			};
 		}
 	);
-	return allVariantsHaveIdentifier;
 }
 
-/**
- * A function to calculate whether or not all variants have at least one identifier set.
- *
- * @returns {Boolean} Whether or not all variants have at least one identifier set.
- */
-function doAllVariantsHaveSkus() {
-	if ( ! hasVariants() ) {
-		return false;
-	}
-
-	// Gather all available variations, make sure their sku is a non-zero string.
-	return skuStore.available_variations.every(
-		availableVariationId => skuStore.variations[ availableVariationId ].length > 0
-	);
+function getInitialProductData() {
+	return {
+		sku: wpseoWooSKU.global_sku,
+		productIdentifiers: wpseoWooIdentifiers.global_identifier_values,
+	};
 }
 
-/**
- * A function that checks whether the identifier data can still be trusted.
- *
- * @returns {Boolean} Whether the identifier data can still be trusted.
- */
-function isVariantIdentifierDataValid() {
-	return variantIdentifierDataIsValid;
+function getProductData() {
+	const sku = document.querySelector( "input#_sku" ).value;
+
+	const gtin8 = document.getElementById( "yoast_identfier_gtin8" ).value;
+	const gtin12 = document.getElementById( "yoast_identfier_gtin12" ).value;
+	const gtin13 = document.getElementById( "yoast_identfier_gtin13" ).value;
+	const gtin14 = document.getElementById( "yoast_identfier_gtin14" ).value;
+	const mpn = document.getElementById( "yoast_identfier_mpn" ).value;
+
+	const data = {
+		sku,
+		productIdentifiers: {
+			gtin8,
+			gtin12,
+			gtin13,
+			gtin14,
+			mpn,
+		},
+	};
+
+	return Object.assign( {}, getInitialProductData(), data );
 }
 
 /**
@@ -105,22 +157,27 @@ function isVariantIdentifierDataValid() {
  */
 function enrichDataWithIdentifiers( data ) {
 	const newData = { ...data };
-	if ( ! Object.hasOwnProperty( newData, "customData" ) ) {
+	if ( ! newData.hasOwnProperty( "customData" ) ) {
 		newData.customData = {};
 	}
-	newData.customData = Object.assign( newData.customData, {
-		hasGlobalIdentifier: hasGlobalIdentifier(),
-		hasVariants: hasVariants(),
-		doAllVariantsHaveIdentifier: doAllVariantsHaveIdentifier(),
-		variantIdentifierDataIsValid: isVariantIdentifierDataValid(),
 
-		hasGlobalSKU: hasGlobalSKU(),
-		doAllVariantsHaveSKU: doAllVariantsHaveSkus(),
+	const product = getProductData();
+	const productVariants = getProductVariants();
+	const variantsWithPrice = productVariants.filter( variant => variant.price );
+
+	console.log( { product, variantsWithPrice } );
+
+	newData.customData = Object.assign( newData.customData, {
+		hasGlobalIdentifier: hasGlobalIdentifier( product ),
+		hasVariants: hasVariants( variantsWithPrice ),
+		doAllVariantsHaveIdentifier: doAllVariantsHaveIdentifier( variantsWithPrice ),
+		variantIdentifierDataIsValid: true,
+		hasGlobalSKU: hasGlobalSKU( product ),
+		doAllVariantsHaveSKU: doAllVariantsHaveSkus( variantsWithPrice ),
 	} );
 
 	return newData;
 }
-
 
 /**
  * Handles changes to the variation identifier fields that are in the dom after "variations loaded".
@@ -190,7 +247,6 @@ function updateStore( store, shouldRefresh, changedId, newValue ) {
 	return shouldRefresh;
 }
 
-
 /**
  * Manipulates the store accordingly when there is a price change.
  *
@@ -213,7 +269,6 @@ function handlePriceChange( event ) {
 		YoastSEO.app.refresh();
 	}
 }
-
 
 /**
  * A function that registers event listeners.
