@@ -33,10 +33,6 @@ Changelog
 
 ### 15.1: August 16th, 2022
 
-Enhancements:
-
-* Adds the word complexity assessment for Spanish, German and French.
-
 Other:
 
 * Makes WooCommerce SEO compatible with the latest version of Yoast SEO.
