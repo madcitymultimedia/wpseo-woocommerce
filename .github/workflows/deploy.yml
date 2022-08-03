@@ -61,9 +61,10 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: 5.6
+          coverage: none
         env:
           # Token is needed for the YoastSEO install via VCS.
-          COMPOSER_TOKEN: ${{ secrets.YOASTBOT_CI_PAT_DIST }}
+          GITHUB_TOKEN: ${{ secrets.YOASTBOT_CI_PAT_DIST }}
 
       # This action also handles the caching of the Yarn dependencies.
       # https://github.com/actions/setup-node
