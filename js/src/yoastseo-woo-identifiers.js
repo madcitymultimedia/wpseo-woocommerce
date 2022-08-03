@@ -299,7 +299,7 @@ function registerEventListeners() {
 		const newValue = event.target.value;
 
 		// Create a mock object to merge with the identifiersStore (to avoid referencing issues).
-		const newGlobalIdentifierValue = setWith( {}, `global_sku.${ SKUIdentifier }`, newValue );
+		const newGlobalIdentifierValue = setWith( {}, "global_sku", newValue );
 		skuStore = merge( {}, skuStore, newGlobalIdentifierValue );
 
 		// Refresh the app so the analysis runs.
