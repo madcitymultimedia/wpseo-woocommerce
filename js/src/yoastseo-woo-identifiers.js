@@ -40,7 +40,7 @@ function hasGlobalIdentifier( product ) {
 }
 
 /**
- * A function to calculate whether there are any variants.
+ * Checks whether there are any variants.
  *
  * @param {Object[]} productVariants The product variants.
  *
@@ -51,7 +51,7 @@ function hasVariants( productVariants ) {
 }
 
 /**
- * A function to calculate whether or not all variants have at least one identifier set.
+ * Checks whether or not all variants have at least one identifier set.
  *
  * @param {Object[]} productVariants The product variants.
  *
@@ -62,19 +62,19 @@ function doAllVariantsHaveIdentifier( productVariants ) {
 }
 
 /**
- * A function to calculate whether all variants have at least one identifier set.
+ * Checks whether or not all variants have SKU.
  *
  * @param {Object[]} productVariants The product variants.
  *
- * @returns {Boolean} Whether all variants have at least one identifier set.
+ * @returns {Boolean} Whether all variants have SKU.
  */
 function doAllVariantsHaveSkus( productVariants ) {
 	return productVariants.every( variant => variant.sku );
 }
 
 /**
- * Get the initial product data needed for the SKU and product identifier assessments
- * for the variant with the given id from the JavaScript object injected by the server.
+ * Gets the initial product data needed for the SKU and product identifier assessments
+ * for the variant with the given ID from the JavaScript object injected by the server.
  *
  * @param {string} id The product variant ID.
  *
@@ -126,7 +126,7 @@ function getProductVariants() {
 }
 
 /**
- * Get the initial product data needed for the SKU and product identifier assessments
+ * Gets the initial product data needed for the SKU and product identifier assessments
  * from the JavaScript object injected by the server.
  *
  * @returns {Object} The initial product data needed for the SKU and product identifier assessments.
