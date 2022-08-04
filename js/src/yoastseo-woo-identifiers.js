@@ -1,6 +1,5 @@
 /* global jQuery, YoastSEO, wpseoWooIdentifiers, wpseoWooSKU */
 import { addFilter } from "@wordpress/hooks";
-import { setWith, merge } from "lodash-es";
 
 const identifierKeys = [
 	"gtin8",
@@ -11,89 +10,163 @@ const identifierKeys = [
 	"mpn",
 ];
 
-const SKUIdentifier = "sku";
-const SKUWooIdentifier = "_sku";
-
-let identifiersStore = merge( {}, wpseoWooIdentifiers || {} );
-let skuStore = merge( {}, wpseoWooSKU || {} );
-
-// Store to keep track of the deletion process for a single variation.
-let candidateForDeletion = "";
-
-// Store to keep track of whether identifiersStore can be trusted or should be reloaded.
-let variantIdentifierDataIsValid = true;
-
 /**
- * Checks whether the product has a global identifier
+ * Checks whether the product has a global identifier.
+ *
+ * @param {Object} product The product to check.
  *
  * @returns {boolean} Whether the product has a global identifier.
  */
-function hasGlobalSKU() {
-	return skuStore.global_sku !== "";
+function hasGlobalSKU( product ) {
+	return product.sku !== "";
 }
 
 /**
- * Checks whether the product has a global identifier
+ * Checks whether the product has an identifier
  *
- * @returns {boolean} Whether the product has a global identifier.
+ * @param {Object} product The product to check.
+ *
+ * @returns {boolean} Whether the product has an identifier.
  */
-function hasGlobalIdentifier() {
-	return Object.values( identifiersStore.global_identifier_values ).some( identifier => identifier !== "" );
+function hasGlobalIdentifier( product ) {
+	return !! (
+		product.productIdentifiers.gtin8 ||
+		product.productIdentifiers.gtin12 ||
+		product.productIdentifiers.gtin13 ||
+		product.productIdentifiers.gtin14 ||
+		product.productIdentifiers.isbn ||
+		product.productIdentifiers.mpn
+	);
 }
 
 /**
- * A function to calculate whether there are any variants.
+ * Checks whether there are any variants.
+ *
+ * @param {Object[]} productVariants The product variants.
  *
  * @returns {Boolean} Whether there are available variants.
  */
-function hasVariants() {
-	return identifiersStore.available_variations.length > 0;
+function hasVariants( productVariants ) {
+	return productVariants.length >= 1;
 }
 
 /**
- * A function to calculate whether or not all variants have at least one identifier set.
+ * Checks whether or not all variants have at least one identifier set.
+ *
+ * @param {Object[]} productVariants The product variants.
  *
  * @returns {Boolean} Whether or not all variants have at least one identifier set.
  */
-function doAllVariantsHaveIdentifier() {
-	if ( ! hasVariants() ) {
-		return false;
+function doAllVariantsHaveIdentifier( productVariants ) {
+	return productVariants.every( hasGlobalIdentifier );
+}
+
+/**
+ * Checks whether or not all variants have SKU.
+ *
+ * @param {Object[]} productVariants The product variants.
+ *
+ * @returns {Boolean} Whether all variants have SKU.
+ */
+function doAllVariantsHaveSkus( productVariants ) {
+	return productVariants.every( variant => variant.sku );
+}
+
+/**
+ * Gets the initial product data needed for the SKU and product identifier assessments
+ * for the variant with the given ID from the JavaScript object injected by the server.
+ *
+ * @param {string} id The product variant ID.
+ *
+ * @returns {Object} The initial product data needed for the SKU and product identifier assessments (for the variant with the given ID).
+ */
+function getInitialProductVariant( id ) {
+	return {
+		id,
+		hasPrice: wpseoWooIdentifiers.available_variations.includes( parseInt( id, 10 ) ),
+		sku: wpseoWooSKU.variations[ id ],
+		productIdentifiers: wpseoWooIdentifiers.variations[ id ],
+	};
+}
+
+/**
+ * Gets the product data needed for the SKU and product identifier assessments
+ * of all product variants from the page.
+ *
+ * @returns {Object[]} The product data needed for the SKU and product identifier assessments of all product variants.
+ */
+function getProductVariants() {
+	const variationElements = [ ...document.querySelectorAll( ".woocommerce_variation" ) ];
+
+	if ( variationElements.length === 0 ) {
+		// WooCommerce variations are not loaded yet, so try to use the initial data.
+		return Object.keys( wpseoWooIdentifiers.variations ).map( getInitialProductVariant );
 	}
 
-	// Gather all identifier objects for each variation. Make sure each has at least one non-empty identifier.
-	const allVariantsHaveIdentifier = identifiersStore.available_variations.every(
-		availableVariationId => {
-			const variation = identifiersStore.variations[ availableVariationId ];
-			// Return true if at least one identifier is set.
-			return Object.values( variation ).some( variationIdentifier => variationIdentifier !== "" );
+	return variationElements.map(
+		element => {
+			const id = element.querySelector( "input.variable_post_id" ).value;
+			const price = element.querySelector( "input.wc_input_price" ).value;
+			const sku = element.querySelector( "input[id^=variable_sku]" ).value;
+
+			const gtin8 = element.querySelector( `#yoast_variation_identifier\\[${id}\\]\\[gtin8\\]` ).value;
+			const gtin12 = element.querySelector( `#yoast_variation_identifier\\[${id}\\]\\[gtin12\\]` ).value;
+			const gtin13 = element.querySelector( `#yoast_variation_identifier\\[${id}\\]\\[gtin13\\]` ).value;
+			const gtin14 = element.querySelector( `#yoast_variation_identifier\\[${id}\\]\\[gtin14\\]` ).value;
+			const mpn = element.querySelector( `#yoast_variation_identifier\\[${id}\\]\\[mpn\\]` ).value;
+
+			return {
+				id,
+				hasPrice: !! price,
+				sku,
+				productIdentifiers: { gtin8, gtin12, gtin13, gtin14, mpn },
+			};
 		}
 	);
-	return allVariantsHaveIdentifier;
 }
 
 /**
- * A function to calculate whether or not all variants have at least one identifier set.
+ * Gets the initial product data needed for the SKU and product identifier assessments
+ * from the JavaScript object injected by the server.
  *
- * @returns {Boolean} Whether or not all variants have at least one identifier set.
+ * @returns {Object} The initial product data needed for the SKU and product identifier assessments.
  */
-function doAllVariantsHaveSkus() {
-	if ( ! hasVariants() ) {
-		return false;
-	}
-
-	// Gather all available variations, make sure their sku is a non-zero string.
-	return skuStore.available_variations.every(
-		availableVariationId => skuStore.variations[ availableVariationId ].length > 0
-	);
+function getInitialProductData() {
+	return {
+		sku: wpseoWooSKU.global_sku,
+		productIdentifiers: wpseoWooIdentifiers.global_identifier_values,
+	};
 }
 
 /**
- * A function that checks whether the identifier data can still be trusted.
+ * Get the product data needed for the SKU and product identifier assessments
+ * from the editor.
  *
- * @returns {Boolean} Whether the identifier data can still be trusted.
+ * @returns {Object} The product data needed for the SKU and product identifier assessments.
  */
-function isVariantIdentifierDataValid() {
-	return variantIdentifierDataIsValid;
+function getProductData() {
+	const sku = document.querySelector( "input#_sku" ).value;
+
+	const gtin8 = document.getElementById( "yoast_identfier_gtin8" ).value;
+	const gtin12 = document.getElementById( "yoast_identfier_gtin12" ).value;
+	const gtin13 = document.getElementById( "yoast_identfier_gtin13" ).value;
+	const gtin14 = document.getElementById( "yoast_identfier_gtin14" ).value;
+	const isbn = document.getElementById( "yoast_identfier_isbn" ).value;
+	const mpn = document.getElementById( "yoast_identfier_mpn" ).value;
+
+	const data = {
+		sku,
+		productIdentifiers: {
+			gtin8,
+			gtin12,
+			gtin13,
+			gtin14,
+			isbn,
+			mpn,
+		},
+	};
+
+	return Object.assign( {}, getInitialProductData(), data );
 }
 
 /**
@@ -105,115 +178,26 @@ function isVariantIdentifierDataValid() {
  */
 function enrichDataWithIdentifiers( data ) {
 	const newData = { ...data };
-	if ( ! Object.hasOwnProperty( newData, "customData" ) ) {
+	if ( ! newData.hasOwnProperty( "customData" ) ) {
 		newData.customData = {};
 	}
-	newData.customData = Object.assign( newData.customData, {
-		hasGlobalIdentifier: hasGlobalIdentifier(),
-		hasVariants: hasVariants(),
-		doAllVariantsHaveIdentifier: doAllVariantsHaveIdentifier(),
-		variantIdentifierDataIsValid: isVariantIdentifierDataValid(),
 
-		hasGlobalSKU: hasGlobalSKU(),
-		doAllVariantsHaveSKU: doAllVariantsHaveSkus(),
+	const product = getProductData();
+	const productVariants = getProductVariants();
+
+	// Only check whether product variants that have a price have the necessary SKU and product identifiers.
+	const variantsWithPrice = productVariants.filter( variant => variant.hasPrice );
+
+	newData.customData = Object.assign( newData.customData, {
+		hasGlobalIdentifier: hasGlobalIdentifier( product ),
+		hasVariants: hasVariants( variantsWithPrice ),
+		doAllVariantsHaveIdentifier: doAllVariantsHaveIdentifier( variantsWithPrice ),
+		hasGlobalSKU: hasGlobalSKU( product ),
+		doAllVariantsHaveSKU: doAllVariantsHaveSkus( variantsWithPrice ),
 	} );
 
 	return newData;
 }
-
-
-/**
- * Handles changes to the variation identifier fields that are in the dom after "variations loaded".
- *
- * @param {Event} event Change event
- *
- * @returns {void}
- */
-function handleVariationIdentifierChange( event ) {
-	const inputId = event.target.id;
-	const [ variantIdString, identifierKey ] = inputId.match( /(?<=\[)(.*?)(?=\])/g );
-	const variantId = parseInt( variantIdString, 10 );
-
-	// Create a mock object to merge with the identifiersStore (to avoid referencing issues).
-	const newVariations = setWith( {}, `variations[${ variantId }][${ identifierKey }]`, event.target.value, Object );
-	identifiersStore = merge( {}, identifiersStore, newVariations );
-
-	// Refresh the app so the analysis runs.
-	YoastSEO.app.refresh();
-}
-
-/**
- * Handles changes to the SKU fields that are in the dom after "variations loaded".
- *
- * @param {Event} event Change event
- *
- * @returns {void}
- */
-function handleSkuChange( event ) {
-	const inputId = event.target.id;
-	const [ nthSkuInput ] = inputId.match( /\d+/g );
-	const variationId = Object.keys( skuStore.variations )[ nthSkuInput ];
-
-	// Create a mock object to merge with the identifiersStore (to avoid referencing issues).
-	const newVariations = setWith( {}, `variations[${ variationId }]`, event.target.value, Object );
-	skuStore = merge( {}, skuStore, newVariations );
-
-	// Refresh the app so the analysis runs.
-	YoastSEO.app.refresh();
-}
-
-/**
- * Manipulates a specific store to update variations when an specific value is changed.
- *
- * @param {Object} store The store to update.
- * @param {boolean} shouldRefresh If the YoastSEO app should be reloaded after the change.
- * @param {int} changedId The variation id that is changed.
- * @param {string|int} newValue The value it is changed into.
- * @returns {boolean} if the app should be updated.
- */
-function updateStore( store, shouldRefresh, changedId, newValue ) {
-	// If the price was changed for an id that we don't know about, add the id to the variations store.
-	if ( ! Object.keys( store.variations ).includes( `${ changedId }` ) ) {
-		store.variations[ changedId ] = {};
-	}
-
-	if ( newValue === "" ) {
-		/* eslint-disable-next-line camelcase */
-		store.available_variations = store.available_variations.filter( id => changedId !== id );
-		shouldRefresh = true;
-	} else if ( ! store.available_variations.includes( changedId ) ) {
-		// If it's a new id that receives a price, add it to available variations.
-		store.available_variations.push( changedId );
-		shouldRefresh = true;
-	}
-
-	return shouldRefresh;
-}
-
-
-/**
- * Manipulates the store accordingly when there is a price change.
- *
- * @param {Event} event A change event.
- *
- * @returns {void}
- */
-function handlePriceChange( event ) {
-	// Get the id of the changed variation
-	const idElement = jQuery( event.target ).parents( ".woocommerce_variations .woocommerce_variation" ).find( "h3 strong" )[ 0 ];
-	const changedId = parseInt( idElement.innerText.substring( 1 ), 10 );
-	const newValue = event.target.value;
-	let shouldRefresh = false;
-
-	shouldRefresh = updateStore( identifiersStore, shouldRefresh, changedId, newValue );
-	shouldRefresh = updateStore( skuStore, shouldRefresh, changedId, newValue );
-
-	if ( shouldRefresh ) {
-		// Refresh the app so the analysis runs.
-		YoastSEO.app.refresh();
-	}
-}
-
 
 /**
  * A function that registers event listeners.
@@ -221,94 +205,44 @@ function handlePriceChange( event ) {
  * @returns {void}.
  */
 function registerEventListeners() {
-	/*
-	 Store bulk action in order to know what has happened when the variations block gets loaded again.
-	 We don't know what value the customer put in, and we don't know whether they've cancelled or not.
-	 */
-	jQuery( ".wc-metaboxes-wrapper" ).on( "click", "a.do_variation_action", () => {
-		// User is trying to "go" for the following bulk action:
-		const attemptedBulkACtion = jQuery( ".variation_actions" )[ 0 ].value;
-		if ( [
-			"variable_regular_price",
-			"variable_regular_price_increase",
-			"variable_regular_price_decrease",
-			"delete_all",
-		].includes( attemptedBulkACtion ) ) {
-			// We cannot guarantee data integrity because we don't know what the user decided, so we are asking for a reload.
-			variantIdentifierDataIsValid = false;
-			YoastSEO.app.refresh();
-		}
-	} );
+	// Listen for changes in the WooCommerce variations (e.g. adding or removing variations).
+	const variationsObserver = new MutationObserver( YoastSEO.app.refresh );
+	variationsObserver.observe( document.querySelector( ".woocommerce_variations" ), { childList: true } );
 
-	// If a user is trying to delete a variation, note the ID of the variant being removed.
-	jQuery( "#variable_product_options" ).on( "click", ".remove_variation", ( event ) => {
-		if ( event.target && event.target.rel ) {
-			candidateForDeletion = event.target.rel;
-		}
-	} );
-
-	// If "variations_removed" is called, see if we knew about a variant that was going to be deleted.
-	jQuery( "#woocommerce-product-data" ).on( "woocommerce_variations_removed", () => {
-		if ( candidateForDeletion === "" ) {
-			return;
-		}
-
-		// Remove the variation that was the candidate to delete.
-		const newAvailableVariations = identifiersStore.available_variations.filter( id => parseInt( candidateForDeletion, 10 ) !== id );
-		/* eslint-disable-next-line camelcase */
-		identifiersStore.available_variations = newAvailableVariations;
-		candidateForDeletion = "";
-
-		// Refresh the app so the analysis runs.
-		YoastSEO.app.refresh();
-	} );
-
-	// Detecht changes in the price inputs and handle them.
-	jQuery( document.body ).on( "change", "#variable_product_options .woocommerce_variations :input[id^=variable_regular_price]", handlePriceChange );
-
-	// Detect changes in the variation identifiers and handle them.
+	// Detect changes in the price inputs and handle them.
 	jQuery( document.body ).on(
-		"change", "#variable_product_options .woocommerce_variations :input[id^=yoast_variation_identifier]",
-		handleVariationIdentifierChange
+		"change",
+		"#variable_product_options .woocommerce_variations :input[id^=variable_regular_price]",
+		YoastSEO.app.refresh
 	);
 
-	// Detect changes in the variation identifiers and handle them.
+	// Detect changes in the variation product identifiers and handle them.
 	jQuery( document.body ).on(
-		"change", `#variable_product_options .woocommerce_variations :input[id^=variable${ SKUWooIdentifier }]`,
-		handleSkuChange
+		"change", "#variable_product_options .woocommerce_variations :input[id^=yoast_variation_identifier]",
+		YoastSEO.app.refresh
+	);
+
+	// Detect changes in the variation SKU identifiers and handle them.
+	jQuery( document.body ).on(
+		"change", "#variable_product_options .woocommerce_variations :input[id^=variable_sku]",
+		YoastSEO.app.refresh
 	);
 
 	// Register event listeners for the global identifier inputs (non-variation);
 	identifierKeys.forEach( key => {
 		const globalIdentifierInput = document.getElementById( `yoast_identfier_${ key }` );
-		globalIdentifierInput.addEventListener( "change", ( event ) => {
-			const newValue = event.target.value;
-
-			// Create a mock object to merge with the identifiersStore (to avoid referencing issues).
-			const newGlobalIdentifierValue = setWith( {}, `global_identifier_values.${ key }`, newValue );
-			identifiersStore = merge( {}, identifiersStore, newGlobalIdentifierValue );
-
-			// Refresh the app so the analysis runs.
-			YoastSEO.app.refresh();
-		} );
+		globalIdentifierInput.addEventListener( "change", YoastSEO.app.refresh );
 	} );
 
 	// Register event listeners for the global sku input from Woocommerce (non-variation);
-	const globalSkuInput = document.getElementById( SKUWooIdentifier );
-	globalSkuInput.addEventListener( "change", ( event ) => {
-		const newValue = event.target.value;
-
-		// Create a mock object to merge with the identifiersStore (to avoid referencing issues).
-		const newGlobalIdentifierValue = setWith( {}, `global_sku.${ SKUIdentifier }`, newValue );
-		skuStore = merge( {}, skuStore, newGlobalIdentifierValue );
-
-		// Refresh the app so the analysis runs.
-		YoastSEO.app.refresh();
-	} );
+	const globalSkuInput = document.getElementById( "_sku" );
+	globalSkuInput.addEventListener( "change", YoastSEO.app.refresh );
 }
 
 /**
- * Registers the global replacevar events.
+ * Initializes the code that listens for SKU and product identifier changes
+ * on the WooCommerce product in the editor, and sends this data over to the
+ * SEO analysis.
  *
  * @returns {void}
  */
