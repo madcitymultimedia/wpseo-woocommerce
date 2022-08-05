@@ -31,7 +31,7 @@ You can find the FAQ [online here](https://kb.yoast.com/kb/category/woocommerce-
 Changelog
 =========
 
-### 15.1: August 16th, 2022
+### 15.1: August 9th, 2022
 
 Other:
 
