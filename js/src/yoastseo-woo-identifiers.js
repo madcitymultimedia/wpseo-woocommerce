@@ -147,12 +147,12 @@ function getInitialProductData() {
 function getProductData() {
 	const sku = document.querySelector( "input#_sku" ).value;
 
-	const gtin8 = document.getElementById( "yoast_identfier_gtin8" ).value;
-	const gtin12 = document.getElementById( "yoast_identfier_gtin12" ).value;
-	const gtin13 = document.getElementById( "yoast_identfier_gtin13" ).value;
-	const gtin14 = document.getElementById( "yoast_identfier_gtin14" ).value;
-	const isbn = document.getElementById( "yoast_identfier_isbn" ).value;
-	const mpn = document.getElementById( "yoast_identfier_mpn" ).value;
+	const gtin8 = document.getElementById( "yoast_identifier_gtin8" ).value;
+	const gtin12 = document.getElementById( "yoast_identifier_gtin12" ).value;
+	const gtin13 = document.getElementById( "yoast_identifier_gtin13" ).value;
+	const gtin14 = document.getElementById( "yoast_identifier_gtin14" ).value;
+	const isbn = document.getElementById( "yoast_identifier_isbn" ).value;
+	const mpn = document.getElementById( "yoast_identifier_mpn" ).value;
 
 	const data = {
 		sku,
