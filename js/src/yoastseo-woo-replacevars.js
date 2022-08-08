@@ -198,12 +198,12 @@ YoastReplaceVarPlugin.prototype.replaceVariables = function( data ) {
 		data = data.replace( /%%wc_sku%%/g, jQuery( "#_sku" ).val() );
 		data = data.replace( /%%wc_shortdesc%%/g, getShortDescription() );
 		data = data.replace( /%%wc_brand%%/g, getBrand() );
-		data = data.replace( /%%wc_gtin8%%/g, jQuery( "#yoast_identfier_gtin8" ).val() );
-		data = data.replace( /%%wc_gtin12%%/g, jQuery( "#yoast_identfier_gtin12" ).val() );
-		data = data.replace( /%%wc_gtin13%%/g, jQuery( "#yoast_identfier_gtin13" ).val() );
-		data = data.replace( /%%wc_gtin14%%/g, jQuery( "#yoast_identfier_gtin14" ).val() );
-		data = data.replace( /%%wc_isbn%%/g, jQuery( "#yoast_identfier_isbn" ).val() );
-		data = data.replace( /%%wc_mpn%%/g, jQuery( "#yoast_identfier_mpn" ).val() );
+		data = data.replace( /%%wc_gtin8%%/g, jQuery( "#yoast_identifier_gtin8" ).val() );
+		data = data.replace( /%%wc_gtin12%%/g, jQuery( "#yoast_identifier_gtin12" ).val() );
+		data = data.replace( /%%wc_gtin13%%/g, jQuery( "#yoast_identifier_gtin13" ).val() );
+		data = data.replace( /%%wc_gtin14%%/g, jQuery( "#yoast_identifier_gtin14" ).val() );
+		data = data.replace( /%%wc_isbn%%/g, jQuery( "#yoast_identifier_isbn" ).val() );
+		data = data.replace( /%%wc_mpn%%/g, jQuery( "#yoast_identifier_mpn" ).val() );
 
 		data = this.replacePlaceholders( data );
 	}
