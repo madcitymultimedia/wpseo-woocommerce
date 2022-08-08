@@ -35,7 +35,7 @@ Changelog
 
 Other:
 
-* Makes WooCommerce SEO compatible with the latest version of Yoast SEO.
+* Makes Yoast WooCommerce SEO compatible with the new analysis edit buttons in Yoast SEO Premium.
 * Sets the minimum supported WordPress version to 5.9.
 * Sets the minimum supported Yoast SEO version to 19.5.
 
