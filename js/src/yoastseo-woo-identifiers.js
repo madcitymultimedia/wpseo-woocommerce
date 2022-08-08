@@ -230,7 +230,7 @@ function registerEventListeners() {
 
 	// Register event listeners for the global identifier inputs (non-variation);
 	identifierKeys.forEach( key => {
-		const globalIdentifierInput = document.getElementById( `yoast_identfier_${ key }` );
+		const globalIdentifierInput = document.getElementById( `yoast_identifier_${ key }` );
 		globalIdentifierInput.addEventListener( "change", YoastSEO.app.refresh );
 	} );
 
