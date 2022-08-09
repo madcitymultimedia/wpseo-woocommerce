@@ -145,6 +145,8 @@ function getInitialProductData() {
  * @returns {Object} The product data needed for the SKU and product identifier assessments.
  */
 function getProductData() {
+	const price = document.getElementById( "_regular_price" ).value;
+
 	const sku = document.querySelector( "input#_sku" ).value;
 
 	const gtin8 = document.getElementById( "yoast_identifier_gtin8" ).value;
@@ -156,6 +158,7 @@ function getProductData() {
 
 	const data = {
 		sku,
+		hasPrice: !! price,
 		productIdentifiers: {
 			gtin8,
 			gtin12,
@@ -189,6 +192,7 @@ function enrichDataWithIdentifiers( data ) {
 	const variantsWithPrice = productVariants.filter( variant => variant.hasPrice );
 
 	newData.customData = Object.assign( newData.customData, {
+		hasPrice: product.hasPrice,
 		hasGlobalIdentifier: hasGlobalIdentifier( product ),
 		hasVariants: hasVariants( variantsWithPrice ),
 		doAllVariantsHaveIdentifier: doAllVariantsHaveIdentifier( variantsWithPrice ),
@@ -205,6 +209,20 @@ function enrichDataWithIdentifiers( data ) {
  * @returns {void}.
  */
 function registerEventListeners() {
+	// Register event listeners for the global identifier inputs (non-variation);
+	identifierKeys.forEach( key => {
+		const globalIdentifierInput = document.getElementById( `yoast_identifier_${ key }` );
+		globalIdentifierInput.addEventListener( "change", YoastSEO.app.refresh );
+	} );
+
+	// Register event listeners for the global sku input from Woocommerce (non-variation);
+	const globalSkuInput = document.getElementById( "_sku" );
+	globalSkuInput.addEventListener( "change", YoastSEO.app.refresh );
+
+	// Detect changes in the regular price.
+	const globalPriceInput = document.getElementById( "_regular_price" );
+	globalPriceInput.addEventListener( "change", YoastSEO.app.refresh );
+
 	// Listen for changes in the WooCommerce variations (e.g. adding or removing variations).
 	const variationsObserver = new MutationObserver( YoastSEO.app.refresh );
 	variationsObserver.observe( document.querySelector( ".woocommerce_variations" ), { childList: true } );
@@ -227,16 +245,6 @@ function registerEventListeners() {
 		"change", "#variable_product_options .woocommerce_variations :input[id^=variable_sku]",
 		YoastSEO.app.refresh
 	);
-
-	// Register event listeners for the global identifier inputs (non-variation);
-	identifierKeys.forEach( key => {
-		const globalIdentifierInput = document.getElementById( `yoast_identifier_${ key }` );
-		globalIdentifierInput.addEventListener( "change", YoastSEO.app.refresh );
-	} );
-
-	// Register event listeners for the global sku input from Woocommerce (non-variation);
-	const globalSkuInput = document.getElementById( "_sku" );
-	globalSkuInput.addEventListener( "change", YoastSEO.app.refresh );
 }
 
 /**
