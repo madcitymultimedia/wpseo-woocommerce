@@ -222,7 +222,7 @@ function registerEventListeners() {
 	// Detect changes in the regular price.
 	const globalPriceInput = document.getElementById( "_regular_price" );
 	globalPriceInput.addEventListener( "change", YoastSEO.app.refresh );
-	
+
 	// Listen for changes in the WooCommerce variations (e.g. adding or removing variations).
 	const variationsObserver = new MutationObserver( YoastSEO.app.refresh );
 	variationsObserver.observe( document.querySelector( ".woocommerce_variations" ), { childList: true } );
