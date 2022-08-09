@@ -2,7 +2,7 @@ WooCommerce Yoast SEO
 =====================
 Requires at least: 5.9
 Tested up to: 6.0
-Stable tag: 15.1-RC1
+Stable tag: 15.1
 Requires PHP: 5.6.20
 Depends: Yoast SEO, WooCommerce
 
@@ -31,11 +31,11 @@ You can find the FAQ [online here](https://kb.yoast.com/kb/category/woocommerce-
 Changelog
 =========
 
-### 15.1: August 16th, 2022
+### 15.1: August 9th, 2022
 
 Other:
 
-* Makes WooCommerce SEO compatible with the latest version of Yoast SEO.
+* Makes Yoast WooCommerce SEO compatible with the new analysis edit buttons in Yoast SEO Premium.
 * Sets the minimum supported WordPress version to 5.9.
 * Sets the minimum supported Yoast SEO version to 19.5.
 
