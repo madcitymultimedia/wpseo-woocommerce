@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b156317f6f5eda2aefe46790a3ad88ca",
+    "content-hash": "bcf9c4ac03ff03be312605cf36578be1",
     "packages": [
         {
             "name": "composer/installers",
@@ -2167,16 +2167,16 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.7.1",
+            "version": "3.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "1359e176e9307e906dc3d890bcc9603ff6d90619"
+                "reference": "5e4e71592f69da17871dba6e80dd51bce74a351a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/1359e176e9307e906dc3d890bcc9603ff6d90619",
-                "reference": "1359e176e9307e906dc3d890bcc9603ff6d90619",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/5e4e71592f69da17871dba6e80dd51bce74a351a",
+                "reference": "5e4e71592f69da17871dba6e80dd51bce74a351a",
                 "shasum": ""
             },
             "require": {
@@ -2219,7 +2219,7 @@
                 "source": "https://github.com/squizlabs/PHP_CodeSniffer",
                 "wiki": "https://github.com/squizlabs/PHP_CodeSniffer/wiki"
             },
-            "time": "2022-06-18T07:21:10+00:00"
+            "time": "2021-12-12T21:44:58+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -2538,16 +2538,16 @@
         },
         {
             "name": "yoast/wordpress-seo",
-            "version": "dev-trunk",
+            "version": "dev-release/19.5",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Yoast/wordpress-seo.git",
-                "reference": "04ecc472de85402fe4fcf91457763bb6d1d0b465"
+                "url": "https://github.com/yoast/wordpress-seo",
+                "reference": "970781d0d6fa1411ae7f475da12a74974b7effe7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/04ecc472de85402fe4fcf91457763bb6d1d0b465",
-                "reference": "04ecc472de85402fe4fcf91457763bb6d1d0b465",
+                "url": "https://api.github.com/repos/yoast/wordpress-seo/zipball/970781d0d6fa1411ae7f475da12a74974b7effe7",
+                "reference": "970781d0d6fa1411ae7f475da12a74974b7effe7",
                 "shasum": ""
             },
             "require": {
@@ -2574,7 +2574,6 @@
                 "yoast/wp-test-utils": "^1.0.0",
                 "yoast/yoastcs": "^2.2.1"
             },
-            "default-branch": true,
             "type": "wordpress-plugin",
             "autoload": {
                 "classmap": [
@@ -2614,7 +2613,7 @@
                     "Yoast\\WP\\SEO\\Composer\\Actions::check_coding_standards"
                 ],
                 "check-cs-thresholds": [
-                    "@putenv YOASTCS_THRESHOLD_ERRORS=144",
+                    "@putenv YOASTCS_THRESHOLD_ERRORS=152",
                     "@putenv YOASTCS_THRESHOLD_WARNINGS=209",
                     "Yoast\\WP\\SEO\\Composer\\Actions::check_cs_thresholds"
                 ],
@@ -2696,7 +2695,7 @@
                 "wiki": "https://github.com/Yoast/wordpress-seo/wiki",
                 "source": "https://github.com/Yoast/wordpress-seo"
             },
-            "time": "2022-08-08T12:39:17+00:00"
+            "time": "2022-08-02T14:24:36+00:00"
         },
         {
             "name": "yoast/wp-test-utils",
@@ -2836,5 +2835,5 @@
     "platform-overrides": {
         "php": "5.6.40"
     },
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.2.0"
 }
