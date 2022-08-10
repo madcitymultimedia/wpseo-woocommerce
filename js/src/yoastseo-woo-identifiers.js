@@ -200,7 +200,7 @@ function enrichDataWithIdentifiers( data ) {
 		hasPrice: product.hasPrice,
 		productType: product.productType,
 		hasGlobalIdentifier: hasGlobalIdentifier( product ),
-		hasVariants: hasVariants( variantsWithPrice ),
+		hasVariants: hasVariants( variantsWithPrice ) && product.productType === "variable", // This assumes that
 		doAllVariantsHaveIdentifier: doAllVariantsHaveIdentifier( variantsWithPrice ),
 		hasGlobalSKU: hasGlobalSKU( product ),
 		doAllVariantsHaveSKU: doAllVariantsHaveSkus( variantsWithPrice ),
