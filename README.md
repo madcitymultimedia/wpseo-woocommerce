@@ -2,7 +2,7 @@ WooCommerce Yoast SEO
 =====================
 Requires at least: 5.9
 Tested up to: 6.0
-Stable tag: 15.2-RC2
+Stable tag: 15.2-RC3
 Requires PHP: 5.6.20
 Depends: Yoast SEO, WooCommerce
 
@@ -33,9 +33,11 @@ Changelog
 
 ### 15.2: August 23rd, 2022
 
+
 Bugfixes:
 
 * Fixes two prices being shown in the Slack integration metadata when a product is on sale.
+* Minor security improvement
 
 Other:
 
