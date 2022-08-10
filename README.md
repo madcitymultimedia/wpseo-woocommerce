@@ -33,14 +33,15 @@ Changelog
 
 ### 15.2: August 23rd, 2022
 
+
 Bugfixes:
 
 * Fixes two prices being shown in the Slack integration metadata when a product is on sale.
+* Minor security improvement
 
 Other:
 
 * Sets the minimum supported WordPress version to 5.9.
-* Sets the minimum required version of Yoast SEO to 19.6.
 
 ### 15.1: August 9th, 2022
 
