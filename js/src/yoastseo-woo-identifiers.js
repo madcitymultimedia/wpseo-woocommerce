@@ -170,8 +170,9 @@ function getProductData() {
 			isbn,
 			mpn,
 		},
+		productType: productType,
 	};
-
+	console.log("TEST4", data)
 	return Object.assign( {}, getInitialProductData(), data );
 }
 
@@ -196,14 +197,32 @@ function enrichDataWithIdentifiers( data ) {
 
 	newData.customData = Object.assign( newData.customData, {
 		hasPrice: product.hasPrice,
+		productType: product.productType,
 		hasGlobalIdentifier: hasGlobalIdentifier( product ),
 		hasVariants: hasVariants( variantsWithPrice ),
 		doAllVariantsHaveIdentifier: doAllVariantsHaveIdentifier( variantsWithPrice ),
 		hasGlobalSKU: hasGlobalSKU( product ),
 		doAllVariantsHaveSKU: doAllVariantsHaveSkus( variantsWithPrice ),
 	} );
-
+	console.log("TEST5", newData)
 	return newData;
+}
+
+/**
+ * Registers a mutation observer that observes
+ * whether new product variatons are added or removed from the page.
+ *
+ * @param {MutationRecord[]} _ mutation records (unused).
+ * @param {MutationObserver} observer The mutation observer triggering this function.
+ *
+ * @returns {void}
+ */
+function registerVariationsObserver( _, observer ) {
+	// Listen for changes in the WooCommerce variations (e.g. adding or removing variations).
+	const variationsObserver = new MutationObserver( YoastSEO.app.refresh );
+	variationsObserver.observe( document.querySelector( ".woocommerce_variations" ), { childList: true } );
+	// Remove the observer again, now the variations observer is working.
+	observer.disconnect();
 }
 
 /**
@@ -235,6 +254,9 @@ function registerEventListeners() {
 	// Listen for changes in the WooCommerce variations (e.g. adding or removing variations).
 	const variationsObserver = new MutationObserver( YoastSEO.app.refresh );
 	variationsObserver.observe( document.querySelector( ".woocommerce_variations" ), { childList: true } );
+	// Since new products do not have a variations element yet, observe the variations tab until it has one.
+	const observer = new MutationObserver( registerVariationsObserver );
+	observer.observe( document.getElementById( "variable_product_options_inner" ), { childList: true } );
 
 	// Detect changes in the price inputs and handle them.
 	jQuery( document.body ).on(
