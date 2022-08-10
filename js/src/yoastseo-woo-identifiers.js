@@ -162,6 +162,7 @@ function getProductData() {
 	const data = {
 		sku,
 		hasPrice: !! price,
+		productType: productType,
 		productIdentifiers: {
 			gtin8,
 			gtin12,
@@ -170,7 +171,7 @@ function getProductData() {
 			isbn,
 			mpn,
 		},
-		productType: productType,
+
 	};
 	console.log("TEST4", data)
 	return Object.assign( {}, getInitialProductData(), data );
