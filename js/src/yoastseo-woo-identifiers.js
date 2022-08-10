@@ -156,6 +156,9 @@ function getProductData() {
 	const isbn = document.getElementById( "yoast_identifier_isbn" ).value;
 	const mpn = document.getElementById( "yoast_identifier_mpn" ).value;
 
+	const productType = document.querySelector("select#product-type").value;
+	console.log("TEST3", productType) ;
+
 	const data = {
 		sku,
 		hasPrice: !! price,
@@ -222,6 +225,12 @@ function registerEventListeners() {
 	// Detect changes in the regular price.
 	const globalPriceInput = document.getElementById( "_regular_price" );
 	globalPriceInput.addEventListener( "change", YoastSEO.app.refresh );
+
+	// Detect changes in the regular price.
+	const productTypeInput = document.querySelector( "select#product-type" );
+	console.log("TEST1", productTypeInput)
+	// ProductType.addEventListener( "change", YoastSEO.app.refresh );
+	productTypeInput.addEventListener( "change", YoastSEO.app.refresh );
 
 	// Listen for changes in the WooCommerce variations (e.g. adding or removing variations).
 	const variationsObserver = new MutationObserver( YoastSEO.app.refresh );
