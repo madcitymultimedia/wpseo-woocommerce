@@ -33,9 +33,11 @@ Changelog
 
 ### 15.2: August 23rd, 2022
 
+
 Bugfixes:
 
 * Fixes two prices being shown in the Slack integration metadata when a product is on sale.
+* Minor security improvement
 
 Other:
 
