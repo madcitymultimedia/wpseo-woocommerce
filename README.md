@@ -2,7 +2,7 @@ WooCommerce Yoast SEO
 =====================
 Requires at least: 5.9
 Tested up to: 6.0
-Stable tag: 15.1
+Stable tag: 15.2-RC3
 Requires PHP: 5.6.20
 Depends: Yoast SEO, WooCommerce
 
@@ -31,6 +31,18 @@ You can find the FAQ [online here](https://kb.yoast.com/kb/category/woocommerce-
 Changelog
 =========
 
+### 15.2: August 23rd, 2022
+
+
+Bugfixes:
+
+* Fixes two prices being shown in the Slack integration metadata when a product is on sale.
+* Minor security improvement
+
+Other:
+
+* Sets the minimum supported WordPress version to 5.9.
+
 ### 15.1: August 9th, 2022
 
 Other:
@@ -39,22 +51,6 @@ Other:
 * Sets the minimum supported WordPress version to 5.9.
 * Sets the minimum supported Yoast SEO version to 19.5.
 
-
-### 15.0: July 12th, 2022
-
-Enhancements:
-
-* Improves the readability analysis for English by adding a word complexity assessment for Product pages.
-* Updates the Schema manipulation to follow the new best-practice for the `@id` of the `WebPage` piece introduced by Yoast SEO 19.3.
-
-Bugfixes:
-
-* Fixes a bug where the keyphrase distribution assessments would error, or fail to mark the found keyphrases in the text, when using keyphrases that include some regular expression control characters, for example brackets.
-
-Other:
-
-* Edits typo in id name for product variants identifiers.
-* Sets the minimum required Yoast SEO version to 19.3.
 
 ### Earlier versions
 For the changelog of earlier versions, please refer to [the changelog on yoast.com](https://yoa.st/woo-seo-changelog).
