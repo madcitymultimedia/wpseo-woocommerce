@@ -248,9 +248,6 @@ function registerEventListeners() {
 	// ProductType.addEventListener( "change", YoastSEO.app.refresh );
 	productTypeInput.addEventListener( "change", YoastSEO.app.refresh );
 
-	// Listen for changes in the WooCommerce variations (e.g. adding or removing variations).
-	const variationsObserver = new MutationObserver( YoastSEO.app.refresh );
-	variationsObserver.observe( document.querySelector( ".woocommerce_variations" ), { childList: true } );
 	// Since new products do not have a variations element yet, observe the variations tab until it has one.
 	const observer = new MutationObserver( registerVariationsObserver );
 	observer.observe( document.getElementById( "variable_product_options_inner" ), { childList: true } );
