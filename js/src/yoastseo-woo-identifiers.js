@@ -202,6 +202,7 @@ function enrichDataWithIdentifiers( data ) {
 		hasGlobalSKU: hasGlobalSKU( product ),
 		doAllVariantsHaveSKU: doAllVariantsHaveSkus( variantsWithPrice ),
 	} );
+
 	return newData;
 }
 
