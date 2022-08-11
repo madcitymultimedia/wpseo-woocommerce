@@ -156,9 +156,12 @@ function getProductData() {
 	const isbn = document.getElementById( "yoast_identifier_isbn" ).value;
 	const mpn = document.getElementById( "yoast_identifier_mpn" ).value;
 
+	const productType = document.querySelector( "select#product-type" ).value;
+
 	const data = {
 		sku,
 		hasPrice: !! price,
+		productType: productType,
 		productIdentifiers: {
 			gtin8,
 			gtin12,
@@ -168,7 +171,6 @@ function getProductData() {
 			mpn,
 		},
 	};
-
 	return Object.assign( {}, getInitialProductData(), data );
 }
 
@@ -193,6 +195,7 @@ function enrichDataWithIdentifiers( data ) {
 
 	newData.customData = Object.assign( newData.customData, {
 		hasPrice: product.hasPrice,
+		productType: product.productType,
 		hasGlobalIdentifier: hasGlobalIdentifier( product ),
 		hasVariants: hasVariants( variantsWithPrice ),
 		doAllVariantsHaveIdentifier: doAllVariantsHaveIdentifier( variantsWithPrice ),
@@ -239,6 +242,11 @@ function registerEventListeners() {
 	// Detect changes in the regular price.
 	const globalPriceInput = document.getElementById( "_regular_price" );
 	globalPriceInput.addEventListener( "change", YoastSEO.app.refresh );
+
+	// Detect changes in the regular price.
+	const productTypeInput = document.querySelector( "select#product-type" );
+	// ProductType.addEventListener( "change", YoastSEO.app.refresh );
+	productTypeInput.addEventListener( "change", YoastSEO.app.refresh );
 
 	// Since new products do not have a variations element yet, observe the variations tab until it has one.
 	const observer = new MutationObserver( registerVariationsObserver );
