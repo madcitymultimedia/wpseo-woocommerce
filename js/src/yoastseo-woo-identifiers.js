@@ -156,8 +156,7 @@ function getProductData() {
 	const isbn = document.getElementById( "yoast_identifier_isbn" ).value;
 	const mpn = document.getElementById( "yoast_identifier_mpn" ).value;
 
-	const productType = document.querySelector("select#product-type").value;
-	console.log("TEST3", productType) ;
+	const productType = document.querySelector( "select#product-type" ).value;
 
 	const data = {
 		sku,
@@ -200,7 +199,7 @@ function enrichDataWithIdentifiers( data ) {
 		hasPrice: product.hasPrice,
 		productType: product.productType,
 		hasGlobalIdentifier: hasGlobalIdentifier( product ),
-		hasVariants: hasVariants( variantsWithPrice ) && product.productType === "variable", // This assumes that
+		hasVariants: hasVariants( variantsWithPrice ),
 		doAllVariantsHaveIdentifier: doAllVariantsHaveIdentifier( variantsWithPrice ),
 		hasGlobalSKU: hasGlobalSKU( product ),
 		doAllVariantsHaveSKU: doAllVariantsHaveSkus( variantsWithPrice ),
@@ -248,7 +247,6 @@ function registerEventListeners() {
 
 	// Detect changes in the regular price.
 	const productTypeInput = document.querySelector( "select#product-type" );
-	console.log("TEST1", productTypeInput)
 	// ProductType.addEventListener( "change", YoastSEO.app.refresh );
 	productTypeInput.addEventListener( "change", YoastSEO.app.refresh );
 
