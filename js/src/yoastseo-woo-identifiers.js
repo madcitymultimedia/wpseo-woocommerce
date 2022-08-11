@@ -170,7 +170,6 @@ function getProductData() {
 			isbn,
 			mpn,
 		},
-
 	};
 
 	return Object.assign( {}, getInitialProductData(), data );
