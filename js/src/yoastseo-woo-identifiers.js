@@ -170,6 +170,7 @@ function getProductData() {
 			isbn,
 			mpn,
 		},
+		productType: productType,
 	};
 
 	return Object.assign( {}, getInitialProductData(), data );
@@ -196,6 +197,7 @@ function enrichDataWithIdentifiers( data ) {
 
 	newData.customData = Object.assign( newData.customData, {
 		hasPrice: product.hasPrice,
+		productType: product.productType,
 		hasGlobalIdentifier: hasGlobalIdentifier( product ),
 		hasVariants: hasVariants( variantsWithPrice ),
 		doAllVariantsHaveIdentifier: doAllVariantsHaveIdentifier( variantsWithPrice ),
