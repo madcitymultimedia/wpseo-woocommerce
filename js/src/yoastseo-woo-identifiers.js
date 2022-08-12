@@ -253,7 +253,7 @@ function registerEventListeners() {
 	// Since new products do not have a variations element yet, observe the variations tab until it has one.
 	const observer = new MutationObserver( registerVariationsObserver );
 	observer.observe( document.getElementById( "variable_product_options_inner" ), { childList: true } );
-	
+
 	// Detect changes in the price inputs and handle them.
 	jQuery( document.body ).on(
 		"change",
