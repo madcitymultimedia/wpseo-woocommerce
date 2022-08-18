@@ -525,6 +525,7 @@ class WPSEO_WooCommerce_Schema {
 				'gtin13',
 				'gtin14',
 				'mpn',
+				'asin',
 			];
 
 			foreach ( $global_identifier_types as $global_identifier_type ) {
