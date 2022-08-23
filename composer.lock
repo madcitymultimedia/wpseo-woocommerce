@@ -2542,16 +2542,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yoast/wordpress-seo.git",
-                "reference": "4f0a758c08a764b5bdd8d5bdfdf08170a777ab80"
+                "reference": "870f77d12c05286449a0447906eab37eedf269db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/4f0a758c08a764b5bdd8d5bdfdf08170a777ab80",
-                "reference": "4f0a758c08a764b5bdd8d5bdfdf08170a777ab80",
+                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/870f77d12c05286449a0447906eab37eedf269db",
+                "reference": "870f77d12c05286449a0447906eab37eedf269db",
                 "shasum": ""
             },
             "require": {
-                "composer/installers": "^1.12.0",
+                "composer/installers": "^1.12 || ^2.0",
                 "php": "^5.6.20 || ^7.0 || ^8.0",
                 "yoast/i18n-module": "^3.1.1"
             },
@@ -2696,7 +2696,7 @@
                 "wiki": "https://github.com/Yoast/wordpress-seo/wiki",
                 "source": "https://github.com/Yoast/wordpress-seo"
             },
-            "time": "2022-08-10T12:33:20+00:00"
+            "time": "2022-08-23T08:09:19+00:00"
         },
         {
             "name": "yoast/wp-test-utils",
@@ -2824,7 +2824,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "yoast/wordpress-seo": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
@@ -2834,5 +2836,5 @@
     "platform-overrides": {
         "php": "5.6.40"
     },
-    "plugin-api-version": "2.0.0"
+    "plugin-api-version": "2.1.0"
 }
