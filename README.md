@@ -31,15 +31,13 @@ You can find the FAQ [online here](https://kb.yoast.com/kb/category/woocommerce-
 Changelog
 =========
 
-### 15.2: August 23rd, 2022
-
-
+### 15.2: September 6th, 2022
 
 Enhancements:
 
 * Adds a new assessment which checks whether products (or product variants) have an identifier.
 * Adds a new assessment which checks whether products (or product variants) have a SKU.
-* Adds support for the ASIN values and adds these to Product/Offer schema nodes
+* Adds support for the ASIN values and adds these to Product/Offer schema nodes.
 
 Bugfixes:
 
