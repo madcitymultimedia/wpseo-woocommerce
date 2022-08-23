@@ -207,23 +207,6 @@ function enrichDataWithIdentifiers( data ) {
 }
 
 /**
- * Registers a mutation observer that observes
- * whether new product variatons are added or removed from the page.
- *
- * @param {MutationRecord[]} _ mutation records (unused).
- * @param {MutationObserver} observer The mutation observer triggering this function.
- *
- * @returns {void}
- */
-function registerVariationsObserver( _, observer ) {
-	// Listen for changes in the WooCommerce variations (e.g. adding or removing variations).
-	const variationsObserver = new MutationObserver( YoastSEO.app.refresh );
-	variationsObserver.observe( document.querySelector( ".woocommerce_variations" ), { childList: true } );
-	// Remove the observer again, now the variations observer is working.
-	observer.disconnect();
-}
-
-/**
  * A function that registers event listeners.
  *
  * @returns {void}.
@@ -248,9 +231,9 @@ function registerEventListeners() {
 	// ProductType.addEventListener( "change", YoastSEO.app.refresh );
 	productTypeInput.addEventListener( "change", YoastSEO.app.refresh );
 
-	// Since new products do not have a variations element yet, observe the variations tab until it has one.
-	const observer = new MutationObserver( registerVariationsObserver );
-	observer.observe( document.getElementById( "variable_product_options_inner" ), { childList: true } );
+	// Listen for changes in the WooCommerce variations (e.g. adding or removing variations).
+	const variationsObserver = new MutationObserver( YoastSEO.app.refresh );
+	variationsObserver.observe( document.getElementById( "variable_product_options" ),  { childList: true, subtree: true, attributes: true } );
 
 	// Detect changes in the price inputs and handle them.
 	jQuery( document.body ).on(
