@@ -10,13 +10,6 @@ const identifierKeys = [
 	"mpn",
 ];
 
-/*
- Whether the variant data is valid or not. We are not currently able to detect a change to the data resulting from
- certain actions. When this happens, we set this variable to 'false' and return a grey bullet for the assessment
- asking the user to refresh the page.
-*/
-let variantDataIsValid = true;
-
 /**
  * Checks whether the product has a global identifier.
  *
@@ -77,15 +70,6 @@ function doAllVariantsHaveIdentifier( productVariants ) {
  */
 function doAllVariantsHaveSkus( productVariants ) {
 	return productVariants.every( variant => variant.sku );
-}
-
-/**
- * Checks whether the identifier data is valid.
- **
- * @returns {Boolean} Whether the identifier data is valid.
- */
-function isVariantDataValid() {
-	return variantDataIsValid;
 }
 
 /**
@@ -218,7 +202,6 @@ function enrichDataWithIdentifiers( data ) {
 		doAllVariantsHaveIdentifier: doAllVariantsHaveIdentifier( variantsWithPrice ),
 		hasGlobalSKU: hasGlobalSKU( product ),
 		doAllVariantsHaveSKU: doAllVariantsHaveSkus( variantsWithPrice ),
-		isVariantDataValid: isVariantDataValid(),
 	} );
 
 	return newData;
@@ -288,30 +271,6 @@ function registerEventListeners() {
 		"change", "#variable_product_options .woocommerce_variations :input[id^=variable_sku]",
 		YoastSEO.app.refresh
 	);
-
-	/*
-	 The above listeners don't currently detect changes as a result of performing bulk actions for product variants.
-	 Therefore, when a user performs a bulk action we don't have valid variant data until the page is refreshed.
-	 */
-	jQuery( ".wc-metaboxes-wrapper" ).on( "click", "a.do_variation_action", () => {
-		// User is trying to "go" for the following bulk action:
-		const attemptedBulkACtion = jQuery( ".variation_actions" )[ 0 ].value;
-		if ( [
-			"variable_regular_price",
-			"variable_regular_price_increase",
-			"variable_regular_price_decrease",
-			"delete_all",
-		].includes( attemptedBulkACtion ) ) {
-			variantDataIsValid = false;
-			YoastSEO.app.refresh();
-		}
-	} );
-
-	// The above listeners also don't detect when individual variants are removed.
-	jQuery( "#variable_product_options" ).on( "click", ".remove_variation", () => {
-		variantDataIsValid = false;
-		YoastSEO.app.refresh();
-	} );
 }
 
 /**
