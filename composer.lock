@@ -2541,12 +2541,12 @@
             "version": "19.6",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Yoast/wordpress-seo.git",
+                "url": "https://github.com/yoast/wordpress-seo",
                 "reference": "633de089568202df1df76fad1036dd6cdb248c96"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/633de089568202df1df76fad1036dd6cdb248c96",
+                "url": "https://api.github.com/repos/yoast/wordpress-seo/zipball/633de089568202df1df76fad1036dd6cdb248c96",
                 "reference": "633de089568202df1df76fad1036dd6cdb248c96",
                 "shasum": ""
             },
@@ -2833,5 +2833,5 @@
     "platform-overrides": {
         "php": "5.6.40"
     },
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.2.0"
 }
