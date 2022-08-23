@@ -10,7 +10,11 @@ const identifierKeys = [
 	"mpn",
 ];
 
-// Store to keep track of whether identifiersStore can be trusted or should be reloaded.
+/*
+ Whether the variant data is valid or not. We are not currently able to detect a change to the data resulting from
+ certain actions. When this happens, we set this variable to 'false' and return a grey bullet for the assessment
+ asking the user to refresh the page.
+*/
 let variantDataIsValid = true;
 
 /**
@@ -286,8 +290,8 @@ function registerEventListeners() {
 	);
 
 	/*
-	 Store bulk action in order to know what has happened when the variations block gets loaded again.
-	 We don't know what value the customer put in, and we don't know whether they've cancelled or not.
+	 The above listeners don't currently detect changes as a result of performing bulk actions for product variants.
+	 Therefore, when a user performs a bulk action we don't have valid variant data until the page is refreshed.
 	 */
 	jQuery( ".wc-metaboxes-wrapper" ).on( "click", "a.do_variation_action", () => {
 		// User is trying to "go" for the following bulk action:
@@ -303,7 +307,8 @@ function registerEventListeners() {
 		}
 	} );
 
-	jQuery( "#variable_product_options" ).on( "click", ".remove_variation", ( ) => {
+	// The above listeners also don't detect when individual variants are removed.
+	jQuery( "#variable_product_options" ).on( "click", ".remove_variation", () => {
 		variantDataIsValid = false;
 		YoastSEO.app.refresh();
 	} );
