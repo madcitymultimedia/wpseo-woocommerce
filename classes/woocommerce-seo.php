@@ -1025,13 +1025,6 @@ class Yoast_WooCommerce_SEO {
 			'basic',
 			'The product\'s MPN identifier.'
 		);
-
-		wpseo_register_var_replacement(
-			'wc_asin',
-			[ $this, 'get_product_var_asin' ],
-			'basic',
-			'The product\'s ASIN identifier.'
-		);
 	}
 
 	/**
@@ -1291,15 +1284,6 @@ class Yoast_WooCommerce_SEO {
 	 */
 	public function get_product_var_mpn() {
 		return $this->get_product_identifier( 'mpn' );
-	}
-
-	/**
-	 * Retrieves the product ASIN identifier.
-	 *
-	 * @return string The product ASIN identifier.
-	 */
-	public function get_product_var_asin() {
-		return $this->get_product_identifier( 'asin' );
 	}
 
 	/**
