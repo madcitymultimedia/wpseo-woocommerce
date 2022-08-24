@@ -168,7 +168,6 @@ YoastReplaceVarPlugin.prototype.registerReplacements = function() {
 	this.addReplacement( new ReplaceVar( "%%wc_gtin14%%",    "wc_gtin14" ) );
 	this.addReplacement( new ReplaceVar( "%%wc_isbn%%",      "wc_isbn" ) );
 	this.addReplacement( new ReplaceVar( "%%wc_mpn%%",       "wc_mpn" ) );
-	this.addReplacement( new ReplaceVar( "%%wc_asin%%",       "wc_asin" ) );
 };
 
 /**
@@ -205,7 +204,6 @@ YoastReplaceVarPlugin.prototype.replaceVariables = function( data ) {
 		data = data.replace( /%%wc_gtin14%%/g, jQuery( "#yoast_identifier_gtin14" ).val() );
 		data = data.replace( /%%wc_isbn%%/g, jQuery( "#yoast_identifier_isbn" ).val() );
 		data = data.replace( /%%wc_mpn%%/g, jQuery( "#yoast_identifier_mpn" ).val() );
-		data = data.replace( /%%wc_asin%%/g, jQuery( "#yoast_identifier_asin" ).val() );
 
 		data = this.replacePlaceholders( data );
 	}
