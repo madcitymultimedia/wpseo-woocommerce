@@ -556,7 +556,6 @@ class Schema_Test extends TestCase {
 				'gtin14' => '',
 				'isbn'   => '',
 				'mpn'    => '',
-				'asin'   => '',
 			],
 			[
 				'gtin8'  => '',
@@ -565,7 +564,6 @@ class Schema_Test extends TestCase {
 				'gtin14' => '',
 				'isbn'   => '',
 				'mpn'    => '',
-				'asin'   => '',
 			],
 			[
 				'gtin8'  => '',
@@ -574,7 +572,6 @@ class Schema_Test extends TestCase {
 				'gtin14' => '0123456789101112',
 				'isbn'   => '',
 				'mpn'    => '',
-				'asin'   => '',
 			],
 		];
 
@@ -585,7 +582,6 @@ class Schema_Test extends TestCase {
 			'gtin14' => '',
 			'isbn'   => '',
 			'mpn'    => '',
-			'asin'   => '',
 		];
 
 		$expected_output = [
@@ -896,32 +892,6 @@ class Schema_Test extends TestCase {
 		$schema->add_global_identifier( $product );
 
 		$this->assertSame( [ 'gtin8' => '123' ], $schema->data );
-	}
-
-	/**
-	 * Test adding the ASIN identifier
-	 *
-	 * @covers ::add_global_identifier
-	 */
-	public function test_add_global_identifier_asin() {
-		$product = Mockery::mock( 'WC_Product' );
-		$product->expects( 'get_id' )->once()->andReturn( 123 );
-
-		$data = [
-			'asin'   => '123',
-			'gtin12' => '',
-		];
-
-		Functions\stubs(
-			[
-				'get_post_meta' => $data,
-			]
-		);
-
-		$schema = new Schema_Double();
-		$schema->add_global_identifier( $product );
-
-		$this->assertSame( [ 'asin' => '123' ], $schema->data );
 	}
 
 	/**

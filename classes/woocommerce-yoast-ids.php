@@ -21,7 +21,6 @@ class WPSEO_WooCommerce_Yoast_Ids {
 		'gtin13' => 'GTIN13 / EAN',
 		'gtin14' => 'GTIN14 / ITF-14',
 		'mpn'    => 'MPN',
-		'asin'   => 'ASIN',
 	];
 
 	/**

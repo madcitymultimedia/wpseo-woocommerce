@@ -22,7 +22,6 @@ class WPSEO_WooCommerce_Yoast_Tab {
 		'gtin14' => 'GTIN14 / ITF-14',
 		'isbn'   => 'ISBN',
 		'mpn'    => 'MPN',
-		'asin'   => 'ASIN',
 	];
 
 	/**
