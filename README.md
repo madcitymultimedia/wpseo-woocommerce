@@ -37,7 +37,6 @@ Enhancements:
 
 * Adds a new assessment which checks whether products (or product variants) have an identifier.
 * Adds a new assessment which checks whether products (or product variants) have a SKU.
-* Adds support for the ASIN values and adds these to Product/Offer schema nodes.
 
 Bugfixes:
 
