@@ -46,7 +46,6 @@ Bugfixes:
 Other:
 
 * Sets the minimum required version of Yoast SEO to 19.6.
-* Sets the minimum supported WordPress version to 5.9.
 
 ### 15.1: August 9th, 2022
 
