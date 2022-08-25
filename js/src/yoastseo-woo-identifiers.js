@@ -83,7 +83,6 @@ function doAllVariantsHaveSkus( productVariants ) {
 function getInitialProductVariant( id ) {
 	return {
 		id,
-		hasPrice: wpseoWooIdentifiers.available_variations.includes( parseInt( id, 10 ) ),
 		sku: wpseoWooSKU.variations[ id ],
 		productIdentifiers: wpseoWooIdentifiers.variations[ id ],
 	};
@@ -106,7 +105,6 @@ function getProductVariants() {
 	return variationElements.map(
 		element => {
 			const id = element.querySelector( "input.variable_post_id" ).value;
-			const price = element.querySelector( "input.wc_input_price" ).value;
 			const sku = element.querySelector( "input[id^=variable_sku]" ).value;
 
 			const gtin8 = element.querySelector( `#yoast_variation_identifier\\[${id}\\]\\[gtin8\\]` ).value;
@@ -117,7 +115,6 @@ function getProductVariants() {
 
 			return {
 				id,
-				hasPrice: !! price,
 				sku,
 				productIdentifiers: { gtin8, gtin12, gtin13, gtin14, mpn },
 			};
@@ -145,8 +142,6 @@ function getInitialProductData() {
  * @returns {Object} The product data needed for the SKU and product identifier assessments.
  */
 function getProductData() {
-	const price = document.getElementById( "_regular_price" ).value;
-
 	const sku = document.querySelector( "input#_sku" ).value;
 
 	const gtin8 = document.getElementById( "yoast_identifier_gtin8" ).value;
@@ -160,7 +155,6 @@ function getProductData() {
 
 	const data = {
 		sku,
-		hasPrice: !! price,
 		productType: productType,
 		productIdentifiers: {
 			gtin8,
@@ -191,17 +185,13 @@ function enrichDataWithIdentifiers( data ) {
 	const product = getProductData();
 	const productVariants = getProductVariants();
 
-	// Only check whether product variants that have a price have the necessary SKU and product identifiers.
-	const variantsWithPrice = productVariants.filter( variant => variant.hasPrice );
-
 	newData.customData = Object.assign( newData.customData, {
-		hasPrice: product.hasPrice,
 		productType: product.productType,
 		hasGlobalIdentifier: hasGlobalIdentifier( product ),
-		hasVariants: hasVariants( variantsWithPrice ),
-		doAllVariantsHaveIdentifier: doAllVariantsHaveIdentifier( variantsWithPrice ),
+		hasVariants: hasVariants( productVariants ),
+		doAllVariantsHaveIdentifier: doAllVariantsHaveIdentifier( productVariants ),
 		hasGlobalSKU: hasGlobalSKU( product ),
-		doAllVariantsHaveSKU: doAllVariantsHaveSkus( variantsWithPrice ),
+		doAllVariantsHaveSKU: doAllVariantsHaveSkus( productVariants ),
 	} );
 
 	return newData;
@@ -223,11 +213,7 @@ function registerEventListeners() {
 	const globalSkuInput = document.getElementById( "_sku" );
 	globalSkuInput.addEventListener( "change", YoastSEO.app.refresh );
 
-	// Detect changes in the regular price.
-	const globalPriceInput = document.getElementById( "_regular_price" );
-	globalPriceInput.addEventListener( "change", YoastSEO.app.refresh );
-
-	// Detect changes in the regular price.
+	// Detect changes in the product type.
 	const productTypeInput = document.querySelector( "select#product-type" );
 	// ProductType.addEventListener( "change", YoastSEO.app.refresh );
 	productTypeInput.addEventListener( "change", YoastSEO.app.refresh );
@@ -235,13 +221,6 @@ function registerEventListeners() {
 	// Listen for changes in the WooCommerce variations (e.g. adding or removing variations).
 	const variationsObserver = new MutationObserver( YoastSEO.app.refresh );
 	variationsObserver.observe( document.getElementById( "variable_product_options" ),  { childList: true, subtree: true, attributes: true } );
-
-	// Detect changes in the price inputs and handle them.
-	jQuery( document.body ).on(
-		"change",
-		"#variable_product_options .woocommerce_variations :input[id^=variable_regular_price]",
-		YoastSEO.app.refresh
-	);
 
 	// Detect changes in the variation product identifiers and handle them.
 	jQuery( document.body ).on(
