@@ -230,7 +230,9 @@ function registerEventListeners() {
 
 	// Register event listeners for the global sku input from Woocommerce (non-variation);
 	const globalSkuInput = document.getElementById( "_sku" );
-	globalSkuInput.addEventListener( "change", YoastSEO.app.refresh );
+	if ( globalSkuInput ) {
+		globalSkuInput.addEventListener( "change", YoastSEO.app.refresh );
+	}
 
 	// Detect changes in the regular price.
 	const globalPriceInput = document.getElementById( "_regular_price" );
