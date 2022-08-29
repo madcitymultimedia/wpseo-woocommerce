@@ -153,12 +153,12 @@ function getInitialProductData() {
  */
 function getProductData() {
 	let sku = "";
-	let canRetrieveSku = true;
+	let canRetrieveGlobalSku = true;
 	const skuInputField = document.querySelector( "input#_sku" );
 	if ( skuInputField ) {
 		sku = skuInputField.value;
 	} else {
-		canRetrieveSku = false;
+		canRetrieveGlobalSku = false;
 	}
 
 	const gtin8 = document.getElementById( "yoast_identifier_gtin8" ).value;
@@ -171,7 +171,7 @@ function getProductData() {
 	const productType = document.querySelector( "select#product-type" ).value;
 
 	const data = {
-		canRetrieveSku,
+		canRetrieveGlobalSku,
 		sku,
 		productType: productType,
 		productIdentifiers: {
@@ -204,8 +204,8 @@ function enrichDataWithIdentifiers( data ) {
 	const productVariants = getProductVariants();
 
 	newData.customData = Object.assign( newData.customData, {
-		canRetrieveSku: product.canRetrieveSku,
-		canRetrieveVariantSku: canRetrieveVariantSkus,
+		canRetrieveGlobalSku: product.canRetrieveGlobalSku,
+		canRetrieveVariantSkus: canRetrieveVariantSkus,
 		productType: product.productType,
 		hasGlobalIdentifier: hasGlobalIdentifier( product ),
 		hasVariants: hasVariants( productVariants ),
