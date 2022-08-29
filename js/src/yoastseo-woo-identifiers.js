@@ -1,5 +1,6 @@
 /* global jQuery, YoastSEO, wpseoWooIdentifiers, wpseoWooSKU */
 import { addFilter } from "@wordpress/hooks";
+import { uniqBy } from "lodash-es";
 
 const identifierKeys = [
 	"gtin8",
@@ -9,6 +10,13 @@ const identifierKeys = [
 	"isbn",
 	"mpn",
 ];
+
+/**
+ * Cached product variants data.
+ *
+ * @type {Object[]}
+ */
+let productVariantsData = [];
 
 /**
  * Checks whether the product has a global identifier.
@@ -89,6 +97,56 @@ function getInitialProductVariant( id ) {
 }
 
 /**
+ * Get the product variants, as initialized on page load.
+ *
+ * @returns {Object[]} The initial product variants.
+ */
+function getInitialProductVariants() {
+	return Object.keys( wpseoWooIdentifiers.variations ).map( getInitialProductVariant );
+}
+
+/**
+ * Get the product variant data from the given element.
+ *
+ * @param {HTMLElement} element The element from which to get the data.
+ *
+ * @returns {Object} The product variant data.
+ */
+function getProductVariant( element ) {
+	const id = element.querySelector( "input.variable_post_id" ).value;
+	const sku = element.querySelector( "input[id^=variable_sku]" ).value;
+
+	const gtin8 = element.querySelector( `#yoast_variation_identifier\\[${ id }\\]\\[gtin8\\]` ).value;
+	const gtin12 = element.querySelector( `#yoast_variation_identifier\\[${ id }\\]\\[gtin12\\]` ).value;
+	const gtin13 = element.querySelector( `#yoast_variation_identifier\\[${ id }\\]\\[gtin13\\]` ).value;
+	const gtin14 = element.querySelector( `#yoast_variation_identifier\\[${ id }\\]\\[gtin14\\]` ).value;
+	const mpn = element.querySelector( `#yoast_variation_identifier\\[${ id }\\]\\[mpn\\]` ).value;
+
+	return {
+		id,
+		sku,
+		productIdentifiers: { gtin8, gtin12, gtin13, gtin14, mpn },
+	};
+}
+
+/**
+ * Caches product variants and makes sure that every variant can be assessed,
+ * even if they are not loaded on the current page of variations.
+ *
+ * @param {Array} productVariants The product variants on the current page of variations.
+ *
+ * @returns {Array} The product variants, including changes of variants from other pages.
+ */
+function cacheProductVariants( productVariants ) {
+	productVariantsData = uniqBy( [
+		...productVariants,
+		...productVariantsData,
+		...getInitialProductVariants(),
+	], variant => variant.id );
+	return productVariantsData;
+}
+
+/**
  * Gets the product data needed for the SKU and product identifier assessments
  * of all product variants from the page.
  *
@@ -96,30 +154,8 @@ function getInitialProductVariant( id ) {
  */
 function getProductVariants() {
 	const variationElements = [ ...document.querySelectorAll( ".woocommerce_variation" ) ];
-
-	if ( variationElements.length === 0 ) {
-		// WooCommerce variations are not loaded yet, so try to use the initial data.
-		return Object.keys( wpseoWooIdentifiers.variations ).map( getInitialProductVariant );
-	}
-
-	return variationElements.map(
-		element => {
-			const id = element.querySelector( "input.variable_post_id" ).value;
-			const sku = element.querySelector( "input[id^=variable_sku]" ).value;
-
-			const gtin8 = element.querySelector( `#yoast_variation_identifier\\[${id}\\]\\[gtin8\\]` ).value;
-			const gtin12 = element.querySelector( `#yoast_variation_identifier\\[${id}\\]\\[gtin12\\]` ).value;
-			const gtin13 = element.querySelector( `#yoast_variation_identifier\\[${id}\\]\\[gtin13\\]` ).value;
-			const gtin14 = element.querySelector( `#yoast_variation_identifier\\[${id}\\]\\[gtin14\\]` ).value;
-			const mpn = element.querySelector( `#yoast_variation_identifier\\[${id}\\]\\[mpn\\]` ).value;
-
-			return {
-				id,
-				sku,
-				productIdentifiers: { gtin8, gtin12, gtin13, gtin14, mpn },
-			};
-		}
-	);
+	const productVariants = variationElements.map( getProductVariant );
+	return cacheProductVariants( productVariants );
 }
 
 /**
