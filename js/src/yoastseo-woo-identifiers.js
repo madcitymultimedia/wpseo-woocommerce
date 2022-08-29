@@ -102,10 +102,20 @@ function getProductVariants() {
 		return Object.keys( wpseoWooIdentifiers.variations ).map( getInitialProductVariant );
 	}
 
+	let canRetrieveSku = true;
+
 	return variationElements.map(
 		element => {
 			const id = element.querySelector( "input.variable_post_id" ).value;
-			const sku = element.querySelector( "input[id^=variable_sku]" ).value;
+
+			const skuElement = element.querySelector( "input[id^=variable_sku]" );
+			let sku = "";
+
+			if ( ! skuElement ) {
+				canRetrieveSku = false;
+			} else {
+				sku = skuElement.value
+			}
 
 			const gtin8 = element.querySelector( `#yoast_variation_identifier\\[${id}\\]\\[gtin8\\]` ).value;
 			const gtin12 = element.querySelector( `#yoast_variation_identifier\\[${id}\\]\\[gtin12\\]` ).value;
@@ -114,6 +124,7 @@ function getProductVariants() {
 			const mpn = element.querySelector( `#yoast_variation_identifier\\[${id}\\]\\[mpn\\]` ).value;
 
 			return {
+				canRetrieveSku,
 				id,
 				sku,
 				productIdentifiers: { gtin8, gtin12, gtin13, gtin14, mpn },
@@ -186,6 +197,7 @@ function enrichDataWithIdentifiers( data ) {
 	const productVariants = getProductVariants();
 
 	newData.customData = Object.assign( newData.customData, {
+		canRetrieveVariantSku: productVariants.canRetrieveSku,
 		productType: product.productType,
 		hasGlobalIdentifier: hasGlobalIdentifier( product ),
 		hasVariants: hasVariants( productVariants ),
