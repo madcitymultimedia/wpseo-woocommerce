@@ -111,10 +111,10 @@ function getProductVariants() {
 			const skuElement = element.querySelector( "input[id^=variable_sku]" );
 			let sku = "";
 
-			if ( ! skuElement ) {
-				canRetrieveVariantSkus = false;
+			if ( skuElement ) {
+				sku = skuElement.value;
 			} else {
-				sku = skuElement.value
+				canRetrieveVariantSkus = false;
 			}
 
 			const gtin8 = element.querySelector( `#yoast_variation_identifier\\[${id}\\]\\[gtin8\\]` ).value;
@@ -250,7 +250,7 @@ function registerEventListeners() {
 		YoastSEO.app.refresh
 	);
 
-	if( canRetrieveVariantSkus ) {
+	if ( canRetrieveVariantSkus ) {
 		// Detect changes in the variation SKU identifiers and handle them.
 		jQuery( document.body ).on(
 			"change", "#variable_product_options .woocommerce_variations :input[id^=variable_sku]",
