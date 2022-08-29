@@ -152,7 +152,14 @@ function getInitialProductData() {
  * @returns {Object} The product data needed for the SKU and product identifier assessments.
  */
 function getProductData() {
-	const sku = document.querySelector( "input#_sku" ).value;
+	let sku = "";
+	let canRetrieveSku = true;
+	const skuInputField = document.querySelector( "input#_sku" );
+	if ( skuInputField ) {
+		sku = skuInputField.value;
+	} else {
+		canRetrieveSku = false;
+	}
 
 	const gtin8 = document.getElementById( "yoast_identifier_gtin8" ).value;
 	const gtin12 = document.getElementById( "yoast_identifier_gtin12" ).value;
@@ -164,6 +171,7 @@ function getProductData() {
 	const productType = document.querySelector( "select#product-type" ).value;
 
 	const data = {
+		canRetrieveSku,
 		sku,
 		productType: productType,
 		productIdentifiers: {
@@ -196,6 +204,7 @@ function enrichDataWithIdentifiers( data ) {
 	const productVariants = getProductVariants();
 
 	newData.customData = Object.assign( newData.customData, {
+		canRetrieveSku: product.canRetrieveSku,
 		canRetrieveVariantSku: canRetrieveVariantSkus,
 		productType: product.productType,
 		hasGlobalIdentifier: hasGlobalIdentifier( product ),
@@ -222,7 +231,9 @@ function registerEventListeners() {
 
 	// Register event listeners for the global sku input from Woocommerce (non-variation);
 	const globalSkuInput = document.getElementById( "_sku" );
-	globalSkuInput.addEventListener( "change", YoastSEO.app.refresh );
+	if ( globalSkuInput ) {
+		globalSkuInput.addEventListener( "change", YoastSEO.app.refresh );
+	}
 
 	// Detect changes in the product type.
 	const productTypeInput = document.querySelector( "select#product-type" );
