@@ -231,7 +231,11 @@ function registerEventListeners() {
 
 	// Listen for changes in the WooCommerce variations (e.g. adding or removing variations).
 	const variationsObserver = new MutationObserver( YoastSEO.app.refresh );
-	variationsObserver.observe( document.getElementById( "variable_product_options" ),  { childList: true, subtree: true, attributes: true } );
+	variationsObserver.observe( document.getElementsByClassName( "woocommerce_variations wc-metaboxes ui-sortable" ),  { childList: true, subtree: true, attributes: true } );
+
+	// Listen for changes in the WooCommerce variations (e.g. adding or removing variations).
+	const variableProductOptions = document.getElementsByClassName( "woocommerce_variations wc-metaboxes ui-sortable" );
+	variableProductOptions.addEventListener( "change", YoastSEO.app.refresh );
 
 	// Detect changes in the variation product identifiers and handle them.
 	jQuery( document.body ).on(
