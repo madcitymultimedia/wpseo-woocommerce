@@ -172,7 +172,7 @@ function getProductData() {
 
 	const data = {
 		canRetrieveGlobalSku,
-		sku,
+		sku: sku.trim(),
 		productType: productType,
 		productIdentifiers: {
 			gtin8,
