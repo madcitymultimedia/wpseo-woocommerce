@@ -10,6 +10,8 @@ const identifierKeys = [
 	"mpn",
 ];
 
+let canRetrieveVariantSkus = true;
+
 /**
  * Checks whether the product has a global identifier.
  *
@@ -112,7 +114,15 @@ function getProductVariants() {
 	return variationElements.map(
 		element => {
 			const id = element.querySelector( "input.variable_post_id" ).value;
-			const sku = element.querySelector( "input[id^=variable_sku]" ).value;
+
+			const skuElement = element.querySelector( "input[id^=variable_sku]" );
+			let sku = "";
+
+			if ( skuElement ) {
+				sku = skuElement.value;
+			} else {
+				canRetrieveVariantSkus = false;
+			}
 
 			const gtin8 = element.querySelector( `#yoast_variation_identifier\\[${id}\\]\\[gtin8\\]` ).value;
 			const gtin12 = element.querySelector( `#yoast_variation_identifier\\[${id}\\]\\[gtin12\\]` ).value;
@@ -150,12 +160,12 @@ function getInitialProductData() {
  */
 function getProductData() {
 	let sku = "";
-	let canRetrieveSku = true;
+	let canRetrieveGlobalSku = true;
 	const skuInputField = document.querySelector( "input#_sku" );
 	if ( skuInputField ) {
 		sku = skuInputField.value;
 	} else {
-		canRetrieveSku = false;
+		canRetrieveGlobalSku = false;
 	}
 
 	const gtin8 = document.getElementById( "yoast_identifier_gtin8" ).value;
@@ -168,7 +178,7 @@ function getProductData() {
 	const productType = document.querySelector( "select#product-type" ).value;
 
 	const data = {
-		canRetrieveSku,
+		canRetrieveGlobalSku,
 		sku,
 		productType: productType,
 		productIdentifiers: {
@@ -201,7 +211,8 @@ function enrichDataWithIdentifiers( data ) {
 	const productVariants = getProductVariants();
 
 	newData.customData = Object.assign( newData.customData, {
-		canRetrieveSku: product.canRetrieveSku,
+		canRetrieveGlobalSku: product.canRetrieveGlobalSku,
+		canRetrieveVariantSkus: canRetrieveVariantSkus,
 		productType: product.productType,
 		hasGlobalIdentifier: hasGlobalIdentifier( product ),
 		hasVariants: hasVariants( productVariants ),
@@ -246,11 +257,13 @@ function registerEventListeners() {
 		YoastSEO.app.refresh
 	);
 
-	// Detect changes in the variation SKU identifiers and handle them.
-	jQuery( document.body ).on(
-		"change", "#variable_product_options .woocommerce_variations :input[id^=variable_sku]",
-		YoastSEO.app.refresh
-	);
+	if ( canRetrieveVariantSkus ) {
+		// Detect changes in the variation SKU identifiers and handle them.
+		jQuery( document.body ).on(
+			"change", "#variable_product_options .woocommerce_variations :input[id^=variable_sku]",
+			YoastSEO.app.refresh
+		);
+	}
 }
 
 /**
