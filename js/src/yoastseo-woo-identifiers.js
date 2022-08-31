@@ -148,6 +148,16 @@ function getProductVariant( element ) {
  * @returns {Array} The product variants, including changes of variants from other pages.
  */
 function cacheProductVariants( productVariants ) {
+	const variationsParentElement = document.querySelector( ".woocommerce_variations" );
+
+	if( productVariants.length === 0 && variationsParentElement ) {
+		const numberOfVariations = variationsParentElement.getAttribute( "data-total" );
+		if ( numberOfVariations > 0 ) {
+			return Object.keys( wpseoWooIdentifiers.variations ).map( getInitialProductVariant );
+		} else {
+			return [];
+		}
+	}
 	productVariantsData = uniqBy( [
 		...productVariants,
 		...productVariantsData,
