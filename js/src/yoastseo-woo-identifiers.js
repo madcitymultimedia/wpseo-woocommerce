@@ -116,7 +116,15 @@ function getInitialProductVariants() {
  */
 function getProductVariant( element ) {
 	const id = element.querySelector( "input.variable_post_id" ).value;
-	const sku = element.querySelector( "input[id^=variable_sku]" ).value;
+
+	const skuElement = element.querySelector( "input[id^=variable_sku]" );
+	let sku = "";
+
+	if ( skuElement ) {
+		sku = skuElement.value;
+	} else {
+		canRetrieveVariantSkus = false;
+	}
 
 	const gtin8 = element.querySelector( `#yoast_variation_identifier\\[${ id }\\]\\[gtin8\\]` ).value;
 	const gtin12 = element.querySelector( `#yoast_variation_identifier\\[${ id }\\]\\[gtin12\\]` ).value;
