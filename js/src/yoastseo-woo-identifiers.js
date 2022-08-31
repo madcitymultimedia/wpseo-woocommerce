@@ -98,17 +98,18 @@ function getInitialProductVariant( id ) {
  */
 function getProductVariants() {
 	const variationElements = [ ...document.querySelectorAll( ".woocommerce_variation" ) ];
-
-	const variationsParentClass = document.querySelector( ".woocommerce_variations" );
-	const dataTotalAttribute = variationsParentClass.getAttribute( "data-total" );
+	const variationsParentElement = document.querySelector( ".woocommerce_variations" );
 
 	/*
-	 * If no variation elements were found but the data-total attribute of the woo-commerce variations is not 0,
+	 * If no variation elements were found but the data-total attribute on the variations parent element is larger than 0,
 	 * it means that there are variations but they are not yet loaded on page load. If that's the case, get the variations
 	 * from the JavaScript object injected by the server.
 	 */
-	if ( variationElements.length === 0 && dataTotalAttribute > 0 ) {
-		return Object.keys( wpseoWooIdentifiers.variations ).map( getInitialProductVariant );
+	if ( variationElements.length === 0 && variationsParentElement ) {
+		const numberOfVariations = variationsParentElement.getAttribute( "data-total" );
+		if ( numberOfVariations > 0 ) {
+			return Object.keys( wpseoWooIdentifiers.variations ).map( getInitialProductVariant );
+		}
 	}
 
 	return variationElements.map(
