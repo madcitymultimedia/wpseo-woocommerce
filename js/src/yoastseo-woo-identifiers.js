@@ -132,8 +132,8 @@ function getProductVariants() {
 
 			return {
 				id,
-				sku,
-				productIdentifiers: { gtin8, gtin12, gtin13, gtin14, mpn },
+				sku: sku.trim(),
+				productIdentifiers: { gtin8: gtin8.trim(), gtin12: gtin12.trim(), gtin13: gtin13.trim(), gtin14: gtin14.trim(), mpn: mpn.trim() },
 			};
 		}
 	);
@@ -177,17 +177,21 @@ function getProductData() {
 
 	const productType = document.querySelector( "select#product-type" ).value;
 
+	/*
+	 * Create the product data object. Trim the whitepace from the product identifiers and SKU before assigning it
+	 * to the object so that we don't recognize SKUs/identifiers that consist of only spaces.
+	 */
 	const data = {
 		canRetrieveGlobalSku,
-		sku,
+		sku: sku.trim(),
 		productType: productType,
 		productIdentifiers: {
-			gtin8,
-			gtin12,
-			gtin13,
-			gtin14,
-			isbn,
-			mpn,
+			gtin8: gtin8.trim(),
+			gtin12: gtin12.trim(),
+			gtin13: gtin13.trim(),
+			gtin14: gtin14.trim(),
+			isbn: isbn.trim(),
+			mpn: mpn.trim(),
 		},
 	};
 
