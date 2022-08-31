@@ -11,6 +11,8 @@ const identifierKeys = [
 	"mpn",
 ];
 
+let canRetrieveVariantSkus = true;
+
 /**
  * Cached product variants data.
  *
@@ -178,7 +180,14 @@ function getInitialProductData() {
  * @returns {Object} The product data needed for the SKU and product identifier assessments.
  */
 function getProductData() {
-	const sku = document.querySelector( "input#_sku" ).value;
+	let sku = "";
+	let canRetrieveGlobalSku = true;
+	const skuInputField = document.querySelector( "input#_sku" );
+	if ( skuInputField ) {
+		sku = skuInputField.value;
+	} else {
+		canRetrieveGlobalSku = false;
+	}
 
 	const gtin8 = document.getElementById( "yoast_identifier_gtin8" ).value;
 	const gtin12 = document.getElementById( "yoast_identifier_gtin12" ).value;
@@ -189,16 +198,21 @@ function getProductData() {
 
 	const productType = document.querySelector( "select#product-type" ).value;
 
+	/*
+	 * Create the product data object. Trim the whitepace from the product identifiers and SKU before assigning it
+	 * to the object so that we don't recognize SKUs/identifiers that consist of only spaces.
+	 */
 	const data = {
-		sku,
+		canRetrieveGlobalSku,
+		sku: sku.trim(),
 		productType: productType,
 		productIdentifiers: {
-			gtin8,
-			gtin12,
-			gtin13,
-			gtin14,
-			isbn,
-			mpn,
+			gtin8: gtin8.trim(),
+			gtin12: gtin12.trim(),
+			gtin13: gtin13.trim(),
+			gtin14: gtin14.trim(),
+			isbn: isbn.trim(),
+			mpn: mpn.trim(),
 		},
 	};
 
@@ -222,6 +236,8 @@ function enrichDataWithIdentifiers( data ) {
 	const productVariants = getProductVariants();
 
 	newData.customData = Object.assign( newData.customData, {
+		canRetrieveGlobalSku: product.canRetrieveGlobalSku,
+		canRetrieveVariantSkus: canRetrieveVariantSkus,
 		productType: product.productType,
 		hasGlobalIdentifier: hasGlobalIdentifier( product ),
 		hasVariants: hasVariants( productVariants ),
@@ -247,7 +263,9 @@ function registerEventListeners() {
 
 	// Register event listeners for the global sku input from Woocommerce (non-variation);
 	const globalSkuInput = document.getElementById( "_sku" );
-	globalSkuInput.addEventListener( "change", YoastSEO.app.refresh );
+	if ( globalSkuInput ) {
+		globalSkuInput.addEventListener( "change", YoastSEO.app.refresh );
+	}
 
 	// Detect changes in the product type.
 	const productTypeInput = document.querySelector( "select#product-type" );
@@ -264,11 +282,13 @@ function registerEventListeners() {
 		YoastSEO.app.refresh
 	);
 
-	// Detect changes in the variation SKU identifiers and handle them.
-	jQuery( document.body ).on(
-		"change", "#variable_product_options .woocommerce_variations :input[id^=variable_sku]",
-		YoastSEO.app.refresh
-	);
+	if ( canRetrieveVariantSkus ) {
+		// Detect changes in the variation SKU identifiers and handle them.
+		jQuery( document.body ).on(
+			"change", "#variable_product_options .woocommerce_variations :input[id^=variable_sku]",
+			YoastSEO.app.refresh
+		);
+	}
 }
 
 /**

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dd9e843e828b53b0021fd00dda02fd0e",
+    "content-hash": "e11921c8e1d01beae372768eedcb2a62",
     "packages": [
         {
             "name": "composer/installers",
@@ -2538,16 +2538,16 @@
         },
         {
             "name": "yoast/wordpress-seo",
-            "version": "19.6",
+            "version": "dev-feature/sku-and-product-identifier-fixes",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yoast/wordpress-seo",
-                "reference": "633de089568202df1df76fad1036dd6cdb248c96"
+                "reference": "52206b6bf8eff83b3567d2e4f8055bade0fef2ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yoast/wordpress-seo/zipball/633de089568202df1df76fad1036dd6cdb248c96",
-                "reference": "633de089568202df1df76fad1036dd6cdb248c96",
+                "url": "https://api.github.com/repos/yoast/wordpress-seo/zipball/52206b6bf8eff83b3567d2e4f8055bade0fef2ca",
+                "reference": "52206b6bf8eff83b3567d2e4f8055bade0fef2ca",
                 "shasum": ""
             },
             "require": {
@@ -2695,7 +2695,7 @@
                 "wiki": "https://github.com/Yoast/wordpress-seo/wiki",
                 "source": "https://github.com/Yoast/wordpress-seo"
             },
-            "time": "2022-08-23T07:48:50+00:00"
+            "time": "2022-08-29T10:36:20+00:00"
         },
         {
             "name": "yoast/wp-test-utils",
@@ -2823,7 +2823,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "yoast/wordpress-seo": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
