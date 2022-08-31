@@ -102,7 +102,7 @@ function getProductVariants() {
 
 	/*
 	 * If no variation elements were found but the data-total attribute on the variations parent element is larger than 0,
-	 * it means that there are variations but they are not yet loaded on page load. 
+	 * it means that there are variations but they are not yet loaded on page load.
 	 * If that's the case, get the variations from the JavaScript object injected by the server.
 	 */
 	if ( variationElements.length === 0 && variationsParentElement ) {
