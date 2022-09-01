@@ -2,7 +2,7 @@ WooCommerce Yoast SEO
 =====================
 Requires at least: 5.9
 Tested up to: 6.0
-Stable tag: 15.2-RC6
+Stable tag: 15.2-RC7
 Requires PHP: 5.6.20
 Depends: Yoast SEO, WooCommerce
 
@@ -35,11 +35,10 @@ Changelog
 
 
 
+
 Enhancements:
 
-* Adds a new assessment which checks whether products (or product variants) have an identifier.
-* Adds a new assessment which checks whether products (or product variants) have a SKU.
-* Adds support for the ASIN values and adds these to Product/Offer schema nodes
+* Adds assessments for SKU and product identifiers. Product identifiers help search engines understand your products. To remind you to fill them out, we've added assessments that check whether products (or product variants) have an identifier. We use the details to fill in the necessary product schema that search engines love.
 
 Bugfixes:
 
@@ -47,7 +46,7 @@ Bugfixes:
 
 Other:
 
-* Sets the minimum required version of Yoast SEO to 19.6.
+* Sets the minimum required version of Yoast SEO to 19.6.1.
 * Sets the minimum supported WordPress version to 5.9.
 
 ### 15.1: August 9th, 2022

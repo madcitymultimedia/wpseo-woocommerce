@@ -124,6 +124,7 @@ function getProductVariant( element ) {
 		sku = skuElement.value;
 	} else {
 		canRetrieveVariantSkus = false;
+
 	}
 
 	const gtin8 = element.querySelector( `#yoast_variation_identifier\\[${ id }\\]\\[gtin8\\]` ).value;
