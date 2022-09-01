@@ -150,10 +150,14 @@ function getProductVariant( element ) {
 function cacheProductVariants( productVariants ) {
 	const variationsParentElement = document.querySelector( ".woocommerce_variations" );
 
+	// Do not cache if no product variants have been found.
 	if( productVariants.length === 0 && variationsParentElement ) {
 		const numberOfVariations = variationsParentElement.getAttribute( "data-total" );
+
+		// If there are variants but they are not available in the DOM, get the variant data from the JS object.
 		if ( numberOfVariations > 0 ) {
 			return Object.keys( wpseoWooIdentifiers.variations ).map( getInitialProductVariant );
+			// If there are no variants, return empty array.
 		} else {
 			return [];
 		}
