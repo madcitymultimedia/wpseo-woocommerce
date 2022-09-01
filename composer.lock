@@ -2541,12 +2541,12 @@
             "version": "dev-feature/sku-and-product-identifier-fixes",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Yoast/wordpress-seo.git",
+                "url": "https://github.com/yoast/wordpress-seo",
                 "reference": "ad9ffac25577bba55d8ef501f47d8ccf4324c37d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/ad9ffac25577bba55d8ef501f47d8ccf4324c37d",
+                "url": "https://api.github.com/repos/yoast/wordpress-seo/zipball/ad9ffac25577bba55d8ef501f47d8ccf4324c37d",
                 "reference": "ad9ffac25577bba55d8ef501f47d8ccf4324c37d",
                 "shasum": ""
             },
@@ -2835,5 +2835,5 @@
     "platform-overrides": {
         "php": "5.6.40"
     },
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.2.0"
 }
