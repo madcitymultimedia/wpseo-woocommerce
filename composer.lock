@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e11921c8e1d01beae372768eedcb2a62",
+    "content-hash": "d09170d114a19511d090d9af76f6e5ee",
     "packages": [
         {
             "name": "composer/installers",
@@ -2538,25 +2538,24 @@
         },
         {
             "name": "yoast/wordpress-seo",
-            "version": "dev-feature/sku-and-product-identifier-fixes",
+            "version": "dev-release/19.7",
             "source": {
                 "type": "git",
-                "url": "https://github.com/yoast/wordpress-seo",
-                "reference": "ad9ffac25577bba55d8ef501f47d8ccf4324c37d"
+                "url": "https://github.com/Yoast/wordpress-seo.git",
+                "reference": "52ccfed3cc0a5f47b93463c193a477c88b9ce5a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yoast/wordpress-seo/zipball/ad9ffac25577bba55d8ef501f47d8ccf4324c37d",
-                "reference": "ad9ffac25577bba55d8ef501f47d8ccf4324c37d",
+                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/52ccfed3cc0a5f47b93463c193a477c88b9ce5a3",
+                "reference": "52ccfed3cc0a5f47b93463c193a477c88b9ce5a3",
                 "shasum": ""
             },
             "require": {
-                "composer/installers": "^1.12.0",
+                "composer/installers": "^1.12 || ^2.0",
                 "php": "^5.6.20 || ^7.0 || ^8.0",
                 "yoast/i18n-module": "^3.1.1"
             },
             "require-dev": {
-                "chillerlan/php-qrcode": "^1.0.9",
                 "guzzlehttp/guzzle": "6.5.8",
                 "humbug/php-scoper": "^0.13.4",
                 "league/oauth2-client": "2.6.1",
@@ -2613,8 +2612,8 @@
                     "Yoast\\WP\\SEO\\Composer\\Actions::check_coding_standards"
                 ],
                 "check-cs-thresholds": [
-                    "@putenv YOASTCS_THRESHOLD_ERRORS=152",
-                    "@putenv YOASTCS_THRESHOLD_WARNINGS=208",
+                    "@putenv YOASTCS_THRESHOLD_ERRORS=144",
+                    "@putenv YOASTCS_THRESHOLD_WARNINGS=209",
                     "Yoast\\WP\\SEO\\Composer\\Actions::check_cs_thresholds"
                 ],
                 "check-cs": [
@@ -2639,7 +2638,6 @@
                 "prefix-dependencies": [
                     "composer prefix-oauth2-client",
                     "composer prefix-symfony",
-                    "composer prefix-php-qrcode",
                     "composer prefix-wordproof"
                 ],
                 "prefix-oauth2-client": [
@@ -2649,9 +2647,6 @@
                 ],
                 "prefix-symfony": [
                     "@php ./vendor/humbug/php-scoper/bin/php-scoper add-prefix --prefix=YoastSEO_Vendor --output-dir=./vendor_prefixed/symfony/dependency-injection --config=config/php-scoper/dependency-injection.inc.php --force --quiet"
-                ],
-                "prefix-php-qrcode": [
-                    "@php ./vendor/humbug/php-scoper/bin/php-scoper add-prefix --prefix=YoastSEO_Vendor --output-dir=./vendor_prefixed/chillerlan/php-qrcode --config=config/php-scoper/php-qrcode.inc.php --force --quiet"
                 ],
                 "prefix-wordproof": [
                     "@php ./vendor/humbug/php-scoper/bin/php-scoper add-prefix --prefix=YoastSEO_Vendor --output-dir=./vendor_prefixed/wordproof/wordpress-sdk --config=config/php-scoper/wordproof.inc.php --force --quiet"
@@ -2695,7 +2690,7 @@
                 "wiki": "https://github.com/Yoast/wordpress-seo/wiki",
                 "source": "https://github.com/Yoast/wordpress-seo"
             },
-            "time": "2022-09-01T09:35:57+00:00"
+            "time": "2022-09-05T14:14:51+00:00"
         },
         {
             "name": "yoast/wp-test-utils",
