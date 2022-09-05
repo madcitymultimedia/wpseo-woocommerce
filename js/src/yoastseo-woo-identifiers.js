@@ -11,6 +11,7 @@ const identifierKeys = [
 ];
 
 let canRetrieveVariantSkus = true;
+let canRetrieveAllVariantIdentifiers = true;
 
 /**
  * Checks whether the product has a global identifier.
@@ -91,6 +92,40 @@ function getInitialProductVariant( id ) {
 }
 
 /**
+ * Gets the product identifiers from the identifier input field elements. If an element is not found, the identifier
+ * is assigned to an empty string.
+ *
+ * @param {HTMLElement[]}	identifierInputFieldElements	The HTML elements for the identifier input fields.
+ *
+ * @returns {Object} The product identifiers.
+ */
+function getIdentifiers( identifierInputFieldElements ) {
+	/*
+	 * Create an array with the product identifiers based on the input fields.
+	 * If the input field is null, the product identifier is set to an empty string.
+	 * Otherwise, it is set to the value of the element.
+	*/
+	const productIdentifiersArray = [];
+	identifierInputFieldElements.forEach( ( inputField ) => {
+		if ( inputField === null ) {
+			productIdentifiersArray.push( "" );
+		} else {
+			productIdentifiersArray.push( inputField.value );
+		}
+	} );
+
+	// Assign the identifiers to an object. Trim the values so that we don't recognize identifiers with only spaces as vald.
+	return {
+		gtin8: productIdentifiersArray[ 0 ].trim(),
+		gtin12: productIdentifiersArray[ 1 ].trim(),
+		gtin13: productIdentifiersArray[ 2 ].trim(),
+		gtin14: productIdentifiersArray[ 3 ].trim(),
+		isbn: productIdentifiersArray[ 4 ].trim(),
+		mpn: productIdentifiersArray[ 5 ].trim(),
+	};
+}
+
+/**
  * Gets the product data needed for the SKU and product identifier assessments
  * of all product variants from the page.
  *
@@ -125,16 +160,26 @@ function getProductVariants() {
 				canRetrieveVariantSkus = false;
 			}
 
-			const gtin8 = element.querySelector( `#yoast_variation_identifier\\[${id}\\]\\[gtin8\\]` ).value;
-			const gtin12 = element.querySelector( `#yoast_variation_identifier\\[${id}\\]\\[gtin12\\]` ).value;
-			const gtin13 = element.querySelector( `#yoast_variation_identifier\\[${id}\\]\\[gtin13\\]` ).value;
-			const gtin14 = element.querySelector( `#yoast_variation_identifier\\[${id}\\]\\[gtin14\\]` ).value;
-			const mpn = element.querySelector( `#yoast_variation_identifier\\[${id}\\]\\[mpn\\]` ).value;
+			// Create an array with the product identifier input field elements.
+			const identifierElementIds = [
+				`#yoast_variation_identifier\\[${id}\\]\\[gtin8\\]`,
+				`#yoast_variation_identifier\\[${id}\\]\\[gtin12\\]`,
+				`#yoast_variation_identifier\\[${id}\\]\\[gtin13\\]`,
+				`#yoast_variation_identifier\\\\[${id}\\\\]\\\\[gtin14\\\\]`,
+				`#yoast_variation_identifier\\\\[${id}\\\\]\\\\[gtin14\\\\]`,
+				`#yoast_variation_identifier\\\\[${id}\\\\]\\\\[mpn\\\\]`,
+			];
+			const identifierInputFieldElements = identifierElementIds.map( elementId => element.querySelector( elementId ) );
+
+			// If some of the input field elements are null, change canRetrieveAllVariantIdentifiers to false.
+			if ( identifierInputFieldElements.some( ( inputField ) => inputField === null ) ) {
+				canRetrieveAllVariantIdentifiers = false;
+			}
 
 			return {
 				id,
 				sku: sku.trim(),
-				productIdentifiers: { gtin8: gtin8.trim(), gtin12: gtin12.trim(), gtin13: gtin13.trim(), gtin14: gtin14.trim(), mpn: mpn.trim() },
+				productIdentifiers: getIdentifiers( identifierInputFieldElements ),
 			};
 		}
 	);
@@ -160,8 +205,14 @@ function getInitialProductData() {
  * @returns {Object} The product data needed for the SKU and product identifier assessments.
  */
 function getProductData() {
-	let sku = "";
 	let canRetrieveGlobalSku = true;
+	let canRetrieveAllIdentifiers = true;
+
+	/*
+	 * Only get the value of the SKU input element if the element can be found.
+	 * If it can't be found, change the the value of canRetrieveGlobalSku to false.
+	*/
+	let sku = "";
 	const skuInputField = document.querySelector( "input#_sku" );
 	if ( skuInputField ) {
 		sku = skuInputField.value;
@@ -169,31 +220,24 @@ function getProductData() {
 		canRetrieveGlobalSku = false;
 	}
 
-	const gtin8 = document.getElementById( "yoast_identifier_gtin8" ).value;
-	const gtin12 = document.getElementById( "yoast_identifier_gtin12" ).value;
-	const gtin13 = document.getElementById( "yoast_identifier_gtin13" ).value;
-	const gtin14 = document.getElementById( "yoast_identifier_gtin14" ).value;
-	const isbn = document.getElementById( "yoast_identifier_isbn" ).value;
-	const mpn = document.getElementById( "yoast_identifier_mpn" ).value;
+	// Create an array with the product identifier input field elements.
+	const identifierElementIds = [ "yoast_identifier_gtin8", "yoast_identifier_gtin12", "yoast_identifier_gtin13",
+		"yoast_identifier_gtin14", "yoast_identifier_isbn", "yoast_identifier_mpn" ];
+	const identifierInputFieldElements = identifierElementIds.map( elementId => document.getElementById( elementId ) );
+
+	// If some of the input field elements are null, change canRetrieveAllIdentifiers to false.
+	if ( identifierInputFieldElements.some( ( inputField ) => inputField === null ) ) {
+		canRetrieveAllIdentifiers = false;
+	}
 
 	const productType = document.querySelector( "select#product-type" ).value;
 
-	/*
-	 * Create the product data object. Trim the whitepace from the product identifiers and SKU before assigning it
-	 * to the object so that we don't recognize SKUs/identifiers that consist of only spaces.
-	 */
 	const data = {
 		canRetrieveGlobalSku,
+		canRetrieveAllIdentifiers,
 		sku: sku.trim(),
 		productType: productType,
-		productIdentifiers: {
-			gtin8: gtin8.trim(),
-			gtin12: gtin12.trim(),
-			gtin13: gtin13.trim(),
-			gtin14: gtin14.trim(),
-			isbn: isbn.trim(),
-			mpn: mpn.trim(),
-		},
+		productIdentifiers: getIdentifiers( identifierInputFieldElements ),
 	};
 
 	return Object.assign( {}, getInitialProductData(), data );
@@ -216,6 +260,13 @@ function enrichDataWithIdentifiers( data ) {
 	const productVariants = getProductVariants();
 
 	newData.customData = Object.assign( newData.customData, {
+		/*
+		 * Only set canRetrieveGlobalIdentifier and canRetrieveVariantIdentifiers to false if at least one identifier
+		 * could not be retrieved AND no identifier was found for the product/for all variants. If an identifier was
+		 * found, it doesn't matter if potentially other of the identifier fields cannot be retrieved.
+		*/
+		canRetrieveGlobalIdentifier: product.canRetrieveAllIdentifiers && ! hasGlobalIdentifier( product ),
+		canRetrieveVariantIdentifiers: canRetrieveAllVariantIdentifiers && ! doAllVariantsHaveIdentifier( productVariants ),
 		canRetrieveGlobalSku: product.canRetrieveGlobalSku,
 		canRetrieveVariantSkus: canRetrieveVariantSkus,
 		productType: product.productType,
