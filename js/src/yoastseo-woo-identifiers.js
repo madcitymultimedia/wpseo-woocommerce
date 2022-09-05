@@ -165,9 +165,9 @@ function getProductVariants() {
 				`#yoast_variation_identifier\\[${id}\\]\\[gtin8\\]`,
 				`#yoast_variation_identifier\\[${id}\\]\\[gtin12\\]`,
 				`#yoast_variation_identifier\\[${id}\\]\\[gtin13\\]`,
-				`#yoast_variation_identifier\\\\[${id}\\\\]\\\\[gtin14\\\\]`,
-				`#yoast_variation_identifier\\\\[${id}\\\\]\\\\[gtin14\\\\]`,
-				`#yoast_variation_identifier\\\\[${id}\\\\]\\\\[mpn\\\\]`,
+				`#yoast_variation_identifier\\[${id}\\]\\[gtin14\\]`,
+				`#yoast_variation_identifier\\[${id}\\]\\[gtin14\\]`,
+				`#yoast_variation_identifier\\[${id}\\]\\[mpn\\]`,
 			];
 			const identifierInputFieldElements = identifierElementIds.map( elementId => element.querySelector( elementId ) );
 
