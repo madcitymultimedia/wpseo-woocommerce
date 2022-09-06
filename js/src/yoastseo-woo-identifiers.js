@@ -259,20 +259,29 @@ function enrichDataWithIdentifiers( data ) {
 	const product = getProductData();
 	const productVariants = getProductVariants();
 
+	// Get product identifier data.
+	const productHasGlobalIdentifier = hasGlobalIdentifier( product );
+	const allVariantsHaveIdentifier = doAllVariantsHaveIdentifier( productVariants );
+	/*
+	 * Only set canRetrieveGlobalIdentifier and canRetrieveVariantIdentifiers to false if at least one identifier
+	 * could not be retrieved AND no identifier was found for the product/for all variants. If an identifier was
+	 * found, it doesn't matter if potentially other of the identifier fields cannot be retrieved.
+	*/
+	const canRetrieveGlobalIdentifier = productHasGlobalIdentifier ||
+		! productHasGlobalIdentifier && product.canRetrieveAllIdentifiers === true;
+
+	const canRetrieveVariantIdentifiers = allVariantsHaveIdentifier ||
+		! allVariantsHaveIdentifier && canRetrieveAllVariantIdentifiers === true;
+
 	newData.customData = Object.assign( newData.customData, {
-		/*
-		 * Only set canRetrieveGlobalIdentifier and canRetrieveVariantIdentifiers to false if at least one identifier
-		 * could not be retrieved AND no identifier was found for the product/for all variants. If an identifier was
-		 * found, it doesn't matter if potentially other of the identifier fields cannot be retrieved.
-		*/
-		canRetrieveGlobalIdentifier: product.canRetrieveAllIdentifiers && ! hasGlobalIdentifier( product ),
-		canRetrieveVariantIdentifiers: canRetrieveAllVariantIdentifiers && ! doAllVariantsHaveIdentifier( productVariants ),
+		canRetrieveGlobalIdentifier: canRetrieveGlobalIdentifier,
+		canRetrieveVariantIdentifiers: canRetrieveVariantIdentifiers,
 		canRetrieveGlobalSku: product.canRetrieveGlobalSku,
 		canRetrieveVariantSkus: canRetrieveVariantSkus,
 		productType: product.productType,
-		hasGlobalIdentifier: hasGlobalIdentifier( product ),
+		hasGlobalIdentifier: productHasGlobalIdentifier,
 		hasVariants: hasVariants( productVariants ),
-		doAllVariantsHaveIdentifier: doAllVariantsHaveIdentifier( productVariants ),
+		doAllVariantsHaveIdentifier: allVariantsHaveIdentifier,
 		hasGlobalSKU: hasGlobalSKU( product ),
 		doAllVariantsHaveSKU: doAllVariantsHaveSkus( productVariants ),
 	} );
