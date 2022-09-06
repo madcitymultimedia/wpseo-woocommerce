@@ -52,6 +52,7 @@
         "yoast/yoastcs": "^2.2.1",
         "yoast/wp-test-utils": "^1.0.0",
         "yoast/wordpress-seo": "dev-trunk@dev"
+
     },
     "extra": {
         "installer-paths": {

@@ -2542,12 +2542,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yoast/wordpress-seo.git",
-                "reference": "60a2754aa6e7d56b87884ba6f5eafa20407c2675"
+                "reference": "81d979e9afef595d25ec96a551f485d487df5078"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/60a2754aa6e7d56b87884ba6f5eafa20407c2675",
-                "reference": "60a2754aa6e7d56b87884ba6f5eafa20407c2675",
+                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/81d979e9afef595d25ec96a551f485d487df5078",
+                "reference": "81d979e9afef595d25ec96a551f485d487df5078",
                 "shasum": ""
             },
             "require": {
@@ -2556,7 +2556,6 @@
                 "yoast/i18n-module": "^3.1.1"
             },
             "require-dev": {
-                "chillerlan/php-qrcode": "^1.0.9",
                 "guzzlehttp/guzzle": "6.5.8",
                 "humbug/php-scoper": "^0.13.4",
                 "league/oauth2-client": "2.6.1",
@@ -2640,7 +2639,6 @@
                 "prefix-dependencies": [
                     "composer prefix-oauth2-client",
                     "composer prefix-symfony",
-                    "composer prefix-php-qrcode",
                     "composer prefix-wordproof"
                 ],
                 "prefix-oauth2-client": [
@@ -2650,9 +2648,6 @@
                 ],
                 "prefix-symfony": [
                     "@php ./vendor/humbug/php-scoper/bin/php-scoper add-prefix --prefix=YoastSEO_Vendor --output-dir=./vendor_prefixed/symfony/dependency-injection --config=config/php-scoper/dependency-injection.inc.php --force --quiet"
-                ],
-                "prefix-php-qrcode": [
-                    "@php ./vendor/humbug/php-scoper/bin/php-scoper add-prefix --prefix=YoastSEO_Vendor --output-dir=./vendor_prefixed/chillerlan/php-qrcode --config=config/php-scoper/php-qrcode.inc.php --force --quiet"
                 ],
                 "prefix-wordproof": [
                     "@php ./vendor/humbug/php-scoper/bin/php-scoper add-prefix --prefix=YoastSEO_Vendor --output-dir=./vendor_prefixed/wordproof/wordpress-sdk --config=config/php-scoper/wordproof.inc.php --force --quiet"
@@ -2696,7 +2691,7 @@
                 "wiki": "https://github.com/Yoast/wordpress-seo/wiki",
                 "source": "https://github.com/Yoast/wordpress-seo"
             },
-            "time": "2022-08-29T09:29:36+00:00"
+            "time": "2022-09-06T13:52:43+00:00"
         },
         {
             "name": "yoast/wp-test-utils",
@@ -2836,5 +2831,5 @@
     "platform-overrides": {
         "php": "5.6.40"
     },
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.2.0"
 }

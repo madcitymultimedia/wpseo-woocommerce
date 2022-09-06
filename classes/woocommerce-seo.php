@@ -176,7 +176,6 @@ class Yoast_WooCommerce_SEO {
 			return $presenters;
 		}
 
-		$presenters[] = new WPSEO_WooCommerce_Product_OpenGraph_Deprecation_Presenter( $product );
 		$presenters[] = new WPSEO_WooCommerce_Product_Brand_Presenter( $product );
 
 		if ( $this->should_show_price() ) {
@@ -1443,55 +1442,11 @@ class Yoast_WooCommerce_SEO {
 	}
 
 	/**
-	 * Refresh the options property on add/update of the option to ensure it's always current.
-	 *
-	 * @deprecated 12.5
-	 * @codeCoverageIgnore
-	 */
-	public function refresh_options_property() {
-		_deprecated_function( __METHOD__, 'WPSEO Woo 12.5' );
-	}
-
-	/**
-	 * Perform upgrade procedures to the settings.
-	 *
-	 * @deprecated 12.5
-	 * @codeCoverageIgnore
-	 */
-	public function upgrade() {
-		_deprecated_function( __METHOD__, 'WPSEO Woo 12.5' );
-	}
-
-	/**
-	 * Simple helper function to show a checkbox.
-	 *
-	 * @deprecated 12.5
-	 * @codeCoverageIgnore
-	 */
-	public function checkbox() {
-		_deprecated_function( __METHOD__, 'WPSEO Woo 12.5' );
-	}
-
-	/**
 	 * Determines if the price should be shown.
 	 *
 	 * @return bool True when the price should be shown.
 	 */
 	private function should_show_price() {
-		/**
-		 * Filter: wpseo_woocommerce_og_price - Allow developers to prevent the output of the price in the OpenGraph tags.
-		 *
-		 * @deprecated 12.5.0. Use the {@see 'Yoast\WP\Woocommerce\og_price'} filter instead.
-		 *
-		 * @api bool unsigned Defaults to true.
-		 */
-		$show_price = apply_filters_deprecated(
-			'wpseo_woocommerce_og_price',
-			[ true ],
-			'Yoast WooCommerce 12.5.0',
-			'Yoast\WP\Woocommerce\og_price'
-		);
-
 		/**
 		 * Filter: Yoast\WP\Woocommerce\og_price - Allow developers to prevent the output of the price in the OpenGraph tags.
 		 *
@@ -1499,7 +1454,7 @@ class Yoast_WooCommerce_SEO {
 		 *
 		 * @api bool unsigned Defaults to true.
 		 */
-		$show_price = apply_filters( 'Yoast\WP\Woocommerce\og_price', $show_price );
+		$show_price = apply_filters( 'Yoast\WP\Woocommerce\og_price', true );
 
 		if ( is_bool( $show_price ) ) {
 			return $show_price;
