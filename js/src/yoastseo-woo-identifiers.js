@@ -1,5 +1,6 @@
 /* global jQuery, YoastSEO, wpseoWooIdentifiers, wpseoWooSKU */
 import { addFilter } from "@wordpress/hooks";
+import { uniqBy } from "lodash-es";
 
 const identifierKeys = [
 	"gtin8",
@@ -12,6 +13,13 @@ const identifierKeys = [
 
 let canRetrieveVariantSkus = true;
 let canRetrieveAllVariantIdentifiers = true;
+
+/**
+ * Cached product variants data.
+ *
+ * @type {Object[]}
+ */
+let productVariantsData = [];
 
 /**
  * Checks whether the product has a global identifier.
@@ -126,6 +134,87 @@ function getIdentifiers( identifierInputFieldElements ) {
 }
 
 /**
+ * Get the product variants, as initialized on page load.
+ *
+ * @returns {Object[]} The initial product variants.
+ */
+function getInitialProductVariants() {
+	return Object.keys( wpseoWooIdentifiers.variations ).map( getInitialProductVariant );
+}
+
+/**
+ * Get the product variant data from the given element.
+ *
+ * @param {HTMLElement} element The element from which to get the data.
+ *
+ * @returns {Object} The product variant data.
+ */
+function getProductVariant( element ) {
+	const id = element.querySelector( "input.variable_post_id" ).value;
+
+	const skuElement = element.querySelector( "input[id^=variable_sku]" );
+	let sku = "";
+
+	if ( skuElement ) {
+		sku = skuElement.value;
+	} else {
+		canRetrieveVariantSkus = false;
+	}
+
+	// Create an array with the product identifier input field elements.
+	const identifierElementIds = [
+		`#yoast_variation_identifier\\[${id}\\]\\[gtin8\\]`,
+		`#yoast_variation_identifier\\[${id}\\]\\[gtin12\\]`,
+		`#yoast_variation_identifier\\[${id}\\]\\[gtin13\\]`,
+		`#yoast_variation_identifier\\[${id}\\]\\[gtin14\\]`,
+		`#yoast_variation_identifier\\[${id}\\]\\[gtin14\\]`,
+		`#yoast_variation_identifier\\[${id}\\]\\[mpn\\]`,
+	];
+	const identifierInputFieldElements = identifierElementIds.map( elementId => element.querySelector( elementId ) );
+
+	// If some of the input field elements are null, change canRetrieveAllVariantIdentifiers to false.
+	if ( identifierInputFieldElements.some( ( inputField ) => inputField === null ) ) {
+		canRetrieveAllVariantIdentifiers = false;
+	}
+
+	return {
+		id,
+		sku: sku.trim(),
+		productIdentifiers: getIdentifiers( identifierInputFieldElements ),
+	};
+}
+
+/**
+ * Caches product variants and makes sure that every variant can be assessed,
+ * even if they are not loaded on the current page of variations.
+ *
+ * @param {Array} productVariants The product variants on the current page of variations.
+ *
+ * @returns {Array} The product variants, including changes of variants from other pages.
+ */
+function cacheProductVariants( productVariants ) {
+	const variationsParentElement = document.querySelector( ".woocommerce_variations" );
+
+	// Do not cache if no product variants have been found.
+	if ( productVariants.length === 0 && variationsParentElement ) {
+		const numberOfVariations = variationsParentElement.getAttribute( "data-total" );
+
+		// If there are variants but they are not available in the DOM, get the variant data from the JS object.
+		if ( numberOfVariations > 0 ) {
+			return Object.keys( wpseoWooIdentifiers.variations ).map( getInitialProductVariant );
+			// If there are no variants, return empty array.
+		}
+		return [];
+	}
+	productVariantsData = uniqBy( [
+		...productVariants,
+		...productVariantsData,
+		...getInitialProductVariants(),
+	], variant => variant.id );
+	return productVariantsData;
+}
+
+/**
  * Gets the product data needed for the SKU and product identifier assessments
  * of all product variants from the page.
  *
@@ -133,56 +222,8 @@ function getIdentifiers( identifierInputFieldElements ) {
  */
 function getProductVariants() {
 	const variationElements = [ ...document.querySelectorAll( ".woocommerce_variation" ) ];
-	const variationsParentElement = document.querySelector( ".woocommerce_variations" );
-
-	/*
-	 * If no variation elements were found but the data-total attribute on the variations parent element is larger than 0,
-	 * it means that there are variations but they are not yet loaded on page load.
-	 * If that's the case, get the variations from the JavaScript object injected by the server.
-	 */
-	if ( variationElements.length === 0 && variationsParentElement ) {
-		const numberOfVariations = variationsParentElement.getAttribute( "data-total" );
-		if ( numberOfVariations > 0 ) {
-			return Object.keys( wpseoWooIdentifiers.variations ).map( getInitialProductVariant );
-		}
-	}
-
-	return variationElements.map(
-		element => {
-			const id = element.querySelector( "input.variable_post_id" ).value;
-
-			const skuElement = element.querySelector( "input[id^=variable_sku]" );
-			let sku = "";
-
-			if ( skuElement ) {
-				sku = skuElement.value;
-			} else {
-				canRetrieveVariantSkus = false;
-			}
-
-			// Create an array with the product identifier input field elements.
-			const identifierElementIds = [
-				`#yoast_variation_identifier\\[${id}\\]\\[gtin8\\]`,
-				`#yoast_variation_identifier\\[${id}\\]\\[gtin12\\]`,
-				`#yoast_variation_identifier\\[${id}\\]\\[gtin13\\]`,
-				`#yoast_variation_identifier\\[${id}\\]\\[gtin14\\]`,
-				`#yoast_variation_identifier\\[${id}\\]\\[gtin14\\]`,
-				`#yoast_variation_identifier\\[${id}\\]\\[mpn\\]`,
-			];
-			const identifierInputFieldElements = identifierElementIds.map( elementId => element.querySelector( elementId ) );
-
-			// If some of the input field elements are null, change canRetrieveAllVariantIdentifiers to false.
-			if ( identifierInputFieldElements.some( ( inputField ) => inputField === null ) ) {
-				canRetrieveAllVariantIdentifiers = false;
-			}
-
-			return {
-				id,
-				sku: sku.trim(),
-				productIdentifiers: getIdentifiers( identifierInputFieldElements ),
-			};
-		}
-	);
+	const productVariants = variationElements.map( getProductVariant );
+	return cacheProductVariants( productVariants );
 }
 
 /**
