@@ -114,7 +114,7 @@ function getIdentifiers( identifierInputFieldElements ) {
 		}
 	} );
 
-	// Assign the identifiers to an object. Trim the values so that we don't recognize identifiers with only spaces as vald.
+	// Assign the identifiers to an object. Trim the values so that we don't recognize identifiers with only spaces as valid.
 	return {
 		gtin8: productIdentifiersArray[ 0 ].trim(),
 		gtin12: productIdentifiersArray[ 1 ].trim(),
