@@ -18,6 +18,7 @@ export default function initialize() {
 	analysisWorker.setCustomSEOAssessorClass( productSEOAssessor.default, "productPage", {
 		assessVariants: true,
 		countVideos: false,
+		addSKULocation: true,
 		introductionKeyphraseUrlTitle: "https://yoa.st/33e",
 		introductionKeyphraseCTAUrl: "https://yoa.st/33f",
 		keyphraseLengthUrlTitle: "https://yoa.st/33i",
@@ -62,6 +63,7 @@ export default function initialize() {
 	analysisWorker.setCustomCornerstoneSEOAssessorClass( productCornerstoneSEOAssessor.default, "productPage", {
 		assessVariants: true,
 		countVideos: false,
+		addSKULocation: true,
 		introductionKeyphraseUrlTitle: "https://yoa.st/33e",
 		introductionKeyphraseCTAUrl: "https://yoa.st/33f",
 		keyphraseLengthUrlTitle: "https://yoa.st/33i",
