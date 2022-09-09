@@ -201,10 +201,11 @@ function cacheProductVariants( productVariants ) {
 		// If there are variants but they are not available in the DOM, get the variant data from the JS object.
 		if ( numberOfVariations > 0 ) {
 			return Object.keys( wpseoWooIdentifiers.variations ).map( getInitialProductVariant );
-			// If there are no variants, return empty array.
 		}
+		// If there are no variants, return empty array, and remove the cache.
 		productVariantsData = [];
 	} else if ( productVariants < productVariantsData ) {
+		// We shouldn't save the cache when a product variant(s) is removed.
 		productVariantsData = productVariants;
 	} else {
 		productVariantsData = uniqBy( [
