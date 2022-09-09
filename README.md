@@ -33,8 +33,6 @@ Changelog
 
 ### 15.2: September 20th, 2022
 
-
-
 Enhancements:
 
 * Adds a new assessment which checks whether products (or product variants) have an identifier.
