@@ -194,7 +194,6 @@ function getProductVariant( element ) {
  */
 function cacheProductVariants( productVariants ) {
 	const variationsParentElement = document.querySelector( ".woocommerce_variations" );
-
 	// Do not cache if no product variants have been found.
 	if ( productVariants.length === 0 && variationsParentElement ) {
 		const numberOfVariations = variationsParentElement.getAttribute( "data-total" );
@@ -204,13 +203,17 @@ function cacheProductVariants( productVariants ) {
 			return Object.keys( wpseoWooIdentifiers.variations ).map( getInitialProductVariant );
 			// If there are no variants, return empty array.
 		}
-		return [];
+		productVariantsData = [];
+	} else if ( productVariants < productVariantsData ) {
+		productVariantsData = productVariants;
+	} else {
+		productVariantsData = uniqBy( [
+			...productVariants,
+			...productVariantsData,
+			...getInitialProductVariants(),
+		], variant => variant.id );
 	}
-	productVariantsData = uniqBy( [
-		...productVariants,
-		...productVariantsData,
-		...getInitialProductVariants(),
-	], variant => variant.id );
+
 	return productVariantsData;
 }
 
