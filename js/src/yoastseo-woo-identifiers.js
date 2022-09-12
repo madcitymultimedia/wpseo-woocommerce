@@ -194,7 +194,6 @@ function getProductVariant( element ) {
  */
 function cacheProductVariants( productVariants ) {
 	const variationsParentElement = document.querySelector( ".woocommerce_variations" );
-
 	// Do not cache if no product variants have been found.
 	if ( productVariants.length === 0 && variationsParentElement ) {
 		const numberOfVariations = variationsParentElement.getAttribute( "data-total" );
@@ -202,15 +201,20 @@ function cacheProductVariants( productVariants ) {
 		// If there are variants but they are not available in the DOM, get the variant data from the JS object.
 		if ( numberOfVariations > 0 ) {
 			return Object.keys( wpseoWooIdentifiers.variations ).map( getInitialProductVariant );
-			// If there are no variants, return empty array.
 		}
-		return [];
+		// If there are no variants, return empty array, and remove the cache.
+		productVariantsData = [];
+	} else if ( productVariants < productVariantsData ) {
+		// We shouldn't save the cache when a product variant(s) is removed.
+		productVariantsData = productVariants;
+	} else {
+		productVariantsData = uniqBy( [
+			...productVariants,
+			...productVariantsData,
+			...getInitialProductVariants(),
+		], variant => variant.id );
 	}
-	productVariantsData = uniqBy( [
-		...productVariants,
-		...productVariantsData,
-		...getInitialProductVariants(),
-	], variant => variant.id );
+
 	return productVariantsData;
 }
 
