@@ -35,19 +35,14 @@ Changelog
 
 Enhancements:
 
-* Adds a new assessment which checks whether products (or product variants) have an identifier.
-* Adds a new assessment which checks whether products (or product variants) have a SKU.
-* Adds support for the ASIN values and adds these to Product/Offer schema nodes
-* Adds the word complexity assessment for Spanish, German and French.
-* Improves the readability analysis for English by adding a word complexity assessment for Product pages.
+* Adds assessments for SKU and product identifiers. Product identifiers help search engines understand your products. To remind you to fill them out, we've added assessments that check whether products (or product variants) have an identifier. We use the details to fill in the necessary product schema that search engines love.
 
-Bugfixes:
+* Bugfixes:
 
 * Fixes two prices being shown in the Slack integration metadata when a product is on sale.
 
 Other:
 
-* Sets the minimum required version of Yoast SEO to 19.6.1.
 * Sets the minimum required Yoast SEO version to 19.7.
 * Sets the minimum supported WordPress version to 5.9.
 
