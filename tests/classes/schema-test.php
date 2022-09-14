@@ -94,7 +94,10 @@ class Schema_Test extends TestCase {
 	 */
 	public function test_construct_old_wc() {
 		$schema = new WPSEO_WooCommerce_Schema( '3.8' );
-		$this->assertSame( 10, \has_filter( 'woocommerce_structured_data_review', [ $schema, 'change_reviewed_entity' ] ) );
+		$this->assertSame( 10, \has_filter( 'woocommerce_structured_data_review', [
+			$schema,
+			'change_reviewed_entity'
+		] ) );
 	}
 
 	/**
@@ -116,12 +119,12 @@ class Schema_Test extends TestCase {
 
 		$utils = Mockery::mock( 'alias:WPSEO_Utils' );
 		$utils->expects( 'format_json_encode' )
-			->andReturnUsing(
-				static function( $data ) {
-					// phpcs:ignore Yoast.Yoast.AlternativeFunctions.json_encode_json_encode -- Can't use it, since we are mocking it here.
-					return \json_encode( $data );
-				}
-			);
+			  ->andReturnUsing(
+				  static function( $data ) {
+					  // phpcs:ignore Yoast.Yoast.AlternativeFunctions.json_encode_json_encode -- Can't use it, since we are mocking it here.
+					  return \json_encode( $data );
+				  }
+			  );
 
 		$schema->data = $data;
 		$schema->output_schema_footer();
@@ -238,12 +241,12 @@ class Schema_Test extends TestCase {
 			'offers'      => [
 				[
 					'@type'              => 'Offer',
-					'price'              => '49.00',
 					'priceSpecification' => [
+						'price'                 => '49.00',
 						'@type'                 => 'PriceSpecification',
 						'valueAddedTaxIncluded' => false,
+						'priceCurrency'         => 'GBP',
 					],
-					'priceCurrency'      => 'GBP',
 					'availability'       => 'https://schema.org/InStock',
 					'url'                => 'https://example.com/product/customizable-responsive-toolset/',
 					'seller'             => [
@@ -255,15 +258,16 @@ class Schema_Test extends TestCase {
 			],
 		];
 
-		$expected_output                     = $input;
-		$expected_output['offers'][0]['@id'] = 'https://example.com/#/schema/offer/209643-0';
+		$expected_output                        = $input;
+		$expected_output['offers'][0]['@id']    = 'https://example.com/#/schema/offer/209643-0';
+		$expected_output['offers'][0]['seller'] = [ '@id' => 'https://example.com/#organization' ];
 
 		Functions\stubs(
 			[
 				'get_site_url'             => 'http://example.com',
 				'wc_get_price_decimals'    => 2,
 				'wc_tax_enabled'           => false,
-				'wc_format_decimal'        => static function ( $number ) {
+				'wc_format_decimal'        => static function( $number ) {
 					return \number_format( $number, 2 );
 				},
 				'get_woocommerce_currency' => 'GBP',
@@ -273,14 +277,12 @@ class Schema_Test extends TestCase {
 
 		$product = Mockery::mock( 'WC_Product' );
 		$product->expects( 'get_id' )->once()->andReturn( '209643' );
-		$product->expects( 'get_price' )->once()->andReturn( 49 );
-		$product->expects( 'get_min_purchase_quantity' )->once()->andReturn( 1 );
 		$product->expects( 'is_on_sale' )->once()->andReturn( false );
 		$product->expects( 'is_on_backorder' )->once()->andReturn( false );
 
 		$this->meta
 			->expects( 'for_current_page' )
-			->once()
+			->twice()
 			->andReturn( (object) [ 'site_url' => 'https://example.com/' ] );
 
 		$output = $schema->filter_offers( $input, $product );
@@ -307,12 +309,12 @@ class Schema_Test extends TestCase {
 			'offers'      => [
 				[
 					'@type'              => 'Offer',
-					'price'              => '49.00',
 					'priceSpecification' => [
 						'@type'                 => 'PriceSpecification',
 						'valueAddedTaxIncluded' => false,
+						'price'                 => '49.00',
+						'priceCurrency'         => 'GBP',
 					],
-					'priceCurrency'      => 'GBP',
 					'availability'       => 'https://schema.org/PreOrder',
 					'url'                => 'https://example.com/product/customizable-responsive-toolset/',
 					'seller'             => [
@@ -324,15 +326,16 @@ class Schema_Test extends TestCase {
 			],
 		];
 
-		$expected_output                     = $input;
-		$expected_output['offers'][0]['@id'] = 'https://example.com/#/schema/offer/209643-0';
+		$expected_output                        = $input;
+		$expected_output['offers'][0]['@id']    = 'https://example.com/#/schema/offer/209643-0';
+		$expected_output['offers'][0]['seller'] = [ '@id' => 'https://example.com/#organization' ];
 
 		Functions\stubs(
 			[
 				'get_site_url'             => 'http://example.com',
 				'wc_get_price_decimals'    => 2,
 				'wc_tax_enabled'           => false,
-				'wc_format_decimal'        => static function ( $number ) {
+				'wc_format_decimal'        => static function( $number ) {
 					return \number_format( $number, 2 );
 				},
 				'get_woocommerce_currency' => 'GBP',
@@ -342,14 +345,12 @@ class Schema_Test extends TestCase {
 
 		$product = Mockery::mock( 'WC_Product' );
 		$product->expects( 'get_id' )->once()->andReturn( '209643' );
-		$product->expects( 'get_price' )->once()->andReturn( 49 );
-		$product->expects( 'get_min_purchase_quantity' )->once()->andReturn( 1 );
 		$product->expects( 'is_on_sale' )->once()->andReturn( false );
 		$product->expects( 'is_on_backorder' )->once()->andReturn( true );
 
 		$this->meta
 			->expects( 'for_current_page' )
-			->once()
+			->twice()
 			->andReturn( (object) [ 'site_url' => 'https://example.com/' ] );
 
 		$output = $schema->filter_offers( $input, $product );
@@ -603,11 +604,11 @@ class Schema_Test extends TestCase {
 					'@type'              => 'Offer',
 					'@id'                => 'https://example.com/#/schema/offer/209643-0',
 					'name'               => 'Customizable responsive toolset - l',
-					'price'              => 10,
-					'priceCurrency'      => 'GBP',
 					'url'                => 'https://example.com/product/customizable-responsive-toolset/?attribute_pa_size=l',
 					'priceSpecification' => [
 						'@type'                 => 'PriceSpecification',
+						'price'                 => 10,
+						'priceCurrency'         => 'GBP',
 						'valueAddedTaxIncluded' => false,
 					],
 					'sku'                => '209643',
@@ -617,11 +618,11 @@ class Schema_Test extends TestCase {
 					'@type'              => 'Offer',
 					'@id'                => 'https://example.com/#/schema/offer/209643-1',
 					'name'               => 'Customizable responsive toolset - m',
-					'price'              => 8,
-					'priceCurrency'      => 'GBP',
 					'url'                => 'https://example.com/product/customizable-responsive-toolset/?attribute_pa_size=m',
 					'priceSpecification' => [
 						'@type'                 => 'PriceSpecification',
+						'price'                 => 8,
+						'priceCurrency'         => 'GBP',
 						'valueAddedTaxIncluded' => false,
 					],
 					'sku'                => '209644',
@@ -632,11 +633,11 @@ class Schema_Test extends TestCase {
 					'@type'              => 'Offer',
 					'@id'                => 'https://example.com/#/schema/offer/209643-2',
 					'name'               => 'Customizable responsive toolset - xl',
-					'price'              => 12,
-					'priceCurrency'      => 'GBP',
 					'url'                => 'https://example.com/product/customizable-responsive-toolset/?attribute_pa_size=xl',
 					'priceSpecification' => [
 						'@type'                 => 'PriceSpecification',
+						'price'                 => 12,
+						'priceCurrency'         => 'GBP',
 						'valueAddedTaxIncluded' => false,
 					],
 					'sku'                => '209645',
@@ -1075,7 +1076,7 @@ class Schema_Test extends TestCase {
 				'wc_placeholder_img_src'   => $base_url . 'example_image.jpg',
 				'wc_get_price_decimals'    => 2,
 				'wc_tax_enabled'           => false,
-				'wc_format_decimal'        => static function ( $number ) {
+				'wc_format_decimal'        => static function( $number ) {
 					return \number_format( $number, 2 );
 				},
 				'get_woocommerce_currency' => 'GBP',
@@ -1085,9 +1086,9 @@ class Schema_Test extends TestCase {
 
 		$instance = Mockery::mock( Schema_Double::class )->makePartial();
 		$instance->expects( 'get_primary_term_or_first_term' )
-			->twice()
-			->with( 'product_cat', 1 )
-			->andReturn( (object) [ 'name' => $product_name ] );
+				 ->twice()
+				 ->with( 'product_cat', 1 )
+				 ->andReturn( (object) [ 'name' => $product_name ] );
 
 		$image_data   = [
 			'url'    => $base_url . '/example_image.jpg',
@@ -1096,13 +1097,13 @@ class Schema_Test extends TestCase {
 		];
 		$schema_image = Mockery::mock( 'overload:WPSEO_Schema_Image' );
 		$schema_image->expects( '__construct' )
-			->once()
-			->with( $canonical . '#woocommerceimageplaceholder' )
-			->andReturnSelf();
+					 ->once()
+					 ->with( $canonical . '#woocommerceimageplaceholder' )
+					 ->andReturnSelf();
 		$schema_image->expects( 'generate_from_url' )
-			->once()
-			->with( $base_url . '/example_image.jpg' )
-			->andReturn( $image_data );
+					 ->once()
+					 ->with( $base_url . '/example_image.jpg' )
+					 ->andReturn( $image_data );
 
 		Functions\expect( 'wp_strip_all_tags' )->twice()->andReturn( 'TestProduct' );
 
@@ -1257,7 +1258,7 @@ class Schema_Test extends TestCase {
 				'wc_placeholder_img_src'   => $base_url . 'example_image.jpg',
 				'wc_get_price_decimals'    => 2,
 				'wc_tax_enabled'           => false,
-				'wc_format_decimal'        => static function ( $number ) {
+				'wc_format_decimal'        => static function( $number ) {
 					return \number_format( $number, 2 );
 				},
 				'get_woocommerce_currency' => 'GBP',
@@ -1267,9 +1268,9 @@ class Schema_Test extends TestCase {
 
 		$instance = Mockery::mock( Schema_Double::class )->makePartial();
 		$instance->expects( 'get_primary_term_or_first_term' )
-			->twice()
-			->with( 'product_cat', 1 )
-			->andReturn( (object) [ 'name' => $product_name ] );
+				 ->twice()
+				 ->with( 'product_cat', 1 )
+				 ->andReturn( (object) [ 'name' => $product_name ] );
 
 		$image_data = [
 			'@type'  => 'ImageObject',
@@ -1447,7 +1448,7 @@ class Schema_Test extends TestCase {
 				],
 				'wc_get_price_decimals'    => 2,
 				'wc_tax_enabled'           => false,
-				'wc_format_decimal'        => static function ( $number ) {
+				'wc_format_decimal'        => static function( $number ) {
 					return \number_format( $number, 2 );
 				},
 				'get_woocommerce_currency' => 'GBP',
@@ -1456,9 +1457,9 @@ class Schema_Test extends TestCase {
 
 		$instance = Mockery::mock( Schema_Double::class )->makePartial();
 		$instance->expects( 'get_primary_term_or_first_term' )
-			->twice()
-			->with( 'product_cat', 1 )
-			->andReturn( (object) [ 'name' => $product_name ] );
+				 ->twice()
+				 ->with( 'product_cat', 1 )
+				 ->andReturn( (object) [ 'name' => $product_name ] );
 
 		$this->meta
 			->expects( 'for_current_page' )
@@ -1694,7 +1695,7 @@ class Schema_Test extends TestCase {
 			[
 				'wc_get_price_decimals'    => 2,
 				'wc_tax_enabled'           => false,
-				'wc_format_decimal'        => static function ( $number ) {
+				'wc_format_decimal'        => static function( $number ) {
 					return \number_format( $number, 2 );
 				},
 				'get_woocommerce_currency' => 'GBP',
@@ -1796,8 +1797,8 @@ class Schema_Test extends TestCase {
 			],
 		];
 
-		$expected_output                     = $input;
-		$expected_output['offers'][0]['@id'] = 'https://example.com/#/schema/offer/209643-0';
+		$expected_output                                                             = $input;
+		$expected_output['offers'][0]['@id']                                         = 'https://example.com/#/schema/offer/209643-0';
 		$expected_output['offers'][0]['priceSpecification']['@type']                 = 'PriceSpecification';
 		$expected_output['offers'][0]['priceSpecification']['valueAddedTaxIncluded'] = true;
 
@@ -1807,7 +1808,7 @@ class Schema_Test extends TestCase {
 				'get_site_url'             => $base_url,
 				'wc_get_price_decimals'    => 2,
 				'wc_tax_enabled'           => true,
-				'wc_format_decimal'        => static function ( $number ) {
+				'wc_format_decimal'        => static function( $number ) {
 					return \number_format( $number, 2 );
 				},
 				'get_woocommerce_currency' => 'GBP',
