@@ -1069,6 +1069,7 @@ class Schema_Test extends TestCase {
 		$mock->expects( 'get' )->once()->with( 'woo_schema_brand' )->andReturn( 'product_cat' );
 		$mock->expects( 'get' )->once()->with( 'woo_schema_manufacturer' )->andReturn( 'product_cat' );
 		$mock->expects( 'get' )->once()->with( 'woo_schema_color' )->andReturn( 'product_cat' );
+		$mock->expects( 'get' )->once()->with( 'woo_schema_pattern' )->andReturn( 'product_cat' );
 		$mock->expects( 'get' )->once()->with( 'company_or_person', false )->andReturn( 'company' );
 		$mock->expects( 'get' )->once()->with( 'company_name' )->andReturn( 'WP' );
 
@@ -1253,6 +1254,7 @@ class Schema_Test extends TestCase {
 		$mock->expects( 'get' )->once()->with( 'woo_schema_brand' )->andReturn( 'product_cat' );
 		$mock->expects( 'get' )->once()->with( 'woo_schema_manufacturer' )->andReturn( 'product_cat' );
 		$mock->expects( 'get' )->once()->with( 'woo_schema_color' )->andReturn( 'product_cat' );
+		$mock->expects( 'get' )->once()->with( 'woo_schema_pattern' )->andReturn( 'product_cat' );
 		$mock->expects( 'get' )->once()->with( 'company_or_person', false )->andReturn( 'company' );
 		$mock->expects( 'get' )->once()->with( 'company_name' )->andReturn( 'WP' );
 
@@ -1439,6 +1441,7 @@ class Schema_Test extends TestCase {
 		$mock->expects( 'get' )->once()->with( 'woo_schema_brand' )->andReturn( 'product_cat' );
 		$mock->expects( 'get' )->once()->with( 'woo_schema_manufacturer' )->andReturn( 'product_cat' );
 		$mock->expects( 'get' )->once()->with( 'woo_schema_color' )->andReturn( 'product_cat' );
+		$mock->expects( 'get' )->once()->with( 'woo_schema_pattern' )->andReturn( 'product_cat' );
 		$mock->expects( 'get' )->once()->with( 'company_or_person', false )->andReturn( 'company' );
 		$mock->expects( 'get' )->once()->with( 'company_name' )->andReturn( 'WP' );
 
