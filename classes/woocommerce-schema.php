@@ -181,6 +181,7 @@ class WPSEO_WooCommerce_Schema {
 		$this->add_brand( $product );
 		$this->add_manufacturer( $product );
 		$this->add_color( $product );
+		$this->add_pattern( $product );
 		$this->add_global_identifier( $product );
 
 		/**
@@ -238,6 +239,7 @@ class WPSEO_WooCommerce_Schema {
 			}
 		}
 
+		// We don't want an array with keys, we just need the offers.
 		$data['offers'] = array_values( $data['offers'] );
 
 		return $data;
@@ -348,14 +350,15 @@ class WPSEO_WooCommerce_Schema {
 		}
 
 		if ( ! empty( $data['offers'] ) ) {
-			foreach ( $data['offers'] as $offer ) {
-				$offer['seller'] = [
+			foreach ( $data['offers'] as $key => $offer ) {
+				$data[ $key ]['seller'] = [
 					'@id' => trailingslashit( YoastSEO()->meta->for_current_page()->site_url ) . Schema_IDs::ORGANIZATION_HASH,
 				];
 			}
 		}
 
-		return $data;
+		// We don't want an array with keys, we just need the offers.
+		return array_values( $data );
 	}
 
 	/**
@@ -451,6 +454,30 @@ class WPSEO_WooCommerce_Schema {
 				}
 
 				$this->data['color'] = $colors;
+			}
+		}
+	}
+
+	/**
+	 * Adds the product color property to the Schema output.
+	 *
+	 * @param WC_Product $product The product object.
+	 *
+	 * @return void
+	 */
+	private function add_pattern( $product ) {
+		$schema_pattern = WPSEO_Options::get( 'woo_schema_pattern' );
+
+		if ( ! empty( $schema_pattern ) ) {
+			$terms = get_the_terms( $product->get_id(), $schema_pattern );
+
+			if ( is_array( $terms ) ) {
+				$patterns = [];
+				foreach ( $terms as $term ) {
+					$patterns[] = strtolower( $term->name );
+				}
+
+				$this->data['pattern'] = $patterns;
 			}
 		}
 	}
