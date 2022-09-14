@@ -351,14 +351,13 @@ class WPSEO_WooCommerce_Schema {
 
 		if ( ! empty( $data['offers'] ) ) {
 			foreach ( $data['offers'] as $key => $offer ) {
-				$data[ $key ]['seller'] = [
+				$data['offers'][ $key ]['seller'] = [
 					'@id' => trailingslashit( YoastSEO()->meta->for_current_page()->site_url ) . Schema_IDs::ORGANIZATION_HASH,
 				];
 			}
 		}
 
-		// We don't want an array with keys, we just need the offers.
-		return array_values( $data );
+		return $data;
 	}
 
 	/**
@@ -459,7 +458,7 @@ class WPSEO_WooCommerce_Schema {
 	}
 
 	/**
-	 * Adds the product color property to the Schema output.
+	 * Adds the product pattern property to the Schema output.
 	 *
 	 * @param WC_Product $product The product object.
 	 *
