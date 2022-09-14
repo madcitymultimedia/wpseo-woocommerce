@@ -94,10 +94,16 @@ class Schema_Test extends TestCase {
 	 */
 	public function test_construct_old_wc() {
 		$schema = new WPSEO_WooCommerce_Schema( '3.8' );
-		$this->assertSame( 10, \has_filter( 'woocommerce_structured_data_review', [
-			$schema,
-			'change_reviewed_entity'
-		] ) );
+		$this->assertSame(
+			10,
+			\has_filter(
+				'woocommerce_structured_data_review',
+				[
+					$schema,
+					'change_reviewed_entity',
+				]
+			)
+		);
 	}
 
 	/**
@@ -119,12 +125,12 @@ class Schema_Test extends TestCase {
 
 		$utils = Mockery::mock( 'alias:WPSEO_Utils' );
 		$utils->expects( 'format_json_encode' )
-			  ->andReturnUsing(
-				  static function( $data ) {
-					  // phpcs:ignore Yoast.Yoast.AlternativeFunctions.json_encode_json_encode -- Can't use it, since we are mocking it here.
-					  return \json_encode( $data );
-				  }
-			  );
+			->andReturnUsing(
+				static function( $data ) {
+					// phpcs:ignore Yoast.Yoast.AlternativeFunctions.json_encode_json_encode -- Can't use it, since we are mocking it here.
+					return \json_encode( $data );
+				}
+			);
 
 		$schema->data = $data;
 		$schema->output_schema_footer();
@@ -1086,9 +1092,9 @@ class Schema_Test extends TestCase {
 
 		$instance = Mockery::mock( Schema_Double::class )->makePartial();
 		$instance->expects( 'get_primary_term_or_first_term' )
-				 ->twice()
-				 ->with( 'product_cat', 1 )
-				 ->andReturn( (object) [ 'name' => $product_name ] );
+				->twice()
+				->with( 'product_cat', 1 )
+				->andReturn( (object) [ 'name' => $product_name ] );
 
 		$image_data   = [
 			'url'    => $base_url . '/example_image.jpg',
@@ -1097,13 +1103,13 @@ class Schema_Test extends TestCase {
 		];
 		$schema_image = Mockery::mock( 'overload:WPSEO_Schema_Image' );
 		$schema_image->expects( '__construct' )
-					 ->once()
-					 ->with( $canonical . '#woocommerceimageplaceholder' )
-					 ->andReturnSelf();
+				->once()
+					->with( $canonical . '#woocommerceimageplaceholder' )
+					->andReturnSelf();
 		$schema_image->expects( 'generate_from_url' )
-					 ->once()
-					 ->with( $base_url . '/example_image.jpg' )
-					 ->andReturn( $image_data );
+				->once()
+					->with( $base_url . '/example_image.jpg' )
+					->andReturn( $image_data );
 
 		Functions\expect( 'wp_strip_all_tags' )->twice()->andReturn( 'TestProduct' );
 
@@ -1268,9 +1274,9 @@ class Schema_Test extends TestCase {
 
 		$instance = Mockery::mock( Schema_Double::class )->makePartial();
 		$instance->expects( 'get_primary_term_or_first_term' )
-				 ->twice()
-				 ->with( 'product_cat', 1 )
-				 ->andReturn( (object) [ 'name' => $product_name ] );
+				->twice()
+				->with( 'product_cat', 1 )
+				->andReturn( (object) [ 'name' => $product_name ] );
 
 		$image_data = [
 			'@type'  => 'ImageObject',
@@ -1457,9 +1463,9 @@ class Schema_Test extends TestCase {
 
 		$instance = Mockery::mock( Schema_Double::class )->makePartial();
 		$instance->expects( 'get_primary_term_or_first_term' )
-				 ->twice()
-				 ->with( 'product_cat', 1 )
-				 ->andReturn( (object) [ 'name' => $product_name ] );
+				->twice()
+				->with( 'product_cat', 1 )
+				->andReturn( (object) [ 'name' => $product_name ] );
 
 		$this->meta
 			->expects( 'for_current_page' )
@@ -1797,8 +1803,8 @@ class Schema_Test extends TestCase {
 			],
 		];
 
-		$expected_output                                                             = $input;
-		$expected_output['offers'][0]['@id']                                         = 'https://example.com/#/schema/offer/209643-0';
+		$expected_output                     = $input;
+		$expected_output['offers'][0]['@id'] = 'https://example.com/#/schema/offer/209643-0';
 		$expected_output['offers'][0]['priceSpecification']['@type']                 = 'PriceSpecification';
 		$expected_output['offers'][0]['priceSpecification']['valueAddedTaxIncluded'] = true;
 
