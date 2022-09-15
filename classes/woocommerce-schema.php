@@ -449,9 +449,11 @@ class WPSEO_WooCommerce_Schema {
 			if ( is_array( $terms ) ) {
 				// Variable products can have more than one color.
 				$is_variable_product = false;
-				foreach ( $this->data['offers'] as $offer ) {
-					if ( $offer['@type'] === 'AggregateOffer' ) {
-						$is_variable_product = true;
+				if ( isset( $data['offers'] ) ) {
+					foreach ( $this->data['offers'] as $offer ) {
+						if ( $offer['@type'] === 'AggregateOffer' ) {
+							$is_variable_product = true;
+						}
 					}
 				}
 
@@ -489,9 +491,11 @@ class WPSEO_WooCommerce_Schema {
 			if ( is_array( $terms ) ) {
 				// Variable products can have more than one pattern.
 				$is_variable_product = false;
-				foreach ( $this->data['offers'] as $offer ) {
-					if ( $offer['@type'] === 'AggregateOffer' ) {
-						$is_variable_product = true;
+				if ( isset( $data['offers'] ) ) {
+					foreach ( $this->data['offers'] as $offer ) {
+						if ( $offer['@type'] === 'AggregateOffer' ) {
+							$is_variable_product = true;
+						}
 					}
 				}
 
