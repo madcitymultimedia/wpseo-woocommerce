@@ -447,12 +447,28 @@ class WPSEO_WooCommerce_Schema {
 			$terms = get_the_terms( $product->get_id(), $schema_color );
 
 			if ( is_array( $terms ) ) {
-				$colors = [];
-				foreach ( $terms as $term ) {
-					$colors[] = strtolower( $term->name );
+				// Variable products can have more than one color.
+				$is_variable_product = false;
+				if ( isset( $this->data['offers'] ) ) {
+					foreach ( $this->data['offers'] as $offer ) {
+						if ( $offer['@type'] === 'AggregateOffer' ) {
+							$is_variable_product = true;
+						}
+					}
 				}
 
-				$this->data['color'] = $colors;
+				if ( count( $terms ) === 1 ) {
+					$term                = reset( $terms );
+					$this->data['color'] = strtolower( $term->name );
+				}
+				elseif ( $is_variable_product ) {
+					$colors = [];
+					foreach ( $terms as $term ) {
+						$colors[] = strtolower( $term->name );
+					}
+
+					$this->data['color'] = $colors;
+				}
 			}
 		}
 	}
@@ -471,12 +487,28 @@ class WPSEO_WooCommerce_Schema {
 			$terms = get_the_terms( $product->get_id(), $schema_pattern );
 
 			if ( is_array( $terms ) ) {
-				$patterns = [];
-				foreach ( $terms as $term ) {
-					$patterns[] = strtolower( $term->name );
+				// Variable products can have more than one pattern.
+				$is_variable_product = false;
+				if ( isset( $this->data['offers'] ) ) {
+					foreach ( $this->data['offers'] as $offer ) {
+						if ( $offer['@type'] === 'AggregateOffer' ) {
+							$is_variable_product = true;
+						}
+					}
 				}
 
-				$this->data['pattern'] = $patterns;
+				if ( count( $terms ) === 1 ) {
+					$term                  = reset( $terms );
+					$this->data['pattern'] = strtolower( $term->name );
+				}
+				elseif ( $is_variable_product ) {
+					$colors = [];
+					foreach ( $terms as $term ) {
+						$colors[] = strtolower( $term->name );
+					}
+
+					$this->data['pattern'] = $colors;
+				}
 			}
 		}
 	}
