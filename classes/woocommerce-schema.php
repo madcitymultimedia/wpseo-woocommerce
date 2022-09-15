@@ -496,7 +496,7 @@ class WPSEO_WooCommerce_Schema {
 				}
 
 				if ( ! $is_variable_product ) {
-					if ( count( $terms ) === 1) {
+					if ( count( $terms ) === 1 ) {
 						$term                  = reset( $terms );
 						$this->data['pattern'] = strtolower( $term->name );
 					}
