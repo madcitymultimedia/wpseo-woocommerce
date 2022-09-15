@@ -43,7 +43,7 @@ Enhancements:
 * Adds support for the ASIN values and adds these to Product/Offer schema nodes
 * Adds the word complexity assessment for Spanish, German and French.
 * Improves the readability analysis for English by adding a word complexity assessment for Product pages.
-* Improves the Schema output for for `Offers` and `priceSpecification` to match Google's recent changes to their guidelines.
+* Improves the Schema output for `offers` and `priceSpecification` to match Google's recent changes to their guidelines.
 
 Bugfixes:
 
@@ -51,7 +51,6 @@ Bugfixes:
 
 Other:
 
-* Sets the minimum required version of Yoast SEO to 19.6.1.
 * Sets the minimum required Yoast SEO version to 19.7.
 * Sets the minimum supported WordPress version to 5.9.
 
