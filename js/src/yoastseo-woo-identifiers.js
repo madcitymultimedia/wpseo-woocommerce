@@ -343,13 +343,13 @@ function registerEventListeners() {
 	// Register event listeners for the global identifier inputs (non-variation);
 	identifierKeys.forEach( key => {
 		const globalIdentifierInput = document.getElementById( `yoast_identifier_${ key }` );
-		globalIdentifierInput.addEventListener( "change", YoastSEO.app.refresh );
+		globalIdentifierInput.addEventListener( "input", YoastSEO.app.refresh );
 	} );
 
 	// Register event listeners for the global sku input from Woocommerce (non-variation);
 	const globalSkuInput = document.getElementById( "_sku" );
 	if ( globalSkuInput ) {
-		globalSkuInput.addEventListener( "change", YoastSEO.app.refresh );
+		globalSkuInput.addEventListener( "input", YoastSEO.app.refresh );
 	}
 
 	// Detect changes in the product type.
