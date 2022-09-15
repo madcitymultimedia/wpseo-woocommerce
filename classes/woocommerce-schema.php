@@ -457,13 +457,11 @@ class WPSEO_WooCommerce_Schema {
 					}
 				}
 
-				if ( ! $is_variable_product ) {
-					if ( count( $terms ) === 1 ) {
-						$term                = reset( $terms );
-						$this->data['color'] = strtolower( $term->name );
-					}
+				if ( count( $terms ) === 1 ) {
+					$term                = reset( $terms );
+					$this->data['color'] = strtolower( $term->name );
 				}
-				else {
+				elseif ( $is_variable_product ) {
 					$colors = [];
 					foreach ( $terms as $term ) {
 						$colors[] = strtolower( $term->name );
@@ -499,13 +497,11 @@ class WPSEO_WooCommerce_Schema {
 					}
 				}
 
-				if ( ! $is_variable_product ) {
-					if ( count( $terms ) === 1 ) {
-						$term                  = reset( $terms );
-						$this->data['pattern'] = strtolower( $term->name );
-					}
+				if ( count( $terms ) === 1 ) {
+					$term                  = reset( $terms );
+					$this->data['pattern'] = strtolower( $term->name );
 				}
-				else {
+				elseif ( $is_variable_product ) {
 					$colors = [];
 					foreach ( $terms as $term ) {
 						$colors[] = strtolower( $term->name );
