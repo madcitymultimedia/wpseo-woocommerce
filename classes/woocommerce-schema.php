@@ -436,6 +436,8 @@ class WPSEO_WooCommerce_Schema {
 	/**
 	 * Adds the product color property to the Schema output.
 	 *
+	 * Adds the property if only one color has been added to the Product.
+	 *
 	 * @param WC_Product $product The product object.
 	 *
 	 * @return void
@@ -446,19 +448,17 @@ class WPSEO_WooCommerce_Schema {
 		if ( ! empty( $schema_color ) ) {
 			$terms = get_the_terms( $product->get_id(), $schema_color );
 
-			if ( is_array( $terms ) ) {
-				$colors = [];
-				foreach ( $terms as $term ) {
-					$colors[] = strtolower( $term->name );
-				}
-
-				$this->data['color'] = $colors;
+			if ( is_array( $terms ) && count( $terms ) === 1 ) {
+				$term                = reset( $terms );
+				$this->data['color'] = strtolower( $term->name );
 			}
 		}
 	}
 
 	/**
 	 * Adds the product pattern property to the Schema output.
+	 *
+	 * Adds the property if only one pattern has been added to the Product.
 	 *
 	 * @param WC_Product $product The product object.
 	 *
@@ -470,13 +470,9 @@ class WPSEO_WooCommerce_Schema {
 		if ( ! empty( $schema_pattern ) ) {
 			$terms = get_the_terms( $product->get_id(), $schema_pattern );
 
-			if ( is_array( $terms ) ) {
-				$patterns = [];
-				foreach ( $terms as $term ) {
-					$patterns[] = strtolower( $term->name );
-				}
-
-				$this->data['pattern'] = $patterns;
+			if ( is_array( $terms ) && count( $terms ) === 1 ) {
+				$term                  = reset( $terms );
+				$this->data['pattern'] = strtolower( $term->name );
 			}
 		}
 	}

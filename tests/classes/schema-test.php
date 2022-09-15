@@ -1440,9 +1440,6 @@ class Schema_Test extends TestCase {
 				'has_post_thumbnail'       => true,
 				'get_post_meta'            => false,
 				'get_the_terms'            => [
-					(object) [ 'name' => 'green' ],
-					(object) [ 'name' => 'white' ],
-					(object) [ 'name' => 'red' ],
 					(object) [ 'name' => 'UPPERCASECOLOR' ],
 				],
 				'wc_get_price_decimals'    => 2,
@@ -1559,12 +1556,7 @@ class Schema_Test extends TestCase {
 				'@type' => 'Organization',
 				'name'  => $product_name,
 			],
-			'color'            => [
-				'green',
-				'white',
-				'red',
-				'uppercasecolor',
-			],
+			'color'            => 'uppercasecolor',
 		];
 
 		$instance->change_product( $data, $product );
