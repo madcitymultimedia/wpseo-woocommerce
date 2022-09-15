@@ -363,14 +363,14 @@ function registerEventListeners() {
 
 	// Detect changes in the variation product identifiers and handle them.
 	jQuery( document.body ).on(
-		"change", "#variable_product_options .woocommerce_variations :input[id^=yoast_variation_identifier]",
+		"input", "#variable_product_options .woocommerce_variations :input[id^=yoast_variation_identifier]",
 		YoastSEO.app.refresh
 	);
 
 	if ( canRetrieveVariantSkus ) {
 		// Detect changes in the variation SKU identifiers and handle them.
 		jQuery( document.body ).on(
-			"change", "#variable_product_options .woocommerce_variations :input[id^=variable_sku]",
+			"input", "#variable_product_options .woocommerce_variations :input[id^=variable_sku]",
 			YoastSEO.app.refresh
 		);
 	}
