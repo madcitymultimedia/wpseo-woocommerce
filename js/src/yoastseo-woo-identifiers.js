@@ -342,13 +342,13 @@ function registerEventListeners() {
 	// Register event listeners for the global identifier inputs (non-variation);
 	identifierKeys.forEach( key => {
 		const globalIdentifierInput = document.getElementById( `yoast_identifier_${ key }` );
-		globalIdentifierInput.addEventListener( "change", YoastSEO.app.refresh );
+		globalIdentifierInput.addEventListener( "input", YoastSEO.app.refresh );
 	} );
 
 	// Register event listeners for the global sku input from Woocommerce (non-variation);
 	const globalSkuInput = document.getElementById( "_sku" );
 	if ( globalSkuInput ) {
-		globalSkuInput.addEventListener( "change", YoastSEO.app.refresh );
+		globalSkuInput.addEventListener( "input", YoastSEO.app.refresh );
 	}
 
 	// Detect changes in the product type.
@@ -362,14 +362,14 @@ function registerEventListeners() {
 
 	// Detect changes in the variation product identifiers and handle them.
 	jQuery( document.body ).on(
-		"change", "#variable_product_options .woocommerce_variations :input[id^=yoast_variation_identifier]",
+		"input", "#variable_product_options .woocommerce_variations :input[id^=yoast_variation_identifier]",
 		YoastSEO.app.refresh
 	);
 
 	if ( canRetrieveVariantSkus ) {
 		// Detect changes in the variation SKU identifiers and handle them.
 		jQuery( document.body ).on(
-			"change", "#variable_product_options .woocommerce_variations :input[id^=variable_sku]",
+			"input", "#variable_product_options .woocommerce_variations :input[id^=variable_sku]",
 			YoastSEO.app.refresh
 		);
 	}

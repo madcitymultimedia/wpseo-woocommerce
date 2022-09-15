@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b156317f6f5eda2aefe46790a3ad88ca",
+    "content-hash": "d09170d114a19511d090d9af76f6e5ee",
     "packages": [
         {
             "name": "composer/installers",
@@ -2538,7 +2538,7 @@
         },
         {
             "name": "yoast/wordpress-seo",
-            "version": "dev-trunk",
+            "version": "dev-release/19.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yoast/wordpress-seo.git",
@@ -2546,8 +2546,8 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/b2c39c77e3fe4df0333fa710e78a2d316c3bb6cb",
-                "reference": "b2c39c77e3fe4df0333fa710e78a2d316c3bb6cb",
+                "url": "https://api.github.com/repos/yoast/wordpress-seo/zipball/b5e4e61bca8a4e3639ad5a8c8bcf51f824838582",
+                "reference": "b5e4e61bca8a4e3639ad5a8c8bcf51f824838582",
                 "shasum": ""
             },
             "require": {
@@ -2691,7 +2691,7 @@
                 "wiki": "https://github.com/Yoast/wordpress-seo/wiki",
                 "source": "https://github.com/Yoast/wordpress-seo"
             },
-            "time": "2022-09-13T14:54:38+00:00"
+            "time": "2022-09-15T11:58:31+00:00"
         },
         {
             "name": "yoast/wp-test-utils",
