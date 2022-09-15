@@ -34,13 +34,16 @@ Changelog
 ### 15.2: September 20th, 2022
 
 
+
 Enhancements:
 
+* Adds a feature to select a custom taxonomy for products to describe their `pattern` in the Schema output.
 * Adds a new assessment which checks whether products (or product variants) have an identifier.
 * Adds a new assessment which checks whether products (or product variants) have a SKU.
 * Adds support for the ASIN values and adds these to Product/Offer schema nodes
 * Adds the word complexity assessment for Spanish, German and French.
 * Improves the readability analysis for English by adding a word complexity assessment for Product pages.
+* Improves the Schema output for for `Offers` and `priceSpecification` to match Google's recent changes to their guidelines.
 
 Bugfixes:
 
