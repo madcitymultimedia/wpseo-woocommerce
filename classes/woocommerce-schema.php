@@ -436,8 +436,6 @@ class WPSEO_WooCommerce_Schema {
 	/**
 	 * Adds the product color property to the Schema output.
 	 *
-	 * Adds the property if only one color has been added to the Product.
-	 *
 	 * @param WC_Product $product The product object.
 	 *
 	 * @return void
@@ -448,17 +446,35 @@ class WPSEO_WooCommerce_Schema {
 		if ( ! empty( $schema_color ) ) {
 			$terms = get_the_terms( $product->get_id(), $schema_color );
 
-			if ( is_array( $terms ) && count( $terms ) === 1 ) {
-				$term                = reset( $terms );
-				$this->data['color'] = strtolower( $term->name );
+			if ( is_array( $terms ) ) {
+				// Variable products can have more than one color.
+				$is_variable_product = false;
+				foreach ( $this->data['offers'] as $offer ) {
+					if ( $offer['@type'] === 'AggregateOffer' ) {
+						$is_variable_product = true;
+					}
+				}
+
+				if ( ! $is_variable_product ) {
+					if ( count( $terms ) === 1 ) {
+						$term                = reset( $terms );
+						$this->data['color'] = strtolower( $term->name );
+					}
+				}
+				else {
+					$colors = [];
+					foreach ( $terms as $term ) {
+						$colors[] = strtolower( $term->name );
+					}
+
+					$this->data['color'] = $colors;
+				}
 			}
 		}
 	}
 
 	/**
 	 * Adds the product pattern property to the Schema output.
-	 *
-	 * Adds the property if only one pattern has been added to the Product.
 	 *
 	 * @param WC_Product $product The product object.
 	 *
@@ -470,9 +486,29 @@ class WPSEO_WooCommerce_Schema {
 		if ( ! empty( $schema_pattern ) ) {
 			$terms = get_the_terms( $product->get_id(), $schema_pattern );
 
-			if ( is_array( $terms ) && count( $terms ) === 1 ) {
-				$term                  = reset( $terms );
-				$this->data['pattern'] = strtolower( $term->name );
+			if ( is_array( $terms ) ) {
+				// Variable products can have more than one pattern.
+				$is_variable_product = false;
+				foreach ( $this->data['offers'] as $offer ) {
+					if ( $offer['@type'] === 'AggregateOffer' ) {
+						$is_variable_product = true;
+					}
+				}
+
+				if ( ! $is_variable_product ) {
+					if ( count( $terms ) === 1) {
+						$term                  = reset( $terms );
+						$this->data['pattern'] = strtolower( $term->name );
+					}
+				}
+				else {
+					$colors = [];
+					foreach ( $terms as $term ) {
+						$colors[] = strtolower( $term->name );
+					}
+
+					$this->data['pattern'] = $colors;
+				}
 			}
 		}
 	}
