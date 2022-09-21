@@ -418,18 +418,18 @@ class WPSEO_WooCommerce_Schema {
 			unset( $this->data['image'] );
 		}
 
-		if ( has_post_thumbnail() ) {
+		if ( \has_post_thumbnail() ) {
 			$this->data['image'] = [
-				'@id' => YoastSEO()->meta->for_current_page()->canonical . Schema_IDs::PRIMARY_IMAGE_HASH,
+				'@id' => YoastSEO()->meta->for_current_page()->main_image_url,
 			];
 
 			return;
 		}
 
 		// Fallback to WooCommerce placeholder image.
-		if ( function_exists( 'wc_placeholder_img_src' ) ) {
+		if ( \function_exists( 'wc_placeholder_img_src' ) ) {
 			$image_schema_id     = YoastSEO()->meta->for_current_page()->canonical . '#woocommerceimageplaceholder';
-			$placeholder_img_src = wc_placeholder_img_src();
+			$placeholder_img_src = \wc_placeholder_img_src();
 			$this->data['image'] = YoastSEO()->helpers->schema->image->generate_from_url( $image_schema_id, $placeholder_img_src );
 		}
 	}
