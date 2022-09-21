@@ -1213,7 +1213,7 @@ class Schema_Test extends TestCase {
 				(object) [
 					'site_url'       => $base_url,
 					'main_schema_id' => $canonical,
-                    'main_image_url' => 'https://basic.wordpress.test/image.jpg',
+					'main_image_url' => 'https://basic.wordpress.test/image.jpg',
 				]
 			);
 
