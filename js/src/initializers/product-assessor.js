@@ -1,11 +1,12 @@
 /* global analysisWorker */
 // Product page assessors.
-const productSEOAssessor = require( "yoastseo/src/scoring/productPages/seoAssessor" );
-const productCornerstoneSEOAssessor = require( "yoastseo/src/scoring/productPages/cornerstone/seoAssessor" );
-const productContentAssessor = require( "yoastseo/src/scoring/productPages/contentAssessor" );
-const productCornerstoneContentAssessor = require( "yoastseo/src/scoring/productPages/cornerstone/contentAssessor" );
-const productRelatedKeywordAssessor = require( "yoastseo/src/scoring/productPages/relatedKeywordAssessor" );
-const productCornerstoneRelatedKeywordAssessor = require( "yoastseo/src/scoring/productPages/cornerstone/relatedKeywordAssessor" );
+const productSEOAssessor = require( "yoastseo/src/scoring/eCommerce/assessors/productPages/seoAssessor" );
+const productCornerstoneSEOAssessor = require( "yoastseo/src/scoring/eCommerce/assessors/productPages/cornerstone/seoAssessor" );
+const productContentAssessor = require( "yoastseo/src/scoring/eCommerce/assessors/productPages/contentAssessor" );
+const productCornerstoneContentAssessor = require( "yoastseo/src/scoring/eCommerce/assessors/productPages/cornerstone/contentAssessor" );
+const productRelatedKeywordAssessor = require( "yoastseo/src/scoring/eCommerce/assessors/productPages/relatedKeywordAssessor" );
+// eslint-disable-next-line max-len
+const productCornerstoneRelatedKeywordAssessor = require( "yoastseo/src/scoring/eCommerce/assessors/productPages/cornerstone/relatedKeywordAssessor" );
 
 /**
  * Initialize the product assessors.
