@@ -479,6 +479,7 @@ class Yoast_WooCommerce_SEO {
 		Yoast_Form::get_instance()->select( 'woo_schema_brand', esc_html__( 'Brand', 'yoast-woo-seo' ), $taxonomies );
 		Yoast_Form::get_instance()->select( 'woo_schema_color', esc_html__( 'Color', 'yoast-woo-seo' ), $taxonomies );
 		Yoast_Form::get_instance()->select( 'woo_schema_pattern', esc_html__( 'Pattern', 'yoast-woo-seo' ), $taxonomies );
+		Yoast_Form::get_instance()->select( 'woo_schema_material', esc_html__( 'Material', 'yoast-woo-seo' ), $taxonomies );
 
 		if ( WPSEO_Options::get( 'breadcrumbs-enable' ) === true ) {
 			echo '<h2>' . esc_html__( 'Breadcrumbs', 'yoast-woo-seo' ) . '</h2>';
