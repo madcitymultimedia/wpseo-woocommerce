@@ -1195,7 +1195,7 @@ class Schema_Test extends TestCase {
 				],
 			],
 			'mainEntityOfPage' => [ '@id' => $canonical ],
-			'image'            => [ '@id' => $canonical . '#primaryimage' ],
+			'image'            => [ '@id' => 'https://basic.wordpress.test/image.jpg' ],
 			'brand'            => [
 				'@type' => 'Brand',
 				'name'  => $product_name,
@@ -1212,8 +1212,8 @@ class Schema_Test extends TestCase {
 			->andReturn(
 				(object) [
 					'site_url'       => $base_url,
-					'canonical'      => $canonical,
 					'main_schema_id' => $canonical,
+					'main_image_url' => 'https://basic.wordpress.test/image.jpg',
 				]
 			);
 
@@ -1466,7 +1466,7 @@ class Schema_Test extends TestCase {
 			->andReturn(
 				(object) [
 					'site_url'       => $base_url,
-					'canonical'      => $canonical,
+					'main_image_url' => 'https://basic.wordpress.test/image.jpg',
 					'main_schema_id' => $canonical,
 				]
 			);
@@ -1550,7 +1550,7 @@ class Schema_Test extends TestCase {
 				],
 			],
 			'mainEntityOfPage' => [ '@id' => $canonical ],
-			'image'            => [ '@id' => $canonical . '#primaryimage' ],
+			'image'            => [ '@id' => 'https://basic.wordpress.test/image.jpg' ],
 			'brand'            => [
 				'@type' => 'Brand',
 				'name'  => $product_name,
