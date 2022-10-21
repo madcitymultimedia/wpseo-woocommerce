@@ -114,6 +114,8 @@ class Yoast_WooCommerce_SEO {
 
 		add_filter( 'wpseo_sitemap_entry', [ $this, 'filter_hidden_product' ], 10, 3 );
 		add_filter( 'wpseo_exclude_from_sitemap_by_post_ids', [ $this, 'filter_woocommerce_pages' ] );
+
+		add_action( 'before_woocommerce_init', [ $this, 'declare_custom_order_tables_compatibility' ] );
 	}
 
 	/**
@@ -1440,6 +1442,15 @@ class Yoast_WooCommerce_SEO {
 		}
 
 		add_filter( 'wpseo_breadcrumb_links', [ $this, 'add_attribute_to_breadcrumbs' ] );
+	}
+
+	/**
+	 * Declares compatibility with the WooCommerce HPOS feature.
+	 */
+	public function declare_custom_order_tables_compatibility() {
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WPSEO_WOO_PLUGIN_FILE, true );
+		}
 	}
 
 	/**
