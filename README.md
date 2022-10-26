@@ -31,6 +31,27 @@ You can find the FAQ [online here](https://kb.yoast.com/kb/category/woocommerce-
 Changelog
 =========
 
+### 15.3: November 8th, 2022
+
+Enhancements:
+
+* Adds a `material` property to products' pages schema.
+* Improves the readability analysis for English by adding a word complexity assessment for Product pages.
+
+Bugfixes:
+
+* Fixes a bug where the Product description assessment also appeared under the Readability analysis tab when the Cornerstone content toggle would be switched on.
+* Fixes a bug where two prices would be shown in the Slack integration metadata when a product is on sale.
+
+Other:
+
+* Bumps the Yoast SEO minimum required version to 19.10.
+* Ensures compatibility with the High Performance Order Storage feature in WooCommerce 7.1+.
+* Sets the minimum required Yoast SEO version to 19.3-RC8.
+* Sets the minimum supported WordPress version to 5.9.
+* Sets the WordPress tested up to version to 6.1.
+
+
 ### 15.2: September 20th, 2022
 
 Enhancements:
@@ -47,15 +68,6 @@ Bugfixes:
 Other:
 
 * Sets the minimum required Yoast SEO version to 19.7.
-
-### 15.1: August 9th, 2022
-
-Other:
-
-* Makes Yoast WooCommerce SEO compatible with the new analysis edit buttons in Yoast SEO Premium.
-* Sets the minimum supported WordPress version to 5.9.
-* Sets the minimum supported Yoast SEO version to 19.5.
-
 
 ### Earlier versions
 For the changelog of earlier versions, please refer to [the changelog on yoast.com](https://yoa.st/woo-seo-changelog).
