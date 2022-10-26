@@ -41,14 +41,11 @@ Enhancements:
 Bugfixes:
 
 * Fixes a bug where the Product description assessment also appeared under the Readability analysis tab when the Cornerstone content toggle would be switched on.
-* Fixes a bug where two prices would be shown in the Slack integration metadata when a product is on sale.
 
 Other:
 
 * Bumps the Yoast SEO minimum required version to 19.10.
 * Ensures compatibility with the High Performance Order Storage feature in WooCommerce 7.1+.
-* Sets the minimum required Yoast SEO version to 19.3-RC8.
-* Sets the minimum supported WordPress version to 5.9.
 * Sets the WordPress tested up to version to 6.1.
 
 
