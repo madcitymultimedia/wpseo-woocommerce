@@ -21,7 +21,7 @@ class Yoast_WooCommerce_Dependencies_Test extends TestCase {
 	 */
 	public function test_check_dependencies() {
 		$valid_wp_version        = '5.9';
-		$valid_yoast_seo_version = '19.7-RC1';
+		$valid_yoast_seo_version = '19.10-RC1';
 
 		$class = Mockery::mock( Yoast_WooCommerce_Dependencies_Double::class )->makePartial();
 
