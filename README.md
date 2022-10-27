@@ -40,14 +40,13 @@ Enhancements:
 
 Bugfixes:
 
-* Fixes a bug where the Product description assessment also appeared under the Readability analysis tab when the Cornerstone content toggle would be switched on.
+* Fixes a bug where the Product description assessment would also appear under the Readability analysis tab when the Cornerstone content toggle would be switched on.
 
 Other:
 
 * Bumps the Yoast SEO minimum required version to 19.10.
-* Ensures compatibility with the High Performance Order Storage feature in WooCommerce 7.1+.
+* Ensures compatibility with the _High Performance Order Storage_ feature in WooCommerce 7.1+.
 * Sets the WordPress tested up to version to 6.1.
-
 
 ### 15.2: September 20th, 2022
 
