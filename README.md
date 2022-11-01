@@ -36,7 +36,6 @@ Changelog
 Enhancements:
 
 * Adds a `material` property to products' pages schema.
-* Improves the readability analysis for English by adding a word complexity assessment for Product pages.
 
 Bugfixes:
 
