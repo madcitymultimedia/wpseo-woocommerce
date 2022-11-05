@@ -96,6 +96,9 @@ jobs:
       # defined dependencies for yoastseo installed and the build will fail.
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v2
+        with:
+          # Bust the cache at least once a week - output format: YYYY-MM-DD.
+          custom-cache-suffix: $(/bin/date -u --date='last Mon' "+%F")
 
       - name: "Debug info: show directory layout"
         run: tree -dC .

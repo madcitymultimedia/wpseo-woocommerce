@@ -100,6 +100,8 @@ jobs:
           dependency-versions: "highest"
           # But make it selective.
           composer-options: "yoast/wp-test-utils --with-dependencies"
+          # Bust the cache at least once a week - output format: YYYY-MM-DD.
+          custom-cache-suffix: $(/bin/date -u --date='last Mon' "+%F")
 
       # Update YoastSEO as a separate step so the caches will be reasonably stable.
       # This also prevents potentially updating dependencies of YoastSEO due to the above
