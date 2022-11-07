@@ -35,7 +35,7 @@ Changelog
 
 Enhancements:
 
-* Adds a `material` property to products' pages schema.
+* Adds a `material` property to product pages' schema.
 
 Bugfixes:
 
@@ -45,7 +45,7 @@ Other:
 
 * Bumps the Yoast SEO minimum required version to 19.10.
 * Ensures compatibility with the _High Performance Order Storage_ feature in WooCommerce 7.1+.
-* Sets the WordPress tested up to version to 6.1.
+* Sets the WordPress "tested up to" version to 6.1.
 
 ### 15.2: September 20th, 2022
 
