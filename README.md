@@ -2,7 +2,7 @@ WooCommerce Yoast SEO
 =====================
 Requires at least: 5.9
 Tested up to: 6.1
-Stable tag: 15.3-RC1
+Stable tag: 15.3
 Requires PHP: 5.6.20
 Depends: Yoast SEO, WooCommerce
 
@@ -35,8 +35,7 @@ Changelog
 
 Enhancements:
 
-* Adds a `material` property to products' pages schema.
-* Improves the readability analysis for English by adding a word complexity assessment for Product pages.
+* Adds a `material` property to product pages' schema.
 
 Bugfixes:
 
@@ -46,7 +45,7 @@ Other:
 
 * Bumps the Yoast SEO minimum required version to 19.10.
 * Ensures compatibility with the _High Performance Order Storage_ feature in WooCommerce 7.1+.
-* Sets the WordPress tested up to version to 6.1.
+* Sets the WordPress "tested up to" version to 6.1.
 
 ### 15.2: September 20th, 2022
 
