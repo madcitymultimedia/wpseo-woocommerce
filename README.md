@@ -31,36 +31,40 @@ You can find the FAQ [online here](https://kb.yoast.com/kb/category/woocommerce-
 Changelog
 =========
 
-### 15.3: November 8th, 2022
+## 15.3
 
-Enhancements:
+Release date: November 8th, 2022
 
-* Adds a `material` property to product pages' schema.
+#### Enhancements
 
-Bugfixes:
+Adds a `material` property to product pages’ schema.
 
-* Fixes a bug where the Product description assessment would also appear under the Readability analysis tab when the Cornerstone content toggle would be switched on.
+#### Bugfixes
 
-Other:
+Fixes a bug where the Product description assessment would also appear under the Readability analysis tab when the Cornerstone content toggle would be switched on.
+
+#### Other
 
 * Bumps the Yoast SEO minimum required version to 19.10.
-* Ensures compatibility with the _High Performance Order Storage_ feature in WooCommerce 7.1+.
-* Sets the WordPress "tested up to" version to 6.1.
+* Ensures compatibility with the High Performance Order Storage feature in WooCommerce 7.1+.
+* Sets the WordPress “tested up to” version to 6.1.
 
-### 15.2: September 20th, 2022
+## 15.2
 
-Enhancements:
+Release date: September 20th, 2022
+
+#### Enhancements
 
 * Adds assessments for SKU and product identifiers. Product identifiers help search engines understand your products. To remind you to fill them out, we've added assessments that check whether products (or product variants) have an identifier. We use the details to fill in the necessary product schema that search engines love.
 * Improves the Schema output for `offers` and `priceSpecification` to match Google's recent changes to their guidelines.
 * Adds a feature to select a custom taxonomy for products to describe their `pattern` in the Schema output.
 
-Bugfixes:
+#### Bugfixes
 
 * Fixes a bug where the Product Schema output would trigger a \"Duplicate field\" warning for the `color` property for non-variable products.
 * Fixes a bug where two prices would be shown in the Slack integration metadata when a product is on sale.
 
-Other:
+#### Other
 
 * Sets the minimum required Yoast SEO version to 19.7.
 
