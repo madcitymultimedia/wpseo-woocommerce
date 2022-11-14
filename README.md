@@ -37,17 +37,17 @@ Release date: November 8th, 2022
 
 #### Enhancements
 
-* Adds a `material` property to product pages' schema.
+Adds a `material` property to product pages’ schema.
 
 #### Bugfixes
 
-* Fixes a bug where the Product description assessment would also appear under the Readability analysis tab when the Cornerstone content toggle would be switched on.
+Fixes a bug where the Product description assessment would also appear under the Readability analysis tab when the Cornerstone content toggle would be switched on.
 
 #### Other
 
 * Bumps the Yoast SEO minimum required version to 19.10.
-* Ensures compatibility with the _High Performance Order Storage_ feature in WooCommerce 7.1+.
-* Sets the WordPress "tested up to" version to 6.1.
+* Ensures compatibility with the High Performance Order Storage feature in WooCommerce 7.1+.
+* Sets the WordPress “tested up to” version to 6.1.
 
 ## 15.2
 
