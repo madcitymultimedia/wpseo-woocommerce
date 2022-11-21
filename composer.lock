@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e96a2e1077cfe6ebed45206d51e1775b",
+    "content-hash": "993ac494fa56d0fc0bc337788f5d09db",
     "packages": [
         {
             "name": "composer/installers",
@@ -156,55 +156,6 @@
                 }
             ],
             "time": "2021-09-13T08:19:44+00:00"
-        },
-        {
-            "name": "yoast/i18n-module",
-            "version": "3.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Yoast/i18n-module.git",
-                "reference": "9d0a2f6daea6fb42376b023e7778294d19edd85d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/i18n-module/zipball/9d0a2f6daea6fb42376b023e7778294d19edd85d",
-                "reference": "9d0a2f6daea6fb42376b023e7778294d19edd85d",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2"
-            },
-            "require-dev": {
-                "roave/security-advisories": "dev-master",
-                "yoast/yoastcs": "^1.2.2"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Team Yoast",
-                    "email": "support@yoast.com",
-                    "homepage": "https://yoast.com"
-                }
-            ],
-            "description": "Handle i18n for WordPress plugins.",
-            "homepage": "https://github.com/Yoast/i18n-module",
-            "keywords": [
-                "wordpress"
-            ],
-            "support": {
-                "issues": "https://github.com/Yoast/i18n-module/issues",
-                "source": "https://github.com/Yoast/i18n-module"
-            },
-            "time": "2019-05-07T06:45:05+00:00"
         }
     ],
     "packages-dev": [
@@ -2544,18 +2495,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yoast/wordpress-seo.git",
-                "reference": "8d5d52d4eddf978105bf810f1a17de114091d447"
+                "reference": "eaa7ba1bb5f45120ea395dfd1ecfd095d101c998"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/8d5d52d4eddf978105bf810f1a17de114091d447",
-                "reference": "8d5d52d4eddf978105bf810f1a17de114091d447",
+                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/eaa7ba1bb5f45120ea395dfd1ecfd095d101c998",
+                "reference": "eaa7ba1bb5f45120ea395dfd1ecfd095d101c998",
                 "shasum": ""
             },
             "require": {
                 "composer/installers": "^1.12 || ^2.0",
-                "php": "^5.6.20 || ^7.0 || ^8.0",
-                "yoast/i18n-module": "^3.1.1"
+                "php": "^5.6.20 || ^7.0 || ^8.0"
             },
             "require-dev": {
                 "guzzlehttp/guzzle": "6.5.8",
@@ -2571,8 +2521,7 @@
                 "symfony/polyfill-php70": "1.19.0",
                 "symfony/polyfill-php72": "1.19.0",
                 "wordproof/wordpress-sdk": "1.3.2",
-                "yoast/php-development-environment": "^1.0",
-                "yoast/wp-test-utils": "^1.0.0",
+                "yoast/wp-test-utils": "^1.1.1",
                 "yoast/yoastcs": "^2.2.1"
             },
             "default-branch": true,
@@ -2693,7 +2642,7 @@
                 "wiki": "https://github.com/Yoast/wordpress-seo/wiki",
                 "source": "https://github.com/Yoast/wordpress-seo"
             },
-            "time": "2022-10-26T13:24:59+00:00"
+            "time": "2022-11-21T17:35:58+00:00"
         },
         {
             "name": "yoast/wp-test-utils",
