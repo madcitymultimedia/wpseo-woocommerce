@@ -35,6 +35,10 @@ Changelog
 
 Release date: December 13th, 2022
 
+#### Enhancements
+
+* Removes the Translation "nag" from the plugin.
+
 #### Other
 
 * Removes the beta badge from the _word complexity_ assessment.
