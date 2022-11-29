@@ -58,10 +58,11 @@ class Yoast_WooCommerce_SEO {
 
 		// Enable Yoast usage tracking.
 		add_filter( 'wpseo_enable_tracking', '__return_true' );
+		add_filter( 'wpseo_submenu_pages', [ $this, 'add_submenu_pages' ] );
 
 		if ( is_admin() || ( defined( 'DOING_CRON' ) && DOING_CRON ) ) {
 			// Add subitem to menu.
-			add_filter( 'wpseo_submenu_pages', [ $this, 'add_submenu_pages' ] );
+
 			add_action( 'admin_print_styles', [ $this, 'config_page_styles' ] );
 
 			// Hide the Yoast SEO columns in the Product table by default, except the SEO score column.
