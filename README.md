@@ -31,6 +31,15 @@ You can find the FAQ [online here](https://kb.yoast.com/kb/category/woocommerce-
 Changelog
 =========
 
+## 15.4
+
+Release date: December 13th, 2022
+
+#### Other
+
+* Removes the beta badge from the _word complexity_ assessment.
+* Sets the minimum required Yoast SEO version to 19.12.
+
 ## 15.3
 
 Release date: November 8th, 2022
@@ -48,25 +57,6 @@ Fixes a bug where the Product description assessment would also appear under the
 * Bumps the Yoast SEO minimum required version to 19.10.
 * Ensures compatibility with the High Performance Order Storage feature in WooCommerce 7.1+.
 * Sets the WordPress “tested up to” version to 6.1.
-
-## 15.2
-
-Release date: September 20th, 2022
-
-#### Enhancements
-
-* Adds assessments for SKU and product identifiers. Product identifiers help search engines understand your products. To remind you to fill them out, we've added assessments that check whether products (or product variants) have an identifier. We use the details to fill in the necessary product schema that search engines love.
-* Improves the Schema output for `offers` and `priceSpecification` to match Google's recent changes to their guidelines.
-* Adds a feature to select a custom taxonomy for products to describe their `pattern` in the Schema output.
-
-#### Bugfixes
-
-* Fixes a bug where the Product Schema output would trigger a \"Duplicate field\" warning for the `color` property for non-variable products.
-* Fixes a bug where two prices would be shown in the Slack integration metadata when a product is on sale.
-
-#### Other
-
-* Sets the minimum required Yoast SEO version to 19.7.
 
 ### Earlier versions
 For the changelog of earlier versions, please refer to [the changelog on yoast.com](https://yoa.st/woo-seo-changelog).
