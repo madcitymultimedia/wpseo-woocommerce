@@ -37,7 +37,7 @@ Release date: December 13th, 2022
 
 #### Enhancements
 
-* Removes the Translation "nag" from the plugin.
+* Removes a notification that prompts users to help with translating the plugin in their site language.
 
 #### Other
 
