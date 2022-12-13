@@ -2,7 +2,7 @@ WooCommerce Yoast SEO
 =====================
 Requires at least: 6.0
 Tested up to: 6.1
-Stable tag: 15.4-RC1
+Stable tag: 15.4
 Requires PHP: 5.6.20
 Depends: Yoast SEO, WooCommerce
 
@@ -37,7 +37,7 @@ Release date: December 13th, 2022
 
 #### Enhancements
 
-* Removes a notification that prompts users to help with translating the plugin in their site language.
+* Removes a box in the WooCommerce SEO page that prompts users to help with translating the plugin in their site language.
 
 #### Other
 
