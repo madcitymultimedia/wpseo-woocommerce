@@ -33,7 +33,7 @@ Changelog
 
 ## 15.4
 
-Release date: December 13th, 2022
+Release date: 2022-12-13
 
 #### Enhancements
 
@@ -46,7 +46,7 @@ Release date: December 13th, 2022
 
 ## 15.3
 
-Release date: November 8th, 2022
+Release date: 2022-11-08
 
 #### Enhancements
 
