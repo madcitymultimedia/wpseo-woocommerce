@@ -267,6 +267,7 @@ class Schema_Test extends TestCase {
 		$expected_output                        = $input;
 		$expected_output['offers'][0]['@id']    = 'https://example.com/#/schema/offer/209643-0';
 		$expected_output['offers'][0]['seller'] = [ '@id' => 'https://example.com/#organization' ];
+		unset( $expected_output['offers'][0]['priceSpecification']['valueAddedTaxIncluded'] );
 
 		Functions\stubs(
 			[
@@ -283,6 +284,8 @@ class Schema_Test extends TestCase {
 
 		$product = Mockery::mock( 'WC_Product' );
 		$product->expects( 'get_id' )->once()->andReturn( '209643' );
+		$product->expects( 'get_price' )->once()->andReturn( '49.00' );
+		$product->expects( 'get_min_purchase_quantity' )->once()->andReturn( 1 );
 		$product->expects( 'is_on_sale' )->once()->andReturn( false );
 		$product->expects( 'is_on_backorder' )->once()->andReturn( false );
 
@@ -335,6 +338,7 @@ class Schema_Test extends TestCase {
 		$expected_output                        = $input;
 		$expected_output['offers'][0]['@id']    = 'https://example.com/#/schema/offer/209643-0';
 		$expected_output['offers'][0]['seller'] = [ '@id' => 'https://example.com/#organization' ];
+		unset( $expected_output['offers'][0]['priceSpecification']['valueAddedTaxIncluded'] );
 
 		Functions\stubs(
 			[
@@ -351,6 +355,8 @@ class Schema_Test extends TestCase {
 
 		$product = Mockery::mock( 'WC_Product' );
 		$product->expects( 'get_id' )->once()->andReturn( '209643' );
+		$product->expects( 'get_price' )->once()->andReturn( '49.00' );
+		$product->expects( 'get_min_purchase_quantity' )->once()->andReturn( 1 );
 		$product->expects( 'is_on_sale' )->once()->andReturn( false );
 		$product->expects( 'is_on_backorder' )->once()->andReturn( true );
 
@@ -615,7 +621,6 @@ class Schema_Test extends TestCase {
 						'@type'                 => 'PriceSpecification',
 						'price'                 => 10,
 						'priceCurrency'         => 'GBP',
-						'valueAddedTaxIncluded' => false,
 					],
 					'sku'                => '209643',
 					'gtin8'              => '01234567',
@@ -629,7 +634,6 @@ class Schema_Test extends TestCase {
 						'@type'                 => 'PriceSpecification',
 						'price'                 => 8,
 						'priceCurrency'         => 'GBP',
-						'valueAddedTaxIncluded' => false,
 					],
 					'sku'                => '209644',
 					'gtin8'              => '11112222',
@@ -644,7 +648,6 @@ class Schema_Test extends TestCase {
 						'@type'                 => 'PriceSpecification',
 						'price'                 => 12,
 						'priceCurrency'         => 'GBP',
-						'valueAddedTaxIncluded' => false,
 					],
 					'sku'                => '209645',
 					'gtin8'              => '11112222',
@@ -664,12 +667,22 @@ class Schema_Test extends TestCase {
 			]
 		);
 
-		$product = Mockery::mock( 'WC_Product' );
+		$product = Mockery::mock( 'WC_Product_Variable' );
 		$product->expects( 'get_id' )->twice()->andReturn( '209643' );
 		$product->expects( 'get_available_variations' )->once()->andReturn( $variants );
 		$product->expects( 'get_name' )->once()->andReturn( 'Customizable responsive toolset' );
 		$product->expects( 'is_on_sale' )->once()->andReturn( false );
 		$product->expects( 'is_on_backorder' )->once()->andReturn( false );
+
+		$product->expects( 'get_variation_price' )
+				->with( 'min', true )
+				->once()
+				->andReturn( '8.00' );
+
+		$product->expects( 'get_variation_price' )
+				->with( 'max', true )
+				->once()
+				->andReturn( '12.00' );
 
 		Functions\expect( 'get_permalink' )
 			->andReturn(
@@ -1058,6 +1071,8 @@ class Schema_Test extends TestCase {
 
 		$product = Mockery::mock( 'WC_Product' );
 		$product->expects( 'get_id' )->times( 7 )->with()->andReturn( $product_id );
+		$product->expects( 'get_price' )->once()->andReturn( '1.00' );
+		$product->expects( 'get_min_purchase_quantity' )->once()->andReturn( 1 );
 		$product->expects( 'get_name' )->once()->with()->andReturn( $product_name );
 		$product->expects( 'get_sku' )->once()->with()->andReturn( $product_sku );
 		$product->expects( 'is_on_sale' )->once()->andReturn( false );
@@ -1134,6 +1149,7 @@ class Schema_Test extends TestCase {
 					'priceSpecification' => [
 						'@type'                 => 'PriceSpecification',
 						'valueAddedTaxIncluded' => false,
+						'priceCurrency'         => 'GBP',
 					],
 				],
 			],
@@ -1172,7 +1188,8 @@ class Schema_Test extends TestCase {
 					],
 					'priceSpecification' => [
 						'@type'                 => 'PriceSpecification',
-						'valueAddedTaxIncluded' => false,
+						'priceCurrency'         => 'GBP',
+						'price'                 => '1.00',
 					],
 					'@id'                => $base_url . '#/schema/offer/1-0',
 				],
@@ -1240,6 +1257,8 @@ class Schema_Test extends TestCase {
 
 		$product = Mockery::mock( 'WC_Product' );
 		$product->expects( 'get_id' )->times( 7 )->with()->andReturn( $product_id );
+		$product->expects( 'get_price' )->once()->andReturn( '1.00' );
+		$product->expects( 'get_min_purchase_quantity' )->once()->andReturn( 1 );
 		$product->expects( 'get_name' )->once()->with()->andReturn( $product_name );
 		$product->expects( 'get_sku' )->once()->with()->andReturn( $product_sku );
 		$product->expects( 'is_on_sale' )->once()->andReturn( false );
@@ -1318,6 +1337,7 @@ class Schema_Test extends TestCase {
 					'priceSpecification' => [
 						'@type'                 => 'PriceSpecification',
 						'valueAddedTaxIncluded' => false,
+						'priceCurrency'         => 'GBP',
 					],
 					'seller'             => [
 						'@type' => 'Organization',
@@ -1356,7 +1376,8 @@ class Schema_Test extends TestCase {
 					'url'                => $canonical,
 					'priceSpecification' => [
 						'@type'                 => 'PriceSpecification',
-						'valueAddedTaxIncluded' => false,
+						'priceCurrency'         => 'GBP',
+						'price'                 => '1.00',
 					],
 					'seller'             => [
 						'@id' => $base_url . '#organization',
@@ -1424,6 +1445,8 @@ class Schema_Test extends TestCase {
 
 		$product = Mockery::mock( 'WC_Product' );
 		$product->expects( 'get_id' )->times( 6 )->with()->andReturn( $product_id );
+		$product->expects( 'get_price' )->once()->andReturn( '1.00' );
+		$product->expects( 'get_min_purchase_quantity' )->once()->andReturn( 1 );
 		$product->expects( 'get_name' )->once()->with()->andReturn( $product_name );
 		$product->expects( 'get_sku' )->once()->with()->andReturn( $product_sku );
 		$product->expects( 'is_on_sale' )->once()->andReturn( false );
@@ -1485,10 +1508,15 @@ class Schema_Test extends TestCase {
 			'sku'         => 'sku1234',
 			'offers'      => [
 				[
-					'@type'  => 'Offer',
-					'price'  => '1.00',
-					'url'    => $canonical,
-					'seller' => [
+					'@type'              => 'Offer',
+					'price'              => '1.00',
+					'url'                => $canonical,
+					'priceSpecification' => [
+						'@type'                 => 'PriceSpecification',
+						'valueAddedTaxIncluded' => false,
+						'priceCurrency'         => 'GBP',
+					],
+					'seller'             => [
 						'@type' => 'Organization',
 						'name'  => 'WP',
 						'url'   => $base_url,
@@ -1523,13 +1551,16 @@ class Schema_Test extends TestCase {
 				[
 					'@type'              => 'Offer',
 					'url'                => $canonical,
+					'priceSpecification' => [
+						'@type'                 => 'PriceSpecification',
+						'priceCurrency'         => 'GBP',
+						'price'                 => '1.00',
+					],
 					'seller'             => [
 						'@id' => $base_url . '#organization',
 					],
 					'@id'                => $base_url . '#/schema/offer/1-0',
-					'priceSpecification' => [
-						'@type'                 => 'PriceSpecification',
-					],
+
 				],
 			],
 			'review'           => [
@@ -1682,6 +1713,7 @@ class Schema_Test extends TestCase {
 		$expected_output                        = $input;
 		$expected_output['offers'][0]['@id']    = 'http://example.com/#/schema/offer/209643-0';
 		$expected_output['offers'][0]['seller'] = [ '@id' => 'http://example.com/#organization' ];
+		unset( $expected_output['offers'][0]['priceSpecification']['valueAddedTaxIncluded'] );
 
 		Functions\stubs(
 			[
@@ -1696,6 +1728,8 @@ class Schema_Test extends TestCase {
 
 		$product = Mockery::mock( 'WC_Product' );
 		$product->expects( 'get_id' )->once()->andReturn( '209643' );
+		$product->expects( 'get_price' )->once()->andReturn( '49.00' );
+		$product->expects( 'get_min_purchase_quantity' )->once()->andReturn( 1 );
 		$product->expects( 'is_on_sale' )->once()->andReturn( true );
 		$product->expects( 'get_date_on_sale_to' )->once()->andReturn( 'not-a-null-value' );
 		$product->expects( 'is_on_backorder' )->once()->andReturn( false );
@@ -1812,6 +1846,8 @@ class Schema_Test extends TestCase {
 
 		$product = Mockery::mock( 'WC_Product' );
 		$product->expects( 'get_id' )->once()->andReturn( '209643' );
+		$product->expects( 'get_price' )->once()->andReturn( '49.00' );
+		$product->expects( 'get_min_purchase_quantity' )->once()->andReturn( 1 );
 		$product->expects( 'is_on_sale' )->once()->andReturn( false );
 		$product->expects( 'is_on_backorder' )->once()->andReturn( false );
 
