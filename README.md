@@ -33,7 +33,7 @@ Changelog
 
 ## 15.5
 
-Release date: 2023-01-12
+Release date: 2023-01-17
 
 #### Enhancements
 
