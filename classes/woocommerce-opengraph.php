@@ -128,6 +128,6 @@ class WPSEO_WooCommerce_OpenGraph {
 		$indexable_repository = YoastSEO()->classes->get( 'Yoast\WP\SEO\Repositories\Indexable_Repository' );
 		$indexable            = $indexable_repository->find_by_id_and_type( $product_id, 'post' );
 
-		return $indexable->open_graph_image_source === 'set-by-user';
+		return ( $indexable && $indexable->open_graph_image_source === 'set-by-user' );
 	}
 }
