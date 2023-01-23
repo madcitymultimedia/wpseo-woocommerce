@@ -446,7 +446,7 @@ class WPSEO_WooCommerce_Schema {
 		if ( function_exists( 'wc_placeholder_img_src' ) ) {
 			$image_schema_id     = YoastSEO()->meta->for_current_page()->canonical . '#woocommerceimageplaceholder';
 			$placeholder_img_src = wc_placeholder_img_src();
-			$this->data['image'] = YoastSEO()->helpers->schema->image->generate_from_url( $image_schema_id, $placeholder_img_src );
+			$this->data['image'] = YoastSEO()->helpers->schema->image->generate_from_url( $image_schema_id, $placeholder_img_src, '', false, false );
 		}
 	}
 
