@@ -1316,7 +1316,7 @@ class Schema_Test extends TestCase {
 
 		$this->helpers->schema->image
 			->expects( 'generate_from_url' )
-			->with( $image_data['@id'], $image_data['url'] )
+			->with( $image_data['@id'], $image_data['url'], '', false, false )
 			->andReturn( $image_data );
 
 		Functions\expect( 'wp_strip_all_tags' )->twice()->andReturn( 'TestProduct' );
