@@ -31,6 +31,18 @@ You can find the FAQ [online here](https://kb.yoast.com/kb/category/woocommerce-
 Changelog
 =========
 
+## 15.6
+
+Release date: 2023-02-21
+
+#### Other
+
+* Improves the Breadcrumb settings' link to point to a more specific section in the new Yoast settings.
+* Make product schema creation compatible with the latest Yoast Free changes
+* Make Woo SEO compatible with the indexable changes of the 20.2 release of Yoast SEO
+* Sets the minimum required Yoast SEO version to 20.2.
+* Sets the minimum supported WordPress version to 6.0.
+
 ## 15.5
 
 Release date: 2023-01-17
@@ -42,19 +54,6 @@ Release date: 2023-01-17
 #### Other
 
 *  Sets the minimum required version of Yoast SEO to 19.14.
-
-## 15.4
-
-Release date: 2022-12-13
-
-#### Enhancements
-
-* Removes a box in the WooCommerce SEO page that prompts users to help with translating the plugin in their site language.
-
-#### Other
-
-* Removes the beta badge from the _word complexity_ assessment.
-* Sets the minimum required Yoast SEO version to 19.12.
 
 ### Earlier versions
 For the changelog of earlier versions, please refer to [the changelog on yoast.com](https://yoa.st/woo-seo-changelog).
