@@ -67,7 +67,7 @@
     "grunt-webpack": "^3.1.2",
     "jest": "^27.2.2",
     "lodash.defaultsdeep": "^4.6.0",
-    "node-fetch": "^1.0.1",
+    "node-fetch": "^2.6.7",
     "unminified-webpack-plugin": "^2.0.0",
     "webpack": "^4.16.2",
     "webpack-cli": "^3.1.0",
