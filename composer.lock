@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0897f672b61ceadda73dc0fc06f64074",
+    "content-hash": "90577533f026ddb6ccceffa6afa69326",
     "packages": [
         {
             "name": "composer/installers",
@@ -2545,16 +2545,16 @@
         },
         {
             "name": "yoast/wordpress-seo",
-            "version": "dev-trunk",
+            "version": "dev-release/20.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Yoast/wordpress-seo.git",
-                "reference": "b381a064102231ff46b20f92567de67e66c8ff78"
+                "url": "https://github.com/yoast/wordpress-seo",
+                "reference": "a5fd83173bf56bf7841d72bb6d3d33ecc4caa825"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/b381a064102231ff46b20f92567de67e66c8ff78",
-                "reference": "b381a064102231ff46b20f92567de67e66c8ff78",
+                "url": "https://api.github.com/repos/yoast/wordpress-seo/zipball/a5fd83173bf56bf7841d72bb6d3d33ecc4caa825",
+                "reference": "a5fd83173bf56bf7841d72bb6d3d33ecc4caa825",
                 "shasum": ""
             },
             "require": {
@@ -2577,9 +2577,8 @@
                 "symfony/polyfill-php72": "1.19.0",
                 "wordproof/wordpress-sdk": "1.3.2",
                 "yoast/wp-test-utils": "^1.1.1",
-                "yoast/yoastcs": "^2.2.1"
+                "yoast/yoastcs": "^2.3.0"
             },
-            "default-branch": true,
             "type": "wordpress-plugin",
             "autoload": {
                 "classmap": [
@@ -2697,7 +2696,7 @@
                 "wiki": "https://github.com/Yoast/wordpress-seo/wiki",
                 "source": "https://github.com/Yoast/wordpress-seo"
             },
-            "time": "2022-12-01T12:10:44+00:00"
+            "time": "2023-02-07T09:48:30+00:00"
         },
         {
             "name": "yoast/wp-test-utils",
