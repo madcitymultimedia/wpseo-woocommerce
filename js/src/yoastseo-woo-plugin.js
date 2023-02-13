@@ -2,6 +2,7 @@
 
 import { getExcerpt, addExcerptEventHandlers, isTinyMCEAvailable } from "./yoastseo-woo-handle-excerpt-editors";
 import { addFilter } from "@wordpress/hooks";
+import { addAction } from "@wordpress/hooks";
 import { dispatch } from "@wordpress/data";
 
 const PLUGIN_NAME = "YoastWooCommerce";
@@ -181,12 +182,21 @@ class YoastWooCommercePlugin {
 	}
 }
 
+function initializeWooPluginInElementor() {
+	return new YoastWooCommercePlugin(); // eslint-disable-line no-new
+}
+
 /**
  * Adds eventlistener to load the Yoast WooCommerce plugin.
  */
 if ( typeof YoastSEO !== "undefined" && typeof YoastSEO.app !== "undefined" ) {
 	new YoastWooCommercePlugin(); // eslint-disable-line no-new
 } else {
+	jQuery( window ).on( "elementor:init", () => {
+		window.elementor.on( "panel:init", () => {
+			addAction( "yoast.elementor.loaded", "yoast/yoast-woocommerce-seo/initialize-woo-plugin-in-elementor", initializeWooPluginInElementor );
+		} );
+	} );
 	jQuery( window ).on(
 		"YoastSEO:ready",
 		function() {
