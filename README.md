@@ -33,7 +33,7 @@ Changelog
 
 ## 15.6
 
-Release date: 2023-02-21
+Release date: 2023-02-28
 
 #### Other
 
