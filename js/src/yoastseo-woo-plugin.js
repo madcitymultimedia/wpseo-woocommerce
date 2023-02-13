@@ -182,7 +182,12 @@ class YoastWooCommercePlugin {
 	}
 }
 
-function initializeWooPluginInElementor() {
+/**
+ * Initializes the Yoast Woo Commerce plugin.
+ *
+ * @returns {YoastWooCommercePlugin} A new instance of the plugin class.
+ */
+function initializeWooPlugin() {
 	return new YoastWooCommercePlugin(); // eslint-disable-line no-new
 }
 
@@ -194,7 +199,7 @@ if ( typeof YoastSEO !== "undefined" && typeof YoastSEO.app !== "undefined" ) {
 } else {
 	jQuery( window ).on( "elementor:init", () => {
 		window.elementor.on( "panel:init", () => {
-			addAction( "yoast.elementor.loaded", "yoast/yoast-woocommerce-seo/initialize-woo-plugin-in-elementor", initializeWooPluginInElementor );
+			addAction( "yoast.elementor.loaded", "yoast/yoast-woocommerce-seo/initialize-woo-plugin-in-elementor", initializeWooPlugin );
 		} );
 	} );
 	jQuery( window ).on(
