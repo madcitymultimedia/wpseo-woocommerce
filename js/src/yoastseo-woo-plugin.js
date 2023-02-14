@@ -183,12 +183,20 @@ class YoastWooCommercePlugin {
 }
 
 /**
- * Initializes the Yoast Woo Commerce plugin.
+ * Loads the worker script in Elementor.
  *
- * @returns {YoastWooCommercePlugin} A new instance of the plugin class.
+ * @returns {void}
  */
-function initializeWooPlugin() {
-	return new YoastWooCommercePlugin(); // eslint-disable-line no-new
+function loadWorkerScriptInElementor() {
+	if ( typeof YoastSEO === "undefined" || typeof YoastSEO.analysis === "undefined" || typeof YoastSEO.analysis.worker === "undefined" ) {
+		return;
+	}
+
+	const worker = YoastSEO.analysis.worker;
+	const productDescription = getExcerpt();
+
+	worker.loadScript( wpseoWooL10n.script_url )
+	.then( () => worker.sendMessage( "initialize", { l10n: wpseoWooL10n, productDescription }, PLUGIN_NAME ) )
 }
 
 /**
@@ -199,7 +207,7 @@ if ( typeof YoastSEO !== "undefined" && typeof YoastSEO.app !== "undefined" ) {
 } else {
 	jQuery( window ).on( "elementor:init", () => {
 		window.elementor.on( "panel:init", () => {
-			addAction( "yoast.elementor.loaded", "yoast/yoast-woocommerce-seo/initialize-woo-plugin-in-elementor", initializeWooPlugin );
+			addAction( "yoast.elementor.loaded", "yoast/yoast-woocommerce-seo/load-worker-script-in-elementor", loadWorkerScriptInElementor );
 		} );
 	} );
 	jQuery( window ).on(
