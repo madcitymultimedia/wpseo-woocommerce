@@ -196,7 +196,7 @@ function loadWorkerScriptInElementor() {
 	const productDescription = getExcerpt();
 
 	worker.loadScript( wpseoWooL10n.script_url )
-	.then( () => worker.sendMessage( "initialize", { l10n: wpseoWooL10n, productDescription }, PLUGIN_NAME ) )
+		.then( () => worker.sendMessage( "initialize", { l10n: wpseoWooL10n, productDescription }, PLUGIN_NAME ) );
 }
 
 /**
