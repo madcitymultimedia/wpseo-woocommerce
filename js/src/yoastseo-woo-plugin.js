@@ -3,6 +3,7 @@
 import { getExcerpt, addExcerptEventHandlers, isTinyMCEAvailable } from "./yoastseo-woo-handle-excerpt-editors";
 import { addFilter } from "@wordpress/hooks";
 import { dispatch } from "@wordpress/data";
+import initializeInputFocus from "./initializers/input-focus";
 
 const PLUGIN_NAME = "YoastWooCommerce";
 
@@ -36,6 +37,8 @@ class YoastWooCommercePlugin {
 		this.dispatchGooglePreviewData();
 
 		addFilter( "yoast.socials.imageFallback", "yoast/yoast-woocommerce-seo/image_fallback", this.addProductGalleryImageAsFallback );
+
+		initializeInputFocus();
 	}
 
 	/**
