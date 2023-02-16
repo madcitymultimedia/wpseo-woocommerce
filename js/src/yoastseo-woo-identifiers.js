@@ -224,7 +224,7 @@ function cacheProductVariants( productVariants ) {
  *
  * @returns {Object[]} The product data needed for the SKU and product identifier assessments of all product variants.
  */
-function getProductVariants() {
+export function getProductVariants() {
 	const variationElements = [ ...document.querySelectorAll( ".woocommerce_variation" ) ];
 	const productVariants = variationElements.map( getProductVariant );
 	return cacheProductVariants( productVariants );
@@ -249,7 +249,7 @@ function getInitialProductData() {
  *
  * @returns {Object} The product data needed for the SKU and product identifier assessments.
  */
-function getProductData() {
+export function getProductData() {
 	let canRetrieveGlobalSku = true;
 	let canRetrieveAllIdentifiers = true;
 
