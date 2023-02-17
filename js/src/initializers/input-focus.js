@@ -1,5 +1,6 @@
 import { addAction } from "@wordpress/hooks";
 import { getProductData, getProductVariants } from "../yoastseo-woo-identifiers";
+import { get } from "lodash-es";
 
 /**
  * Opens a WooCommerce tab and then focuses on a Product input field.
@@ -32,10 +33,11 @@ function focusOnProductField( tabSelector, fieldID ) {
 /**
  * Opens a WooCommerce tab for a variation and then focuses on a Product input field.
  *
+ * @param {string} emptyFieldPath The path of the field that will be checked if it's empty.
  * @param {string} fieldID The input field ID.
  * @returns {void}
  */
-function focusOnVariationProductField( fieldID ) {
+function focusOnVariationProductField( emptyFieldPath, fieldID ) {
 	// Open the WooCommerce variations tab
 	const tabLink = document.querySelector( ".variations_tab a" );
 	if ( ! tabLink ) {
@@ -45,7 +47,8 @@ function focusOnVariationProductField( fieldID ) {
 
 	// Retrieve the first identifier without a SKU.
 	const variations = getProductVariants();
-	const index = variations.findIndex( ( element ) => element.sku === "" );
+
+	const index = variations.findIndex( ( element ) => get( element, emptyFieldPath ) === "" );
 
 	/**
 	 * Handles the focusing of the field inside the variation.
@@ -60,7 +63,7 @@ function focusOnVariationProductField( fieldID ) {
 		}
 
 		// Focus on the element and scroll it into view.
-		const element = document.getElementById( fieldID + variationIndex );
+		const element = variationDiv.querySelector( fieldID );
 		if ( ! element ) {
 			return;
 		}
@@ -86,13 +89,13 @@ function inputFocus( id ) {
 
 	if ( productData.productType === "variable" ) {
 		if ( id === "productSKU" ) {
-			focusOnVariationProductField( "variable_sku" );
+			focusOnVariationProductField( "sku",  "[id^='variable_sku']" );
 			return;
 		}
 
 		if ( id === "productIdentifier" ) {
 			// Does not work yet :-(
-			focusOnVariationProductField( "yoast_identifier_gtin8" );
+			focusOnVariationProductField( "productIdentifiers.gtin8", "[id^='yoast_variation_identifier']" );
 		}
 	} else {
 		if ( id === "productSKU" ) {
