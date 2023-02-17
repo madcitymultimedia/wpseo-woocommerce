@@ -76,7 +76,7 @@ function focusOnVariationProductField( emptyFieldPath, fieldID ) {
 	}
 
 	// Wait for the variations tab to open and then open up the first variation without a SKU.
-	setTimeout( () => handle( index ), 2000 );
+	setTimeout( () => handle( index ), 1000 );
 }
 
 /**
