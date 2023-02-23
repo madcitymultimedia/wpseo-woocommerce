@@ -51,8 +51,6 @@ export default function initialize() {
 		imageKeyphraseCTAUrl: "https://yoa.st/4f6",
 		imageAltTagsUrlTitle: "https://yoa.st/33c",
 		imageAltTagsCTAUrl: "https://yoa.st/33d",
-		keyphraseDistributionUrlTitle: "https://yoa.st/33q",
-		keyphraseDistributionCTAUrl: "https://yoa.st/33u",
 		productIdentifierUrlTitle: "https://yoa.st/4ly",
 		productIdentifierCTAUrl: "https://yoa.st/4lz",
 		productSKUUrlTitle: "https://yoa.st/4lw",
@@ -96,8 +94,6 @@ export default function initialize() {
 		imageKeyphraseCTAUrl: "https://yoa.st/4f6",
 		imageAltTagsUrlTitle: "https://yoa.st/33c",
 		imageAltTagsCTAUrl: "https://yoa.st/33d",
-		keyphraseDistributionUrlTitle: "https://yoa.st/33q",
-		keyphraseDistributionCTAUrl: "https://yoa.st/33u",
 		productIdentifierUrlTitle: "https://yoa.st/4ly",
 		productIdentifierCTAUrl: "https://yoa.st/4lz",
 		productSKUUrlTitle: "https://yoa.st/4lw",
@@ -120,8 +116,6 @@ export default function initialize() {
 		textPresenceCTAUrl: "https://yoa.st/35i",
 		listsUrlTitle: "https://yoa.st/4fe",
 		listsCTAUrl: "https://yoa.st/4ff",
-		wordComplexityTitleUrl: "https://yoa.st/4ls",
-		wordComplexityCTAUrl: "https://yoa.st/4lt",
 	}  );
 	analysisWorker.setCustomCornerstoneContentAssessorClass( productCornerstoneContentAssessor.default, "productPage", {
 		subheadingUrlTitle: "https://yoa.st/34x",
@@ -138,8 +132,6 @@ export default function initialize() {
 		textPresenceCTAUrl: "https://yoa.st/35i",
 		listsUrlTitle: "https://yoa.st/4fe",
 		listsCTAUrl: "https://yoa.st/4ff",
-		wordComplexityTitleUrl: "https://yoa.st/4ls",
-		wordComplexityCTAUrl: "https://yoa.st/4lt",
 	}  );
 	analysisWorker.setCustomRelatedKeywordAssessorClass( productRelatedKeywordAssessor.default, "productPage", {
 		introductionKeyphraseUrlTitle: "https://yoa.st/33e",
