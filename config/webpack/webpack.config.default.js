@@ -11,6 +11,8 @@ const webpack = require( "webpack" );
 
 const externals = {
 	yoastseo: "yoast.analysis",
+	lodash: "window.lodash",
+	"lodash-es": "window.lodash",
 };
 let analyzerPort = 8888;
 
