@@ -14,7 +14,6 @@ const externals = {
 	lodash: "window.lodash",
 	"lodash-es": "window.lodash",
 };
-let analyzerPort = 8888;
 
 /**
  * WordPress dependencies.
@@ -63,9 +62,7 @@ const defaultConfig = {
 		} ),
 		new UnminifiedWebpackPlugin(),
 		new CaseSensitivePathsPlugin(),
-		new BundleAnalyzerPlugin( {
-			analyzerPort: analyzerPort++,
-		} ),
+		new BundleAnalyzerPlugin(),
 	],
 };
 
