@@ -38,8 +38,8 @@ Release date: 2023-02-28
 #### Other
 
 * Improves the Breadcrumb settings' link to point to a more specific section in the new Yoast settings.
-* Make product schema creation compatible with the latest Yoast Free changes
-* Make Woo SEO compatible with the indexable changes of the 20.2 release of Yoast SEO
+* Makes product schema creation compatible with the latest Yoast Free changes
+* Makes Woo SEO compatible with the indexable changes of the 20.2 release of Yoast SEO
 * Sets the minimum required Yoast SEO version to 20.2.
 * Sets the minimum supported WordPress version to 6.0.
 
