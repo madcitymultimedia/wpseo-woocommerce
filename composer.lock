@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0897f672b61ceadda73dc0fc06f64074",
+    "content-hash": "3706dd99648827a258466835c8f6e075",
     "packages": [
         {
             "name": "composer/installers",
@@ -2493,74 +2493,22 @@
             "time": "2022-11-16T09:07:52+00:00"
         },
         {
-            "name": "yoast/whip",
-            "version": "1.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Yoast/whip.git",
-                "reference": "49a6120d89a53874391d1451be8ef279feec0eae"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/whip/zipball/49a6120d89a53874391d1451be8ef279feec0eae",
-                "reference": "49a6120d89a53874391d1451be8ef279feec0eae",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3"
-            },
-            "require-dev": {
-                "php-parallel-lint/php-console-highlighter": "^0.5",
-                "php-parallel-lint/php-parallel-lint": "^1.3",
-                "phpunit/phpunit": "^4.5 || ^5.7 || ^6.0 || ^7.0 || ^8.0 || ^9.0",
-                "roave/security-advisories": "dev-master",
-                "yoast/yoastcs": "^2.1.0"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "src/facades/wordpress.php"
-                ],
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-3.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Team Yoast",
-                    "email": "support@yoast.com"
-                }
-            ],
-            "description": "A WordPress package to nudge users to upgrade their software versions (starting with PHP)",
-            "homepage": "https://github.com/Yoast/whip",
-            "support": {
-                "issues": "https://github.com/Yoast/whip/issues",
-                "source": "https://github.com/Yoast/whip"
-            },
-            "time": "2021-07-20T11:22:45+00:00"
-        },
-        {
             "name": "yoast/wordpress-seo",
-            "version": "dev-trunk",
+            "version": "dev-feature/drop-php-5.6-7.0-7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yoast/wordpress-seo.git",
-                "reference": "a5fd83173bf56bf7841d72bb6d3d33ecc4caa825"
+                "reference": "d9294bb74cc80f555ee6ba3ec0f4d32e007e5792"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/a5fd83173bf56bf7841d72bb6d3d33ecc4caa825",
-                "reference": "a5fd83173bf56bf7841d72bb6d3d33ecc4caa825",
+                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/d9294bb74cc80f555ee6ba3ec0f4d32e007e5792",
+                "reference": "d9294bb74cc80f555ee6ba3ec0f4d32e007e5792",
                 "shasum": ""
             },
             "require": {
                 "composer/installers": "^1.12 || ^2.0",
-                "php": "^5.6.20 || ^7.0 || ^8.0",
-                "yoast/whip": "^1.2"
+                "php": "^7.2 || ^8.0"
             },
             "require-dev": {
                 "guzzlehttp/guzzle": "6.5.8",
@@ -2579,7 +2527,6 @@
                 "yoast/wp-test-utils": "^1.1.1",
                 "yoast/yoastcs": "^2.3.0"
             },
-            "default-branch": true,
             "type": "wordpress-plugin",
             "autoload": {
                 "classmap": [
@@ -2619,8 +2566,8 @@
                     "Yoast\\WP\\SEO\\Composer\\Actions::check_coding_standards"
                 ],
                 "check-cs-thresholds": [
-                    "@putenv YOASTCS_THRESHOLD_ERRORS=135",
-                    "@putenv YOASTCS_THRESHOLD_WARNINGS=204",
+                    "@putenv YOASTCS_THRESHOLD_ERRORS=133",
+                    "@putenv YOASTCS_THRESHOLD_WARNINGS=202",
                     "Yoast\\WP\\SEO\\Composer\\Actions::check_cs_thresholds"
                 ],
                 "check-cs": [
@@ -2697,7 +2644,7 @@
                 "wiki": "https://github.com/Yoast/wordpress-seo/wiki",
                 "source": "https://github.com/Yoast/wordpress-seo"
             },
-            "time": "2023-02-07T09:48:30+00:00"
+            "time": "2023-03-02T16:22:09+00:00"
         },
         {
             "name": "yoast/wp-test-utils",
@@ -2833,11 +2780,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.6"
+        "php": "^7.2 || ^8.0"
     },
     "platform-dev": [],
-    "platform-overrides": {
-        "php": "5.6.40"
-    },
     "plugin-api-version": "2.3.0"
 }

@@ -27,7 +27,7 @@ jobs:
       matrix:
         # Lint against the highest/lowest supported versions of each PHP major.
         # And also do a run against "nightly" (the current dev version of PHP).
-        php_version: ['5.6', '7.0', '7.4', '8.0', '8.1', '8.2']
+        php_version: ['7.2', '7.4', '8.0', '8.1', '8.2']
 
     name: "Lint: PHP ${{ matrix.php_version }}"
 
@@ -57,6 +57,8 @@ jobs:
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v2
         with:
+          # For the Linting, WPSEO does not need to be fully installed, nor is the DI container needed.
+          composer-options: --no-scripts  --ignore-platform-req=php
           # Bust the cache at least once a week - output format: YYYY-MM-DD.
           custom-cache-suffix: $(/bin/date -u --date='last Mon' "+%F")
 
