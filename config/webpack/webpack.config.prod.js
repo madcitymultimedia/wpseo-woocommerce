@@ -7,9 +7,10 @@ const isAnalyzing = "analyze" === process.env.NODE_ANALYZE;
 const prodConfig = {
 	devtool: false,
 	mode: "production",
-	plugins: [
-		isAnalyzing && new BundleAnalyzerPlugin(),
-	],
 };
+
+if ( isAnalyzing ) {
+	prodConfig.plugins = [ new BundleAnalyzerPlugin() ];
+}
 
 module.exports = defaults( prodConfig );
