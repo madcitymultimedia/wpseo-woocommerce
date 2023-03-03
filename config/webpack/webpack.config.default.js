@@ -5,7 +5,6 @@ const { camelCaseDash } = require( "@wordpress/dependency-extraction-webpack-plu
 const UnminifiedWebpackPlugin = require( "unminified-webpack-plugin" );
 const CaseSensitivePathsPlugin = require( "case-sensitive-paths-webpack-plugin" );
 const { flattenVersionForFile } = require( "../grunt/lib/version.js" );
-const BundleAnalyzerPlugin = require( "webpack-bundle-analyzer" ).BundleAnalyzerPlugin;
 
 const webpack = require( "webpack" );
 
@@ -62,7 +61,6 @@ const defaultConfig = {
 		} ),
 		new UnminifiedWebpackPlugin(),
 		new CaseSensitivePathsPlugin(),
-		new BundleAnalyzerPlugin(),
 	],
 };
 

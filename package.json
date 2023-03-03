@@ -18,7 +18,7 @@
   },
   "scripts": {
     "test": "jest",
-    "webpack-analyze-bundle": "cross-env NODE_ENV=production webpack --config ./config/webpack/webpack.config.prod.js --progress"
+    "webpack-analyze-bundle": "cross-env NODE_ANALYZE=analyze webpack --config ./config/webpack/webpack.config.prod.js --progress"
   },
   "jest": {
     "collectCoverage": true,
