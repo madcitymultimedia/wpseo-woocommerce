@@ -26,6 +26,9 @@
         ]
     },
     "config": {
+        "platform": {
+            "php": "7.2.5"
+        },
         "preferred-install": {
             "yoast/wordpress-seo": "source"
         },
@@ -41,7 +44,7 @@
         }
     },
     "require": {
-        "php": "^7.2 || ^8.0",
+        "php": "^7.2.5 || ^8.0",
         "composer/installers": "^1.12.0"
     },
     "require-dev": {

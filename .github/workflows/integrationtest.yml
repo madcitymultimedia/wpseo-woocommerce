@@ -27,8 +27,8 @@ jobs:
       matrix:
         include:
           - php_version: '7.2'
-            wp_version: 'latest'
-            multisite: false
+            wp_version: '6.0'
+            multisite: true
 
           - php_version: '7.3'
             wp_version: 'trunk'
