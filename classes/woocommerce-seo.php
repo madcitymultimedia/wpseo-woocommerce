@@ -99,6 +99,7 @@ class Yoast_WooCommerce_SEO {
 		}
 
 		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+		add_action( 'elementor/editor/before_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 
 		// Make sure the primary category will be used in the permalink.
 		add_filter( 'wc_product_post_type_link_product_cat', [ $this, 'add_primary_category_permalink' ], 10, 3 );

@@ -7,6 +7,8 @@ const productCornerstoneContentAssessor = require( "yoastseo/src/scoring/product
 const productRelatedKeywordAssessor = require( "yoastseo/src/scoring/productPages/relatedKeywordAssessor" );
 const productCornerstoneRelatedKeywordAssessor = require( "yoastseo/src/scoring/productPages/cornerstone/relatedKeywordAssessor" );
 
+// Shortcodes need to be specified here, otherwise they’re not loaded.
+
 /**
  * Initialize the product assessors.
  *

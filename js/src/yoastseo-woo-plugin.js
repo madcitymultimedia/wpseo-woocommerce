@@ -2,6 +2,7 @@
 
 import { getExcerpt, addExcerptEventHandlers, isTinyMCEAvailable } from "./yoastseo-woo-handle-excerpt-editors";
 import { addFilter } from "@wordpress/hooks";
+import { addAction } from "@wordpress/hooks";
 import { dispatch } from "@wordpress/data";
 
 const PLUGIN_NAME = "YoastWooCommerce";
@@ -182,11 +183,33 @@ class YoastWooCommercePlugin {
 }
 
 /**
+ * Loads the worker script in Elementor.
+ *
+ * @returns {void}
+ */
+function loadWorkerScriptInElementor() {
+	if ( typeof YoastSEO === "undefined" || typeof YoastSEO.analysis === "undefined" || typeof YoastSEO.analysis.worker === "undefined" ) {
+		return;
+	}
+
+	const worker = YoastSEO.analysis.worker;
+	const productDescription = getExcerpt();
+
+	worker.loadScript( wpseoWooL10n.script_url )
+		.then( () => worker.sendMessage( "initialize", { l10n: wpseoWooL10n, productDescription }, PLUGIN_NAME ) );
+}
+
+/**
  * Adds eventlistener to load the Yoast WooCommerce plugin.
  */
 if ( typeof YoastSEO !== "undefined" && typeof YoastSEO.app !== "undefined" ) {
 	new YoastWooCommercePlugin(); // eslint-disable-line no-new
 } else {
+	jQuery( window ).on( "elementor:init", () => {
+		window.elementor.on( "panel:init", () => {
+			addAction( "yoast.elementor.loaded", "yoast/yoast-woocommerce-seo/load-worker-script-in-elementor", loadWorkerScriptInElementor );
+		} );
+	} );
 	jQuery( window ).on(
 		"YoastSEO:ready",
 		function() {
