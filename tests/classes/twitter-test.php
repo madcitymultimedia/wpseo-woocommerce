@@ -5,6 +5,7 @@ namespace Yoast\WP\Woocommerce\Tests\Classes;
 use Brain\Monkey;
 use Mockery;
 use WPSEO_WooCommerce_Twitter;
+use Yoast\WP\SEO\Presentations\Indexable_Presentation;
 use Yoast\WP\Woocommerce\Tests\TestCase;
 
 /**
@@ -137,10 +138,10 @@ class Twitter_Test extends TestCase {
 	 * @param object $context The meta context.
 	 * @param object $model   The model.
 	 *
-	 * @return Mockery\MockInterface The mock presentation
+	 * @return Indexable_Presentation|Mockery\MockInterface The mock presentation
 	 */
 	private function mock_presentation( $context, $model ) {
-		$presentation = Mockery::mock();
+		$presentation = Mockery::mock( Indexable_Presentation::class );
 
 		$presentation->context = $context;
 		$presentation->model   = $model;

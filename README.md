@@ -1,8 +1,8 @@
 WooCommerce Yoast SEO
 =====================
-Requires at least: 5.9
-Tested up to: 6.0
-Stable tag: 15.2-RC5
+Requires at least: 6.0
+Tested up to: 6.1
+Stable tag: 15.6
 Requires PHP: 5.6.20
 Depends: Yoast SEO, WooCommerce
 
@@ -31,31 +31,29 @@ You can find the FAQ [online here](https://kb.yoast.com/kb/category/woocommerce-
 Changelog
 =========
 
-### 15.2: September 6th, 2022
+## 15.6
 
+Release date: 2023-02-28
 
-Enhancements:
+#### Other
 
-* Adds a new assessment which checks whether products (or product variants) have an identifier.
-* Adds a new assessment which checks whether products (or product variants) have a SKU.
+* Improves the Breadcrumb settings' link to point to a more specific section in the new Yoast settings.
+* Makes product schema creation compatible with the latest Yoast Free changes
+* Makes Woo SEO compatible with the indexable changes of the 20.2 release of Yoast SEO
+* Sets the minimum required Yoast SEO version to 20.2.
+* Sets the minimum supported WordPress version to 6.0.
 
-Bugfixes:
+## 15.5
 
-* Fixes two prices being shown in the Slack integration metadata when a product is on sale.
+Release date: 2023-01-17
 
-Other:
+#### Enhancements
 
-* Sets the minimum required version of Yoast SEO to 19.6.
-* Sets the minimum supported WordPress version to 5.9.
+* Improves the Schema output for `Product`, including a fix for a bug affecting setups where prices are inserted without taxes but displayed with taxes or viceversa.
 
-### 15.1: August 9th, 2022
+#### Other
 
-Other:
-
-* Makes Yoast WooCommerce SEO compatible with the new analysis edit buttons in Yoast SEO Premium.
-* Sets the minimum supported WordPress version to 5.9.
-* Sets the minimum supported Yoast SEO version to 19.5.
-
+*  Sets the minimum required version of Yoast SEO to 19.14.
 
 ### Earlier versions
 For the changelog of earlier versions, please refer to [the changelog on yoast.com](https://yoa.st/woo-seo-changelog).

@@ -53,10 +53,6 @@ class Yoast_WooCommerce_SEO {
 	 * @return void
 	 */
 	protected function initialize() {
-		if ( $this->is_woocommerce_page( filter_input( INPUT_GET, 'page' ) ) ) {
-			$this->register_i18n_promo_class();
-		}
-
 		// Make sure the options property is always current.
 		add_action( 'init', [ 'WPSEO_Option_Woo', 'register_option' ] );
 
@@ -114,6 +110,8 @@ class Yoast_WooCommerce_SEO {
 
 		add_filter( 'wpseo_sitemap_entry', [ $this, 'filter_hidden_product' ], 10, 3 );
 		add_filter( 'wpseo_exclude_from_sitemap_by_post_ids', [ $this, 'filter_woocommerce_pages' ] );
+
+		add_action( 'before_woocommerce_init', [ $this, 'declare_custom_order_tables_compatibility' ] );
 	}
 
 	/**
@@ -176,7 +174,6 @@ class Yoast_WooCommerce_SEO {
 			return $presenters;
 		}
 
-		$presenters[] = new WPSEO_WooCommerce_Product_OpenGraph_Deprecation_Presenter( $product );
 		$presenters[] = new WPSEO_WooCommerce_Product_Brand_Presenter( $product );
 
 		if ( $this->should_show_price() ) {
@@ -479,6 +476,8 @@ class Yoast_WooCommerce_SEO {
 		Yoast_Form::get_instance()->select( 'woo_schema_manufacturer', esc_html__( 'Manufacturer', 'yoast-woo-seo' ), $taxonomies );
 		Yoast_Form::get_instance()->select( 'woo_schema_brand', esc_html__( 'Brand', 'yoast-woo-seo' ), $taxonomies );
 		Yoast_Form::get_instance()->select( 'woo_schema_color', esc_html__( 'Color', 'yoast-woo-seo' ), $taxonomies );
+		Yoast_Form::get_instance()->select( 'woo_schema_pattern', esc_html__( 'Pattern', 'yoast-woo-seo' ), $taxonomies );
+		Yoast_Form::get_instance()->select( 'woo_schema_material', esc_html__( 'Material', 'yoast-woo-seo' ), $taxonomies );
 
 		if ( WPSEO_Options::get( 'breadcrumbs-enable' ) === true ) {
 			echo '<h2>' . esc_html__( 'Breadcrumbs', 'yoast-woo-seo' ) . '</h2>';
@@ -486,7 +485,7 @@ class Yoast_WooCommerce_SEO {
 			printf(
 			/* translators: %1$s resolves to internal links options page, %2$s resolves to closing link tag, %3$s resolves to Yoast SEO, %4$s resolves to WooCommerce */
 				esc_html__( 'Both %4$s and %3$s have breadcrumbs functionality. The %3$s breadcrumbs have a slightly higher chance of being picked up by search engines and you can configure them a bit more, on the %1$sBreadcrumbs settings page%2$s. To enable them, check the box below and the WooCommerce breadcrumbs will be replaced.', 'yoast-woo-seo' ),
-				'<a href="' . esc_url( admin_url( 'admin.php?page=wpseo_titles#top#breadcrumbs' ) ) . '">',
+				'<a href="' . esc_url( admin_url( 'admin.php?page=wpseo_page_settings#/breadcrumbs' ) ) . '">',
 				'</a>',
 				'Yoast SEO',
 				'WooCommerce'
@@ -1035,26 +1034,6 @@ class Yoast_WooCommerce_SEO {
 	}
 
 	/**
-	 * Register the promotion class for our GlotPress instance.
-	 *
-	 * @link https://github.com/Yoast/i18n-module
-	 */
-	protected function register_i18n_promo_class() {
-		new Yoast_I18n_v3(
-			[
-				'textdomain'     => 'yoast-woo-seo',
-				'project_slug'   => 'woocommerce-seo',
-				'plugin_name'    => 'Yoast WooCommerce SEO',
-				'hook'           => 'wpseo_admin_promo_footer',
-				'glotpress_url'  => 'http://translate.yoast.com/gp/',
-				'glotpress_name' => 'Yoast Translate',
-				'glotpress_logo' => 'http://translate.yoast.com/gp-templates/images/Yoast_Translate.svg',
-				'register_url'   => 'http://translate.yoast.com/gp/projects#utm_source=plugin&utm_medium=promo-box&utm_campaign=wpseo-woo-i18n-promo',
-			]
-		);
-	}
-
-	/**
 	 * Returns the product for given product_id.
 	 *
 	 * @since 4.9
@@ -1459,33 +1438,12 @@ class Yoast_WooCommerce_SEO {
 	}
 
 	/**
-	 * Refresh the options property on add/update of the option to ensure it's always current.
-	 *
-	 * @deprecated 12.5
-	 * @codeCoverageIgnore
+	 * Declares compatibility with the WooCommerce HPOS feature.
 	 */
-	public function refresh_options_property() {
-		_deprecated_function( __METHOD__, 'WPSEO Woo 12.5' );
-	}
-
-	/**
-	 * Perform upgrade procedures to the settings.
-	 *
-	 * @deprecated 12.5
-	 * @codeCoverageIgnore
-	 */
-	public function upgrade() {
-		_deprecated_function( __METHOD__, 'WPSEO Woo 12.5' );
-	}
-
-	/**
-	 * Simple helper function to show a checkbox.
-	 *
-	 * @deprecated 12.5
-	 * @codeCoverageIgnore
-	 */
-	public function checkbox() {
-		_deprecated_function( __METHOD__, 'WPSEO Woo 12.5' );
+	public function declare_custom_order_tables_compatibility() {
+		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', WPSEO_WOO_PLUGIN_FILE, true );
+		}
 	}
 
 	/**
@@ -1495,27 +1453,13 @@ class Yoast_WooCommerce_SEO {
 	 */
 	private function should_show_price() {
 		/**
-		 * Filter: wpseo_woocommerce_og_price - Allow developers to prevent the output of the price in the OpenGraph tags.
-		 *
-		 * @deprecated 12.5.0. Use the {@see 'Yoast\WP\Woocommerce\og_price'} filter instead.
-		 *
-		 * @api bool unsigned Defaults to true.
-		 */
-		$show_price = apply_filters_deprecated(
-			'wpseo_woocommerce_og_price',
-			[ true ],
-			'Yoast WooCommerce 12.5.0',
-			'Yoast\WP\Woocommerce\og_price'
-		);
-
-		/**
 		 * Filter: Yoast\WP\Woocommerce\og_price - Allow developers to prevent the output of the price in the OpenGraph tags.
 		 *
 		 * @since 12.5.0
 		 *
 		 * @api bool unsigned Defaults to true.
 		 */
-		$show_price = apply_filters( 'Yoast\WP\Woocommerce\og_price', $show_price );
+		$show_price = apply_filters( 'Yoast\WP\Woocommerce\og_price', true );
 
 		if ( is_bool( $show_price ) ) {
 			return $show_price;

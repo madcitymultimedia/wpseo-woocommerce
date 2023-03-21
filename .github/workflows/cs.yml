@@ -4,7 +4,7 @@ on:
   # Run on all pushes and on all pull requests.
   push:
     branches-ignore:
-      - 'master'
+      - 'main'
   pull_request:
   # Allow manually triggering the workflow.
   workflow_dispatch:
@@ -49,13 +49,17 @@ jobs:
       # @link https://github.com/marketplace/actions/install-composer-dependencies
       - name: Install Composer dependencies
         uses: ramsey/composer-install@v2
+        with:
+          # Bust the cache at least once a week - output format: YYYY-MM-DD.
+          custom-cache-suffix: $(/bin/date -u --date='last Mon' "+%F")
 
       # Check the codestyle of the files.
       # The results of the CS check will be shown inline in the PR via the CS2PR tool.
       # @link https://github.com/staabm/annotate-pull-request-from-checkstyle/
       - name: Check PHP code style
-        continue-on-error: true
-        run: composer check-cs -- --report-full --report-checkstyle=./phpcs-report.xml
+        id: phpcs
+        run: composer check-cs -- --no-cache --report-full --report-checkstyle=./phpcs-report.xml
 
       - name: Show PHPCS results in PR
+        if: ${{ always() && steps.phpcs.outcome == 'failure' }}
         run: cs2pr ./phpcs-report.xml

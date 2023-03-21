@@ -4,7 +4,7 @@ on:
   # Run on pushes to select branches and on all pull requests.
   push:
     branches:
-      - master
+      - main
       - trunk
       - 'release/[0-9]+.[0-9]+*'
       - 'hotfix/[0-9]+.[0-9]+*'
@@ -27,7 +27,7 @@ jobs:
       matrix:
         include:
           - php_version: '5.6'
-            wp_version: '5.9'
+            wp_version: '6.0'
             multisite: true
 
           - php_version: '7.0'
@@ -39,17 +39,22 @@ jobs:
             multisite: true
 
           - php_version: '7.4'
-            wp_version: '5.9'
+            wp_version: '6.0'
             multisite: false
 
           # WP 5.6 is the earliest version which (sort of) supports PHP 8.0.
           - php_version: '8.0'
-            wp_version: '5.9'
+            wp_version: '6.0'
             multisite: false
 
           # WP 5.9 is the earliest version which (sort of) supports PHP 8.1.
           - php_version: '8.1'
             wp_version: 'latest'
+            multisite: true
+
+          # WP 6.1 is the earliest version which supports PHP 8.2.
+          - php_version: '8.2'
+            wp_version: '6.1'
             multisite: true
 
     name: "Integration Test: PHP ${{ matrix.php_version }} | WP ${{ matrix.wp_version }}${{ matrix.multisite == true && ' (+ ms)' || '' }}"
@@ -100,6 +105,8 @@ jobs:
           dependency-versions: "highest"
           # But make it selective.
           composer-options: "yoast/wp-test-utils --with-dependencies"
+          # Bust the cache at least once a week - output format: YYYY-MM-DD.
+          custom-cache-suffix: $(/bin/date -u --date='last Mon' "+%F")
 
       # Update YoastSEO as a separate step so the caches will be reasonably stable.
       # This also prevents potentially updating dependencies of YoastSEO due to the above
