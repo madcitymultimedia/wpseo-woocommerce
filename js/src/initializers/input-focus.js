@@ -68,11 +68,7 @@ function focusOnVariationProductField( emptyFieldPath, fieldID ) {
 			return;
 		}
 		element.focus();
-		element.scrollIntoView( {
-			behavior: "auto",
-			block: "center",
-			inline: "center",
-		} );
+		element.scrollIntoView( false );
 	}
 
 	// Wait for the variations tab to open and then open up the first variation without a SKU.
