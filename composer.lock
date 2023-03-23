@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b16ffe2cd463670c1029ba90a6c4ced0",
+    "content-hash": "0cc5b0bd55348abdbbf8e1b67c59f1c0",
     "packages": [
         {
             "name": "composer/installers",
@@ -2391,16 +2391,16 @@
         },
         {
             "name": "yoast/wordpress-seo",
-            "version": "dev-feature/drop-php-5.6-7.0-7.1",
+            "version": "dev-trunk",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yoast/wordpress-seo.git",
-                "reference": "b9704857d33cc3a906f151a946560644df96e808"
+                "reference": "eb66791323f50359f93581437b3895fa53335545"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/b9704857d33cc3a906f151a946560644df96e808",
-                "reference": "b9704857d33cc3a906f151a946560644df96e808",
+                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/eb66791323f50359f93581437b3895fa53335545",
+                "reference": "eb66791323f50359f93581437b3895fa53335545",
                 "shasum": ""
             },
             "require": {
@@ -2411,19 +2411,15 @@
                 "guzzlehttp/guzzle": "6.5.8",
                 "humbug/php-scoper": "^0.13.4",
                 "league/oauth2-client": "2.6.1",
-                "phpunit/phpunit": "^5.7",
                 "psr/container": "1.0.0",
                 "psr/log": "^1.0",
                 "symfony/config": "^3.4",
                 "symfony/dependency-injection": "^3.4",
-                "symfony/polyfill-intl-idn": "1.19.0",
-                "symfony/polyfill-intl-normalizer": "1.19.0",
-                "symfony/polyfill-php70": "1.19.0",
-                "symfony/polyfill-php72": "1.19.0",
                 "wordproof/wordpress-sdk": "1.3.2",
                 "yoast/wp-test-utils": "^1.1.1",
-                "yoast/yoastcs": "^2.3.0"
+                "yoast/yoastcs": "^2.3.1"
             },
+            "default-branch": true,
             "type": "wordpress-plugin",
             "autoload": {
                 "classmap": [
@@ -2541,7 +2537,7 @@
                 "wiki": "https://github.com/Yoast/wordpress-seo/wiki",
                 "source": "https://github.com/Yoast/wordpress-seo"
             },
-            "time": "2023-03-14T12:43:32+00:00"
+            "time": "2023-03-23T09:42:33+00:00"
         },
         {
             "name": "yoast/wp-test-utils",
