@@ -90,7 +90,6 @@ function inputFocus( id ) {
 		}
 
 		if ( id === "productIdentifier" ) {
-			// Does not work yet :-(
 			focusOnVariationProductField( "productIdentifiers.gtin8", "[id^='yoast_variation_identifier']" );
 		}
 	} else {
