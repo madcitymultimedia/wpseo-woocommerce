@@ -80,7 +80,7 @@ function focusOnVariationProductField( emptyFieldPath, fieldID ) {
  * @param {string} id The id of the assessment.
  * @returns {void}
  */
-function inputFocus( id ) {
+function focusInputField( id ) {
 	const productData = getProductData();
 
 	if ( productData.productType === "variable" ) {
@@ -110,5 +110,5 @@ function inputFocus( id ) {
  * @returns {void}
  */
 export default function initializeInputFocus() {
-	addAction( "yoast.focus.input", "yoast/wpseo-woocommerce/inputFocus", inputFocus );
+	addAction( "yoast.focus.input", "yoast/wpseo-woocommerce/inputFocus", focusInputField );
 }
