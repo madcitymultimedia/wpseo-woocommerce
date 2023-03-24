@@ -90,8 +90,16 @@ function focusOnVariationProductField( variations, emptyFieldPath, fieldID ) {
 		if ( ! element ) {
 			return;
 		}
+
+		element.scrollIntoView( { behavior: "smooth", block: "start", inline: "nearest" } );
+
+		// Element scroll can break interface so tabs need to be scrolled back into view.
+		const tabs = document.querySelector( ".product_data_tabs" );
+		if ( tabs ) {
+			tabs.scrollIntoView( { behavior: "smooth", block: "start", inline: "nearest" } );
+		}
+
 		element.focus();
-		element.scrollIntoView( false );
 	}
 
 	// Wait for the variations tab to open and then open up the first variation without a SKU.
