@@ -3,6 +3,36 @@ import { getProductData, getProductVariants } from "../yoastseo-woo-identifiers"
 import { get } from "lodash-es";
 
 /**
+ * Opens WooCommerce panel if it is closed.
+ *
+ * @returns {void}
+ */
+function openWoocommerce() {
+	const postboxData = document.querySelector( "#woocommerce-product-data" );
+	if ( ! postboxData ) {
+		return;
+	}
+
+	if ( postboxData.classList.contains( "closed" ) ) {
+		postboxData.classList.remove( "closed" );
+	}
+}
+
+/**
+ * Opens WooCommerce tab.
+ *
+ * @param {string} tabSelector The tab selector.
+ * @returns {void}
+ */
+function openWoocommerceTab( tabSelector ) {
+	// Open the WooCommerce tab
+	const tabLink = document.querySelector( tabSelector + " a" );
+	if ( ! tabLink ) {
+		return;
+	}
+	tabLink.click();
+}
+/**
  * Opens a WooCommerce tab and then focuses on a Product input field.
  *
  * @param {string} tabSelector The tab selector.
@@ -10,12 +40,9 @@ import { get } from "lodash-es";
  * @returns {void}
  */
 function focusOnProductField( tabSelector, fieldID ) {
-	// Open the WooCommerce tab
-	const tabLink = document.querySelector( tabSelector + " a" );
-	if ( ! tabLink ) {
-		return;
-	}
-	tabLink.click();
+	openWoocommerce();
+
+	openWoocommerceTab( tabSelector );
 
 	// Focus on the element and scroll it into view.
 	const element = document.getElementById( fieldID );
@@ -39,12 +66,9 @@ function focusOnProductField( tabSelector, fieldID ) {
  * @returns {void}
  */
 function focusOnVariationProductField( variations, emptyFieldPath, fieldID ) {
-	// Open the WooCommerce variations tab
-	const tabLink = document.querySelector( ".variations_tab a" );
-	if ( ! tabLink ) {
-		return;
-	}
-	tabLink.click();
+	openWoocommerce();
+
+	openWoocommerceTab( ".variations_tab" );
 
 	// Find the first identifier without a SKU.
 	const index = variations.findIndex( ( element ) => get( element, emptyFieldPath ) === "" );
