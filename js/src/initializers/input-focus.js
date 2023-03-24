@@ -83,17 +83,22 @@ function focusInputField( id ) {
 	const productData = getProductData();
 
 	if ( productData.productType === "variable" ) {
+		const variations = getProductVariants();
+
 		if ( id === "productSKU" ) {
-			focusOnVariationProductField( "sku",  "[id^='variable_sku']" );
+			if ( variations && variations.length > 0 ) {
+				focusOnVariationProductField( variations, "sku",  "[id^='variable_sku']" );
+			} else {
+				focusOnProductField( ".inventory_tab", "_sku" );
+			}
 			return;
 		}
 
 		if ( id === "productIdentifier" ) {
-			const variations = getProductVariants();
-			if ( variations ) {
+			if ( variations && variations.length > 0 ) {
 				focusOnVariationProductField( variations, "productIdentifiers.gtin8", "[id^='yoast_variation_identifier']" );
 			} else {
-				focusOnVariationProductField( "sku",  "[id^='variable_sku']" );
+				focusOnProductField( ".yoast_tab_tab", "yoast_identifier_gtin8" );
 			}
 		}
 	} else {
