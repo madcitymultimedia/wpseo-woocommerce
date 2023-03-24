@@ -33,11 +33,12 @@ function focusOnProductField( tabSelector, fieldID ) {
 /**
  * Opens a WooCommerce tab for a variation and then focuses on a Product input field.
  *
+ * @param {Object[]} variations the list of product variations.
  * @param {string} emptyFieldPath The path of the field that will be checked if it's empty.
  * @param {string} fieldID The input field ID.
  * @returns {void}
  */
-function focusOnVariationProductField( emptyFieldPath, fieldID ) {
+function focusOnVariationProductField( variations, emptyFieldPath, fieldID ) {
 	// Open the WooCommerce variations tab
 	const tabLink = document.querySelector( ".variations_tab a" );
 	if ( ! tabLink ) {
@@ -45,9 +46,7 @@ function focusOnVariationProductField( emptyFieldPath, fieldID ) {
 	}
 	tabLink.click();
 
-	// Retrieve the first identifier without a SKU.
-	const variations = getProductVariants();
-
+	// Find the first identifier without a SKU.
 	const index = variations.findIndex( ( element ) => get( element, emptyFieldPath ) === "" );
 
 	/**
@@ -90,7 +89,12 @@ function focusInputField( id ) {
 		}
 
 		if ( id === "productIdentifier" ) {
-			focusOnVariationProductField( "productIdentifiers.gtin8", "[id^='yoast_variation_identifier']" );
+			const variations = getProductVariants();
+			if ( variations ) {
+				focusOnVariationProductField( variations, "productIdentifiers.gtin8", "[id^='yoast_variation_identifier']" );
+			} else {
+				focusOnVariationProductField( "sku",  "[id^='variable_sku']" );
+			}
 		}
 	} else {
 		if ( id === "productSKU" ) {
