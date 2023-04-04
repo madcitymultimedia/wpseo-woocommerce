@@ -10,10 +10,12 @@
  * Plugin URI:  https://yoa.st/4fu
  * Description: This extension to WooCommerce and Yoast SEO makes sure there's perfect communication between the two plugins.
  * Author:      Team Yoast
- * Author URI:  https://yoa.st/1uk
+ * Author URI:  https://yoa.st/team-yoast-woocommerce
  * Depends:     Yoast SEO, WooCommerce
  * Text Domain: yoast-woo-seo
  * Domain Path: /languages/
+ * Requires at least: 6.0
+ * Requires PHP: 7.2.5
  *
  * WC requires at least: 3.0
  * WC tested up to: 7.4

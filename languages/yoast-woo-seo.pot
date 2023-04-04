@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Yoast SEO: WooCommerce 15.6\n"
 "Report-Msgid-Bugs-To: https://github.com/yoast/wpseo-woocommerce/issues\n"
-"POT-Creation-Date: 2023-02-28 09:45:00+00:00\n"
+"POT-Creation-Date: 2023-03-15 14:35:13+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -175,75 +175,6 @@ msgstr ""
 msgid ""
 "If you have any of these unique identifiers for your products, please add "
 "them here. %1$s will use them in your Schema and OpenGraph output."
-msgstr ""
-
-#: vendor/yoast/whip/src/facades/wordpress.php:34
-msgid "Remind me again in 4 weeks."
-msgstr ""
-
-#: vendor/yoast/whip/src/messages/Whip_HostMessage.php:59
-#. translators: 1: name.
-msgid "A message from %1$s"
-msgstr ""
-
-#: vendor/yoast/whip/src/messages/Whip_UpgradePhpMessage.php:39
-msgid "Your site could be faster and more secure with a newer PHP version."
-msgstr ""
-
-#: vendor/yoast/whip/src/messages/Whip_UpgradePhpMessage.php:40
-msgid ""
-"Hey, we've noticed that you're running an outdated version of PHP. PHP is "
-"the programming language that WordPress and all its plugins and themes are "
-"built on. The version that is currently used for your site is no longer "
-"supported. Newer versions of PHP are both faster and more secure. In fact, "
-"your version of PHP no longer receives security updates, which is why we're "
-"sending you to this notice."
-msgstr ""
-
-#: vendor/yoast/whip/src/messages/Whip_UpgradePhpMessage.php:41
-msgid ""
-"Hosts have the ability to update your PHP version, but sometimes they don't "
-"dare to do that because they're afraid they'll break your site."
-msgstr ""
-
-#: vendor/yoast/whip/src/messages/Whip_UpgradePhpMessage.php:42
-msgid "To which version should I update?"
-msgstr ""
-
-#: vendor/yoast/whip/src/messages/Whip_UpgradePhpMessage.php:46
-#. translators: 1: link open tag; 2: link close tag.
-msgid ""
-"You should update your PHP version to either 5.6 or to 7.0 or 7.1. On a "
-"normal WordPress site, switching to PHP 5.6 should never cause issues. We "
-"would however actually recommend you switch to PHP7. There are some plugins "
-"that are not ready for PHP7 though, so do some testing first. We have an "
-"article on how to test whether that's an option for you %1$shere%2$s. PHP7 "
-"is much faster than PHP 5.6. It's also the only PHP version still in active "
-"development and therefore the better option for your site in the long run."
-msgstr ""
-
-#: vendor/yoast/whip/src/messages/Whip_UpgradePhpMessage.php:59
-msgid "Can't update? Ask your host!"
-msgstr ""
-
-#: vendor/yoast/whip/src/messages/Whip_UpgradePhpMessage.php:65
-#. translators: 1: link open tag; 2: link close tag; 3: link open tag.
-msgid ""
-"If you cannot upgrade your PHP version yourself, you can send an email to "
-"your host. We have %1$sexamples here%2$s. If they don't want to upgrade "
-"your PHP version, we would suggest you switch hosts. Have a look at one of "
-"the recommended %3$sWordPress hosting partners%2$s."
-msgstr ""
-
-#: vendor/yoast/whip/src/messages/Whip_UpgradePhpMessage.php:76
-#. translators: 1: link open tag; 2: link close tag; 3: link open tag.
-msgid ""
-"If you cannot upgrade your PHP version yourself, you can send an email to "
-"your host. We have %1$sexamples here%2$s. If they don't want to upgrade "
-"your PHP version, we would suggest you switch hosts. Have a look at one of "
-"our recommended %3$sWordPress hosting partners%2$s, they've all been vetted "
-"by the Yoast support team and provide all the features a modern host should "
-"provide."
 msgstr ""
 
 #. Plugin Name of the plugin/theme
