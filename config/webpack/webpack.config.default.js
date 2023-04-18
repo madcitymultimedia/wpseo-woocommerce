@@ -46,6 +46,31 @@ const defaultConfig = {
 		path: path.join( __dirname, "../../", "js/dist" ),
 		filename: "[name]-" + pluginVersionSlug + ".js",
 	},
+	module: {
+		rules: [
+			{
+				test: /\.jsx?$/,
+				exclude: /node_modules[/\\](?!(yoastseo)[/\\]).*/,
+				use: [
+					{
+						loader: "babel-loader",
+						options: {
+							env: {
+								development: {
+									plugins: [
+										[
+											"@wordpress/babel-plugin-makepot",
+											{ output: "gettext.pot" },
+										],
+									],
+								},
+							},
+						},
+					},
+				],
+			},
+		],
+	},
 	externals: {
 		...externals,
 		...wordpressExternals,
