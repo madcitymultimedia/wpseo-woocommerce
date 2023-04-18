@@ -31,7 +31,7 @@
       "[/\\\\]node_modules[/\\\\](?!lodash-es|lodash|@yoast).+\\.js$"
     ],
     "testRegex": "/tests/.*\\.(js)$",
-    "testEnvironment": "node",
+    "testEnvironment": "jsdom",
     "moduleDirectories": [
       "node_modules"
     ],
@@ -66,6 +66,7 @@
     "grunt-git": "^1.0.14",
     "grunt-webpack": "^3.1.2",
     "jest": "^27.2.2",
+    "jest-environment-jsdom": "^27.2.2",
     "lodash.defaultsdeep": "^4.6.0",
     "node-fetch": "^1.0.1",
     "unminified-webpack-plugin": "^2.0.0",
