@@ -34,7 +34,8 @@ function getPrice() {
  * @returns {string} The value of the short description.
  */
 function getShortDescription() {
-	var productDescription = document.getElementById( "excerpt" ).value;
+	let productDescription = document.getElementById( "excerpt" ) &&
+		document.getElementById( "excerpt" ).value || "";
 	if ( typeof tinyMCE !== "undefined" && tinyMCE.get( "excerpt" ) !== null ) {
 		productDescription = tinyMCE.get( "excerpt" ).getContent();
 	}
