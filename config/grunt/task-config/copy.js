@@ -19,4 +19,9 @@ module.exports = {
 			},
 		],
 	},
+
+	"makepot-yoast-woo-seo": {
+		src: "<%= files.pot.gettext %>",
+		dest: "<%= files.pot.yoastWooSeoJs %>",
+	},
 };
