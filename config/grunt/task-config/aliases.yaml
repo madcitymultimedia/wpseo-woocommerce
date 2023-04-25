@@ -15,6 +15,7 @@ build:
   - "makepot"
   - "copy:makepot-yoast-woo-seo"
   - "shell:combine-pot-files"
+  - "glotpress_download"
   - "clean:po-files"
 
 # Build JavaScript from assets to production
