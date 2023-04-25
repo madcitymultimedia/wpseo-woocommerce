@@ -2,7 +2,7 @@ WooCommerce Yoast SEO
 =====================
 Requires at least: 6.1
 Tested up to: 6.2
-Stable tag: 15.7-RC4
+Stable tag: 15.7-RC5
 Requires PHP: 7.2.5
 Depends: Yoast SEO, WooCommerce
 
@@ -38,6 +38,10 @@ Release date: 2023-04-25
 #### Enhancements
 
 * Makes the _SKU_ and _product identifiers_ assessments available for grouped products.
+
+#### Bugfixes
+
+* Fixes a bug where new translations would not be translated.
 
 #### Other
 

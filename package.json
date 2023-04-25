@@ -3,8 +3,8 @@
   "description": "Development files for the WordPress WooCommerce SEO plugin",
   "license": "GPL-2.0+",
   "plugin": {
-    "glotpress": "https://translate.yoast.com",
-    "slug": "woocommerce-seo",
+    "glotpress": "http://translationspress.com",
+    "slug": "yoast-woo-seo",
     "textdomain": "yoast-woo-seo"
   },
   "pot": {
@@ -68,6 +68,7 @@
     "cross-env": "^7.0.3",
     "dotenv": "^8.2.0",
     "grunt-git": "^1.0.14",
+    "grunt-glotpress": "https://github.com/Yoast/grunt-glotpress.git#translationspress",
     "grunt-webpack": "^3.1.3",
     "jest": "^27.2.2",
     "lodash.defaultsdeep": "^4.6.0",
@@ -79,7 +80,7 @@
     "yoastseo": "link:vendor/yoast/wordpress-seo/packages/yoastseo"
   },
   "yoast": {
-    "pluginVersion": "15.7-RC4"
+    "pluginVersion": "15.7-RC5"
   },
   "dependencies": {
     "@wordpress/dependency-extraction-webpack-plugin": "^3.1.0",

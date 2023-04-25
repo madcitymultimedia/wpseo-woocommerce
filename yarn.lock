@@ -5670,6 +5670,13 @@ grunt-git@^1.0.14:
     request "^2.88.0"
     request-promise-native "^1.0.7"
 
+"grunt-glotpress@https://github.com/Yoast/grunt-glotpress.git#translationspress":
+  version "0.3.0"
+  resolved "https://github.com/Yoast/grunt-glotpress.git#e2ed863d009a728e84d171992e129f770274e450"
+  dependencies:
+    request "^2.88.0"
+    request-promise-native "^1.0.7"
+
 grunt-known-options@~1.1.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/grunt-known-options/-/grunt-known-options-1.1.1.tgz#6cc088107bd0219dc5d3e57d91923f469059804d"
