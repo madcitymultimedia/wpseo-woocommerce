@@ -33,7 +33,7 @@ Changelog
 
 ## 15.7
 
-Release date: 2023-04-25
+Release date: 2023-04-26
 
 #### Enhancements
 
