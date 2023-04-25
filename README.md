@@ -39,9 +39,12 @@ Release date: 2023-04-25
 
 * Makes the _SKU_ and _product identifiers_ assessments available for grouped products.
 
+#### Bugfixes
+
+* Fixes a bug where new translations would not be translated.
+
 #### Other
 
-* Only shows the _word complexity_ and the _keyphrase distribution_ assessments on Product pages when Yoast SEO Premium is also activated.
 * Bumps the minimum required version of Yoast SEO to 20.6.
 * Drops compatibility with PHP 5.6, 7.0 and 7.1.
 * Sets the WordPress tested up to version to 6.2.
