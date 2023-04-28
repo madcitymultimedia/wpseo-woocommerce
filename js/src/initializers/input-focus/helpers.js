@@ -1,4 +1,17 @@
 /**
+ * Opens the WooCommerce metabox (if it is closed).
+ *
+ * @returns {void}
+ */
+function openWooCommerceMetabox() {
+	const wooCommerceMetabox = document.getElementById( "woocommerce-product-data" );
+	if ( wooCommerceMetabox && wooCommerceMetabox.classList.contains( "closed" ) ) {
+		const openMetaboxButton = wooCommerceMetabox.querySelector( ".handlediv" );
+		openMetaboxButton.click();
+	}
+}
+
+/**
  * Open the variations tab in the WooCommerce metabox.
  *
  * @param {string} tabSelector The query selector to use to select the tab.
@@ -44,6 +57,7 @@ function openVariation( variationElement, variationIndex ) {
 }
 
 export {
+	openWooCommerceMetabox,
 	openWooCommerceTab,
 	scrollToElement,
 	openVariation,

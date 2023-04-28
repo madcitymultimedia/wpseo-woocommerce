@@ -2,11 +2,13 @@ import { openWooCommerceTab, openVariation, scrollToElement } from "../../../src
 
 import handleInputFocusForVariableProducts from "../../../src/initializers/input-focus/variable-product";
 
-jest.mock( "../../../src/initializers/input-focus/helpers", () => ( {
-	openWooCommerceTab: jest.fn(),
-	scrollToElement: jest.fn(),
-	openVariation: jest.fn(),
-} ) );
+jest.mock( "../../../src/initializers/input-focus/helpers", () => (
+	{
+		openWooCommerceTab: jest.fn(),
+		scrollToElement: jest.fn(),
+		openVariation: jest.fn(),
+	}
+) );
 
 /**
  * Mocks an SKU input field.
@@ -19,8 +21,8 @@ jest.mock( "../../../src/initializers/input-focus/helpers", () => ( {
 function mockSKUField( index, value ) {
 	const element = document.createElement( "input" );
 	element.type = "text";
-	element.name = `variable_sku[${index}]`;
-	element.id = `variable_sku[${index}]`;
+	element.name = `variable_sku[${ index }]`;
+	element.id = `variable_sku[${ index }]`;
 	element.value = value;
 
 	jest.spyOn( element, "focus" );
@@ -57,12 +59,12 @@ function mockProductIdentifiers( postId, identifiers ) {
 			const paragraph = document.createElement( "p" );
 
 			const label = document.createElement( "label" );
-			label.setAttribute( "for", `yoast_variation_identifier[${postId}][${key}]` );
+			label.setAttribute( "for", `yoast_variation_identifier[${ postId }][${ key }]` );
 			paragraph.appendChild( label );
 
 			const input = document.createElement( "input" );
-			input.setAttribute( "name", `yoast_variation_identifier[${postId}][${key}]` );
-			input.setAttribute( "id", `yoast_variation_identifier[${postId}][${key}]` );
+			input.setAttribute( "name", `yoast_variation_identifier[${ postId }][${ key }]` );
+			input.setAttribute( "id", `yoast_variation_identifier[${ postId }][${ key }]` );
 			input.value = value;
 			paragraph.appendChild( input );
 
@@ -193,5 +195,20 @@ describe( "handle input focus for variable products", () => {
 			variantWithoutProductIdentifiers.querySelector( "h1" ),
 			{ top: -200 }
 		);
+	} );
+
+	it( "does not handle anything other than the product identifiers or SKU assessments", () => {
+		openWooCommerceTab.mockClear();
+		openVariation.mockClear();
+		scrollToElement.mockClear();
+
+		handleInputFocusForVariableProducts( "someOtherAssessment" );
+
+		// Fast-forward until all timers have been executed
+		jest.runAllTimers();
+
+		expect( openWooCommerceTab ).not.toBeCalled();
+		expect( openVariation ).not.toBeCalled();
+		expect( scrollToElement ).not.toBeCalled();
 	} );
 } );

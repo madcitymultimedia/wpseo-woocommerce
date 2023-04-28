@@ -2,6 +2,7 @@ import { addAction } from "@wordpress/hooks";
 import handleInputFocusForVariableProducts from "./input-focus/variable-product";
 import handleInputFocusForSimpleProducts from "./input-focus/simple-product";
 import { getProductData } from "./woo-identifiers";
+import { openWooCommerceMetabox } from "./input-focus/helpers";
 
 /**
  * Focuses on the product field.
@@ -9,7 +10,13 @@ import { getProductData } from "./woo-identifiers";
  * @param {string} id The id of the assessment.
  * @returns {void}
  */
-function inputFocus( id ) {
+export function inputFocus( id ) {
+	if ( id !== "productSKU" && id !== "productIdentifier" ) {
+		return;
+	}
+
+	openWooCommerceMetabox();
+
 	const productData = getProductData();
 
 	if ( productData.productType === "variable" ) {

@@ -46,4 +46,12 @@ describe( "input focus for simple products", () => {
 		expect( openWooCommerceTab ).toBeCalledWith( ".yoast_tab_tab" );
 		expect( scrollToElement ).toBeCalledWith( productIdentifierTab, { top: -200 } );
 	} );
+	it( "does not handle anything other than the product identifiers or SKU assessments", () => {
+		openWooCommerceTab.mockClear();
+		scrollToElement.mockClear();
+
+		handleInputFocusForSimpleProducts( "otherAssessment" );
+		expect( openWooCommerceTab ).not.toBeCalled();
+		expect( scrollToElement ).not.toBeCalled();
+	} );
 } );

@@ -39,7 +39,7 @@ function focusOnSKUField( variantIndex ) {
  * @returns {boolean} If the given variation does not have a product identifier.
  */
 function hasNoProductIdentifier( variation ) {
-	return Object.values( variation.productIdentifiers || {} ).every( id => id === "" );
+	return Object.values( variation.productIdentifiers ).every( id => id === "" );
 }
 
 /**
