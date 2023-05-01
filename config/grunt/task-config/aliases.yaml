@@ -2,13 +2,21 @@
 ---
 # Build everything
 build:
-  - 'build:i18n'
   - 'build:js'
+  - 'build:i18n'
 
 'build-watch':
   - 'shell:composer-install'
   - 'build:js'
   - 'watch'
+
+# Build internationalisation features
+"build:i18n":
+  - "makepot"
+  - "copy:makepot-yoast-woo-seo"
+  - "shell:combine-pot-files"
+  - "glotpress_download"
+  - "clean:po-files"
 
 # Build JavaScript from assets to production
 'build:js':
@@ -29,6 +37,7 @@ build:
 'release':
   - 'release:js'
   - 'build:i18n'
+
 'release:js':
   - 'clean:jsDistFiles'
   - 'webpack:buildProd'

@@ -74,6 +74,9 @@ jobs:
           node-version: '14'
           cache: 'yarn'
 
+      - name: Install gettext to have access to msgcat
+        run: sudo apt-get install gettext
+
       - name: "Debug info: show tooling versions"
         run: |
           php -v

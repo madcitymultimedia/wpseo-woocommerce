@@ -1,8 +1,8 @@
 WooCommerce Yoast SEO
 =====================
-Requires at least: 6.0
-Tested up to: 6.1
-Stable tag: 15.6
+Requires at least: 6.1
+Tested up to: 6.2
+Stable tag: 15.7
 Requires PHP: 7.2.5
 Depends: Yoast SEO, WooCommerce
 
@@ -31,6 +31,24 @@ You can find the FAQ [online here](https://kb.yoast.com/kb/category/woocommerce-
 Changelog
 =========
 
+## 15.7
+
+Release date: 2023-04-26
+
+#### Enhancements
+
+* Makes the _SKU_ and _product identifiers_ assessments available for grouped products.
+
+#### Bugfixes
+
+* Fixes a bug where new translations would not be translated.
+
+#### Other
+
+* Bumps the minimum required version of Yoast SEO to 20.6.
+* Drops compatibility with PHP 5.6, 7.0 and 7.1.
+* Sets the WordPress tested up to version to 6.2.
+
 ## 15.6
 
 Release date: 2023-02-28
@@ -42,18 +60,6 @@ Release date: 2023-02-28
 * Makes Woo SEO compatible with the indexable changes of the 20.2 release of Yoast SEO
 * Sets the minimum required Yoast SEO version to 20.2.
 * Sets the minimum supported WordPress version to 6.0.
-
-## 15.5
-
-Release date: 2023-01-17
-
-#### Enhancements
-
-* Improves the Schema output for `Product`, including a fix for a bug affecting setups where prices are inserted without taxes but displayed with taxes or viceversa.
-
-#### Other
-
-*  Sets the minimum required version of Yoast SEO to 19.14.
 
 ### Earlier versions
 For the changelog of earlier versions, please refer to [the changelog on yoast.com](https://yoa.st/woo-seo-changelog).

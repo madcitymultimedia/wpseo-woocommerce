@@ -58,6 +58,8 @@ class YoastWooCommercePlugin {
 			.then( () => worker.sendMessage( "initialize", { l10n: wpseoWooL10n, productDescription }, PLUGIN_NAME ) )
 			.then( YoastSEO.app.refresh );
 
+		worker.initialize( { translations: wpseoWooL10n.analysisTranslations } );
+
 		addExcerptEventHandlers( worker );
 	}
 
