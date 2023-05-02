@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/Yoast/wpseo-woocommerce/badge.svg?branch=trunk)](https://coveralls.io/github/Yoast/wpseo-woocommerce?branch=trunk)
+
 WooCommerce Yoast SEO
 =====================
 Requires at least: 6.1
