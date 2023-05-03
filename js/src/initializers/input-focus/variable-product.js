@@ -33,7 +33,7 @@ function focusOnSKUField( variantIndex ) {
 }
 
 /**
- * Check if the given variation does not have a product identifier.
+ * Checks if the given variation does not have a product identifier.
  *
  * @param {Object} variation The variation to check.
  * @returns {boolean} If the given variation does not have a product identifier.
@@ -43,7 +43,7 @@ function hasNoProductIdentifier( variation ) {
 }
 
 /**
- * Scroll to the product identifiers for the variant with the given index.
+ * Scrolls to the product identifiers for the variant with the given index.
  *
  * @param {Number} variantIndex The index of the variant to scroll to.
  *

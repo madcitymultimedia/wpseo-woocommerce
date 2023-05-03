@@ -143,7 +143,7 @@ function getInitialProductVariants() {
 }
 
 /**
- * Get the product variant data from the given element.
+ * Gets the product variant data from the given element.
  *
  * @param {HTMLElement} element The element from which to get the data.
  *
@@ -244,7 +244,7 @@ function getInitialProductData() {
 }
 
 /**
- * Get the product data needed for the SKU and product identifier assessments
+ * Gets the product data needed for the SKU and product identifier assessments
  * from the editor.
  *
  * @returns {Object} The product data needed for the SKU and product identifier assessments.
@@ -376,7 +376,7 @@ function registerEventListeners() {
 }
 
 /**
- * Initialize the WooCommerce identifiers.
+ * Initializes the WooCommerce identifiers.
  *
  * @returns {void}
  */

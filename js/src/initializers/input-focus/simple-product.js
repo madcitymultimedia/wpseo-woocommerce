@@ -13,7 +13,7 @@ function focusOnSKUField() {
 }
 
 /**
- * Open the Yoast tab in the WooCommerce metabox and scroll to the
+ * Opens the Yoast tab in the WooCommerce metabox and scrolls to the
  * section where the user can input a product identifier.
  *
  * @returns {void}

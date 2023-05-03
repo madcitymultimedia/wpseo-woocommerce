@@ -12,7 +12,7 @@ function openWooCommerceMetabox() {
 }
 
 /**
- * Open the variations tab in the WooCommerce metabox.
+ * Opens the variations tab in the WooCommerce metabox.
  *
  * @param {string} tabSelector The query selector to use to select the tab.
  * @returns {void}
@@ -43,7 +43,7 @@ function scrollToElement( element, offset = {} ) {
 }
 
 /**
- * Open the given variation, if it has not been opened already.
+ * Opens the given variation, if it has not been opened already.
  *
  * @param {Element} variationElement The variation element.
  * @param {Number} variationIndex The variation index.
