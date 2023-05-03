@@ -134,7 +134,7 @@ function getIdentifiers( identifierInputFieldElements ) {
 }
 
 /**
- * Get the product variants, as initialized on page load.
+ * Gets the product variants, as initialized on page load.
  *
  * @returns {Object[]} The initial product variants.
  */
