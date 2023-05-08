@@ -1060,7 +1060,6 @@ class Schema_Test extends TestCase {
 	 * @covers ::add_brand
 	 * @covers ::add_manufacturer
 	 * @covers ::add_color
-	 * @covers ::add_organization_for_attribute
 	 */
 	public function test_change_product() {
 		$product_id   = 1;
@@ -1246,7 +1245,6 @@ class Schema_Test extends TestCase {
 	 * @covers ::add_brand
 	 * @covers ::add_manufacturer
 	 * @covers ::add_color
-	 * @covers ::add_organization_for_attribute
 	 */
 	public function test_change_product_no_thumb() {
 		$product_id   = 1;
@@ -1432,7 +1430,6 @@ class Schema_Test extends TestCase {
 	 * @covers ::add_brand
 	 * @covers ::add_manufacturer
 	 * @covers ::add_color
-	 * @covers ::add_organization_for_attribute
 	 */
 	public function test_change_product_with_color() {
 		$product_id   = 1;
