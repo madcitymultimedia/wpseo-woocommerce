@@ -1308,14 +1308,33 @@ class Yoast_WooCommerce_SEO {
 		}
 
 		return [
-			'script_url'           => plugins_url( 'js/dist/yoastseo-woo-worker-' . $version . '.js', self::get_plugin_file() ),
-			'woo_desc_none'        => __( 'You should write a short description for this product.', 'yoast-woo-seo' ),
-			'woo_desc_short'       => __( 'The short description for this product is too short.', 'yoast-woo-seo' ),
-			'woo_desc_good'        => __( 'Your short description has a good length.', 'yoast-woo-seo' ),
-			'woo_desc_long'        => __( 'The short description for this product is too long.', 'yoast-woo-seo' ),
-			'wooGooglePreviewData' => $google_preview,
-			'analysisTranslations' => $this->get_analysis_translations(),
+			'script_url'            => plugins_url( 'js/dist/yoastseo-woo-worker-' . $version . '.js', self::get_plugin_file() ),
+			'shouldShowEditButtons' => $this->should_show_edit_buttons(),
+			'woo_desc_none'         => __( 'You should write a short description for this product.', 'yoast-woo-seo' ),
+			'woo_desc_short'        => __( 'The short description for this product is too short.', 'yoast-woo-seo' ),
+			'woo_desc_good'         => __( 'Your short description has a good length.', 'yoast-woo-seo' ),
+			'woo_desc_long'         => __( 'The short description for this product is too long.', 'yoast-woo-seo' ),
+			'wooGooglePreviewData'  => $google_preview,
+			'analysisTranslations'  => $this->get_analysis_translations(),
 		];
+	}
+
+	/**
+	 * Checks whether to show the edit buttons for the Product identifier and
+	 * SKU assessments.
+	 *
+	 * **Note**: showing the edit buttons is dependent on the right Yoast SEO version.
+	 * Not supported versions will focus on the slug input field after pressing the
+	 * edit button, because of the way the edit buttons have been implemented.
+	 *
+	 * @return bool|int
+	 */
+	private function should_show_edit_buttons() {
+		if ( ! defined( 'WPSEO_VERSION' ) ) {
+			return false;
+		}
+
+		return \version_compare( WPSEO_VERSION, '20.8-RC0', '>=' );
 	}
 
 	/**

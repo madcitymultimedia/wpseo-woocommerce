@@ -54,9 +54,16 @@ class YoastWooCommercePlugin {
 		const worker = YoastSEO.analysis.worker;
 		const productDescription = getExcerpt();
 
+		const shouldShowEditButtons = wpseoWooL10n.shouldShowEditButtons === "1";
+
 		worker.loadScript( wpseoWooL10n.script_url )
-			.then( () => worker.sendMessage( "initialize", { l10n: wpseoWooL10n, productDescription }, PLUGIN_NAME ) )
-			.then( YoastSEO.app.refresh );
+			  .then( () => worker.sendMessage(
+					  "initialize",
+					  { l10n: wpseoWooL10n, productDescription, shouldShowEditButtons },
+					  PLUGIN_NAME
+				  )
+			  )
+			  .then( YoastSEO.app.refresh );
 
 		worker.initialize( { translations: wpseoWooL10n.analysisTranslations } );
 

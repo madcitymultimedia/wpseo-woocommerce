@@ -32,14 +32,17 @@ class WooCommerceWorker {
 	 *
 	 * @param {string} productDescription The current product description.
 	 * @param {Object} l10n Translation object with our translations.
+	 * @param {boolean} shouldShowEditButtons If the edit buttons for the SKU and Product identifiers assessments should be shown.
 	 *
 	 * @returns {void}
 	 */
-	initialize( { productDescription, l10n } ) {
+	initialize( { productDescription, l10n, shouldShowEditButtons } ) {
 		this._productDescriptionAssessment = new ProductDescriptionAssessment( productDescription, l10n );
 
 		this._worker.registerAssessment( ASSESSMENT_NAME, this._productDescriptionAssessment, PLUGIN_NAME );
 		this._worker.refreshAssessment( ASSESSMENT_NAME, PLUGIN_NAME );
+
+		initializeProductAssessors( shouldShowEditButtons );
 	}
 
 	/**
@@ -59,4 +62,3 @@ class WooCommerceWorker {
 const wooCommerceWorker = new WooCommerceWorker();
 
 wooCommerceWorker.register();
-initializeProductAssessors();
