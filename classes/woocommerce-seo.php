@@ -1380,14 +1380,14 @@ class Yoast_WooCommerce_SEO {
 							/* Translators: %1$s and %2$s expand to links on yoast.com, %3$s expands to the anchor end tag */
 							__( '%1$sImage alt tags%3$s: None of the images has alt attributes. %2$sAdd alt attributes to your images%3$s!', 'yoast-woo-seo' ),
 						],
-						'Your product is missing an identifier (like a GTIN code). You can add a product identifier via the "Yoast SEO" tab in the Product data box' => [
-							__( 'Your product is missing an identifier (like a GTIN code). You can add a product identifier via the "Yoast SEO" tab in the Product data box', 'yoast-woo-seo' ),
+						'Your product is missing an identifier (like a GTIN code).' => [
+							__( 'Your product is missing an identifier (like a GTIN code).', 'yoast-woo-seo' ),
 						],
 						'Your product has an identifier' => [
 							__( 'Your product has an identifier', 'yoast-woo-seo' ),
 						],
-						'Not all your product variants have an identifier. You can add a product identifier via the "Variations" tab in the Product data box' => [
-							__( 'Not all your product variants have an identifier. You can add a product identifier via the "Variations" tab in the Product data box', 'yoast-woo-seo' ),
+						'Not all your product variants have an identifier.' => [
+							__( 'Not all your product variants have an identifier.', 'yoast-woo-seo' ),
 						],
 						'All your product variants have an identifier' => [
 							__( 'All your product variants have an identifier', 'yoast-woo-seo' ),
@@ -1412,24 +1412,16 @@ class Yoast_WooCommerce_SEO {
 							/* Translators: %1$s expands to a link on yoast.com, %4$s expands to the anchor end tag, %2$s expands to the string "Barcode" or "Product identifier", %3$s expands to the feedback string "All your product variants have a product identifier" or "All your product variants have a barcode" */
 							__( '%1$s%2$s%4$s: %3$s. Good job!', 'yoast-woo-seo' ),
 						],
-						' You can add a SKU via the "Inventory" tab in the Product data box.' => [
-							/* Translators: please keep the space at the start of the sentence in your translation unless your language does not use spaces. */
-							__( ' You can add a SKU via the "Inventory" tab in the Product data box.', 'yoast-woo-seo' ),
-						],
-						'%1$sSKU%3$s: Your product is missing a SKU.%4$s %2$sInclude it if you can, as it will help search engines to better understand your content.%3$s' => [
-							/* Translators: %1$s and %2$s expands to a link on yoast.com, %3$s expands to the anchor end tag, %4%s expands to the translated string ' You can add a SKU via the "Inventory" tab in the Product data box.' */
-							__( '%1$sSKU%3$s: Your product is missing a SKU.%4$s %2$sInclude it if you can, as it will help search engines to better understand your content.%3$s', 'yoast-woo-seo' ),
+						'%1$sSKU%3$s: Your product is missing a SKU.  %2$sInclude it if you can, as it will help search engines to better understand your content.%3$s' => [
+							/* Translators: %1$s and %2$s expand to links on yoast.com, %3$s expands to the anchor end tag. */
+							__( '%1$sSKU%3$s: Your product is missing a SKU.  %2$sInclude it if you can, as it will help search engines to better understand your content.%3$s', 'yoast-woo-seo' ),
 						],
 						'%1$sSKU%2$s: Your product has a SKU. Good job!' => [
 							/* Translators: %1$s expands to a link on yoast.com, %2$s expands to the anchor end tag. */
 							__( '%1$sSKU%2$s: Your product has a SKU. Good job!', 'yoast-woo-seo' ),
 						],
-						'%1$sSKU%3$s: Not all your product variants have a SKU. You can add a SKU via the "Variations" tab in the Product data box. %2$sInclude it if you can, as it will help search engines to better understand your content.%3$s' => [
-							/* Translators: %1$s and %2$s expand to links on yoast.com, %3$s expands to the anchor end tag. */
-							__(
-								'%1$sSKU%3$s: Not all your product variants have a SKU. You can add a SKU via the "Variations" tab in the Product data box. %2$sInclude it if you can, as it will help search engines to better understand your content.%3$s',
-								'yoast-woo-seo'
-							),
+						'%1$sSKU%3$s: Not all your product variants have a SKU. %2$sInclude it if you can, as it will help search engines to better understand your content.%3$s' => [
+							__( '%1$sSKU%3$s: Not all your product variants have a SKU. %2$sInclude it if you can, as it will help search engines to better understand your content.%3$s', 'yoast-woo-seo' ),
 						],
 						'%1$sSKU%2$s: All your product variants have a SKU. Good job!' => [
 							/* Translators: %1$s expands to a link on yoast.com, %2$s expands to the anchor end tag. */
