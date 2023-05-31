@@ -10,15 +10,18 @@ const productCornerstoneRelatedKeywordAssessor = require( "yoastseo/src/scoring/
 /**
  * Initialize the product assessors.
  *
+ * @param {boolean} shouldShowEditButtons If the edit buttons should be shown for the SKU and Product id assessments.
+ *
  * @returns {void}
  */
-export default function initialize() {
+export default function initialize( shouldShowEditButtons ) {
 	analysisWorker._configuration.customAnalysisType = "productPage";
 	// Store product pages.
 	analysisWorker.setCustomSEOAssessorClass( productSEOAssessor.default, "productPage", {
 		assessVariants: true,
 		countVideos: false,
 		addSKULocation: true,
+		shouldShowEditButtons: shouldShowEditButtons,
 		introductionKeyphraseUrlTitle: "https://yoa.st/33e",
 		introductionKeyphraseCTAUrl: "https://yoa.st/33f",
 		keyphraseLengthUrlTitle: "https://yoa.st/33i",
@@ -62,6 +65,7 @@ export default function initialize() {
 		assessVariants: true,
 		countVideos: false,
 		addSKULocation: true,
+		shouldShowEditButtons: shouldShowEditButtons,
 		introductionKeyphraseUrlTitle: "https://yoa.st/33e",
 		introductionKeyphraseCTAUrl: "https://yoa.st/33f",
 		keyphraseLengthUrlTitle: "https://yoa.st/33i",
