@@ -68,12 +68,12 @@ This PR affects the following parts of the plugin, which may require extra testi
 
 * [ ] I have tested this code to the best of my abilities
 * [ ] I have added unittests to verify the code works as intended
-* [ ] I have checked that base branch is correctly set. May be other than *trunk* branch is better alternative
+* [ ] I have checked that base branch is correctly set.
 
 ## Innovation
 
 * [ ] No innovation project is applicable for this PR.
 * [ ] This PR falls under an innovation project. I have attached the `innovation` label and noted the work hours.
-* [ ] I have added my hours to the [wbso](http://yoa.st/wbso) document
+* [ ] I have added my hours to [the WBSO document](http://yoa.st/wbso)
 
 Fixes #
