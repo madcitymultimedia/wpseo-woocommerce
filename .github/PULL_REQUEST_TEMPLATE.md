@@ -67,6 +67,7 @@ This PR affects the following parts of the plugin, which may require extra testi
 ## Quality assurance
 
 * [ ] I have tested this code to the best of my abilities
+* [ ] During testing, I had activated [all plugins that Yoast SEO provides integrations for](https://github.com/Yoast/wordpress-seo/blob/trunk/readme.txt#L106).
 * [ ] I have added unittests to verify the code works as intended
 * [ ] I have checked that base branch is correctly set.
 
