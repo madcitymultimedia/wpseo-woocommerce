@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0cc5b0bd55348abdbbf8e1b67c59f1c0",
+    "content-hash": "f7f0c91bff8ef1188f155f178988cce2",
     "packages": [
         {
             "name": "composer/installers",
@@ -2390,16 +2390,16 @@
         },
         {
             "name": "yoast/wordpress-seo",
-            "version": "dev-trunk",
+            "version": "dev-release/20.11",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Yoast/wordpress-seo.git",
-                "reference": "8246c2e91c30cdaa34262acfb862ffcfe9b2b66b"
+                "url": "https://github.com/yoast/wordpress-seo",
+                "reference": "30d189bf7fbf6d684e77a3ebf7783072c47683e3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/8246c2e91c30cdaa34262acfb862ffcfe9b2b66b",
-                "reference": "8246c2e91c30cdaa34262acfb862ffcfe9b2b66b",
+                "url": "https://api.github.com/repos/yoast/wordpress-seo/zipball/30d189bf7fbf6d684e77a3ebf7783072c47683e3",
+                "reference": "30d189bf7fbf6d684e77a3ebf7783072c47683e3",
                 "shasum": ""
             },
             "require": {
@@ -2418,7 +2418,6 @@
                 "yoast/wp-test-utils": "^1.1.1",
                 "yoast/yoastcs": "^2.3.1"
             },
-            "default-branch": true,
             "type": "wordpress-plugin",
             "autoload": {
                 "classmap": [
@@ -2437,9 +2436,15 @@
             },
             "scripts": {
                 "test": [
+                    "@php ./vendor/phpunit/phpunit/phpunit --no-coverage"
+                ],
+                "coverage": [
                     "@php ./vendor/phpunit/phpunit/phpunit"
                 ],
                 "integration-test": [
+                    "@php ./vendor/phpunit/phpunit/phpunit -c phpunit-integration.xml.dist --no-coverage"
+                ],
+                "integration-coverage": [
                     "@php ./vendor/phpunit/phpunit/phpunit -c phpunit-integration.xml.dist"
                 ],
                 "lint": [
@@ -2458,7 +2463,7 @@
                     "Yoast\\WP\\SEO\\Composer\\Actions::check_coding_standards"
                 ],
                 "check-cs-thresholds": [
-                    "@putenv YOASTCS_THRESHOLD_ERRORS=133",
+                    "@putenv YOASTCS_THRESHOLD_ERRORS=130",
                     "@putenv YOASTCS_THRESHOLD_WARNINGS=202",
                     "Yoast\\WP\\SEO\\Composer\\Actions::check_cs_thresholds"
                 ],
@@ -2536,7 +2541,7 @@
                 "wiki": "https://github.com/Yoast/wordpress-seo/wiki",
                 "source": "https://github.com/Yoast/wordpress-seo"
             },
-            "time": "2023-04-25T11:12:23+00:00"
+            "time": "2023-06-27T09:36:58+00:00"
         },
         {
             "name": "yoast/wp-test-utils",
@@ -2678,5 +2683,5 @@
     "platform-overrides": {
         "php": "7.2.5"
     },
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.2.0"
 }
