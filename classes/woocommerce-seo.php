@@ -1516,9 +1516,16 @@ class Yoast_WooCommerce_SEO {
 			remove_action( 'storefront_before_content', 'woocommerce_breadcrumb' );
 			add_action( 'storefront_before_content', [ $this, 'show_yoast_breadcrumbs' ] );
 		}
-
 		// Replaces the WooCommerce breadcrumbs.
 		if ( has_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb' ) ) {
+			// In a block theme, do not replace if Woo is using the new single product 'blockified' template.
+			if ( wp_is_block_theme() ) {
+				$templates               = get_block_templates( [ 'slug__in' => [ 'single-product' ] ] );
+				$single_product_template = reset( $templates );
+				if ( isset( $single_product_template->content ) && strpos( $single_product_template->content, 'woocommerce/legacy-template' ) === false ) {
+					return;
+				}
+			}
 			remove_action( 'woocommerce_before_main_content', 'woocommerce_breadcrumb', 20, 0 );
 			add_action( 'woocommerce_before_main_content', [ $this, 'show_yoast_breadcrumbs' ], 20, 0 );
 		}
