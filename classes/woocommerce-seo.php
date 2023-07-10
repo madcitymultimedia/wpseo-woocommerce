@@ -483,11 +483,17 @@ class Yoast_WooCommerce_SEO {
 			echo '<h2>' . esc_html__( 'Breadcrumbs', 'yoast-woo-seo' ) . '</h2>';
 			echo '<p>';
 			printf(
-			/* translators: %1$s resolves to internal links options page, %2$s resolves to closing link tag, %3$s resolves to Yoast SEO, %4$s resolves to WooCommerce */
+				/* translators: %1$s resolves to internal links options page, %2$s resolves to closing link tag, %3$s resolves to Yoast SEO, %4$s resolves to WooCommerce */
 				esc_html__( 'Both %4$s and %3$s have breadcrumbs functionality. The %3$s breadcrumbs have a slightly higher chance of being picked up by search engines and you can configure them a bit more, on the %1$sBreadcrumbs settings page%2$s. To enable them, check the box below and the WooCommerce breadcrumbs will be replaced.', 'yoast-woo-seo' ),
 				'<a href="' . esc_url( admin_url( 'admin.php?page=wpseo_page_settings#/breadcrumbs' ) ) . '">',
 				'</a>',
 				'Yoast SEO',
+				'WooCommerce'
+			);
+			echo "</p>\n<p>";
+			printf(
+				/* translators: %1$s resolves to WooCommerce */
+				esc_html__( 'Note that %1$s breadcrumbs will not be replaced if you’re using a block-based template for single products.', 'yoast-woo-seo' ),
 				'WooCommerce'
 			);
 			echo "</p>\n";
