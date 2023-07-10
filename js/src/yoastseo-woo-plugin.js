@@ -3,6 +3,7 @@
 import { getExcerpt, addExcerptEventHandlers, isTinyMCEAvailable } from "./yoastseo-woo-handle-excerpt-editors";
 import { addFilter } from "@wordpress/hooks";
 import { dispatch } from "@wordpress/data";
+import initializeInputFocus from "./initializers/input-focus";
 
 const PLUGIN_NAME = "YoastWooCommerce";
 
@@ -36,6 +37,8 @@ class YoastWooCommercePlugin {
 		this.dispatchGooglePreviewData();
 
 		addFilter( "yoast.socials.imageFallback", "yoast/yoast-woocommerce-seo/image_fallback", this.addProductGalleryImageAsFallback );
+
+		initializeInputFocus();
 	}
 
 	/**
@@ -51,9 +54,16 @@ class YoastWooCommercePlugin {
 		const worker = YoastSEO.analysis.worker;
 		const productDescription = getExcerpt();
 
+		const shouldShowEditButtons = wpseoWooL10n.shouldShowEditButtons === "1";
+
 		worker.loadScript( wpseoWooL10n.script_url )
-			.then( () => worker.sendMessage( "initialize", { l10n: wpseoWooL10n, productDescription }, PLUGIN_NAME ) )
-			.then( YoastSEO.app.refresh );
+			  .then( () => worker.sendMessage(
+					  "initialize",
+					  { l10n: wpseoWooL10n, productDescription, shouldShowEditButtons },
+					  PLUGIN_NAME
+				  )
+			  )
+			  .then( YoastSEO.app.refresh );
 
 		worker.initialize( { translations: wpseoWooL10n.analysisTranslations } );
 
