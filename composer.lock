@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a9b0ed0202a3f759dd377161b947c14f",
+    "content-hash": "0cc5b0bd55348abdbbf8e1b67c59f1c0",
     "packages": [
         {
             "name": "composer/installers",
@@ -2390,15 +2390,15 @@
         },
         {
             "name": "yoast/wordpress-seo",
-            "version": "dev-release/20.12",
+            "version": "dev-trunk",
             "source": {
                 "type": "git",
-                "url": "https://github.com/yoast/wordpress-seo",
+                "url": "https://github.com/Yoast/wordpress-seo.git",
                 "reference": "9f4f2b4983931104cd0cc38498e8b19eeb9467cf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yoast/wordpress-seo/zipball/9f4f2b4983931104cd0cc38498e8b19eeb9467cf",
+                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/9f4f2b4983931104cd0cc38498e8b19eeb9467cf",
                 "reference": "9f4f2b4983931104cd0cc38498e8b19eeb9467cf",
                 "shasum": ""
             },
@@ -2418,6 +2418,7 @@
                 "yoast/wp-test-utils": "^1.1.1",
                 "yoast/yoastcs": "^2.3.1"
             },
+            "default-branch": true,
             "type": "wordpress-plugin",
             "autoload": {
                 "classmap": [
@@ -2683,5 +2684,5 @@
     "platform-overrides": {
         "php": "7.2.5"
     },
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }
