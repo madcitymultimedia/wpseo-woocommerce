@@ -48,7 +48,7 @@ Release date: 2023-07-25
 
 #### Other
 
-* Bumps the minimum required Yoast SEO version to 20.6.
+* Bumps the minimum required Yoast SEO version to 20.12.
 * Sets the minimum supported WooCommerce version to 7.1.
 * Sets the minimum supported WordPress version to 6.1.
 
