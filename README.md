@@ -33,6 +33,25 @@ You can find the FAQ [online here](https://kb.yoast.com/kb/category/woocommerce-
 Changelog
 =========
 
+## 15.8
+
+Release date: 2023-07-25
+
+#### Enhancements
+
+* Adds an edit button to the SKU and Product identifier assessments on product pages if the Yoast SEO Premium plugin is installed (version 20.12 or higher).
+* Ensures compatibility of the breadcrumbs replacement feature with WooCommerce 7.9.0 when using blockified template for single products.
+
+#### Bugfixes
+
+* Fixes a bug where the Yoast SEO metabox would not load when the short description metabox had been deactivated.
+
+#### Other
+
+* Bumps the minimum required Yoast SEO version to 20.6.
+* Sets the minimum supported WooCommerce version to 7.1.
+* Sets the minimum supported WordPress version to 6.1.
+
 ## 15.7
 
 Release date: 2023-04-26
@@ -50,18 +69,6 @@ Release date: 2023-04-26
 * Bumps the minimum required version of Yoast SEO to 20.6.
 * Drops compatibility with PHP 5.6, 7.0 and 7.1.
 * Sets the WordPress tested up to version to 6.2.
-
-## 15.6
-
-Release date: 2023-02-28
-
-#### Other
-
-* Improves the Breadcrumb settings' link to point to a more specific section in the new Yoast settings.
-* Makes product schema creation compatible with the latest Yoast Free changes
-* Makes Woo SEO compatible with the indexable changes of the 20.2 release of Yoast SEO
-* Sets the minimum required Yoast SEO version to 20.2.
-* Sets the minimum supported WordPress version to 6.0.
 
 ### Earlier versions
 For the changelog of earlier versions, please refer to [the changelog on yoast.com](https://yoa.st/woo-seo-changelog).
