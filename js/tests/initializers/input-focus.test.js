@@ -1,9 +1,10 @@
 import { addAction } from "@wordpress/hooks";
 
 import initializeInputFocus, { inputFocus } from "../../src/initializers/input-focus";
-import { getProductData } from "../../src/initializers/woo-identifiers";
+import { getProductData, getProductVariants } from "../../src/initializers/woo-identifiers";
 import handleInputFocusForVariableProducts from "../../src/initializers/input-focus/variable-product";
 import handleInputFocusForSimpleProducts from "../../src/initializers/input-focus/simple-product";
+import expect from "expect";
 
 jest.mock( "@wordpress/hooks", () => (
 	{
@@ -14,6 +15,7 @@ jest.mock( "@wordpress/hooks", () => (
 jest.mock( "../../src/initializers/woo-identifiers", () => (
 	{
 		getProductData: jest.fn(),
+		getProductVariants: jest.fn(),
 	}
 ) );
 
@@ -29,14 +31,31 @@ describe( "The initializeInputFocus function", () => {
 } );
 
 describe( "The inputFocus function", () => {
-	it( "handles input focus for variable products", () => {
+	it( "handles input focus for variable products without variations", () => {
 		getProductData.mockReturnValueOnce( {
 			productType: "variable",
 		} );
 
+		getProductVariants.mockReturnValueOnce( [] );
+
 		inputFocus( "productSKU" );
 
 		expect( getProductData ).toBeCalled();
+		expect( getProductVariants ).toBeCalled();
+		expect( handleInputFocusForSimpleProducts ).toBeCalled();
+	} );
+
+	it( "handles input focus for variable products with variations", () => {
+		getProductData.mockReturnValueOnce( {
+			productType: "variable",
+		} );
+
+		getProductVariants.mockReturnValueOnce( [ {} ] );
+
+		inputFocus( "productSKU" );
+
+		expect( getProductData ).toBeCalled();
+		expect( getProductVariants ).toBeCalled();
 		expect( handleInputFocusForVariableProducts ).toBeCalled();
 	} );
 

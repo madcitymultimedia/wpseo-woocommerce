@@ -1,7 +1,7 @@
 import { addAction } from "@wordpress/hooks";
 import handleInputFocusForVariableProducts from "./input-focus/variable-product";
 import handleInputFocusForSimpleProducts from "./input-focus/simple-product";
-import { getProductData } from "./woo-identifiers";
+import { getProductData, getProductVariants } from "./woo-identifiers";
 import { openWooCommerceMetabox } from "./input-focus/helpers";
 
 /**
@@ -20,10 +20,15 @@ export function inputFocus( id ) {
 	const productData = getProductData();
 
 	if ( productData.productType === "variable" ) {
-		handleInputFocusForVariableProducts( id );
-	} else {
-		handleInputFocusForSimpleProducts( id );
+		const productVariants = getProductVariants();
+
+		if ( productVariants.length > 0 ) {
+			handleInputFocusForVariableProducts( id );
+			return;
+		}
 	}
+
+	handleInputFocusForSimpleProducts( id );
 }
 
 /**
