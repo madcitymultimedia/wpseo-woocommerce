@@ -4,7 +4,7 @@ WooCommerce Yoast SEO
 =====================
 Requires at least: 6.1
 Tested up to: 6.2
-Stable tag: 15.8-RC1
+Stable tag: 15.8-RC2
 Requires PHP: 7.2.5
 Depends: Yoast SEO, WooCommerce
 
@@ -49,6 +49,7 @@ Release date: 2023-07-25
 #### Other
 
 * Bumps the minimum required Yoast SEO version to 20.12.
+* Bumps the minimum required Yoast SEO version to 20.6.
 * Sets the minimum supported WooCommerce version to 7.1.
 * Sets the minimum supported WordPress version to 6.1.
 
